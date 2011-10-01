@@ -1,4 +1,31 @@
 Citysandbox::Application.routes.draw do
+  
+  scope :as => :home do
+    get  '/' => 'home#index', :as => :index
+  end
+
+  scope 'user' do
+    get  '/' => 'user#profile', :as => :profile
+  end
+
+  scope 'discussion' do
+    get  '/summary' => 'discussion#summary', :as => :summary
+    get  '/specific' => 'discussion#specific', :as => :specific
+    get  '/company' => 'discussion#ask', :as => :ask
+    get  '/challenge' => 'discussion#challenge', :as => :challenge
+    
+  end
+
+  scope 'register' do
+    get  '/' => 'register#index', :as => :register
+  end
+
+  scope 'map' do
+    get  '/' => 'map#index', :as => :map
+  end
+  
+  root :to => 'home#index', :as => :home
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
