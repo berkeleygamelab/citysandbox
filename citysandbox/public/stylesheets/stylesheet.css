@@ -1,0 +1,15 @@
+.post_title {
+	font: bold 24px Helvetica;
+	color: #1C75BC;
+}
+
+#container {
+	border-bottom:1px solid;
+	margin-bottom: 25px;
+}
+
+footer {
+	border-top:1px solid;
+	margin-top:25px; 
+	text-align:center;
+}
