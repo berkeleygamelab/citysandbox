@@ -1,5 +1,7 @@
 Citysandbox::Application.routes.draw do
   
+  get "users/new"
+
   scope :as => :home do
     get  '/' => 'home#index', :as => :index
   end
