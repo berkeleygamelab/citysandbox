@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
-  def index
+  def login
+  end
+
+  def register
   end
 
 end

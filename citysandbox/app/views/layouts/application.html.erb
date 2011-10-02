@@ -4,23 +4,27 @@
   <title>City Sandbox</title>
   <%= stylesheet_link_tag    '../stylesheets/stylesheet.css' %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "../javascript/textbox.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
  <body>
     <div id="container">
-      <%= render :partial => 'layouts/navbar' %>
-      <div class="clear"></div>
+      <% if params[:controller] != "home" %>
+	  	<%= render :partial => 'layouts/navbar' %>
+	  <% end %>
     </div>
 	
 	<%= yield %>
 	
-    <footer>
-      <div id="copyright">
-	Copyright &copy; <%= Time.now.year %>
-	<a href="http://socialapplab.wordpress.com/">Social Apps Lab AT CITRIS</a>
-      </div> All Rights Reserved.
-    </footer>
+	<% if params[:controller] != "home" %>
+    	<footer>
+		<br><br>
+		Copyright &copy; <%= Time.now.year %>
+		<a href="http://socialapplab.wordpress.com/">Social Apps Lab AT CITRIS</a>
+	      All Rights Reserved.
+	    </footer>
+	<% end %>
   </body>
 
 

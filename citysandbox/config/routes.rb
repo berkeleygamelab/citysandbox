@@ -1,9 +1,10 @@
 Citysandbox::Application.routes.draw do
-  
-  get "users/new"
 
   scope :as => :home do
-    get  '/' => 'home#index', :as => :index
+    get  '/' => 'home#splash', :as => :splash
+    get  '/login' => 'home#login', :as => :login
+    get  '/register' => 'home#register', :as => :register
+    get  '/index' => 'home#index', :as => :index
   end
 
   scope 'user' do
