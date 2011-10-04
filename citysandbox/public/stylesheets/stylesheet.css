@@ -1,15 +1,69 @@
+html {
+	font-family: Georgia;
+}
+
+.gray_text{
+	line-height:2em;
+	color: #BBBBBB;
+}
+
+#links a:link, a:visited, a:hover, a:active {
+	color: #DDDDDD;
+	font-size: 25px;
+	text-decoration: none;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.labels{
+	color: #DDDDDD;
+	font-size: 25px;
+	text-decoration: none;
+}
+
+
+input {
+	border:0;
+	background-color: #DDDDDD;
+	font-size:25px;
+}
+
+#password-clear {
+    display: none;
+}
+
+.post_user_time {
+	float:left;
+	width:150px;
+}
+
+.post_user_pic {
+	float:left;
+	margin-right: 15px;
+}
+
+.post_map {
+	float:right;
+	margin-left: 15px;
+}
+
 .post_title {
 	font: bold 24px Helvetica;
 	color: #1C75BC;
 }
 
 #container {
-	border-bottom:1px solid;
 	margin-bottom: 25px;
 }
 
 footer {
-	border-top:1px solid;
-	margin-top:25px; 
+	background-image: url('../images/splash_bottom_tile.png');
+	color: #FFFFFF;
+	margin-top:25px;
+	height:70px; 
 	text-align:center;
+}
+
+footer a{
+	color: #FFFFFF;
 }
