@@ -1,4 +1,4 @@
-class Followedusers < ActiveRecord::Base
+class Followeduser < ActiveRecord::Base
   belongs_to :user
   
   validates :user_id, :presence => true

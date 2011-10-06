@@ -1,8 +1,11 @@
 class MyNewMigration < ActiveRecord::Migration
   def up
-    add_column :users, :password, :text, :null => false, :limit => 30, :default => "12345"
+    remove_column :users, :password, :text
+    add_column :users, :password_digest, :string
   end
 
   def down
+    remove_column :users, :password_digest
+    add_column :users, :password, :text
   end
 end
