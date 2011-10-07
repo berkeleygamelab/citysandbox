@@ -2,29 +2,22 @@ Citysandbox::Application.routes.draw do
 
   get "logout" => "sessions#destroy", :as => "logout"
   
-  resources :users
+  resources :users do
+    resources :challenges, :shallow => true
+  end
+  
   resources :sessions
+  resources :questions
+  resources :reponses
 
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
-    get '/login' => "sessions#new", :as => "login"
+    get '/login' => "sessions#new", :as => :login
     get  '/register' => 'users#new', :as => :register
   end
-
-  scope 'user' do
-    get  '/' => 'user#profile', :as => :profile
-  end
-
+  
   scope 'discussion' do
     get  '/summary' => 'discussion#summary', :as => :summary
-    get  '/specific' => 'discussion#specific', :as => :specific
-    get  '/company' => 'discussion#ask', :as => :ask
-    get  '/challenge' => 'discussion#challenge', :as => :challenge
-    
-  end
-
-  scope 'map' do
-    get  '/' => 'map#index', :as => :map
   end
   
   root :to => 'home#index', :as => :home

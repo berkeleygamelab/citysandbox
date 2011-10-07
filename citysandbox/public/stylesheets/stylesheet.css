@@ -26,6 +26,7 @@ html {
 	border:0;
 	background-color: #DDDDDD;
 	font-size:25px;
+	box-shadow: none;
 }
 
 .formatted_button input {
