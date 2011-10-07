@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111006051934) do
+ActiveRecord::Schema.define(:version => 20111007214337) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -81,13 +81,13 @@ ActiveRecord::Schema.define(:version => 20111006051934) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "login",      :limit => 75,                       :null => false
-    t.text     "picture",    :limit => 255
+    t.text     "login",           :limit => 75,                       :null => false
+    t.text     "picture",         :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "password",   :limit => 30,  :default => "12345", :null => false
-    t.text     "email",      :limit => 75,  :default => " ",     :null => false
-    t.text     "category",   :limit => 75,  :default => "other", :null => false
+    t.text     "email",           :limit => 75,  :default => " ",     :null => false
+    t.text     "category",        :limit => 75,  :default => "other", :null => false
+    t.string   "password_digest"
   end
 
 end

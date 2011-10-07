@@ -5,7 +5,7 @@ class CreateChallenges < ActiveRecord::Migration
       t.column :title, :text, :limit => 255, :null => false
       t.column :description, :text, :limit => 1600, :null => false
       t.column :proposal_deadline, :datetime, :null => false
-      t.column :review_deadline, :timestamp, :null
+      t.column :review_deadline, :timestamp, :null => false
       t.column :vote_deadline, :timestamp, :null => false
       t.timestamps
     end

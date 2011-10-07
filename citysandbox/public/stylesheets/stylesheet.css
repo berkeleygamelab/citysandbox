@@ -22,10 +22,17 @@ html {
 }
 
 
-input {
+.formatted_input {
 	border:0;
 	background-color: #DDDDDD;
 	font-size:25px;
+}
+
+.formatted_button input {
+	font-size:25px;
+	color:#DDDDDD;
+	background-color: transparent;
+	border: none;
 }
 
 #password-clear {

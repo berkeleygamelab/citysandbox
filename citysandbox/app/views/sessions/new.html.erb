@@ -67,10 +67,16 @@ $(document).ready(function() {
 <%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
 <%= image_tag "../images/splash_login_box.png", :class=>'splash_login_box' %>
 
-<input type="text" id="username" size="18"/>
-<input id="password-clear" type="text" size="18" class: 'greyText'/>
-<input id="password-password" type="password" name="password" size="18" />
-<div id="links">
-	<%=link_to "Cancel", home_splash_path %>
-	<%=link_to "Log In", summary_path %>
-</div>
+<input id="password-clear" type="text" size="18" class='formatted_input'/>
+
+
+<%= form_tag sessions_path do %>
+    <%= text_field_tag :login, params[:login], :size => 18, :id=>'username', :class=>'formatted_input' %>
+    <%= password_field_tag :password, nil, :size => 18, :id=>'password-password', :class=>'formatted_input' %>
+	<div id="links">
+		<%=link_to "Cancel", home_splash_path %>
+		<span class="formatted_button">
+			<%= submit_tag "Log in" %>
+		</span>
+	</div>
+<% end %>
