@@ -32,31 +32,31 @@ $(document).ready(function() {
 		$('.splash_login_box').center(400);
 		$('#links').center(550);
 		$('#username').center(400 + $('#username').outerHeight());
-		$('#password-clear').center(400 + $('#username').outerHeight() * 2 + 15);
-		$('#password-password').center(400 + $('#username').outerHeight() * 2 + 15);
+		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 15);
+		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 15);
 	}
 	
 	$('#username').tbHinter({
 		text: 'User ID',
 		class: 'gray_text'
 	});	
-	$('#password-clear').tbHinter({
+	$('#password_clear').tbHinter({
 		text: 'Password',
 		class: 'gray_text'
 	});
 	
-	$('#password-clear').show();
-	$('#password-password').hide();
+	$('#password_clear').show();
+	$('#password_password').hide();
 
-	$('#password-clear').focus(function() {
-	    $('#password-clear').hide();
-	    $('#password-password').show();
-	    $('#password-password').focus();
+	$('#password_clear').focus(function() {
+	    $('#password_clear').hide();
+	    $('#password_password').show();
+	    $('#password_password').focus();
 	});
-	$('#password-password').blur(function() {
-	    if($('#password-password').val() == '') {
-	        $('#password-clear').show();
-	        $('#password-password').hide();
+	$('#password_password').blur(function() {
+	    if($('#password_password').val() == '') {
+	        $('#password_clear').show();
+	        $('#password_password').hide();
 	    }
 	});
 
@@ -67,16 +67,6 @@ $(document).ready(function() {
 <%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
 <%= image_tag "../images/splash_login_box.png", :class=>'splash_login_box' %>
 
-<input id="password-clear" type="text" size="18" class='formatted_input'/>
+<input id="password_clear" type="text" size="18" class='formatted_input'/>
 
-
-<%= form_tag sessions_path do %>
-    <%= text_field_tag :login, params[:login], :size => 18, :id=>'username', :class=>'formatted_input' %>
-    <%= password_field_tag :password, nil, :size => 18, :id=>'password-password', :class=>'formatted_input' %>
-	<div id="links">
-		<%=link_to "Cancel", home_splash_path %>
-		<span class="formatted_button">
-			<%= submit_tag "Log in" %>
-		</span>
-	</div>
-<% end %>
+<%= render 'form' %>

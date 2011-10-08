@@ -38,6 +38,10 @@ $(document).ready(function() {
 		$('#email_input').center(230);
 		$('#password_input').center(340);
 		$('#re_password_input').center(450);
+		$('#password_password').center(340);
+		$('#re_password_password').center(450);
+		$('#password_clear').center(340);
+		$('#re_password_clear').center(450);
 		
 		$('#username_prompt').center(80);
 		$('#username_prompt').css("left", ($('.username').position().left + 10) + "px");
@@ -59,14 +63,44 @@ $(document).ready(function() {
 		class: 'gray_text'
 	});
 	
-	$('#password_input').tbHinter({
+	$('#password_clear').tbHinter({
 		text: 'Password',
 		class: 'gray_text'
 	});
 	
-	$('#re_password_input').tbHinter({
+	$('#re_password_clear').tbHinter({
 		text: 'Re-enter password',
 		class: 'gray_text'
+	});
+	
+	$('#password_input').show();
+	$('#password_password').hide();
+
+	$('#password_input').focus(function() {
+	    $('#password_input').hide();
+	    $('#password_password').show();
+	    $('#password_password').focus();
+	});
+	$('#password_password').blur(function() {
+	    if($('#password_password').val() == '') {
+	        $('#password_input').show();
+	        $('#password_password').hide();
+	    }
+	});
+	
+	$('#re_password_input').show();
+	$('#re_password_password').hide();
+
+	$('#re_password_input').focus(function() {
+	    $('#re_password_input').hide();
+	    $('#re_password_password').show();
+	    $('#re_password_password').focus();
+	});
+	$('#re_password_password').blur(function() {
+	    if($('#re_password_password').val() == '') {
+	        $('#re_password_input').show();
+	        $('#re_password_password').hide();
+	    }
 	});
 	
  });
@@ -84,25 +118,8 @@ $(document).ready(function() {
 	<div id="re_password_prompt">Re-enter Password</div>
 </div>
 
-<%= form_for @user do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-   <%= f.text_field :login, :size => 18, :id=>'username_input', :class=>'formatted_input' %>
-   <%= f.text_field :email, :size => 18, :id=>'email_input', :class=>'formatted_input' %>
-   <%= f.password_field :password, :size => 18, :id=>'password_input', :class=>'formatted_input' %>
-   <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_input', :class=>'formatted_input' %>
-	<div id="links">
-		<%=link_to "Cancel", home_splash_path %>
-		<span class="formatted_button">
-			<%= f.submit %>
-		</span>
-	</div>
-<% end %>
+<input id="password_clear" type="text" size="18" class='formatted_input'/>
+<input id="re_password_clear" type="text" size="18" class='formatted_input'/>
+
+<%= render 'form' %>
+
