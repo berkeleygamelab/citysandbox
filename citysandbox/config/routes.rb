@@ -2,10 +2,11 @@ Citysandbox::Application.routes.draw do
 
   get "logout" => "sessions#destroy", :as => "logout"
   
-  resources :users do
-    resources :challenges, :shallow => true
+  resources :questions do
+    resources :responses, :shallow => true
   end
   
+  resources :users
   resources :sessions
   resources :questions
   resources :reponses
@@ -14,10 +15,6 @@ Citysandbox::Application.routes.draw do
     get  '/' => 'home#splash', :as => :splash
     get '/login' => "sessions#new", :as => :login
     get  '/register' => 'users#new', :as => :register
-  end
-  
-  scope 'discussion' do
-    get  '/summary' => 'discussion#summary', :as => :summary
   end
   
   root :to => 'home#index', :as => :home

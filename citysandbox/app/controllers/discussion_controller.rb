@@ -1,4 +1,0 @@
-class DiscussionController < ApplicationController
-
-
-end
