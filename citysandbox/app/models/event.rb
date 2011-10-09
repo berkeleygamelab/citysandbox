@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
   belongs_to :question
+  has_many :response_events
   
-  validates :question_id, :presence => true
 end

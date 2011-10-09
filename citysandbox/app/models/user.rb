@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :responses
   has_many :followed_users
+  has_many :response_challenges
+  has_many :response_events
+  has_many :response_questions
 
   validates :login, :presence => true
   validates :email, :presence => true

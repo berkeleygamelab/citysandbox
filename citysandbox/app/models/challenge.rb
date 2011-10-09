@@ -1,8 +1,8 @@
 class Challenge < ActiveRecord::Base
   has_many :proposals
+  has_many :response_challenges
   belongs_to :question
   
-  validates :question_id, :presence => true
   validates :title, :presence => true
   validates :description, :presence => true
   validates :proposal_deadline, :presence => true

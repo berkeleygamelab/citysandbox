@@ -11,18 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007214337) do
+ActiveRecord::Schema.define(:version => 20111009004614) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
-    t.text     "response",    :limit => 1600
+    t.text     "description",       :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.datetime "proposal_deadline"
+    t.datetime "review_deadline"
+    t.datetime "vote_deadline"
+    t.integer  "user_id"
   end
 
   create_table "events", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.integer  "user_id"
   end
 
   create_table "followed_questions", :force => true do |t|
@@ -73,11 +80,36 @@ ActiveRecord::Schema.define(:version => 20111007214337) do
     t.datetime "updated_at"
   end
 
+  create_table "response_challenges", :force => true do |t|
+    t.integer  "challenge_id",                 :null => false
+    t.integer  "user_id",                      :null => false
+    t.text     "response",     :limit => 1600, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "response_events", :force => true do |t|
+    t.integer  "event_id",                   :null => false
+    t.integer  "user_id",                    :null => false
+    t.text     "response",   :limit => 1600, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "response_questions", :force => true do |t|
+    t.integer  "question_id",                 :null => false
+    t.integer  "user_id",                     :null => false
+    t.text     "response",    :limit => 1600, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "responses", :force => true do |t|
     t.integer  "question_id",                 :null => false
     t.text     "response",    :limit => 1600, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

@@ -20,10 +20,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-
-    @question = Questions.find(:all, :limit => size_limit_questions)
-    @discussion_set = [ ]
-    @question.each {|x| @discussions_sets = @discussion_sets + Responses.where( :question_id => x.id).limit(5)}
+    @question = Question.where(:id => params[:id])[0]
 
     respond_to do |format|
       format.html # show.html.erb
@@ -94,9 +91,12 @@ class QuestionsController < ApplicationController
 
 
   def prefetch
-    @questions = Questions.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
+    size_limit_questions = 15
+    size_limit_discussion = 5
+    page_offset = 1
+    @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
     @discussion_next = []
-    @questions.each {|x| @discussions_sets = @discussion_sets + Responses.where (:question_id => x.id).limit(size_limit_discussion)}
+    @questions.each {|x|  @discussion_next = @discussion_next + [Response.where(:question_id => x.id).limit(size_limit_discussion)]}
     
   end
   
