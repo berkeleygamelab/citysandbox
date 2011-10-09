@@ -8,26 +8,50 @@
   <%= csrf_meta_tags %>
 </head>
 
+<style type="text/css">
+html {
+        background: url('../images/splash_background.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+</style>
+
 <body class="<%= params[:controller] %>">
    <div id="container">
 	<% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
 	<% end %>
 	
-     <% if params[:controller] != "home" %>
-  		<%= render :partial => 'layouts/navbar' %>
-  	 <% end %>
+	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions'%>
+ 		<%= render :partial => 'layouts/navbar' %>
+ 	 <% end %>
+
    </div>
 
-	<%= yield %>
+	 <% if params[:controller] == "questions" %>
+  		<div id="main">
+		  <%= render :partial => 'layouts/sidebar' %>
+		  <div class="flash">
+		    <% flash.each do |type, message| -%>
+		    <div class="message <%= type %>">
+		      <p>
+			<%= message %>
+		      </p>
+		    </div>
+		    <% end -%>
+		  </div>
+		  <div id="content">
+		    <%= yield %>
+		  </div>
+		</div>
+	<% else %>
+		<%= yield %>
+  	 <% end %>
 
-	<% if params[:controller] != "home" %>
-   	<!--<footer>
-	<br><br>
-	Copyright &copy; <%= Time.now.year %>
-	<a href="http://socialapplab.wordpress.com/">Social Apps Lab AT CITRIS</a>
-      All Rights Reserved.
-    </footer> -->
+	<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' %>
+		<%= render :partial => 'layouts/footer' %>
 <% end %>
  </body>
 </html>

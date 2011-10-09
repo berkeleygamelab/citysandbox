@@ -1,0 +1,14 @@
+<div id='header'>
+<%= image_tag "../images/splash_logo_temp.png", :class=>'navbar_logo', :size=>'85x85', :alt => "Logo" %>
+<%= image_tag "../images/title.png", :class=>'navbar_title', :size=>'265x75', :alt => "City Sandbox" %>
+ 
+<span id="user_nav">
+  <% if User.exists? and current_user %>
+  	<a href="/logout" class="link_logout">LOGOUT</a>
+  <% else %>
+  	<a href="/login" class="link_login">LOGIN</a>
+  <% end %>
+</span>
+
+</div>
+

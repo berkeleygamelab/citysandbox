@@ -1,13 +1,3 @@
-<style type="text/css">
-html {
-        background: url('../images/splash_background.png') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-}
-</style>
-
 <script type="text/javascript">
 $.fn.center = function (top_offset) {
 	window_width =  $(window).width() > 500 ? $(window).width() : 500;
@@ -40,8 +30,8 @@ $(document).ready(function() {
 		$('#re_password_input').center(450);
 		$('#password_password').center(340);
 		$('#re_password_password').center(450);
-		$('#password_clear').center(340);
-		$('#re_password_clear').center(450);
+		$('#password_input').center(340);
+		$('#re_password_input').center(450);
 		
 		$('#username_prompt').center(80);
 		$('#username_prompt').css("left", ($('.username').position().left + 10) + "px");
@@ -63,12 +53,12 @@ $(document).ready(function() {
 		class: 'gray_text'
 	});
 	
-	$('#password_clear').tbHinter({
+	$('#password_input').tbHinter({
 		text: 'Password',
 		class: 'gray_text'
 	});
 	
-	$('#re_password_clear').tbHinter({
+	$('#re_password_input').tbHinter({
 		text: 'Re-enter password',
 		class: 'gray_text'
 	});
@@ -118,8 +108,8 @@ $(document).ready(function() {
 	<div id="re_password_prompt">Re-enter Password</div>
 </div>
 
-<input id="password_clear" type="text" size="18" class='formatted_input'/>
-<input id="re_password_clear" type="text" size="18" class='formatted_input'/>
+<input id="password_input" type="text" size="18" class='formatted_input gray_text'/>
+<input id="re_password_input" type="text" size="18" class='formatted_input gray_text'/>
 
 <%= render 'form' %>
 

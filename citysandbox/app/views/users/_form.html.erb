@@ -9,10 +9,10 @@
       </ul>
     </div>
   <% end %>
-   <%= f.text_field :login, :size => 18, :id=>'username_input', :class=>'formatted_input' %>
-   <%= f.email_field :email, :size => 18, :id=>'email_input', :class=>'formatted_input' %>
-   <%= f.password_field :password, :size => 18, :id=>'password_input', :class=>'formatted_input' %>
-   <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_input', :class=>'formatted_input' %>
+   <%= f.text_field :login, :size => 18, :id=>'username_input', :class=>'formatted_input gray_text' %>
+   <%= f.email_field :email, :size => 18, :id=>'email_input', :class=>'formatted_input gray_text' %>
+   <%= f.password_field :password, :size => 18, :id=>'password_password', :class=>'formatted_input' %>
+   <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_password', :class=>'formatted_input' %>
 	<div id="links">
 		<%=link_to "Cancel", home_splash_path %>
 		<span class="formatted_button">
