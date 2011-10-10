@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <b>Title:</b>
   <%=h @question.title %>
@@ -16,9 +15,24 @@
   <%=h @question.location %>
 </p>
 
-<% form_for [@question, Response.new] do |r| %>
-  <p>
+<p> User: <%= current_user.id %></p>
 
+<h2>Responses</h2>
+
+<% @question.responses.each do |r| %>
+  <p>
+    <b><%=h r.user.login %> said:</b><br />
+    <%= time_ago_in_words(r.created_at) %> ago
+  </p>
+
+  <p>
+    <%=h r.response %>
+  </p>
+<% end %>
+
+
+<%= form_for [@question, Response.new] do |r| %>
+  <p>
     <%= r.label :response, "Response" %><br />
     <%= r.text_area :response %>
   </p>
@@ -28,6 +42,66 @@
   </p>
 <% end %>
 
+<h2>Challenges</h2>
 
+<% @question.challenges.each do |c| %>
+  <p>
+    <b><%=h c.user.login %></b><br />
+    <%= time_ago_in_words(c.created_at) %> ago
+  </p>
+
+  <p>
+    <%=h c.title %>
+  </p>
+
+  <p>
+    <%=h c.description %>
+  </p>
+
+  <p>
+    <%=h c.proposal_deadline %>
+  </p>
+
+  <p>
+    <%=h c.review_deadline %>
+  </p>
+
+  <p>
+    <%=h c.vote_deadline %>
+  </p>
+<% end %>
+
+<%= form_for [@challenge, Challenge.new] do |c| %>
+  <p>
+    <%= c.label :title, "Title" %><br />
+    <%= c.text_field :title %>
+  </p>
+
+  <p>
+    <%= c.label :description, "Description" %><br />
+    <%= c.text_area :description %>
+  </p>
+  
+  <p>
+    <%= c.label :proposal_deadline, "Proposal Deadline" %><br />
+    <%= c.datetime_select :proposal_deadline %>
+  </p>
+
+  <p>
+    <%= c.label :review_deadline , "Review Deadline" %><br />
+    <%= c.datetime_select :review_deadline %>
+  </p>
+
+  <p>
+    <%= c.label :vote_deadline , "Vote Deadline" %><br />
+    <%= c.datetime_select :vote_deadline %>
+  </p>
+
+  <p>
+    <%= c.submit "Add Challenge" %>
+  </p>
+<% end %>
+
+<%= link_to 'Add Response', new_question_response_path(:question_id => @question.id) %> |
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>

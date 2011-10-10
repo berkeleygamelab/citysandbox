@@ -3,13 +3,18 @@ Citysandbox::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   
   resources :questions do
-    resources :responses, :shallow => true
+    resources :responses, :shallow => false
+    resources :challenges, :shallow => true
   end
+  
+  match 'questions/:question_id/responses' => 'responses#index', :as => :responses
+  match 'questions/:id/challenge' => 'challenges#new', :as => :challenge
   
   resources :users
   resources :sessions
   resources :questions
-  resources :reponses
+  #resources :responses
+  resources :challenges
 
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
@@ -29,7 +34,7 @@ Citysandbox::Application.routes.draw do
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  # This route can be invoked with response_url(:id => response.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

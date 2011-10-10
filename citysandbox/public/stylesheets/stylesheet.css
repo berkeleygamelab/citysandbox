@@ -91,3 +91,8 @@ body {
 	float: right;
 	padding: 25px;
 }
+
+#main {
+	background-color: rgba(221, 221, 221, 0.2);
+
+}

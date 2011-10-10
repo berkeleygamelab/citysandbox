@@ -6,23 +6,24 @@ $.fn.center = function (top_offset) {
     this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
     return this;
 }
-$(document).ready(function() {
+
+function center_elements() {
+	window_height =  $(window).height() > 700 ? $(window).height() : 700;
+	$('.splash_box').center(0);
+   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
+	$('.splash_title').center(20);
+	$('.splash_logo').center(150);
+	$('.splash_textbox').center(425);
+	$('#links').center(550);
+	$('#city_input').center(425 + $('#city_input').outerHeight());
+}
+
+$(window).load(function() {
 	center_elements();
 	
 	$(window).resize(function() {
 		center_elements();
 	});
-	
-	function center_elements() {
-		window_height =  $(window).height() > 700 ? $(window).height() : 700;
-		$('.splash_box').center();
-	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
-		$('.splash_title').center(20);
-		$('.splash_logo').center(150);
-		$('.splash_textbox').center(425);
-		$('#links').center(550);
-		$('#city_input').center(425 + $('#city_input').outerHeight());
-	}
 	
 	$('#city_input').tbHinter({
 		text: 'Enter a city...',

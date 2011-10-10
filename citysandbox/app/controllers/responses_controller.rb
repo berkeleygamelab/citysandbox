@@ -41,13 +41,12 @@ class ResponsesController < ApplicationController
   # POST /responses.json
   def create
     @response = Response.new(params[:response])
-    @response.question_id = params[:id]
-    @response.user_id = current_user
-    redirect_to @question
+    @response.question_id = Question.find(params[:question_id])
+    @response.user_id = current_user.id
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to @response, notice: 'Response was successfully created.' }
+        format.html { redirect_to @response.question, notice: 'Response was successfully created.' }
         format.json { render json: @response, status: :created, location: @response }
       else
         format.html { render action: "new" }
