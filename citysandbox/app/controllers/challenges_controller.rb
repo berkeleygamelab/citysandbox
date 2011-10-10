@@ -41,8 +41,8 @@ class ChallengesController < ApplicationController
   # POST /challenges.json
   def create
     @challenge = Challenge.new(params[:challenge])
-    @challenge.question_id = Question.find(params[:question_id])
-    @challenge.user_id = current_user.id
+    @challenge.question_id = params[:challenge][:question_id]
+    @challenge.question = Question.find(params[:challenge][:question_id])
 
     respond_to do |format|
       if @challenge.save

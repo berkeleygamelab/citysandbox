@@ -18,9 +18,9 @@
 	  <%=h question.location %>
 	</p>
 	<br>
-    <%= link_to 'Show', question %>
-    <%= link_to 'Edit', edit_question_path(question) %>
-    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %>
+    <%= link_to 'Show', question, :class=>'gray_text' %>
+    <%= link_to 'Edit', edit_question_path(question), :class=>'gray_text' %>
+    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete, :class=>'gray_text' %>
   </li>
 <% end %>
 </table>
@@ -28,4 +28,4 @@
 </ul>
 <br />
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path, :class=>'gray_text' %>

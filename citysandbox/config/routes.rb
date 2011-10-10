@@ -1,29 +1,30 @@
 Citysandbox::Application.routes.draw do
-
-  get "logout" => "sessions#destroy", :as => "logout"
   
-  resources :questions do
-    resources :responses, :shallow => false
-    resources :challenges, :shallow => true
+  root :to => 'home#splash', :as => :home
+  root :to => 'home#splash', :as => :root
+  
+  scope :as => :home do
+    get  '/' => 'home#splash', :as => :splash
+    get '/login' => "sessions#new", :as => :login
+    get "/logout" => "sessions#destroy", :as => :logout
+    get  '/register' => 'users#new', :as => :register
   end
   
-  match 'questions/:question_id/responses' => 'responses#index', :as => :responses
-  match 'questions/:id/challenge' => 'challenges#new', :as => :challenge
+  resources :questions do
+    resources :responses, :shallow => true
+    resources :challenges, :shallow => true do
+      resources :proposals, :shallow => true 
+    end
+    resources :events, :shallow => true
+  end
   
   resources :users
   resources :sessions
   resources :questions
-  #resources :responses
   resources :challenges
+  resources :events
 
-  scope :as => :home do
-    get  '/' => 'home#splash', :as => :splash
-    get '/login' => "sessions#new", :as => :login
-    get  '/register' => 'users#new', :as => :register
-  end
-  
-  root :to => 'home#index', :as => :home
-  root :to => 'home#index', :as => :root
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

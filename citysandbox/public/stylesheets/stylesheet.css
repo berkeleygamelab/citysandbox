@@ -2,9 +2,10 @@ html {
 	font-family: Georgia;
 }
 
-.gray_text{
+.gray_text {
 	line-height:2em;
 	color: #BBBBBB;
+	text-decoration: none;
 }
 
 #links a:link, #links a:visited, #links a:hover, #links a:active {
@@ -92,7 +93,3 @@ body {
 	padding: 25px;
 }
 
-#main {
-	background-color: rgba(221, 221, 221, 0.2);
-
-}

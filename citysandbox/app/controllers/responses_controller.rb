@@ -41,7 +41,7 @@ class ResponsesController < ApplicationController
   # POST /responses.json
   def create
     @response = Response.new(params[:response])
-    @response.question_id = Question.find(params[:question_id])
+    @response.question_id = params[:question_id]
     @response.user_id = current_user.id
 
     respond_to do |format|
