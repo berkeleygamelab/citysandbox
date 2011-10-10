@@ -26,7 +26,7 @@ def summary
 
   
   @collection = @dummy_set
-  @collection.sort!{|a,b| a[0].updated_at <=> b[0].updated_at}
+  @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
   
   
 end
@@ -50,10 +50,71 @@ def filter
     flag_for_category = 1
   end
   
-  if(flag_for_category)
-    if(params[:category] == "Event")
+  @placeholder_set = []
+  @category_type = params[:category]
+  @type_of_stuff = "Event"
+  @title = params[:title]
+
+    if(@type_of_stuff == "Event")
+      if(@category_type == nil)
+        if(@title != nil or @title != " ")
+          @events = Event.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+        else
+          @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+        end
+      else  
+        if(@title != nil or @title != " ")
+            @events = Event.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+        else
+            @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+        end
+      end
     end
-  end
+    if(@type_of_stuff == "Challenge")
+      if(@category_type == nil)
+        if(@title != nil or @title != " ")
+          @events = Challenge.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
+        else
+          @events = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
+        end
+      else  
+        if(@title != nil or @title != " ")
+            @events = Challenge.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
+        else
+            @events = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
+        end
+      end
+    end
+    if(@type_of_stuff == "Question")
+      if(@category_type == nil)
+        if(@title != nil or @title != " ")
+          @events = Question.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+        else
+          @events = Question.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+        end
+      else  
+        if(@title != nil or @title != " ")
+            @events = Question.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+        else
+            @events = Question.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+        end
+      end
+    end
+  
+  @placeholder.sort!{|a,b| a[0].updated_at <=> b[0].updated_at}
+  
   
 
 end
