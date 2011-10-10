@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010084413) do
+ActiveRecord::Schema.define(:version => 20111010225828) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20111010084413) do
     t.datetime "review_deadline"
     t.datetime "vote_deadline"
     t.integer  "user_id"
+    t.integer  "x_coordinate"
+    t.integer  "y_coordinate"
   end
 
   create_table "events", :force => true do |t|
@@ -30,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20111010084413) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "user_id"
+    t.integer  "x_coordinate"
+    t.integer  "y_coordinate"
   end
 
   create_table "folders", :force => true do |t|
@@ -48,20 +52,6 @@ ActiveRecord::Schema.define(:version => 20111010084413) do
   end
 
   create_table "followed_users", :force => true do |t|
-    t.integer  "user_id",          :null => false
-    t.integer  "followed_user_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "followedquestions", :force => true do |t|
-    t.integer  "question_id", :null => false
-    t.integer  "user_id",     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "followedusers", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "followed_user_id", :null => false
     t.datetime "created_at"
@@ -96,7 +86,6 @@ ActiveRecord::Schema.define(:version => 20111010084413) do
   create_table "questions", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "description",  :limit => 1600
     t.string   "location",     :limit => 1600
     t.float    "x_coordinate", :limit => 64
     t.float    "y_coordinate", :limit => 64
@@ -137,12 +126,11 @@ ActiveRecord::Schema.define(:version => 20111010084413) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "login",           :limit => 75,                       :null => false
+    t.text     "login",           :limit => 75,                   :null => false
     t.text     "picture",         :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "email",           :limit => 75,  :default => " ",     :null => false
-    t.text     "category",        :limit => 75,  :default => "other", :null => false
+    t.text     "email",           :limit => 75,  :default => " ", :null => false
     t.string   "password_digest"
   end
 
