@@ -18,7 +18,9 @@ Citysandbox::Application.routes.draw do
   
   resources :users, :sent, :messages, :mailbox
   
-  
+  resources :mailbox do
+    get '/index' => "sent#index", :as => :index
+  end
   resources :sent do
     get '/index' => 'sent#index', :controller => "sent", :action => "index"
     get '/create' => 'sent#create', :controller => "sent", :action => "create"

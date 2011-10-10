@@ -1,5 +1,33 @@
 class DiscussionController < ApplicationController
 
+def index
+  size_limit_questions = 15
+  size_limit_discussion = 5
+  page_offset = 0
+  @silly = "Wordsssss"
+    if params[:false_value] == nil
+    @silly = "Sup Biznatches"
+    end
+  
+  
+  @collection = []
+  @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
+  @discussion_next = []
+
+  @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+  @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
+  
+  @dummy_set =[]
+  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.responses.limit(size_limit_discussion)]]}
+  @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
+  @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+
+  
+  @collection = @dummy_set
+  @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
+  @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+  
+end
 
 
 def summary

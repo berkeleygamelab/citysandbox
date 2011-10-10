@@ -17,8 +17,8 @@ class SentController < ApplicationController
      @message.subject = params[:subject]
      @message.body = params[:body]
      @message_send = MessageCopy.create
-     @message_send.user = current_user
-     @message_send.recipient = params[:sendTo]
+    
+     @message_send.user = User.where(:login => params[:sendTo])[0]
      @success = "NAY!"
      if @message.save
        @success = "YAY!"
