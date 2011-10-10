@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010225828) do
+ActiveRecord::Schema.define(:version => 20111010231912) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20111010225828) do
     t.integer  "user_id"
     t.integer  "x_coordinate"
     t.integer  "y_coordinate"
+    t.string   "location"
   end
 
   create_table "events", :force => true do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20111010225828) do
     t.integer  "user_id"
     t.integer  "x_coordinate"
     t.integer  "y_coordinate"
+    t.string   "location"
   end
 
   create_table "folders", :force => true do |t|
