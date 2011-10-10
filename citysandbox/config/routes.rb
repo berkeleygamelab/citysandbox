@@ -1,15 +1,36 @@
 Citysandbox::Application.routes.draw do
 
+  get "mailbox/show"
+
+  get "messages/show"
+
+  get "sent/index"
+
+  get "sent/show"
+
+  get "sent/new"
+
   get "logout" => "sessions#destroy", :as => "logout"
   
   resources :questions do
     resources :responses, :shallow => true
   end
   
-  resources :users
+  resources :users, :sent, :messages, :mailbox
+  
+  
+  resources :sent do
+    get '/index' => 'sent#index', :controller => "sent", :action => "index"
+    get '/create' => 'sent#create', :controller => "sent", :action => "create"
+  end
   resources :sessions
   resources :questions
-  resources :reponses
+  resources :responses
+  resources :discussion do
+    get '/summary' => 'discussion#summary', :as => :summary
+    get '/' => 'discussion#summary', :as => :summary
+  end
+  
 
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash

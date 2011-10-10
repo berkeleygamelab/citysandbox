@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111009004614) do
+ActiveRecord::Schema.define(:version => 20111010084413) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20111009004614) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "user_id"
+  end
+
+  create_table "folders", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "followed_questions", :force => true do |t|
@@ -56,6 +64,22 @@ ActiveRecord::Schema.define(:version => 20111009004614) do
   create_table "followedusers", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "followed_user_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "message_copies", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
+    t.integer  "folder_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "subject"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -11,6 +11,18 @@ class User < ActiveRecord::Base
   has_many :response_challenges
   has_many :response_events
   has_many :response_questions
+  has_many :messages
+  has_many :message_copys
+  
+ # before_create :build_inbox
+
+   # def inbox
+     # folders.find_by_name("Inbox")
+   # end
+
+    #def build_inbox
+     # folders.build(:name => "Inbox")
+  #  end
 
   validates :login, :presence => true
   validates :email, :presence => true

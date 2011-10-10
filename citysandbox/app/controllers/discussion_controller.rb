@@ -27,7 +27,7 @@ def summary
   
   @collection = @dummy_set
   @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-  
+  @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
   
 end
 
@@ -120,4 +120,5 @@ def filter
 end
 
 end
+
 
