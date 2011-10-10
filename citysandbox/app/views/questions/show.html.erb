@@ -1,3 +1,5 @@
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <style type="text/css">
 #question_main, .individual_response, #response_form, .individual_challenge, #challenge_form {
 	padding: 5%;
@@ -32,23 +34,50 @@
 #question_description {
 	font-size:13px;
 }
+#map_canvas {
+	height:200px;
+	width:200px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready( function() {
-	$('#sidebar').stickySidebar();	
+	$('#sidebar').stickySidebar();
+	
+	var map;
+    var myOptions = {
+    	zoom: 8,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470),
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+    var geocoder = new google.maps.Geocoder();
+	var address = $('#question_location').val();
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        alert("Geocode was not successful for the following reason: " + status);
+	      }
+	});
 });
 </script>
-
-<!--<p id="notice"><%= notice %></p>-->
 <div id='sidebar'>
 		Related Content 
+		
 </div>
 <div id='main_content'>
 <div id='question_main'>
 	<span id='question_map'>
-		<%= image_tag "../images/sample_map.png", :alt => "Map" %>
+		<div id="map_canvas"></div>
 		<br>
 		<%=h @question.location %>
+		<%= hidden_field(:question, :location) %>
+		
 	</span>
 	<span id='question_title'>
 		<%= @question.title %>
