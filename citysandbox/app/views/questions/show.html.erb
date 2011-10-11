@@ -1,30 +1,171 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#sidebar').stickySidebar();
+	
+	$('#tabs ul').idTabs();
+	
+	var map;
+    var myOptions = {
+    	zoom: 8,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
-<p>
-  <b>Title:</b>
-  <%=h @question.title %>
+    var geocoder = new google.maps.Geocoder();
+	var address = $('#question_location').val();
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        alert("Geocode was not successful for the following reason: " + status);
+	      }
+	});
+	
+});
+</script>
+<style type="text/css">
+#tabs li {
+	list-style: none;
+	display: inline;
+}
+#tabs li a {
+	text-decoration: none;
+	color: #000000;	
+	padding-right:5%;
+	font-size:20px;
+}
+#tabs_menu ul {
+	margin: 0;
+	padding-left: 5%;
+	line-height: 3em;
+}
+#tabs_menu {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-bottom: 3px solid black;
+}
+</style>
 
-</p>
+<div id='sidebar'>
+		Related Content 
+</div>
+<div id='main_content'>
+<div id='question_main'>
+	<span id='question_map'>
+		<div id="map_canvas"></div>
+		<br>
+		<%=h @question.location %>
+		<%= hidden_field(:question, :location) %>
+		
+	</span>
+	<span id='question_title'>
+		<%= @question.title %>
+	</span>
+	<br><br>
+	<span id='question_author'>
+		<%= @question.user.picture %> by 
+		<%= @question.user.login %> | 
+	</span>
+	<span id='question_time'>
+		<%= time_ago_in_words(@question.created_at) %> ago
+	</span>
+	<br><br>
+	<span id='question_description'>
+	  <%=h @question.description %>
+	</span>
+</div>
 
+<div id='tabs'>
+<br>
+<div id='tabs_menu'>	
+<ul>
+	<li><a href="#responses">Responses</a></li>
+	<li><a href="#challenges">Challenges</a></li>
+</ul>
+</div>
 
+<div id='responses'>
+	<% @question.responses.each do |r| %>
+		<div class='individual_response'>
+		    <%= @question.user.picture %>
+		 	<%=h r.user.login %> |
+		    <%= time_ago_in_words(r.created_at) %> ago
+			<br><br>
+		    <%=h r.response %>
+		</div>
+		<br>
+	<% end %>
+	<div id='response_form'>
+		Add Response
+		<br>
+		<%= form_for [@question, Response.new] do |r| %>
+		    <%= r.text_area :response, :rows => 3 %>
+			<br>
+		    <%= r.submit "Submit" %>
+		<% end %>
+	</div>
+</div>
 
-<p>
-  <b>Location:</b>
-  <%=h @question.location %>
-</p>
+<div id='challenges'>
+	<% @question.challenges.each do |c| %>
+		<div class='individual_challenge'>
+	   		<%= time_ago_in_words(c.created_at) %> ago
+			<br>
+		    <b><%=h c.title %></b>
+			<br>
+		    <%=h c.description %>
+			<br>
+		    Proposal Deadline: <%=h c.proposal_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+			<br>
+		    Review Deadline: <%=h c.review_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+			<br>
+		    Vote Deadline: <%=h c.vote_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+		</div>
+		<br>
+	<% end %>
 
-<% form_for [@question, Response.new] do |r| %>
-  <p>
+	<div id='challenge_form'>
+		Add Challenge
+		<br>
+		<%= form_for [@challenge, Challenge.new] do |c| %>
+		  <p>
+		    <%= c.label :title, "Title" %><br />
+		    <%= c.text_field :title %>
+		  </p>
+			<%= c.hidden_field :question_id, :value => @question.id %>
+		  <p>
+		    <%= c.label :description, "Description" %><br />
+		    <%= c.text_area :description %>
+		  </p>
+  
+		  <p>
+		    <%= c.label :proposal_deadline, "Proposal Deadline" %><br />
+		    <%= c.datetime_select :proposal_deadline %>
+		  </p>
 
-    <%= r.label :response, "Response" %><br />
-    <%= r.text_area :response %>
-  </p>
+		  <p>
+		    <%= c.label :review_deadline , "Review Deadline" %><br />
+		    <%= c.datetime_select :review_deadline %>
+		  </p>
 
-  <p>
-    <%= r.submit "Add Response" %>
-  </p>
+		  <p>
+		    <%= c.label :vote_deadline , "Vote Deadline" %><br />
+		    <%= c.datetime_select :vote_deadline %>
+		  </p>
+
+		  <p>
+		    <%= c.submit "Submit" %>
+		  </p>
+		<% end %>
+</div>
+</div>
+<% if @question.user == current_user %>
+	<%= link_to 'Edit', edit_question_path(@question), :class=>'gray_text' %> |
 <% end %>
-
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Back To Questions', questions_path, :class=>'gray_text' %>
+</div>
+</div>

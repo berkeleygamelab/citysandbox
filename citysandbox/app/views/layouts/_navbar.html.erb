@@ -4,9 +4,9 @@
  
 <span id="user_nav">
   <% if User.exists? and current_user %>
-  	<a href="/logout" class="link_logout">LOGOUT</a>
+  	<a href="/logout" class="link_logout gray_text">Log Out</a>
   <% else %>
-  	<a href="/login" class="link_login">LOGIN</a>
+  	<a href="/login" class="link_login gray_text">Log In</a>
   <% end %>
 </span>
 

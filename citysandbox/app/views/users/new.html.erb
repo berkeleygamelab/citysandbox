@@ -6,7 +6,7 @@ $.fn.center = function (top_offset) {
     this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
     return this;
 }
-$(document).ready(function() {
+$(window).load(function() {
 	center_elements();
 	
 	$(window).resize(function() {

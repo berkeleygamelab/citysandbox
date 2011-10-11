@@ -1,0 +1,44 @@
+<%= form_for(@challenge) do |f| %>
+  <% if @challenge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
+
+      <ul>
+      <% @challenge.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<%= f.hidden_field :question_id %>
+
+  <p>
+    <%= f.label :title, "Title" %><br />
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :description, "Description" %><br />
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+    <%= f.label :proposal_deadline, "Proposal Deadline" %><br />
+    <%= f.datetime_select :proposal_deadline %>
+  </p>
+
+  <p>
+    <%= f.label :review_deadline , "Review Deadline" %><br />
+    <%= f.datetime_select :review_deadline %>
+  </p>
+
+  <p>
+    <%= f.label :vote_deadline , "Vote Deadline" %><br />
+    <%= f.datetime_select :vote_deadline %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

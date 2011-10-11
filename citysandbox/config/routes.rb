@@ -9,11 +9,23 @@ Citysandbox::Application.routes.draw do
   get "sent/show"
 
   get "sent/new"
-
-  get "logout" => "sessions#destroy", :as => "logout"
+  
+  root :to => 'home#splash', :as => :home
+  root :to => 'home#splash', :as => :root
+  
+  scope :as => :home do
+    get  '/' => 'home#splash', :as => :splash
+    get '/login' => "sessions#new", :as => :login
+    get "/logout" => "sessions#destroy", :as => :logout
+    get  '/register' => 'users#new', :as => :register
+  end
   
   resources :questions do
     resources :responses, :shallow => true
+    resources :challenges, :shallow => true do
+      resources :proposals, :shallow => true 
+    end
+    resources :events, :shallow => true
   end
   
   resources :users, :sent, :messages, :mailbox
@@ -27,21 +39,14 @@ Citysandbox::Application.routes.draw do
   end
   resources :sessions
   resources :questions
+  resources :challenges
   resources :responses
   resources :discussion do
     get '/summary' => 'discussion#summary', :as => :summary
     get '/' => 'discussion#summary', :as => :summary
   end
-  
 
-  scope :as => :home do
-    get  '/' => 'home#splash', :as => :splash
-    get '/login' => "sessions#new", :as => :login
-    get  '/register' => 'users#new', :as => :register
-  end
-  
-  root :to => 'home#index', :as => :home
-  root :to => 'home#index', :as => :root
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -52,7 +57,7 @@ Citysandbox::Application.routes.draw do
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  # This route can be invoked with response_url(:id => response.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

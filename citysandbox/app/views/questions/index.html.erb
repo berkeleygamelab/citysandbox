@@ -1,9 +1,9 @@
+
 <h1>Questions</h1>
 
-
 <ul>
-
 <% @questions.each do |question| %>
+	<div class='individual_question'>
   <li>
 	<p>
 	  <b>Title:</b>
@@ -21,10 +21,12 @@
     <%= link_to 'Edit', edit_question_path(question) %>
     <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %>
   </li>
+</div>
+<br>
 <% end %>
 </table>
 
 </ul>
 <br />
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path, :class=>'gray_text' %>
