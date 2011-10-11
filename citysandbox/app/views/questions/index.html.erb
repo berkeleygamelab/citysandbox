@@ -3,6 +3,7 @@
 
 <ul>
 <% @questions.each do |question| %>
+	<div class='individual_question'>
   <li>
 	<p>
 	  <b>Title:</b>
@@ -19,10 +20,12 @@
 	  <%=h question.location %>
 	</p>
 	<br>
-    <%= link_to 'Show', question, :class=>'gray_text' %>
-    <%= link_to 'Edit', edit_question_path(question), :class=>'gray_text' %>
-    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete, :class=>'gray_text' %>
+    <%= link_to 'Show', question %>
+    <%= link_to 'Edit', edit_question_path(question) %>
+    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %>
   </li>
+</div>
+<br>
 <% end %>
 </table>
 

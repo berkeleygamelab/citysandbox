@@ -1,52 +1,13 @@
-<script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<style type="text/css">
-#question_main, .individual_response, #response_form, .individual_challenge, #challenge_form {
-	padding: 5%;
-	background-color: rgba(255, 255, 255, 0.6);
-}
-
-.individual_response {
-	padding-top: 2%;
-	padding-bottom: 2%;
-}
-
-#question_map {
-	float:right;
-	width:200px;
-	padding-left:20px;
-	padding-bottom:10px;
-}
-#question_title {
-	font-size: 25px;
-}
-
-#sidebar {
-	float: right;
-	width: 25%;
-	padding-left: 2%;
-	min-height: 97%;
-	background-color: rgba(255, 255, 255, 0.6);
-}
-#main_content {
-	width: 70%;
-}
-#question_description {
-	font-size:13px;
-}
-#map_canvas {
-	height:200px;
-	width:200px;
-}
-</style>
 <script type="text/javascript">
 $(document).ready( function() {
 	$('#sidebar').stickySidebar();
 	
+	$('#tabs ul').idTabs();
+	
 	var map;
     var myOptions = {
     	zoom: 8,
-    	center: new google.maps.LatLng(37.87159260,-122.2727470),
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
     	mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
    	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
@@ -64,11 +25,33 @@ $(document).ready( function() {
 	        alert("Geocode was not successful for the following reason: " + status);
 	      }
 	});
+	
 });
 </script>
+<style type="text/css">
+#tabs li {
+	list-style: none;
+	display: inline;
+}
+#tabs li a {
+	text-decoration: none;
+	color: #000000;	
+	padding-right:5%;
+	font-size:20px;
+}
+#tabs_menu ul {
+	margin: 0;
+	padding-left: 5%;
+	line-height: 3em;
+}
+#tabs_menu {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-bottom: 3px solid black;
+}
+</style>
+
 <div id='sidebar'>
 		Related Content 
-		
 </div>
 <div id='main_content'>
 <div id='question_main'>
@@ -96,9 +79,17 @@ $(document).ready( function() {
 	</span>
 </div>
 
+<div id='tabs'>
+<br>
+<div id='tabs_menu'>	
+<ul>
+	<li><a href="#responses">Responses</a></li>
+	<li><a href="#challenges">Challenges</a></li>
+</ul>
+</div>
+
 <div id='responses'>
 	<% @question.responses.each do |r| %>
-		<br>
 		<div class='individual_response'>
 		    <%= @question.user.picture %>
 		 	<%=h r.user.login %> |
@@ -106,8 +97,8 @@ $(document).ready( function() {
 			<br><br>
 		    <%=h r.response %>
 		</div>
+		<br>
 	<% end %>
-	<br>
 	<div id='response_form'>
 		Add Response
 		<br>
@@ -121,7 +112,6 @@ $(document).ready( function() {
 
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
-	  <br>
 		<div class='individual_challenge'>
 	   		<%= time_ago_in_words(c.created_at) %> ago
 			<br>
@@ -135,8 +125,9 @@ $(document).ready( function() {
 			<br>
 		    Vote Deadline: <%=h c.vote_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
 		</div>
+		<br>
 	<% end %>
-	<br>
+
 	<div id='challenge_form'>
 		Add Challenge
 		<br>
@@ -171,7 +162,7 @@ $(document).ready( function() {
 		  </p>
 		<% end %>
 </div>
-
+</div>
 <% if @question.user == current_user %>
 	<%= link_to 'Edit', edit_question_path(@question), :class=>'gray_text' %> |
 <% end %>

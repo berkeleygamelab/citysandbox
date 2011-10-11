@@ -93,3 +93,48 @@ body {
 	padding: 25px;
 }
 
+.form {
+	padding:25px;
+}
+
+/* INDIVIDUAL QUESTIONS PAGE */
+
+#question_main, .individual_response, #response_form, .individual_challenge, #challenge_form, .individual_question {
+	padding: 5%;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+.individual_response {
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+#question_main {
+	min-height:250px;
+}
+#question_map {
+	float:right;
+	width:200px;
+	padding-left:20px;
+	padding-bottom:10px;
+}
+#question_title {
+	font-size: 25px;
+}
+
+#sidebar {
+	float: right;
+	width: 25%;
+	padding-left: 2%;
+	min-height: 80%;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+#main_content {
+	width: 70%;
+}
+#question_description {
+	font-size:13px;
+}
+#map_canvas {
+	height:200px;
+	width:200px;
+}
