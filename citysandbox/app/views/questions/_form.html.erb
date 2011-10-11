@@ -1,3 +1,45 @@
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#related_content').stickySidebar();
+	
+	$('#tabs ul').idTabs();
+	
+	var map;
+    var myOptions = {
+    	zoom: 8,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+
+	if ($('#question_location').val() != '') {
+		center_map(map);
+	}
+
+	$('#question_location').blur( function() {
+		center_map(map);
+	});	
+	
+});
+
+function center_map(map) {
+	var geocoder = new google.maps.Geocoder();
+	var address = $('#question_location').val();
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+			console.log('Invalid Location: ' + address);
+	      }
+	});
+}
+</script>
+
 <%= form_for(@question) do |f| %>
   <% if @question.errors.any? %>
     <div id="error_explanation">
@@ -12,19 +54,16 @@
   <% end %>
 	<%= f.label :title %>
 	<br>
-	<%= f.text_field :title %>
+	<%= f.text_area :title, :rows=>3 %>
 	<br><br>
 	<%= f.label :location %>
-	<br>
-	<%= f.text_field :location %>
 	<br><br>
-	<%= f.label :x_coordinate %>
+	<%= f.text_area :location, :rows=>3 %>
+	<%= f.hidden_field :x_coordinate, :value=>0 %>
+	<%= f.hidden_field :y_coordinate, :value=>0 %>
 	<br>
-	<%= f.text_field :x_coordinate %>
-	<br><br>
-	<%= f.label :y_coordinate %>
+	<div id="map_canvas"></div>
 	<br>
-	<%= f.text_field :y_coordinate %>
   <div class="actions">
     <%= f.submit %>
   </div>

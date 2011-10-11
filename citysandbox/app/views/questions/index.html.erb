@@ -1,4 +1,3 @@
-
 <h1>Questions</h1>
 
 <ul>
@@ -9,17 +8,14 @@
 	  <b>Title:</b>
 	  <%=h question.title %>
 	</p>
-
-
-
 	<p>
 	  <b>Location:</b>
 	  <%=h question.location %>
 	</p>
 	<br>
-    <%= link_to 'Show', question %>
-    <%= link_to 'Edit', edit_question_path(question) %>
-    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %>
+    <%= link_to 'Show', question, :class=>'black_link' %> |
+    <%= link_to 'Edit', edit_question_path(question), :class=>'black_link' %> |
+    <%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete, :class=>'black_link' %>
   </li>
 </div>
 <br>

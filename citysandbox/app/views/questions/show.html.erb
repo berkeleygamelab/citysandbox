@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(document).ready( function() {
-	$('#sidebar').stickySidebar();
+	$('#related_content').stickySidebar();
 	
 	$('#tabs ul').idTabs();
 	
@@ -50,10 +50,10 @@ $(document).ready( function() {
 }
 </style>
 
-<div id='sidebar'>
+<div id='related_content'>
 		Related Content 
 </div>
-<div id='main_content'>
+<div id='main_question_content'>
 <div id='question_main'>
 	<span id='question_map'>
 		<div id="map_canvas"></div>
@@ -62,7 +62,7 @@ $(document).ready( function() {
 		<%= hidden_field(:question, :location) %>
 		
 	</span>
-	<span id='question_title'>
+	<span id='question_title_display'>
 		<%= @question.title %>
 	</span>
 	<br><br>
@@ -72,10 +72,6 @@ $(document).ready( function() {
 	</span>
 	<span id='question_time'>
 		<%= time_ago_in_words(@question.created_at) %> ago
-	</span>
-	<br><br>
-	<span id='question_description'>
-	  <%=h @question.description %>
 	</span>
 </div>
 
@@ -90,7 +86,7 @@ $(document).ready( function() {
 
 <div id='responses'>
 	<% @question.responses.each do |r| %>
-		<div class='individual_response'>
+		<div class='individual'>
 		    <%= @question.user.picture %>
 		 	<%=h r.user.login %> |
 		    <%= time_ago_in_words(r.created_at) %> ago
@@ -112,7 +108,7 @@ $(document).ready( function() {
 
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
-		<div class='individual_challenge'>
+		<div class='individual'>
 	   		<%= time_ago_in_words(c.created_at) %> ago
 			<br>
 		    <b><%=h c.title %></b>

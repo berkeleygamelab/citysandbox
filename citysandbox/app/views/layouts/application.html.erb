@@ -22,39 +22,17 @@ html {
 </style>
 
 <body class="<%= params[:controller] %>">
+<div id='wrap'>
    <div id="container">
-	<% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-	<% end %>
-	
 	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions'%>
  		<%= render :partial => 'layouts/navbar' %>
- 	 <% end %>
-
+ 	<% end %>
+	
+	<%= yield %>
    </div>
-
-	 <% if params[:controller] == "questions" %>
-  		<div id="main">
-		  <%= render :partial => 'layouts/sidebar' %>
-		  <div class="flash">
-		    <% flash.each do |type, message| -%>
-		    <div class="message <%= type %>">
-		      <p>
-			<%= message %>
-		      </p>
-		    </div>
-		    <% end -%>
-		  </div>
-		  <div id="content">
-		    <%= yield %>
-		  </div>
-		</div>
-	<% else %>
-		<%= yield %>
-  	 <% end %>
-
-	<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' %>
-		<%= render :partial => 'layouts/footer' %>
+</div>
+<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' %>
+	<%= render :partial => 'layouts/footer', :class=>'footer' %>
 <% end %>
  </body>
 </html>

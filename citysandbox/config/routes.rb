@@ -15,8 +15,8 @@ Citysandbox::Application.routes.draw do
   
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
-    get '/login' => "sessions#new", :as => :login
-    get "/logout" => "sessions#destroy", :as => :logout
+    get '/login' => 'sessions#new', :as => :login
+    get '/logout' => 'sessions#destroy', :as => :logout
     get  '/register' => 'users#new', :as => :register
   end
   
@@ -54,10 +54,10 @@ Citysandbox::Application.routes.draw do
   resources :challenges
   resources :responses
   resources :discussion do
-    get '/summary' => 'discussion#summary', :as => :summary
     get '/' => 'discussion#summary', :as => :summary
   end
 
+  get '/summary' => 'discussion#summary', :as => :summary
 
 
   # The priority is based upon order of creation:

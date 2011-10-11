@@ -1,48 +1,101 @@
-<h1>Discussion#summary</h1>
-<p>Summary page!/</p>
-
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
-	<td>
-		Do I exist?
-	<%=h @silly %>
-	</td>
-  </tr>
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#filters').stickySidebar();
+	
+	$('#tabs ul').idTabs();
+	
+	$('.map_canvas').each( function () {
+		var map;
+	    var myOptions = {
+	    	zoom: 8,
+	    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+	    	mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+	   	map = new google.maps.Map(this, myOptions);
+	});
 	
 
+   /* var geocoder = new google.maps.Geocoder();
+	var address = $('#question_location').val();
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        alert("Geocode was not successful for the following reason: " + status);
+	      }
+	});
+	*/
+});
+</script>
+
+<div id='filters'>
+<div id='filters_content'>
+	<h3>Filters</h3>
+	Keyword Search
+	<br>
+	<br>
+	Show Threads From 
+	<br>
+	Last 2 Months
+	<br>
+	<br>
+	Categories:
+	<ul>
+		<li>Commerce</li>
+		<li>Civil Rights</li>
+		<li>Health & Safety</li>
+		<li>History</li>
+		<li>Kids/Education</li>
+		<li>Public Space</li>
+		<li>Transportation</li>
+	</ul>
+</div>
+</div>
+<div id='main_content'>
 <% @collection.each_with_index do |cityEvent, index| %>
-  <tr>
-	<td>
-	  <%=h cityEvent[0].title %>
-	</td>
-
-
-	<td>
-	  <b>Created at:</b>
-	  <%=h cityEvent[0].created_at %>
-	</td>
-    <% cityEvent[1].each do |x| %>
-	<td>
-	  <b>Created by:</b>
-	<%=h x.user.login %>
-	 <b> who said: </b>
-	<%=h x.response%>
-
-	
-	<tr>
-		 <td>
-		<%h x.response %>
-		</td>
-	</tr>
-	
-	</td>
+<div id='question_main'>
+	<span id='question_map'>
+		<div class="map_canvas"></div>
+		<br>
+		<%=h cityEvent[0].location %>
+		<%= hidden_field(:question, :location) %>
+		
+	</span>
+	<span id='question_title_display'>
+		<%= link_to cityEvent[0].title, cityEvent[0], :class=>'black_link' %>
+	</span>
+	<br><br>
+	<span id='question_author'>
+		<%=h cityEvent[0].user.picture %> by 
+		<%=h cityEvent[0].user.login %> | 
+	</span>
+	<span id='question_time'>
+		<%= time_ago_in_words(cityEvent[0].created_at) %> ago
+	</span>
+	<br><br>	
+	<%=h cityEvent[1].length %> 
+	<% if cityEvent[1].length == 1 %> Response
+	<% else %> Responses
 	<% end %>
-  </tr>
+	<br><br>
+	<% if !cityEvent[1][-1].nil? %>
+		<div class='latest_response'>
+			<i>Latest Response</i>
+			<br>
+		    <%=h truncate(cityEvent[1][-1].response, :length=>175) %>
+			<br>
+			<%= cityEvent[1][-1].user.picture %>
+		 	<%=h cityEvent[1][-1].user.login %> |
+		    <%= time_ago_in_words(cityEvent[1][-1].created_at) %> ago
+		</div>
+	<% end %>
+	<br>
+	<%= link_to 'More...', cityEvent[0], :class=>'black_link' %>
+</div>
+<br>
 <% end %>
-</table>
+</div>
