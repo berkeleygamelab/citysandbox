@@ -6,7 +6,7 @@ def index
   page_offset = 0
   @silly = "Wordsssss"
     if params[:false_value] == nil
-    @silly = "Sup Biznatches"
+    @silly = "Sup Nill"
     end
   
   
@@ -26,6 +26,8 @@ def index
   @collection = @dummy_set
   @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
   @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+  
+  @collection = self.filter
   
 end
 
@@ -67,23 +69,26 @@ def filter
   flag_for_category = nil
   flag_for_type = nil
   flag_for_title = nil
-  flag_for_
-  if params[:item_type] != null
+ 
+  if params[:item_type] != nil
     flag_for_type = 1
   end
-  if params[:title] != null
+  if params[:title] != nil
     flag_for_title = 1
   end
-  if params[:category] != null
+  if params[:category] != nil
     flag_for_category = 1
   end
   
   @placeholder_set = []
   @category_type = params[:category]
-  @type_of_stuff = "Event"
+  @type_of_stuff = params[:itemz]
   @title = params[:title]
+  @category_type = nil
 
-    if(@type_of_stuff == "Event")
+   
+
+    if(@type_of_stuff == "Event" or @type_of_stuff == nil)
       if(@category_type == nil)
         if(@title != nil or @title != " ")
           @events = Event.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
@@ -102,7 +107,7 @@ def filter
         end
       end
     end
-    if(@type_of_stuff == "Challenge")
+    if(@type_of_stuff == "Challenge" or @type_of_stuff == nil)
       if(@category_type == nil)
         if(@title != nil or @title != " ")
           @events = Challenge.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
@@ -121,17 +126,23 @@ def filter
         end
       end
     end
-    if(@type_of_stuff == "Question")
+    
+    if(@title != nil)
+      @statement = "title LIKE '" + @title + " %'"
+    end
+    
+    if(@type_of_stuff == "Question" or @type_of_stuff == nil)
       if(@category_type == nil)
-        if(@title != nil or @title != " ")
-          @events = Question.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
+        if(@title != nil and @title != " ")
+          @events = Question.where(@statement)
+          
           @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
         else
           @events = Question.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
           @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
         end
       else  
-        if(@title != nil or @title != " ")
+        if(@title != nil and @title != " ")
             @events = Question.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
             @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
         else
@@ -140,9 +151,9 @@ def filter
         end
       end
     end
-  
-  @placeholder.sort!{|a,b| a[0].updated_at <=> b[0].updated_at}
-  
+
+    
+  return @placeholder_set
   
 
 end
