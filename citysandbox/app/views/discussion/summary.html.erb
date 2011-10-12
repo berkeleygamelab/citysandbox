@@ -54,6 +54,7 @@ $(document).ready( function() {
 		<li>Transportation</li>
 	</ul>
 </div>
+<%= link_to "summary", :category => ["fish", "sticks"] %>
 </div>
 <div id='main_content'>
 <% @collection.each_with_index do |cityEvent, index| %>

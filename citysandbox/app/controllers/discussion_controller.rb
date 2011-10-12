@@ -83,82 +83,108 @@ def filter
   end
   
   @placeholder_set = []
+  @flagsorted = false 
   @category_type = params[:category]
   @type_of_stuff = params[:itemz]
   @title = params[:title]
-  @category_type = nil
+  @timestamp = params[:timeBefore]
+    
+  @events = Event
+  @questions = Question
+  @challenges = Challenge
+    
+    
+    if(@type_of_stuff == nil or @type_of_stuff == "Questions")
+      if @title != nil
+        @questions = sort_by_title(@questions, @title)
+        @flagsorted = true
+      end
+      if @category_type != nil
+        @questions = sort_by_category(@questions, @category_type)
+        @flagsorted = true
+      end
+      if @timestamp != nil
+        @questions = sort_by_timestamp(@questions, @category_type)
+        @flagsorted = true
+      end
 
-    if(@type_of_stuff == "Event" or @type_of_stuff == nil)
-      if(@category_type == nil)
-        if(@title != nil or @title != " ")
-          @events = Event.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
-        else
-          @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
-        end
-      else  
-        if(@title != nil or @title != " ")
-            @events = Event.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
-        else
-            @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_events.limit(size_limit_discussion)]]}
-        end
-      end
-    end
-    if(@type_of_stuff == "Challenge" or @type_of_stuff == nil)
-      if(@category_type == nil)
-        if(@title != nil or @title != " ")
-          @events = Challenge.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
-        else
-          @events = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
-        end
-      else  
-        if(@title != nil or @title != " ")
-            @events = Challenge.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
-        else
-            @events = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.response_challenge.limit(size_limit_discussion)]]}
-        end
-      end
     end
     
-    if(@title != nil)
-      @statement = "title LIKE '" + @title + " %'"
-    end
-    
-    if(@type_of_stuff == "Question" or @type_of_stuff == nil)
-      if(@category_type == nil)
-        if(@title != nil and @title != " ")
-          @events = Question.where(@statement)
-          
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
-        else
-          @events = Question.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-          @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+    if(@type_of_stuff == nil or @type_of_stuff == "Events")
+       if @title != nil
+         @events = sort_by_title(@events, @title)
+         @flagsorted = true
+       end
+       if @category_type != nil
+         @events = sort_by_category(@events, @category_type)
+         @flagsorted = true
+       end
+       if @timestamp != nil
+         @events = sort_by_timestamp(@events, @category_type)
+         @flagsorted = true
+       end
+     end
+     
+     if(@type_of_stuff == nil or @type_of_stuff == "Challenges")
+        if @title != nil
+          @challenges = sort_by_title(@challenges, @title)
+          @flagsorted = true
         end
-      else  
-        if(@title != nil and @title != " ")
-            @events = Question.where(:title => @title).offset(page_offset * size_limit_questions).limit(size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
-        else
-            @events = Question.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-            @events.each{|x| @placeholder_set = @placeholder_set + [[x, x.responses.limit(size_limit_discussion)]]}
+        if @category_type != nil
+          @challenges = sort_by_category(@challenges, @category_type)
+          @flagsorted = true
+        end
+        if @timestamp != nil
+          @challenges = sort_by_timestamp(@challenges, @category_type)
+          @flagsorted = true
         end
       end
-    end
+    
+     if @flagsorted == false
+       @questions = Question.find(:all)
+       @challenges = Challenge.find(:all)
+       @events = Event.find(:all)
+     end
+     
+    
+      @dummy_set =[]
+      @questions.each{|x| @dummy_set = @dummy_set +[[x,x.responses.limit(size_limit_discussion)]]}
+      @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
+      @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
 
-  @placeholder_set.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-    
-  return @placeholder_set
-  
+
+      @collection = @dummy_set
+      @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
+      @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+      return @collection
 
 end
 
+def sort_by_title(set, title)
+  @statement = "title LIKE '% " + title + " %'"
+  return set.where(@statement) 
 end
 
+def sort_by_category(set, categoryList)
+  @temp = set
+  @temp_many = []
+  categoryList.each do |x|
+    @statement = "category LIKE '" + x + "'"
+    @temp = @temp.where(@statement)
+    @temp_many = @temp_many + @temp
+  end
+  return @temp_many
+end
+
+def sort_by_timestamp(set, timestamp)
+  return set.where("updated_at <= ?", timestamp)
+end
+
+def sort_by_keyword(set, keyword)
+  @statement = "title LIKE '% " + keyword + " %'"
+  return set.where(@statement)
+end
+
+
+end
 

@@ -4,6 +4,7 @@ class Challenge < ActiveRecord::Base
   has_many :followed_challenges
   
   belongs_to :question
+  belongs_to :user
   
   validates :title, :presence => true
   validates :description, :presence => true
