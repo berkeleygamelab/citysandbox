@@ -59,6 +59,8 @@ def summary
   @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
   @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
   
+  @collection = self.filter
+  
 end
 
 def filter
@@ -85,8 +87,6 @@ def filter
   @type_of_stuff = params[:itemz]
   @title = params[:title]
   @category_type = nil
-
-   
 
     if(@type_of_stuff == "Event" or @type_of_stuff == nil)
       if(@category_type == nil)
@@ -152,6 +152,7 @@ def filter
       end
     end
 
+  @placeholder_set.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
     
   return @placeholder_set
   

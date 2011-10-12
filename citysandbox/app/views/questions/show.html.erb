@@ -115,9 +115,8 @@ $(document).ready( function() {
 			<br>
 		    <%=h c.description %>
 			<br>
-		    Proposal Deadline: <%=h c.proposal_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
-			<br>
-		    Review Deadline: <%=h c.review_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+		    Proposal Deadline: <%=h c.submission_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+			
 			<br>
 		    Vote Deadline: <%=h c.vote_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
 		</div>
@@ -139,14 +138,11 @@ $(document).ready( function() {
 		  </p>
   
 		  <p>
-		    <%= c.label :proposal_deadline, "Proposal Deadline" %><br />
-		    <%= c.datetime_select :proposal_deadline %>
+		    <%= c.label :submission_deadline, "Proposal Deadline" %><br />
+		    <%= c.datetime_select :submission_deadline %>
 		  </p>
 
-		  <p>
-		    <%= c.label :review_deadline , "Review Deadline" %><br />
-		    <%= c.datetime_select :review_deadline %>
-		  </p>
+	
 
 		  <p>
 		    <%= c.label :vote_deadline , "Vote Deadline" %><br />

@@ -11,20 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010231912) do
+ActiveRecord::Schema.define(:version => 20111011215154) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
-    t.text     "description",       :limit => 1600
+    t.text     "description",         :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.datetime "proposal_deadline"
-    t.datetime "review_deadline"
+    t.datetime "submission_deadline"
     t.datetime "vote_deadline"
     t.integer  "user_id"
-    t.integer  "x_coordinate"
-    t.integer  "y_coordinate"
     t.string   "location"
   end
 
@@ -33,15 +30,29 @@ ActiveRecord::Schema.define(:version => 20111010231912) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "user_id"
-    t.integer  "x_coordinate"
-    t.integer  "y_coordinate"
     t.string   "location"
+    t.string   "description"
+    t.datetime "time"
   end
 
   create_table "folders", :force => true do |t|
     t.integer  "user_id"
     t.integer  "parent_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "followed_challenges", :force => true do |t|
+    t.integer  "user_id",      :null => false
+    t.integer  "challenge_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "followed_events", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "event_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,9 +99,7 @@ ActiveRecord::Schema.define(:version => 20111010231912) do
   create_table "questions", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "location",     :limit => 1600
-    t.float    "x_coordinate", :limit => 64
-    t.float    "y_coordinate", :limit => 64
+    t.string   "location",   :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
   end
