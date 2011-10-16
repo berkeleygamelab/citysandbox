@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111016230535) do
+ActiveRecord::Schema.define(:version => 20111016231333) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -96,16 +96,17 @@ ActiveRecord::Schema.define(:version => 20111016230535) do
     t.integer  "rating",                       :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "questions", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "location",     :limit => 1600
-    t.float    "x_coordinate", :limit => 64
-    t.float    "y_coordinate", :limit => 64
+    t.string   "location",   :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "anonymous",                  :default => 0
+    t.string   "category"
   end
 
   create_table "response_challenges", :force => true do |t|
@@ -127,11 +128,12 @@ ActiveRecord::Schema.define(:version => 20111016230535) do
   end
 
   create_table "response_questions", :force => true do |t|
-    t.integer  "question_id",                 :null => false
-    t.integer  "user_id",                     :null => false
-    t.text     "response",    :limit => 1600, :null => false
+    t.integer  "question_id",                                :null => false
+    t.integer  "user_id",                                    :null => false
+    t.text     "response",    :limit => 1600,                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "anonymous",                   :default => 0
   end
 
   create_table "users", :force => true do |t|
