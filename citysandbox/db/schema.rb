@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111016225026) do
+ActiveRecord::Schema.define(:version => 20111016230535) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -98,6 +98,16 @@ ActiveRecord::Schema.define(:version => 20111016225026) do
     t.datetime "updated_at"
   end
 
+  create_table "questions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "location",     :limit => 1600
+    t.float    "x_coordinate", :limit => 64
+    t.float    "y_coordinate", :limit => 64
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "response_challenges", :force => true do |t|
     t.integer  "challenge_id",                                :null => false
     t.integer  "user_id",                                     :null => false
@@ -122,15 +132,6 @@ ActiveRecord::Schema.define(:version => 20111016225026) do
     t.text     "response",    :limit => 1600, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "responses", :force => true do |t|
-    t.integer  "question_id",                                :null => false
-    t.text     "response",    :limit => 1600,                :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "anonymous",                   :default => 0
   end
 
   create_table "users", :force => true do |t|

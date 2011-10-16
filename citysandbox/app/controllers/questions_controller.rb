@@ -96,14 +96,14 @@ class QuestionsController < ApplicationController
     page_offset = 1
     @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
     @discussion_next = []
-    @questions.each {|x|  @discussion_next = @discussion_next + [Response.where(:question_id => x.id).limit(size_limit_discussion)]}
+    @questions.each {|x|  @discussion_next = @discussion_next + [ResponseQuestion.where(:question_id => x.id).limit(size_limit_discussion)]}
     
   end
   
   def filter_by_category
     @questions = Question.where(:category => category_to_sort).limit(size_limit_questions).offset(size_limit_questions*page_offset)
     @discussion_next = []
-    @questions.each{|x| @discussion_sets = @discussion_sets + Responses.where(:question_id => x.id).limit(size_limit_discussion)}    
+    @questions.each{|x| @discussion_sets = @discussion_sets + ResponseQuestion.where(:question_id => x.id).limit(size_limit_discussion)}    
   end
   
   

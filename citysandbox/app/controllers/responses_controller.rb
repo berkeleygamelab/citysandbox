@@ -2,7 +2,7 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
-    @responses = Response.all
+    @responses = ResponseQuestion.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class ResponsesController < ApplicationController
   # GET /responses/1
   # GET /responses/1.json
   def show
-    @response = Response.find(params[:id])
+    @response = ResponseQuestion.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class ResponsesController < ApplicationController
   # GET /responses/new
   # GET /responses/new.json
   def new
-    @response = Response.new
+    @response = ResponseQuestion.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class ResponsesController < ApplicationController
 
   # GET /responses/1/edit
   def edit
-    @response = Response.find(params[:id])
+    @response = ResponseQuestion.find(params[:id])
   end
 
   # POST /responses
   # POST /responses.json
   def create
-    @response = Response.new(params[:response])
+    @response = ResponseQuestion.new(params[:response])
     @response.question_id = params[:question_id]
     @response.user_id = current_user.id
 
@@ -58,7 +58,7 @@ class ResponsesController < ApplicationController
   # PUT /responses/1
   # PUT /responses/1.json
   def update
-    @response = Response.find(params[:id])
+    @response = ResponseQuestion.find(params[:id])
 
     respond_to do |format|
       if @response.update_attributes(params[:response])
@@ -74,7 +74,7 @@ class ResponsesController < ApplicationController
   # DELETE /responses/1
   # DELETE /responses/1.json
   def destroy
-    @response = Response.find(params[:id])
+    @response = ResponseQuestion.find(params[:id])
     @response.destroy
 
     respond_to do |format|

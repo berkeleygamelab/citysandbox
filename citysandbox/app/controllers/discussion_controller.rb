@@ -148,7 +148,7 @@ def filter
      
     
       @dummy_set =[]
-      @questions.each{|x| @dummy_set = @dummy_set +[[x,x.responses.limit(size_limit_discussion)]]}
+      @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
       @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
       @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
 
@@ -183,6 +183,9 @@ end
 def sort_by_keyword(set, keyword)
   @statement = "title LIKE '% " + keyword + " %'"
   return set.where(@statement)
+end
+
+def add_follower(item_to_follow, item)
 end
 
 
