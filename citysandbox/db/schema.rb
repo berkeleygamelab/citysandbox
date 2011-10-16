@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012060007) do
+ActiveRecord::Schema.define(:version => 20111016225026) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -98,29 +98,22 @@ ActiveRecord::Schema.define(:version => 20111012060007) do
     t.datetime "updated_at"
   end
 
-  create_table "questions", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "location",   :limit => 1600
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "category"
-  end
-
   create_table "response_challenges", :force => true do |t|
-    t.integer  "challenge_id",                 :null => false
-    t.integer  "user_id",                      :null => false
-    t.text     "response",     :limit => 1600, :null => false
+    t.integer  "challenge_id",                                :null => false
+    t.integer  "user_id",                                     :null => false
+    t.text     "response",     :limit => 1600,                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "anonymous",                    :default => 0
   end
 
   create_table "response_events", :force => true do |t|
-    t.integer  "event_id",                   :null => false
-    t.integer  "user_id",                    :null => false
-    t.text     "response",   :limit => 1600, :null => false
+    t.integer  "event_id",                                  :null => false
+    t.integer  "user_id",                                   :null => false
+    t.text     "response",   :limit => 1600,                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "anonymous",                  :default => 0
   end
 
   create_table "response_questions", :force => true do |t|
@@ -132,11 +125,12 @@ ActiveRecord::Schema.define(:version => 20111012060007) do
   end
 
   create_table "responses", :force => true do |t|
-    t.integer  "question_id",                 :null => false
-    t.text     "response",    :limit => 1600, :null => false
+    t.integer  "question_id",                                :null => false
+    t.text     "response",    :limit => 1600,                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "anonymous",                   :default => 0
   end
 
   create_table "users", :force => true do |t|
