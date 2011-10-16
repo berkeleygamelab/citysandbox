@@ -99,7 +99,7 @@ $(document).ready( function() {
 		Add Response
 		<br>
 		<%= form_for [@question, ResponseQuestion.new] do |r| %>
-		    <%= r.text_area :response_question, :rows => 3 %>
+		    <%= r.text_area :response, :rows => 3 %>
 			<br>
 		    <%= r.submit "Submit" %>
 		<% end %>
