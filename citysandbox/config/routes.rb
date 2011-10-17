@@ -21,7 +21,7 @@ Citysandbox::Application.routes.draw do
   end
   
   resources :questions do
-    resources :responses, :shallow => true
+    resources :response_questions, :shallow => true
     resources :challenges, :shallow => true do
       resources :proposals, :shallow => true 
     end
