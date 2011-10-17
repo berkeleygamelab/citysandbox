@@ -30,15 +30,11 @@ Citysandbox::Application.routes.draw do
   
   resources :users, :sent, :messages, :mailbox, :inbox
   
-  resources :mailbox do
-    get '/index' => 'mailbox#index', :controller => "mailbox", :action => "index"
-    get '/display' => 'mailbox#display', :controller => "mailbox", :action => "display"
+  resources :users do
+    resources :mailbox
+    resources :sent
   end
   
-  resources :sent do
-    get '/index' => 'sent#index', :controller => "sent", :action => "index"
-    get '/create' => 'sent#create', :controller => "sent", :action => "create"
-  end
   
   resources :inbox do
     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"

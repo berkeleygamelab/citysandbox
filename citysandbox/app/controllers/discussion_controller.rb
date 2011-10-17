@@ -50,7 +50,7 @@ def summary
   @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
   
   @dummy_set =[]
-  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.responses.limit(size_limit_discussion)]]}
+  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
   @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
   @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
 

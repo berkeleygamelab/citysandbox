@@ -8,6 +8,7 @@ class MailboxController < ApplicationController
   end
 
   def index
+        @message = Message.create
         @message.user = current_user
         @message.subject = params[:subject]
         @message.body = params[:body]

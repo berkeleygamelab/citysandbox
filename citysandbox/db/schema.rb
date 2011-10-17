@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111016231333) do
+ActiveRecord::Schema.define(:version => 20111017000942) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "challenges", :force => true do |t|
     t.integer  "question_id"
@@ -102,11 +108,12 @@ ActiveRecord::Schema.define(:version => 20111016231333) do
   create_table "questions", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "location",   :limit => 1600
+    t.string   "location",    :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "anonymous",                  :default => 0
+    t.integer  "anonymous",                   :default => 0
     t.string   "category"
+    t.string   "description"
   end
 
   create_table "response_challenges", :force => true do |t|
