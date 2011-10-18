@@ -6,14 +6,14 @@ $(document).ready( function() {
 	
 	var map;
     var myOptions = {
-    	zoom: 8,
+    	zoom: 14,
     	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
     	mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
    	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
     var geocoder = new google.maps.Geocoder();
-	var address = $('#question_location').val();
+	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        map.setCenter(results[0].geometry.location);
@@ -22,7 +22,7 @@ $(document).ready( function() {
 	            position: results[0].geometry.location
 	        });
 	      } else {
-	        alert("Geocode was not successful for the following reason: " + status);
+	        //alert("Geocode was not successful for the following reason: " + status);
 	      }
 	});
 	
@@ -48,30 +48,35 @@ $(document).ready( function() {
 	background-color: rgba(255, 255, 255, 0.6);
 	border-bottom: 3px solid black;
 }
+#main_question_content {
+	background-image: url('../images/content_pane.png');
+}
 </style>
-
-<div id='related_content'>
-		Related Content 
+<div id='user_sidebar'>
+	About <%= @question.user.login %> 
+	<%= @question.user.picture %> 
 </div>
 <div id='main_question_content'>
 <div id='question_main'>
 	<span id='question_map'>
 		<div id="map_canvas"></div>
-		<br>
 		<%=h @question.location %>
 		<%= hidden_field(:question, :location) %>
-		
 	</span>
 	<span id='question_title_display'>
 		<%= @question.title %>
 	</span>
 	<br><br>
 	<span id='question_author'>
-		<%= @question.user.picture %> by 
-		<%= @question.user.login %> | 
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		<%=h @question.user.picture %> by <%= @question.user.login %> |
+		<%= @question.created_at.strftime("%m/%d/%y") %> | <%= @category.category %> |
+		<%= link_to 'Follow' %>
 	</span>
-	<span id='question_time'>
-		<%= time_ago_in_words(@question.created_at) %> ago
+	<br>
+	<br>
+	<span id='question_description'>
+		<%= @question.description %> 
 	</span>
 </div>
 
@@ -81,14 +86,17 @@ $(document).ready( function() {
 <ul>
 	<li><a href="#responses">Responses</a></li>
 	<li><a href="#challenges">Challenges</a></li>
+	<li><a href="#events">Events</a></li>
 </ul>
 </div>
 
 <div id='responses'>
-	<% @question.response_questions.each do |r| %>
+	<% @question.response_questions.reverse_each do |r| %>
 		<div class='individual'>
-		    <%= @question.user.picture %>
-		 	<%=h r.user.login %> |
+			<% if r.anonymous != 1 %>
+			    <%= r.user.picture %>
+			 	<%=h r.user.login %> |
+			<% end %>
 		    <%= time_ago_in_words(r.created_at) %> ago
 			<br><br>
 		    <%=h r.response %>
@@ -98,10 +106,11 @@ $(document).ready( function() {
 	<div id='response_form'>
 		Add Response
 		<br>
-
-		<%= form_for [@question, ResponseQuestion.new] do |r| %>
-
+		<%= form_for([@question, ResponseQuestion.new]) do |r| %>
 		    <%= r.text_area :response, :rows => 3 %>
+			<br>
+			<%= r.check_box :anonymous %>
+			<%= r.label 'Post anonymously' %>
 			<br>
 		    <%= r.submit "Submit" %>
 		<% end %>
@@ -111,6 +120,7 @@ $(document).ready( function() {
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
 		<div class='individual'>
+		 	<%=h c.user.login %> |
 	   		<%= time_ago_in_words(c.created_at) %> ago
 			<br>
 		    <b><%=h c.title %></b>
@@ -118,7 +128,6 @@ $(document).ready( function() {
 		    <%=h c.description %>
 			<br>
 		    Proposal Deadline: <%=h c.submission_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
-			
 			<br>
 		    Vote Deadline: <%=h c.vote_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
 		</div>
@@ -130,36 +139,45 @@ $(document).ready( function() {
 		<br>
 		<%= form_for [@challenge, Challenge.new] do |c| %>
 		  <p>
-		    <%= c.label :title, "Title" %><br />
+		    <%= c.label :title, "Title" %>
+			<br>
 		    <%= c.text_field :title %>
 		  </p>
 			<%= c.hidden_field :question_id, :value => @question.id %>
 		  <p>
-		    <%= c.label :description, "Description" %><br />
-		    <%= c.text_area :description %>
+		    <%= c.label :description, "Description" %>
+			<br>
+		    <%= c.text_area :description, :rows=>3 %>
 		  </p>
-  
+		  <p>
+			<%= c.label :location %>
+			<br>
+			<%= c.text_area :location, :rows=>2 %>
+		  </p>
 		  <p>
 		    <%= c.label :submission_deadline, "Proposal Deadline" %><br />
 		    <%= c.datetime_select :submission_deadline %>
 		  </p>
-
-	
-
 		  <p>
 		    <%= c.label :vote_deadline , "Vote Deadline" %><br />
 		    <%= c.datetime_select :vote_deadline %>
 		  </p>
-
+		  <p>
+			<%= c.label 'Categories: ' %>
+			<br>
+			<%= c.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+			<br>
+		  </p>
 		  <p>
 		    <%= c.submit "Submit" %>
 		  </p>
 		<% end %>
 </div>
 </div>
+<br>
 <% if @question.user == current_user %>
-	<%= link_to 'Edit', edit_question_path(@question), :class=>'gray_text' %> |
+	<%= link_to 'Edit', edit_question_path(@question), :class=>'black_link' %> |
 <% end %>
-<%= link_to 'Back To Questions', questions_path, :class=>'gray_text' %>
+<%= link_to 'Back To Questions', questions_path, :class=>'black_link' %>
 </div>
 </div>

@@ -21,7 +21,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.where(:id => params[:id])[0]
-
+    @category = Categories.find(@question.category_id)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }

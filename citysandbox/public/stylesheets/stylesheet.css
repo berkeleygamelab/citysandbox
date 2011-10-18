@@ -1,6 +1,6 @@
 /* LAYOUT */
 html {
-	font-family: Georgia;
+	font-family: Arial;
 	height: 100%;
 }
 
@@ -67,14 +67,16 @@ footer a {
 /* HEADER */
 
 #header {
-	background: url('../images/header_tile.png') repeat-x;
-	background-size: 110px;
+	background: url('../images/header.png');
 	height: 110px;
 }
 
 #user_nav {
 	float: right;
 	padding: 25px;
+}
+#ask_question {
+	padding: 150px;
 }
 
 
@@ -131,7 +133,7 @@ footer a {
 
 #question_main, .individual, #response_form, #challenge_form, .individual_question {
 	padding: 5%;
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255,0.5);
 }
 
 .individual_response {
@@ -148,19 +150,18 @@ footer a {
 	padding-bottom:10px;
 }
 #question_title_display {
-	font-size: 25px;
+	font-size: 20px;
 }
-
-#related_content {
-	float: right;
-	width: 25%;
-	padding-left: 2%;
-	min-height: 80%;
-	background-color: rgba(255, 255, 255, 0.6);
+#user_sidebar {
+	float: left;
+	width: 240px;
+	min-height:750px;
+	background: url('../images/left_column.png');
 }
 
 #main_question_content {
-	width: 70%;
+	width: 720px;
+	margin-left:240px;
 }
 
 #map_canvas {
@@ -169,24 +170,67 @@ footer a {
 }
 
 /* SUMMARY */
-#filters {
+#sidebar {
 	float: left;
-	width: 20%;
-	padding-right: 2%;
-	min-height: 80%;
+	width: 240px;
+	min-height: 850px;
 	background-color: rgba(255, 255, 255, 0.6);
 }
 #filters_content {
 	padding: 5%;
 }
+#filters_content ul {
+	margin: 0;
+}
 #filters_content li {
 	list-style: none;
+	text-indent: -2em;
+	line-height: 1.5em;
+}
+#filters_content .textbox {
 }
 #main_content {
-	float:right;
-	width: 75%;
+	margin-left:240px;
+	width: 720px;
+	min-height: 850px;
+	background: url('../images/content_pane.png');
 }
-.map_canvas {
-	height:200px;
-	width:200px;
+.entry_main {
+	background: url('../images/entry.png');
+	height: 150px;
+}
+.entry_map {
+	float:right;
+	width:130px;
+	padding:10px;
+}
+.entry_title {
+	font-size: 16px;
+	padding-top: 10px;
+}
+.entry_author {
+	height: 130px;
+	width: 100px;
+	float: left;
+	text-align: center;
+	padding: 10px;
+}
+.entry_stats {
+	line-height: 1em;
+	font-size: 12px;
+}
+.entry_stats ul li{
+	display: inline;
+	padding-right: 15px;
+}
+.latest_response {
+	font-size: 12px;
+}
+
+/* NEW QUESTION */
+.new_question_content {
+	background: url('../images/content_pane.png');
+	padding-left: 25px;
+	margin: 25px;
+	width: 450px;
 }

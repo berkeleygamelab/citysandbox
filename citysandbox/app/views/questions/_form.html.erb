@@ -25,7 +25,7 @@ $(document).ready( function() {
 
 function center_map(map) {
 	var geocoder = new google.maps.Geocoder();
-	var address = $('#question_location').val();
+	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        map.setCenter(results[0].geometry.location);
@@ -44,7 +44,6 @@ function center_map(map) {
   <% if @question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
       <ul>
       <% @question.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -57,12 +56,22 @@ function center_map(map) {
 	<%= f.text_area :title, :rows=>3 %>
 	<br><br>
 	<%= f.label :location %>
-	<br><br>
-	<%= f.text_area :location, :rows=>3 %>
-
 	<br>
+	<%= f.text_area :location, :rows=>2 %>
+	<br><br>
 	<div id="map_canvas"></div>
 	<br>
+	<%= f.label :description %>
+	<br>
+	<%= f.text_area :description, :rows=>3 %>
+	<br><br>
+	<%= f.check_box :anonymous %>
+	<%= f.label 'Post anonymously' %>
+	<br><br>
+	<%= f.label 'Categories' %>
+	<br>
+	<%= f.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+	<br><br>
   <div class="actions">
     <%= f.submit %>
   </div>
