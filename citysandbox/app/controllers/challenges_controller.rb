@@ -44,7 +44,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new(params[:challenge])
     @challenge.question_id = params[:challenge][:question_id]
     @challenge.question = Question.find(params[:challenge][:question_id])
-    @response_question.user_id = current_user.id
+    @challenge.user_id = current_user.id
 
     respond_to do |format|
       if @challenge.save
