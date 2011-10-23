@@ -1,8 +1,45 @@
+<script type="text/javascript">
+$(document).ready( function() {
+	var map;
+    var myOptions = {
+    	zoom: 8,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+
+	if ($('#question_location').val() != '') {
+		center_map(map);
+	}
+
+	$('#question_location').blur( function() {
+		center_map(map);
+	});	
+	
+});
+
+function center_map(map) {
+	var geocoder = new google.maps.Geocoder();
+	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+			console.log('Invalid Location: ' + address);
+	      }
+	});
+}
+</script>
+
 <%= form_for(@challenge) do |f| %>
   <% if @challenge.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
-
       <ul>
       <% @challenge.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,35 +47,40 @@
       </ul>
     </div>
   <% end %>
-
 	<%= f.hidden_field :question_id %>
-
-  <p>
-    <%= f.label :title, "Title" %><br />
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :description, "Description" %><br />
-    <%= f.text_area :description %>
-  </p>
-
-  <p>
-    <%= f.label :proposal_deadline, "Proposal Deadline" %><br />
-    <%= f.datetime_select :proposal_deadline %>
-  </p>
-
-  <p>
-    <%= f.label :review_deadline , "Review Deadline" %><br />
-    <%= f.datetime_select :review_deadline %>
-  </p>
-
-  <p>
-    <%= f.label :vote_deadline , "Vote Deadline" %><br />
-    <%= f.datetime_select :vote_deadline %>
-  </p>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<p>
+		<%= f.label :title %>
+		<br>
+		<%= f.text_area :title, :rows=>3 %>
+	</p>
+	<p>
+		<%= f.label :description %>
+		<br>
+		<%= f.text_area :description, :rows=>3 %>
+	</p>
+	<p>
+		<%= f.label :location %>
+		<br>
+		<%= f.text_area :location, :rows=>2 %>
+		<br>
+		<div id="map_canvas"></div>
+	</p>
+	<p>
+	    <%= f.label :submission_deadline, "Submission Deadline" %>
+		<br>
+	    <%= f.datetime_select :submission_deadline %>
+	</p>
+	<p>
+    	<%= f.label :vote_deadline , "Vote Deadline" %>
+		<br>
+	    <%= f.datetime_select :vote_deadline %>
+	</p>
+	<p>
+		<%= f.label 'Categories' %>
+		<br>
+		<%= f.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+	</p>
+<div class="actions">
+  <%= f.submit %>
+</div>
 <% end %>
