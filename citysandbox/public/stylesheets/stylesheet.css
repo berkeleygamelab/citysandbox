@@ -142,10 +142,6 @@ footer a {
 	color: #1C75BC;
 }
 
-.form {
-	padding:25px;
-}
-
 /* INDIVIDUAL QUESTIONS PAGE */
 #tabs li {
 	list-style: none;
@@ -282,7 +278,7 @@ footer a {
 }
 
 /* NEW QUESTION */
-.new_question_content {
+.form {
 	background: url('../images/content_pane.png');
 	padding-left: 25px;
 	margin: 25px;

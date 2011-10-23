@@ -1,9 +1,18 @@
+<style type="text/css">
+html {
+        background: url('../../images/splash_background.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+</style>
 <div class='form'>
 <h3>Edit Question</h3>
 
 <%= render 'form' %>
 
 <br>
-<%= link_to 'Show', @question %> |
+<%= link_to 'Back to Question', @question %> |
 <%= link_to 'Back To Summary', summary_path %>
 </div>
