@@ -184,6 +184,14 @@ footer a {
 	min-height:170px;
 	font-size: 14px;
 }
+#question_main ul {
+	text-indent: -2em;
+}
+#question_main li {
+	list-style: none;
+	display: inline;
+	padding-right:30px;
+}
 #question_map {
 	float:right;
 	width:140px;
