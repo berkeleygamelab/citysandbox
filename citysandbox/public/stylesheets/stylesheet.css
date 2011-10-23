@@ -177,6 +177,8 @@ footer a {
 	float: left;
 	text-align: center;
 	padding: 10px;
+	padding-top:20px;
+	line-height: 1.25em;
 }
 .entry_stats {
 	line-height: 1em;
@@ -185,6 +187,12 @@ footer a {
 .entry_stats ul li{
 	display: inline;
 	padding-right: 15px;
+}
+.entry_stats li a {
+	text-decoration: none;
+	color: #000000;	
+	padding-right:0;
+	padding-left:50px;
 }
 .latest_response {
 	font-size: 12px;

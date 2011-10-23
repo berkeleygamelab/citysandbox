@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :responses
   has_many :challenges
+  has_many :events
   has_many :followed_users
   has_many :followed_challenges
   has_many :followed_questions
