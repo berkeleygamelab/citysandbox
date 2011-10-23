@@ -32,29 +32,89 @@ $(document).ready( function() {
 #tabs li {
 	list-style: none;
 	display: inline;
+	padding-right:3%;
 }
 #tabs li a {
 	text-decoration: none;
 	color: #000000;	
-	padding-right:5%;
 	font-size:20px;
 }
 #tabs_menu ul {
 	margin: 0;
 	padding-left: 5%;
 	line-height: 3em;
+	font-size:18px;
 }
 #tabs_menu {
 	background-color: rgba(255, 255, 255, 0.6);
-	border-bottom: 3px solid black;
 }
 #main_question_content {
 	background-image: url('../images/content_pane.png');
 }
+#user_sidebar {
+	text-align: center;
+	padding-top: 20px;
+	line-height:2em;
+	padding-bottom:20px;
+}
+#question_main, .individual, #response_form, #challenge_form, .individual_question {
+	padding: 3%;
+	background-color: rgba(255, 255, 255,0.5);
+}
+
+.individual_response {
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+#question_main {
+	min-height:170px;
+	font-size: 14px;
+}
+#question_map {
+	float:right;
+	width:140px;
+	font-size:12px;
+}
+#question_title_display {
+	font-size: 20px;
+}
+#question_description {
+	font-size:12px;
+}
+#user_sidebar {
+	float: left;
+	width: 240px;
+	background: url('../images/left_column.png');
+}
+
+#main_question_content {
+	width: 720px;
+	margin-left:240px;
+}
+
+#map_canvas {
+	height:140px;
+	width:140px;
+}
 </style>
 <div id='user_sidebar'>
-	About <%= @question.user.login %> 
+	<b>About <%= @question.user.login %> </b>
+	<br>
+	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
 	<%= @question.user.picture %> 
+	<br>
+	<b>Joined:</b> <%= @question.user.created_at.strftime("%Y %b %d")%>
+	<br>
+	<b>Questions:</b> <%= @question.user.questions.length %>
+	<br>
+	<b>Responses:</b> <%= @question.user.response_questions.length + @question.user.response_challenges.length + @question.user.response_events.length %>
+	<br>
+	<b>Challenges:</b> <%= @question.user.challenges.length %>
+	<br>
+	<br>
+	<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
+	<br>
+	<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
 </div>
 <div id='main_question_content'>
 <div id='question_main'>
@@ -64,38 +124,50 @@ $(document).ready( function() {
 		<%= hidden_field(:question, :location) %>
 	</span>
 	<span id='question_title_display'>
-		<%= @question.title %>
+		<b><%= @question.title %></b>
 	</span>
 	<br><br>
 	<span id='question_author'>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 		<%=h @question.user.picture %> by <%= @question.user.login %> |
-		<%= @question.created_at.strftime("%m/%d/%y") %> | <%= @category.category %> |
-		<%= link_to 'Follow' %>
+		<%= @question.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
+		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
+		<%= link_to 'Share', summary_path, :class=>'black_link' %>
 	</span>
 	<br>
 	<br>
-	<span id='question_description'>
-		<%= @question.description %> 
-	</span>
-</div>
 
+</div>
+<% if @question.description.length > 0 %>
+	<br>
+	<div class='individual'>
+		<span id='question_description'>
+			<%= @question.description %> 
+		</span>
+	</div>
+<% end %>
 <div id='tabs'>
 <br>
 <div id='tabs_menu'>	
 <ul>
-	<li><a href="#responses">Responses</a></li>
-	<li><a href="#challenges">Challenges</a></li>
-	<li><a href="#events">Events</a></li>
+	<li><b><a href="#responses">Responses</a></b></li>
+	<li>|</li>
+	<li><b><a href="#challenges">Challenges</a></b></li>
+	<li>|</li>
+	<li><b><a href="#events">Events</a></b></li>
 </ul>
 </div>
-
+<br>
 <div id='responses'>
 	<% @question.response_questions.reverse_each do |r| %>
 		<div class='individual'>
 			<% if r.anonymous != 1 %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 			    <%= r.user.picture %>
 			 	<%=h r.user.login %> |
+			<% else %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+				Anonymous | 
 			<% end %>
 		    <%= time_ago_in_words(r.created_at) %> ago
 			<br><br>
@@ -127,9 +199,9 @@ $(document).ready( function() {
 			<br>
 		    <%=h c.description %>
 			<br>
-		    Proposal Deadline: <%=h c.submission_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+		    Proposal Deadline: <%=h c.submission_deadline.strftime("%Y %b %d") %>
 			<br>
-		    Vote Deadline: <%=h c.vote_deadline.strftime("%m/%d/%Y, %l:%M %p") %>
+		    Vote Deadline: <%=h c.vote_deadline.strftime("%Y %b %d") %>
 		</div>
 		<br>
 	<% end %>
@@ -178,6 +250,6 @@ $(document).ready( function() {
 <% if @question.user == current_user %>
 	<%= link_to 'Edit', edit_question_path(@question), :class=>'black_link' %> |
 <% end %>
-<%= link_to 'Back To Questions', questions_path, :class=>'black_link' %>
+<%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
 </div>
 </div>
