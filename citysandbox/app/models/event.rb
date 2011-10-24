@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
   belongs_to :categories
+  belongs_to :challenge
   
   has_many :response_events
   has_many :followed_events
@@ -14,7 +15,7 @@ class Event < ActiveRecord::Base
 
   def category_id
      return categories_id
-   end
+  end
    
    
   def create_followed(user)

@@ -172,7 +172,7 @@ $(document).ready( function() {
 		  <p>
 			<%= c.label 'Categories: ' %>
 			<br>
-			<%= c.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+			<%= c.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
 			<br>
 		  </p>
 		  <p>
@@ -180,7 +180,25 @@ $(document).ready( function() {
 		  </p>
 		<% end %>
 </div>
+</div>
 <div id='events'>
+	<% @question.challenges.each do |challenge| %>
+		<% challenge.events.each do |e| %>
+			<div class='individual'>
+			 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+			    <%= e.user.picture %>
+			 	<%=h e.user.login %> |
+		   		<%= time_ago_in_words(e.created_at) %> ago
+				<br>
+			    <b><%= link_to e.title, e, :class=>'black_link' %></b>
+				<br>
+			    <%=h e.description %>
+				<br>
+			    Time: <%=h e.time.strftime("%Y %b %d") %>
+			</div>
+			<br>
+		<% end %>
+	<% end %>
 </div>
 </div>
 <br>

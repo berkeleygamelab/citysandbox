@@ -78,7 +78,7 @@ function center_map(map) {
 	<p>
 		<%= f.label 'Categories' %>
 		<br>
-		<%= f.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+		<%= f.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
 	</p>
 <div class="actions">
   <%= f.submit %>

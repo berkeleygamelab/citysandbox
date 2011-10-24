@@ -14,7 +14,7 @@ class ChallengesController < ApplicationController
   # GET /challenges/1.json
   def show
     @challenge = Challenge.find(params[:id])
-    @category = Categories.find(@challenge.category_id)
+    @category = Categories.find(@challenge.categories_id)
 
     respond_to do |format|
       format.html # show.html.erb

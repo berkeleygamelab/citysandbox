@@ -1,5 +1,176 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#tabs ul').idTabs();
+	
+	var map;
+    var myOptions = {
+    	zoom: 14,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
+    var geocoder = new google.maps.Geocoder();
+	var address = $.trim(address = $('#challenge_location').val().replace(/[\t\n\r]/gi, ""));
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        //alert("Geocode was not successful for the following reason: " + status);
+	      }
+	});
+	
+});
+</script>
+<style type="text/css">
+</style>
+<div id='user_sidebar'>
+	<b>About <%= @event.user.login %> </b>
+	<br>
+	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
+	<%= @event.user.picture %> 
+	<br>
+	<b>Joined:</b> <%= @event.user.created_at.strftime("%Y %b %d")%>
+	<br>
+	<b>Questions:</b> <%= @event.user.questions.length %>
+	<br>
+	<b>Responses:</b> <%= @event.user.response_questions.length + @event.user.response_challenges.length + @event.user.response_events.length %>
+	<br>
+	<b>Challenges:</b> <%= @event.user.challenges.length %>
+	<br>
+	<br>
+	<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
+	<br>
+	<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+</div>
+<div id='main_question_content'>
+<div id='question_main'>
+	<span id='question_map'>
+		<div id="map_canvas"></div>
+		<%=h @event.location %>
+		<%= hidden_field(:event, :location) %>
+	</span>
+	<span id='question_title_display'>
+		<b><%= @event.title %></b>
+	</span>
+	<br>
+	<br>
+	<span id='question_author'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		<%=h @event.user.picture %> by <%= @event.user.login %> |
+		<%= @event.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
+		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
+		<%= link_to 'Share', summary_path, :class=>'black_link' %>
+	</span>
+	<br>
+	<br>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+</div>
+<% if @event.description.length > 0 %>
+	<br>
+	<div class='individual'>
+		<span id='question_description'>
+			<%= @event.description %> 
+		</span>
+	</div>
+<% end %>
+<div id='tabs'>
+<br>
+<div id='tabs_menu'>	
+<ul>
+	<li><b><a href="#responses">Responses</a></b></li>
+	<li><b><a href="#question">Question</a></b></li>
+	<li><b><a href="#challenge">Challenge</a></b></li>
+</ul>
+</div>
+<br>
+<div id='responses'>
+	<% @event.response_events.reverse_each do |r| %>
+		<div class='individual'>
+			<% if r.anonymous != 1 %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+			    <%= r.user.picture %>
+			 	<%=h r.user.login %> |
+			<% else %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+				Anonymous | 
+			<% end %>
+		    <%= time_ago_in_words(r.created_at) %> ago
+			<br><br>
+		    <%=h r.response %>
+		</div>
+		<br>
+	<% end %>
+	<div id='response_form'>
+		Add Response
+		<br>
+		<%= form_for([@event, ResponseEvent.new]) do |r| %>
+		    <%= r.text_area :response, :rows => 3 %>
+			<br>
+			<%= r.check_box :anonymous %>
+			<%= r.label 'Post anonymously' %>
+			<br>
+		    <%= r.submit "Submit" %>
+		<% end %>
+	</div>
+</div>
+<div id='challenge'>
+	<div class='individual'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+	    <%= @event.challenge.user.picture %>
+	 	<%=h @event.challenge.user.login %> |
+	    <%= time_ago_in_words(@event.challenge.created_at) %> ago
+		<br><br>
+		Title:
+		<b><%= link_to @event.challenge.title, @event.challenge, :class=>'black_link' %></b>
+		<br>
+		Description:
+	    <%=h @event.challenge.description %>
+		<br>
+		Location:
+		<%=h @event.challenge.location %>
+		<br>
+		Submission Deadline:
+		<%=h @event.challenge.submission_deadline %>
+		<br>
+		Vote Deadline:
+		<%=h @event.challenge.vote_deadline %>
+		<br>
+		Category:
+		<%=h Categories.find(@event.challenge.categories_id).category %>
+	</div>
+	<br>
+</div>
+<div id='question'>
+	<div class='individual'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+	    <%= @event.challenge.question.user.picture %>
+	 	<%=h @event.challenge.question.user.login %> |
+	    <%= time_ago_in_words(@event.challenge.question.created_at) %> ago
+		<br><br>
+		Title:
+		<b><%= link_to @event.challenge.question.title, @event.challenge.question, :class=>'black_link' %></b>
+		<br>
+		Description:
+	    <%=h @event.challenge.question.description %>
+		<br>
+		Location:
+		<%=h @event.challenge.question.location %>
+		<br>
+		Category:
+		<%=h Categories.find(@event.challenge.question.categories_id).category %>
+	</div>
+	<br>
+</div>
+</div>
+<br>
+<% if @event.user == current_user %>
+	<%= link_to 'Edit', edit_challenge_path(@event), :class=>'black_link' %> |
+<% end %>
+<%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
+</div>
+</div>
