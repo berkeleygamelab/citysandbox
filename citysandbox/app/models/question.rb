@@ -1,3 +1,4 @@
+
  class Question < ActiveRecord::Base
   belongs_to :user
   has_many :challenges
@@ -33,6 +34,33 @@
       followed.save
     end
     
+    def embedded
+    
+
+      # Connect to service    
+      @ft = GData::Client::FusionTables.new      
+        @ft.clientlogin("ian_norris@berkeley.edu", "norrisi154")
+
+      puts @ft.class
+      @table = 1943371
+      # 1. SQL interface
+      # =========================
+
+      bob = "EMPTY SET"
+      bob = @ft.execute "SHOW TABLES"
+      puts bob
+
+
+         ret = @ft.execute "SELECT count() FROM #{@table}"
+         puts ret
+
+         sample_poop = @ft.execute "DESCRIBE #{@table}"
+         puts sample_poop
+
+          ret = @ft.execute "SELECT ROWID, Text FROM #{@table}"
+          puts ret
+      end
+      
 
     
     
