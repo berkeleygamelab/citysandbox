@@ -126,7 +126,68 @@ $(document).ready( function() {
 		<% end %>
 	</div>
 </div>
-<div id="proposals">
+<div id='proposals'>
+</div>
+<div id='events'>
+	<% @challenge.events.reverse_each do |e| %>
+		<div class='individual'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		    <%= e.user.picture %>
+		 	<%=h e.user.login %> |
+		    <%= time_ago_in_words(e.created_at) %> ago
+			<br><br>
+			Title:
+			<%=h e.title %>
+			<br>
+			Description:
+		    <%=h e.description %>
+			<br>
+			Location:
+			<%=h e.location %>
+			<br>
+			Time:
+			<%=h e.time %>
+			<br>
+			Category:
+			<%=h Categories.find(e.categories_id).category %>
+		</div>
+		<br>
+	<% end %>
+	<div id='response_form'>
+		Add Event
+		<br>
+		<%= form_for([@challenge, Event.new]) do |c| %>
+		      <%= c.hidden_field :challenge_id, :value => @challenge.id %>
+			  <p>
+			    <%= c.label :title, "Title" %>
+				<br>
+			    <%= c.text_field :title %>
+			  </p>
+			  <p>
+			    <%= c.label :description, "Description" %>
+				<br>
+			    <%= c.text_area :description, :rows=>3 %>
+			  </p>
+			  <p>
+				<%= c.label :location %>
+				<br>
+				<%= c.text_area :location, :rows=>2 %>
+			  </p>
+			  <p>
+			    <%= c.label :time, "Time" %><br />
+			    <%= c.datetime_select :time %>
+			  </p>
+			  <p>
+				<%= c.label 'Categories: ' %>
+				<br>
+				<%= c.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+				<br>
+			  </p>
+			  <p>
+			    <%= c.submit "Submit" %>
+			  </p>
+		<% end %>
+	</div>
 </div>
 </div>
 <br>

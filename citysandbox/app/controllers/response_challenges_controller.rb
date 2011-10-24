@@ -47,7 +47,7 @@ class ResponseChallengesController < ApplicationController
 
     respond_to do |format|
       if @response_challenge.save
-        format.html { redirect_to @response_challenge.challenge, notice: 'Response challenge was successfully created.' }
+        format.html { redirect_to @response_challenge, notice: 'Response challenge was successfully created.' }
         format.json { render json: @response_challenge, status: :created, location: @response_challenge }
       else
         format.html { render action: "new" }

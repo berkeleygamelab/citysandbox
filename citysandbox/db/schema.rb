@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024030054) do
+ActiveRecord::Schema.define(:version => 20111024034035) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20111024030054) do
     t.string   "description"
     t.datetime "time"
     t.integer  "categories_id"
-    t.integer  "question_id"
+    t.integer  "challenge_id"
   end
 
   create_table "folders", :force => true do |t|

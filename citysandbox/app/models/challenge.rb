@@ -2,6 +2,7 @@ class Challenge < ActiveRecord::Base
   has_many :proposals
   has_many :response_challenges
   has_many :followed_challenges
+  has_many :events
   
   belongs_to :question
   belongs_to :user

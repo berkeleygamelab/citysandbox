@@ -172,7 +172,7 @@ $(document).ready( function() {
 		  <p>
 			<%= c.label 'Categories: ' %>
 			<br>
-			<%= c.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+			<%= c.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
 			<br>
 		  </p>
 		  <p>
