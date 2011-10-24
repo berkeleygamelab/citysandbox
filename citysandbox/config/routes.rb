@@ -1,15 +1,13 @@
 Citysandbox::Application.routes.draw do
 
-  get "mailbox/show"
+  match "users/sent" => "sent#show"
 
-  get "messages/show"
+  match "users/inbox/new" => "inbox#new"
+  match "users/inbox/reply" => "inbox#respond"
+  match "users/inbox/view" => "inbox#view"
+  match "users/inbox/create" => "inbox#create"
+  match "users/inbox" => "inbox#show"
 
-  get "sent/index"
-
-  get "sent/show"
-
-  get "sent/new"
-  
   root :to => 'home#splash', :as => :home
   root :to => 'home#splash', :as => :root
   
@@ -28,9 +26,9 @@ Citysandbox::Application.routes.draw do
     resources :events, :shallow => true
   end
   
-  resources :users, :sent, :messages, :mailbox, :inbox
+  resources :users, :messages,  :inbox
   
-  resources :users do
+  scope "/users" do
     resources :mailbox
     resources :sent
   end
