@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
 
   def category_id
      return categories_id
-   end
+  end
    
    
 end

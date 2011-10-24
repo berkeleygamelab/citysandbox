@@ -137,7 +137,7 @@ $(document).ready( function() {
 		    <%= time_ago_in_words(e.created_at) %> ago
 			<br><br>
 			Title:
-			<%=h e.title %>
+			<b><%= link_to e.title, e, :class=>'black_link' %></b>
 			<br>
 			Description:
 		    <%=h e.description %>

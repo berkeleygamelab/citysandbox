@@ -42,7 +42,9 @@ Citysandbox::Application.routes.draw do
     end
   end
   
-  resources :events
+  resources :events do
+    resources :response_events, :shallow => true
+  end
   resources :sessions
   resources :challenges do
     resources :response_challenges, :shallow => true
