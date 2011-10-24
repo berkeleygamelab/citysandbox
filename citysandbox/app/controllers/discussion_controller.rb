@@ -185,6 +185,8 @@ def sort_descending(set)
   return set.order("id desc")
 end
 
+def display_following(set)
+end
 
 
 end

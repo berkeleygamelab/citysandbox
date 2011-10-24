@@ -15,7 +15,7 @@
 
     scope :start_from, lambda{|start| {:conditions => ["id >= ?", start]}}
     scope :keyword_sort, lambda{|key| {:conditions => ["title LIKE ? OR "]}}
-    
+        
     def returnThis(stuff)
       return stuff
     end
@@ -23,4 +23,5 @@
     def category_id
       return categories_id
     end
+    
 end
