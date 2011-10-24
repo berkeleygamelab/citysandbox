@@ -145,6 +145,28 @@ $(document).ready( function() {
 	</div>
 	<br>
 </div>
+<div id='question'>
+	<div class='individual'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+	    <%= @event.challenge.question.user.picture %>
+	 	<%=h @event.challenge.question.user.login %> |
+	    <%= time_ago_in_words(@event.challenge.question.created_at) %> ago
+		<br><br>
+		Title:
+		<b><%= link_to @event.challenge.question.title, @event.challenge.question, :class=>'black_link' %></b>
+		<br>
+		Description:
+	    <%=h @event.challenge.question.description %>
+		<br>
+		Location:
+		<%=h @event.challenge.question.location %>
+		<br>
+		Category:
+		<%=h Categories.find(@event.challenge.question.categories_id).category %>
+	</div>
+	<br>
+</div>
+</div>
 <br>
 <% if @event.user == current_user %>
 	<%= link_to 'Edit', edit_challenge_path(@event), :class=>'black_link' %> |
