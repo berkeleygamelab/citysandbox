@@ -4,4 +4,8 @@ class FollowedQuestion < ActiveRecord::Base
   
   validates :question_id, :presence => true
   validates :user_id, :presence => true
+  
+  def followed_id
+    return question_id
+  end
 end

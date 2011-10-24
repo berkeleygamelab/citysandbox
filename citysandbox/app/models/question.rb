@@ -3,7 +3,7 @@
   has_many :challenges
   has_many :response_questions
   has_many :events
-  has_many :followedquestions
+  has_many :followed_questions
   belongs_to :categories
   
   validates :user_id, :presence => true
@@ -15,6 +15,8 @@
 
     scope :start_from, lambda{|start| {:conditions => ["id >= ?", start]}}
     scope :keyword_sort, lambda{|key| {:conditions => ["title LIKE ? OR "]}}
+    
+    scope :followed, lambda{|key| {:conditions => {:id => key}}}
         
     def returnThis(stuff)
       return stuff
@@ -23,5 +25,15 @@
     def category_id
       return categories_id
     end
+    
+    def create_followed(user)
+      followed = FollowedQuestion.new
+      followed.user = user
+      followed.question_id = id
+      followed.save
+    end
+    
+
+    
     
 end
