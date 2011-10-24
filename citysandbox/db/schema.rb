@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017002439) do
+ActiveRecord::Schema.define(:version => 20111024030054) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20111017002439) do
     t.datetime "vote_deadline"
     t.integer  "user_id"
     t.string   "location"
-    t.integer  "category_id"
+    t.integer  "categories_id"
   end
 
   create_table "events", :force => true do |t|
@@ -40,7 +40,8 @@ ActiveRecord::Schema.define(:version => 20111017002439) do
     t.string   "location"
     t.string   "description"
     t.datetime "time"
-    t.integer  "category_id"
+    t.integer  "categories_id"
+    t.integer  "question_id"
   end
 
   create_table "folders", :force => true do |t|
@@ -108,12 +109,12 @@ ActiveRecord::Schema.define(:version => 20111017002439) do
   create_table "questions", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "location",    :limit => 1600
+    t.string   "location",      :limit => 1600
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "anonymous",                   :default => 0
+    t.integer  "anonymous",                     :default => 0
     t.string   "description"
-    t.integer  "category_id"
+    t.integer  "categories_id"
   end
 
   create_table "response_challenges", :force => true do |t|
@@ -150,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20111017002439) do
     t.datetime "updated_at"
     t.text     "email",           :limit => 75,  :default => " ", :null => false
     t.string   "password_digest"
+    t.string   "location"
   end
 
 end

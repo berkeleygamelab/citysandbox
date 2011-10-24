@@ -12,20 +12,25 @@ class SentController < ApplicationController
    end
 
    def show
-     @message = Message.create
-     @message.user = current_user
-     @message.subject = params[:subject]
-     @message.body = params[:body]
-     @message_send = MessageCopy.create
-    
-     @message_send.user = User.where(:login => params[:sendTo])[0]
-     @success = "NAY!"
-     if @message.save
-       @success = "YAY!"
-       @message_send.message = @message
-       @message_send.save
+     @messages = current_user.messages
+     
+     if (params[:subject] != nil)
+       b = Message.new
+       b.user = current_user
+       b.subject = params[:subject]
+       b.body = params[:body]
+       b.save
+       msgCopy = MessageCopy.new
+       msgCopy.message = b
+       msgCopy.user = User.where(:login => params[:sendTo]).first
+       msgCopy.save
      end
   end
+    
+    def special
+      @messages = current_user.messages
+    @success = "Progress? :D"
+    end
     
 
 end

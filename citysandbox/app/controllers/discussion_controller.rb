@@ -18,7 +18,7 @@ def index
   @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
   
   @dummy_set =[]
-  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.responses.limit(size_limit_discussion)]]}
+  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
   @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
   @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
 
@@ -161,19 +161,12 @@ def filter
 end
 
 def sort_by_title(set, title)
-  @statement = "title LIKE '% " + title + " %'"
-  return set.where(@statement) 
+  return set.has_title(title)
 end
 
 def sort_by_category(set, categoryList)
-  @temp = set
-  @temp_many = []
-  categoryList.each do |x|
-    @statement = "category LIKE '" + x + "'"
-    @temp = @temp.where(@statement)
-    @temp_many = @temp_many + @temp
-  end
-  return @temp_many
+  
+  return set.has_category(categoryList)
 end
 
 def sort_by_timestamp(set, timestamp)
@@ -187,6 +180,11 @@ end
 
 def add_follower(item_to_follow, item)
 end
+
+def sort_descending(set)
+  return set.order("id desc")
+end
+
 
 
 end
