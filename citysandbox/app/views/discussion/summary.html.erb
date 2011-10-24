@@ -92,7 +92,11 @@ $(document).ready( function() {
 	<% end %>
 	<div class='entry_stats'>
 		<ul>
-		<li><%= pluralize(entry[1].length, 'Response') %></li>
+		<% if entry[0].instance_of?(Question) %>
+			<li><%= pluralize(entry[0].response_questions.length, 'Response') %></li>
+		<% elsif entry[0].instance_of?(Challenge) %>
+			<li><%= pluralize(entry[0].response_challenges.length, 'Response') %></li>
+		<% end %>
 		<li><%= pluralize(0, 'Follower') %></li>
 		<% if entry[0].instance_of?(Question) %>
 			<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>

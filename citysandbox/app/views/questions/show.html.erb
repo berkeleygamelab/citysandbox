@@ -125,10 +125,12 @@ $(document).ready( function() {
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
 		<div class='individual'>
+		 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		    <%= c.user.picture %>
 		 	<%=h c.user.login %> |
 	   		<%= time_ago_in_words(c.created_at) %> ago
 			<br>
-		    <b><%=h c.title %></b>
+		    <b><%= link_to c.title, c, :class=>'black_link' %></b>
 			<br>
 		    <%=h c.description %>
 			<br>
@@ -177,6 +179,8 @@ $(document).ready( function() {
 		    <%= c.submit "Submit" %>
 		  </p>
 		<% end %>
+</div>
+<div id='events'>
 </div>
 </div>
 <br>
