@@ -46,16 +46,29 @@ $(document).ready( function() {
 <% @collection.each_with_index do |entry, index| %>
 <div class='entry_main'>
 	<div class='entry_author'>
-		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-		<%=h entry[0].user.picture %> 
-		<br>
-		<%=h entry[0].user.login %>
-		<br>
+		<% if entry[0].instance_of? Question %>
+			<% if entry[0].anonymous == 1 %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h entry[0].user.picture %> 
+				<br>
+				Anonymous
+				<br>
+			<% else %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h entry[0].user.picture %> 
+				<br>
+				<%=h entry[0].user.login %>
+				<br>
+			<% end %>
+		<% else %>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+			<%=h entry[0].user.picture %> 
+			<br>
+			<%=h entry[0].user.login %>
+			<br>
+		<% end %>
 		<%= entry[0].created_at.strftime("%m/%d/%y") %>
 		<br>
-		<% if entry[0].created_at != entry[0].updated_at %>
-			Updated <%= time_ago_in_words(entry[0].updated_at) %> ago
-		<% end %>
 	</div>
 	<div class='entry_map'>
 		<img>
@@ -64,24 +77,37 @@ $(document).ready( function() {
 	<div class='entry_title'>
 		<b><%= link_to entry[0].title, entry[0], :class=>'black_link' %></b>
 	</div>	
-	<div class='entry_stats'>
-		<ul>
-		<li><%= pluralize(entry[1].length, 'Response') %></li>
-		<li><%= pluralize(0, 'Follower') %></li>
-		<% if entry[0].instance_of? Question %>
-			<li><%= pluralize(0, 'Challenge') %></li>
-			<li><%= pluralize(0, 'Event') %></li>	
-		<% end %>
-		</ul>
-	</div>
-	<% if !entry[1][-1].nil? %>
+	<% if !entry[1][-1].nil? && entry[0].instance_of?(Question) %>
+		<br>
 		<div class='latest_response'>
-			<i>Latest Response</i>
-			<br>
-		    <%=h truncate(entry[1][-1].response, :length=>150) %>
+			<i>Latest Response:</i>
+		    <%=h truncate(entry[1][-1].response, :length=>200) %>
 		</div>
 	<% end %>
-	<br>
+	<% if entry[0].instance_of?(Challenge) && entry[0].description.length > 0 %>
+		<br>
+		<div class='latest_response'>
+		    <%=h truncate(entry[0].description, :length=>200) %>
+		</div>
+	<% end %>
+	<div class='entry_stats'>
+		<ul>
+		<% if entry[0].instance_of?(Question) %>
+			<li><%= pluralize(entry[0].response_questions.length, 'Response') %></li>
+		<% elsif entry[0].instance_of?(Challenge) %>
+			<li><%= pluralize(entry[0].response_challenges.length, 'Response') %></li>
+		<% end %>
+		<li><%= pluralize(0, 'Follower') %></li>
+		<% if entry[0].instance_of?(Question) %>
+			<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>
+			<li><%= pluralize(0, 'Event') %></li>	
+		<% elsif entry[0].instance_of?(Challenge) %>
+			<li><%= pluralize(entry[0].proposals.length, 'Proposals') %></li>
+			<li><%= pluralize(0, 'Event') %></li>
+		<% end %>
+		<li><b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b></li>
+		</ul>
+	</div>
 </div>
 <br>
 <% end %>

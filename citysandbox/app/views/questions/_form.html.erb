@@ -1,9 +1,5 @@
 <script type="text/javascript">
 $(document).ready( function() {
-	$('#related_content').stickySidebar();
-	
-	$('#tabs ul').idTabs();
-	
 	var map;
     var myOptions = {
     	zoom: 8,
@@ -51,27 +47,32 @@ function center_map(map) {
       </ul>
     </div>
   <% end %>
-	<%= f.label :title %>
-	<br>
-	<%= f.text_area :title, :rows=>3 %>
-	<br><br>
-	<%= f.label :location %>
-	<br>
-	<%= f.text_area :location, :rows=>2 %>
-	<br><br>
-	<div id="map_canvas"></div>
-	<br>
-	<%= f.label :description %>
-	<br>
-	<%= f.text_area :description, :rows=>3 %>
-	<br><br>
-	<%= f.check_box :anonymous %>
-	<%= f.label 'Post anonymously' %>
-	<br><br>
-	<%= f.label 'Categories' %>
-	<br>
-	<%= f.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
-	<br><br>
+	<p>
+		<%= f.label :title %>
+		<br>
+		<%= f.text_area :title, :rows=>3 %>
+	</p>
+	<p>
+		<%= f.label :location %>
+		<br>
+		<%= f.text_area :location, :rows=>2 %>
+		<br>
+		<div id="map_canvas"></div>
+	</p>
+	<p>
+		<%= f.label :description %>
+		<br>
+		<%= f.text_area :description, :rows=>3 %>
+	</p>
+	<p>
+		<%= f.check_box :anonymous %>
+		<%= f.label 'Post anonymously' %>
+	</p>
+	<p>
+		<%= f.label 'Categories' %>
+		<br>
+		<%= f.select(:category_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+	</p>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -42,10 +42,11 @@ Citysandbox::Application.routes.draw do
     end
   end
   
-  
+  resources :events
   resources :sessions
-  resources :questions
-  resources :challenges
+  resources :challenges do
+    resources :response_challenges, :shallow => true
+  end
   resources :responses
   resources :discussion do
     get '/' => 'discussion#summary', :as => :summary

@@ -1,5 +1,138 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#related_content').stickySidebar();
+	
+	$('#tabs ul').idTabs();
+	
+	var map;
+    var myOptions = {
+    	zoom: 14,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
+    var geocoder = new google.maps.Geocoder();
+	var address = $.trim(address = $('#challenge_location').val().replace(/[\t\n\r]/gi, ""));
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        //alert("Geocode was not successful for the following reason: " + status);
+	      }
+	});
+	
+});
+</script>
+<style type="text/css">
+</style>
+<div id='user_sidebar'>
+	<b>About <%= @challenge.user.login %> </b>
+	<br>
+	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
+	<%= @challenge.user.picture %> 
+	<br>
+	<b>Joined:</b> <%= @challenge.user.created_at.strftime("%Y %b %d")%>
+	<br>
+	<b>Questions:</b> <%= @challenge.user.questions.length %>
+	<br>
+	<b>Responses:</b> <%= @challenge.user.response_questions.length + @challenge.user.response_challenges.length + @challenge.user.response_events.length %>
+	<br>
+	<b>Challenges:</b> <%= @challenge.user.challenges.length %>
+	<br>
+	<br>
+	<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
+	<br>
+	<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+</div>
+<div id='main_question_content'>
+<div id='question_main'>
+	<span id='question_map'>
+		<div id="map_canvas"></div>
+		<%=h @challenge.location %>
+		<%= hidden_field(:challenge, :location) %>
+	</span>
+	<span id='question_title_display'>
+		<b><%= @challenge.title %></b>
+	</span>
+	<br>
+	<ul>
+		<li><b> Submission Deadline: </b> <%= @challenge.submission_deadline.strftime("%Y %b %d") %> </li>
+		<li><b> Vote Deadline: </b> <%= @challenge.vote_deadline.strftime("%Y %b %d") %> </li>
+	</ul>
+	<br>
+	<span id='question_author'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		<%=h @challenge.user.picture %> by <%= @challenge.user.login %> |
+		<%= @challenge.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
+		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
+		<%= link_to 'Share', summary_path, :class=>'black_link' %>
+	</span>
+	<br>
+	<br>
 
-<%= link_to 'Edit', edit_challenge_path(@challenge) %> |
-<%= link_to 'Back', challenges_path %>
+</div>
+<% if @challenge.description.length > 0 %>
+	<br>
+	<div class='individual'>
+		<span id='question_description'>
+			<%= @challenge.description %> 
+		</span>
+	</div>
+<% end %>
+<div id='tabs'>
+<br>
+<div id='tabs_menu'>	
+<ul>
+	<li><b><a href="#proposals">Proposals</a></b></li>
+	<li>|</li>
+	<li><b><a href="#responses">Responses</a></b></li>
+	<li>|</li>
+	<li><b><a href="#events">Events</a></b></li>
+</ul>
+</div>
+<br>
+<div id='responses'>
+	<% @challenge.response_challenges.reverse_each do |r| %>
+		<div class='individual'>
+			<% if r.anonymous != 1 %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+			    <%= r.user.picture %>
+			 	<%=h r.user.login %> |
+			<% else %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+				Anonymous | 
+			<% end %>
+		    <%= time_ago_in_words(r.created_at) %> ago
+			<br><br>
+		    <%=h r.response %>
+		</div>
+		<br>
+	<% end %>
+	<div id='response_form'>
+		Add Response
+		<br>
+		<%= form_for([@challenge, ResponseChallenge.new]) do |r| %>
+		    <%= r.text_area :response, :rows => 3 %>
+			<br>
+			<%= r.check_box :anonymous %>
+			<%= r.label 'Post anonymously' %>
+			<br>
+		    <%= r.submit "Submit" %>
+		<% end %>
+	</div>
+</div>
+<div id="proposals">
+</div>
+</div>
+<br>
+<% if @challenge.user == current_user %>
+	<%= link_to 'Edit', edit_challenge_path(@challenge), :class=>'black_link' %> |
+<% end %>
+<%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
+</div>
+</div>

@@ -70,13 +70,30 @@ footer a {
 	background: url('../images/header.png');
 	height: 110px;
 }
-
+#icon_title {
+	float: left;
+}
 #user_nav {
 	float: right;
 	padding: 25px;
 }
+#header_tabs{
+	padding-top: 72px;
+}
+#map_view {
+	margin-left: 450px;
+	background: url('../images/header_tab.png');
+	width:120px;
+	height:33px;
+	text-align:center;
+}
 #ask_question {
-	padding: 150px;
+	margin-left: 600px;
+	background: url('../images/header_tab.png');
+	width:120px;
+	height:33px;
+	margin-top: -33px;
+	text-align:center;
 }
 
 
@@ -125,14 +142,37 @@ footer a {
 	color: #1C75BC;
 }
 
-.form {
-	padding:25px;
-}
-
 /* INDIVIDUAL QUESTIONS PAGE */
-
+#tabs li {
+	list-style: none;
+	display: inline;
+	padding-right:3%;
+}
+#tabs li a {
+	text-decoration: none;
+	color: #000000;	
+	font-size:20px;
+}
+#tabs_menu ul {
+	margin: 0;
+	padding-left: 5%;
+	line-height: 3em;
+	font-size:18px;
+}
+#tabs_menu {
+	background-color: rgba(255, 255, 255, 0.6);
+}
+#main_question_content {
+	background-image: url('../images/content_pane.png');
+}
+#user_sidebar {
+	text-align: center;
+	padding-top: 20px;
+	line-height:2em;
+	padding-bottom:20px;
+}
 #question_main, .individual, #response_form, #challenge_form, .individual_question {
-	padding: 5%;
+	padding: 3%;
 	background-color: rgba(255, 255, 255,0.5);
 }
 
@@ -141,21 +181,31 @@ footer a {
 	padding-bottom: 2%;
 }
 #question_main {
-	min-height:250px;
+	min-height:170px;
+	font-size: 14px;
+}
+#question_main ul {
+	text-indent: -2em;
+}
+#question_main li {
+	list-style: none;
+	display: inline;
+	padding-right:30px;
 }
 #question_map {
 	float:right;
-	width:200px;
-	padding-left:20px;
-	padding-bottom:10px;
+	width:140px;
+	font-size:12px;
 }
 #question_title_display {
 	font-size: 20px;
 }
+#question_description {
+	font-size:12px;
+}
 #user_sidebar {
 	float: left;
 	width: 240px;
-	min-height:750px;
 	background: url('../images/left_column.png');
 }
 
@@ -165,8 +215,8 @@ footer a {
 }
 
 #map_canvas {
-	height:200px;
-	width:200px;
+	height:140px;
+	width:140px;
 }
 
 /* SUMMARY */
@@ -214,6 +264,8 @@ footer a {
 	float: left;
 	text-align: center;
 	padding: 10px;
+	padding-top:20px;
+	line-height: 1.25em;
 }
 .entry_stats {
 	line-height: 1em;
@@ -223,12 +275,18 @@ footer a {
 	display: inline;
 	padding-right: 15px;
 }
+.entry_stats li a {
+	text-decoration: none;
+	color: #000000;	
+	padding-right:0;
+	padding-left:50px;
+}
 .latest_response {
 	font-size: 12px;
 }
 
 /* NEW QUESTION */
-.new_question_content {
+.form {
 	background: url('../images/content_pane.png');
 	padding-left: 25px;
 	margin: 25px;
