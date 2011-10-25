@@ -27,5 +27,32 @@ class Event < ActiveRecord::Base
 
   
    
+   def fetch_location
+     @events_table = ENV['event_table']
+     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE event_id = #{id}"
+   end    
+
+   def update_location(loc)
+     @events_table = ENV['event_table']
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE event_id = #{id}"
+     if @quest_dummy[0] == nil
+       return insert_location(loc)
+     end
+     @rowid = @quest_dummy[0][:rowid]
+     
+     return ::FT.execute "UPDATE #{@events_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}'"
+   end
+   
+   def insert_location(loc)
+     @events_table = ENV['event_table']
+     return ::FT.execute "INSERT INTO #{@events_table} (Location, event_id) VALUES ('#{loc}', #{id})"
+   end
+   
+   def grab_nearest(number)
+     @events_table = ENV['event_table']
+     @loc_x = location.split[0].to_f
+     @loc_y = location.split[1].to_f
+     return ::FT.execute "SELECT * FROM #{@events_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+   end
    
 end
