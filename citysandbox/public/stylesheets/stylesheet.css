@@ -229,7 +229,7 @@ footer a {
 #sidebar {
 	float: left;
 	width: 240px;
-	min-height: 725px;
+	min-height: 720px;
 	background-color: rgba(255, 255, 255, 0.6);
 }
 #filters_content {
@@ -297,4 +297,9 @@ footer a {
 	padding-left: 25px;
 	margin: 25px;
 	width: 450px;
+}
+
+/* MAP */
+#map {
+	border: 0;
 }
