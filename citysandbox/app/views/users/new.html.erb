@@ -22,7 +22,8 @@ $(window).load(function() {
 		$('.email').center(200);
 		$('.password').center(310);
 		$('.re_password').center(420);
-		$('#links').center(550);
+		$('.location').center(530)
+		$('#links').center(650);
 		
 		$('#username_input').center(120);
 		$('#email_input').center(230);
@@ -32,6 +33,7 @@ $(window).load(function() {
 		$('#re_password_password').center(450);
 		$('#password_input').center(340);
 		$('#re_password_input').center(450);
+		$('#location_input').center(560);
 		
 		$('#username_prompt').center(80);
 		$('#username_prompt').css("left", ($('.username').position().left + 10) + "px");
@@ -41,57 +43,9 @@ $(window).load(function() {
 		$('#password_prompt').css("left", ($('.password').position().left + 10) + "px");
 		$('#re_password_prompt').center(410);
 		$('#re_password_prompt').css("left", ($('.re_password').position().left + 10) + "px");
+		$('#location_prompt').center(520);
+		$('#location_prompt').css("left", ($('.re_password').position().left + 10) + "px");
 	}
-	
-	$('#username_input').tbHinter({
-		text: 'Username',
-		class: 'gray_text'
-	});
-	
-	$('#email_input').tbHinter({
-		text: 'Email',
-		class: 'gray_text'
-	});
-	
-	$('#password_input').tbHinter({
-		text: 'Password',
-		class: 'gray_text'
-	});
-	
-	$('#re_password_input').tbHinter({
-		text: 'Re-enter password',
-		class: 'gray_text'
-	});
-	
-	$('#password_input').show();
-	$('#password_password').hide();
-
-	$('#password_input').focus(function() {
-	    $('#password_input').hide();
-	    $('#password_password').show();
-	    $('#password_password').focus();
-	});
-	$('#password_password').blur(function() {
-	    if($('#password_password').val() == '') {
-	        $('#password_input').show();
-	        $('#password_password').hide();
-	    }
-	});
-	
-	$('#re_password_input').show();
-	$('#re_password_password').hide();
-
-	$('#re_password_input').focus(function() {
-	    $('#re_password_input').hide();
-	    $('#re_password_password').show();
-	    $('#re_password_password').focus();
-	});
-	$('#re_password_password').blur(function() {
-	    if($('#re_password_password').val() == '') {
-	        $('#re_password_input').show();
-	        $('#re_password_password').hide();
-	    }
-	});
 	
  });
 </script>
@@ -100,16 +54,15 @@ $(window).load(function() {
 <%= image_tag "../images/splash_textbox.png", :class=>'email' %>
 <%= image_tag "../images/splash_textbox.png", :class=>'password' %>
 <%= image_tag "../images/splash_textbox.png", :class=>'re_password' %>
+<%= image_tag "../images/splash_textbox.png", :class=>'location' %>
 
 <div class="labels">
 	<div id="username_prompt">Enter a User ID</div>
 	<div id="email_prompt">Email Address</div>
 	<div id="password_prompt">Password</div>
 	<div id="re_password_prompt">Re-enter Password</div>
+	<div id="location_prompt">Location</div>
 </div>
-
-<input id="password_input" type="text" size="18" class='formatted_input gray_text'/>
-<input id="re_password_input" type="text" size="18" class='formatted_input gray_text'/>
 
 <%= render 'form' %>
 

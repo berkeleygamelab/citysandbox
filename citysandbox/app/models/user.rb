@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :email, :password, :password_confirmation
+  attr_accessible :login, :email, :password, :password_confirmation, :location
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
@@ -32,5 +32,5 @@ class User < ActiveRecord::Base
   validates :login, :presence => true
   validates :email, :presence => true
   validates :password, :presence => true
-
+  validates :location, :presence => true
 end

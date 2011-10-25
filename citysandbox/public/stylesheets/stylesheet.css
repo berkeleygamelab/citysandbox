@@ -144,6 +144,10 @@ footer a {
 	color: #1C75BC;
 }
 
+.splash_box {
+	height: 700px;
+}
+
 /* INDIVIDUAL QUESTIONS PAGE */
 #tabs li {
 	list-style: none;

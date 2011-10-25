@@ -1,5 +1,23 @@
+<script type="text/javascript">
+$(document).ready( function() {
+	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
+	console.log(loc);
+	var lat = 0;
+	var lng = 0;
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode( { 'address': loc}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        lat = results[0].geometry.location.lat();
+			lng = results[0].geometry.location.lng();
+	      	$('#map').attr('src', 'http://www.google.com/fusiontables/embedviz?viz=MAP&q=select+col2+from+1464641+&h=false&lat=' + lat + '&lng=' + lng + '&z=10&t=1&l=col2');
+		}
+	});
+});
+</script>
+
 <div id='sidebar'>
 <div id='filters_content'>
+	<%= current_user %>
 	<b>SORT ITEMS BY</b>
 	<ul id='sort'>
 		<li><%= image_tag "../images/checkbox.png" %> Most Recent</li>
@@ -27,5 +45,4 @@
 	</ul>
 </div>
 </div>
-<%= @location %>
-<iframe width="720px" height="720px" scrolling="no"  src="http://www.google.com/fusiontables/embedviz?viz=MAP&q=select+col2+from+1464641+&h=false&lat=37.62292488059548&lng=-122.13953777148436&z=10&t=1&l=col2"></iframe>
+<iframe id='map' width="720px" height="720px" scrolling="no"></iframe>
