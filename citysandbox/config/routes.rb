@@ -33,6 +33,8 @@ Citysandbox::Application.routes.draw do
     resources :sent
   end
   
+  get "/map" => 'map#index', :as => :map
+  
   
   resources :inbox do
     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"

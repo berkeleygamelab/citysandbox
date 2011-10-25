@@ -79,6 +79,8 @@ footer a {
 }
 #header_tabs{
 	padding-top: 72px;
+	font-size: 13px;
+	line-height: 2.5em;
 }
 #map_view {
 	margin-left: 450px;
@@ -223,7 +225,7 @@ footer a {
 #sidebar {
 	float: left;
 	width: 240px;
-	min-height: 850px;
+	min-height: 725px;
 	background-color: rgba(255, 255, 255, 0.6);
 }
 #filters_content {

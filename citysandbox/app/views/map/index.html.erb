@@ -1,2 +1,31 @@
-<h1>Map#index</h1>
-<p>Find me in app/views/map/index.html.erb</p>
+<div id='sidebar'>
+<div id='filters_content'>
+	<b>SORT ITEMS BY</b>
+	<ul id='sort'>
+		<li><%= image_tag "../images/checkbox.png" %> Most Recent</li>
+		<li><%= image_tag "../images/checkbox.png" %> Most Popular</li>
+		<li><%= image_tag "../images/checkbox.png" %> Following</li>
+	</ul>
+	<br>
+	<b>KEYWORD SEARCH</b>
+	<br>
+	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<br><br>
+	<b>SHOW ITEMS FROM</b>
+	<br>
+	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<br><br>
+	<b>VIEW CATEGORIES</b>
+	<ul>
+		<li><%= image_tag "../images/checkbox.png" %> Commerce</li>
+		<li><%= image_tag "../images/checkbox.png" %> Civil Rights</li>
+		<li><%= image_tag "../images/checkbox.png" %> Health & Safety</li>
+		<li><%= image_tag "../images/checkbox.png" %> History</li>
+		<li><%= image_tag "../images/checkbox.png" %> Kids/Education</li>
+		<li><%= image_tag "../images/checkbox.png" %> Public Space</li>
+		<li><%= image_tag "../images/checkbox.png" %> Transportation</li>
+	</ul>
+</div>
+<!--<%= link_to "summary", :category => ["fish", "sticks"] %>-->
+</div>
+<iframe width="720px" height="720px" scrolling="no"  src="http://www.google.com/fusiontables/embedviz?viz=MAP&q=select+col2+from+1464641+&h=false&lat=37.62292488059548&lng=-122.13953777148436&z=10&t=1&l=col2"></iframe>
