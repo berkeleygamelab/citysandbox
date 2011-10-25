@@ -252,7 +252,7 @@ footer a {
 	background: url('../images/content_pane.png');
 }
 .entry_main {
-	background: url('../images/entry.png');
+	background-color: rgba(255, 255, 255, 0.6);
 	height: 150px;
 }
 .entry_map {

@@ -1,8 +1,10 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
 <script type="text/javascript">
 $.fn.center = function (top_offset) {
 	window_width =  $(window).width() > 500 ? $(window).width() : 500;
     this.css("position","absolute");
-	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
+	this.css("top", ($('.splash_box').position().top + top_offset - 20)  + 'px');
     this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
     return this;
 }
@@ -47,6 +49,17 @@ $(window).load(function() {
 		$('#location_prompt').css("left", ($('.re_password').position().left + 10) + "px");
 	}
 	
+	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('location_input');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
  });
 </script>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>

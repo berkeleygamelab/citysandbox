@@ -18,6 +18,8 @@ function center_elements() {
 	$('.splash_textbox').center(425);
 	$('#links').center(550);
 	$('#city_input').center(425 + $('#city_input').outerHeight());
+	$('#city_input').css("left", ($('.splash_textbox').position().left + 20) + 'px');
+	$('#city_input').css("top", ($('.splash_textbox').position().top + 35) + 'px');
 }
 
 $(window).load(function() {
@@ -39,7 +41,7 @@ $(window).load(function() {
 	var input = document.getElementById('city_input');
 	var options = {
 	  bounds: defaultBounds,
-	  types: ['establishment']
+	  types: ['geocode']
 	};
 
 	autocomplete = new google.maps.places.Autocomplete(input, options);
