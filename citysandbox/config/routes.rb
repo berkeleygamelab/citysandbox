@@ -33,7 +33,7 @@ Citysandbox::Application.routes.draw do
     resources :sent
   end
   
-  get "/map" => 'map#index', :as => :map
+  match "/map" => 'map#index', :as => :map
   
   
   resources :inbox do

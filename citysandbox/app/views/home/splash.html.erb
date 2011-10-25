@@ -44,6 +44,8 @@ $(window).load(function() {
 
 	autocomplete = new google.maps.places.Autocomplete(input, options);
 	
+	$('#city_input').addClass('formatted_input gray_text');
+	$('.city_submit').css('display', 'none');
  });
 </script>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
@@ -51,7 +53,11 @@ $(window).load(function() {
 <%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
 <%= image_tag "../images/splash_textbox.png", :class=>'splash_textbox' %>
 
-<input type="text" id="city_input" size="18" class="formatted_input gray_text"/>
+<%= form_tag("/map", :method => "index") do %>
+  <%= text_field_tag(:city_input, '', :size=>'18') %>
+  <%= submit_tag("Search", :class=>'city_submit') %>
+<% end %>
+
 <div id="links">
 	<%=link_to "Register", home_register_path %>
 	<%=link_to "Log In", home_login_path %>
