@@ -9,21 +9,49 @@ $(document).ready( function() {
 		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+
 		address+'&zoom=14&size=130x130&sensor=false');
 	});
+	$('#sortby li').each( function () {
+		$(this).click( function() {
+			console.log(this.children);
+		})
+	});
+	var categories_checked = [];
+	$('#categories li').each( function () {
+		$(this).click( function() {
+			categories_checked = [];
+			$('#categories li :checked').each( function () {
+				categories_checked.push($(this).attr('value'));
+				console.log($(this).attr('value'))
+			});
+			console.log(categories_checked);
+			var url_string = '/summary'
+			for (category in categories_checked) {
+				console.log(category);
+				if (url_string.indexOf('category') == -1) {
+					url_string += '?category[]=' + categories_checked[category];
+				} else {
+					url_string += '&category[]=' + categories_checked[category];
+				} 
+			console.log(url_string);
+			window.location = url_string;
+			}
+			
+		});
+	});
 });
 </script>
 
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>
-	<ul>
+	<ul id='sortby'>
 	<li>
-	  <%= check_box_tag 'sort', 'Most Recent' %> Most Recent
+	  <%= check_box_tag 'sort', 'recent' %> Most Recent
 	</li>
 	<li>
-	  <%= check_box_tag 'sort', 'Most Popular' %> Most Popular
+	  <%= check_box_tag 'sort', 'popular' %> Most Popular
 	</li>
 	<li>
-	 <%= check_box_tag 'sort', 'Following' %> Following
+	 <%= check_box_tag 'sort', 'following' %> Following
 	</li>
 	</ul>
 	<br>
@@ -36,16 +64,16 @@ $(document).ready( function() {
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
-	<ul>
+	<ul id='categories'>
 	<% for category in Categories.find(:all) %>
 	<li>
-	  <%= check_box_tag category.category, category.category %>
+	  <%= check_box_tag 'category', category.id %>
 	  <%= category.category %>
 	</li>
 	<% end %>
 	</ul>
 </div>
-<!--<%= link_to "summary", :category => ["fish", "sticks"] %>-->
+<!---->
 </div>
 <div id='main_content'>
 <% if @collection.length == 0 %>
