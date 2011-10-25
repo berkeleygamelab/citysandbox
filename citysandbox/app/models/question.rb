@@ -18,6 +18,9 @@
     scope :keyword_sort, lambda{|key| {:conditions => ["title LIKE ? OR "]}}
     
     scope :followed, lambda{|key| {:conditions => {:id => key}}}
+    
+    @ft = @ft
+
         
     def returnThis(stuff)
       return stuff
@@ -34,34 +37,33 @@
       followed.save
     end
     
-    def embedded
-    
+  
+    def fetch_location
+      @questions_table = ENV['question_table']
+      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE question_id = #{id}"
+    end    
 
-      # Connect to service    
-      @ft = GData::Client::FusionTables.new      
-        @ft.clientlogin("ian_norris@berkeley.edu", "norrisi154")
-
-      puts @ft.class
-      @table = 1943371
-      # 1. SQL interface
-      # =========================
-
-      bob = "EMPTY SET"
-      bob = @ft.execute "SHOW TABLES"
-      puts bob
-
-
-         ret = @ft.execute "SELECT count() FROM #{@table}"
-         puts ret
-
-         sample_poop = @ft.execute "DESCRIBE #{@table}"
-         puts sample_poop
-
-          ret = @ft.execute "SELECT ROWID, Text FROM #{@table}"
-          puts ret
+    def update_location(loc)
+      @questions_table = ENV['question_table']
+      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE question_id = #{id}"
+      if @quest_dummy[0] == nil
+        return insert_location(loc)
       end
+      @rowid = @quest_dummy[0][:rowid]
       
-
+      return ::FT.execute "UPDATE #{@questions_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}'"
+    end
     
+    def insert_location(loc)
+      @questions_table = ENV['question_table']
+      return ::FT.execute "INSERT INTO #{@questions_table} (Location, question_id) VALUES ('#{loc}', #{id})"
+    end
+    
+    def grab_nearest(number)
+      @questions_table = ENV['question_table']
+      @loc_x = location.split[0].to_f
+      @loc_y = location.split[1].to_f
+      return ::FT.execute "SELECT * FROM #{@questions_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+    end
     
 end
