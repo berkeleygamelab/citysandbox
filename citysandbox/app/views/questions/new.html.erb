@@ -1,3 +1,19 @@
+<script type="text/javascript">
+$.fn.center = function (top_offset) {
+	window_width =  $(window).width() > 500 ? $(window).width() : 500;
+    this.css("position","absolute");
+	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
+    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+    return this;
+}
+$(window).load(function() {
+	$('.splash_box').center(10);
+	$('.form').css("position","absolute");
+	$('.form').css('top', $('.splash_box').position().top);
+	$('.form').css('left', $('.splash_box').position().left);
+});
+</script>
+<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <div class='form'>
 <h3>New question</h3>
 

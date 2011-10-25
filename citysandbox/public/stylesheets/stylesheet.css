@@ -293,10 +293,10 @@ footer a {
 
 /* NEW QUESTION */
 .form {
-	background: url('../images/content_pane.png');
 	padding-left: 25px;
 	margin: 25px;
 	width: 450px;
+	color: #DDDDDD;
 }
 
 /* MAP */
