@@ -14,6 +14,7 @@ $(document).ready( function() {
 			console.log(this.children);
 		})
 	});
+	
 	var categories_checked = [];
 	$('#categories li').each( function () {
 		$(this).click( function() {
@@ -73,7 +74,6 @@ $(document).ready( function() {
 	<% end %>
 	</ul>
 </div>
-<!---->
 </div>
 <div id='main_content'>
 <% if @collection.length == 0 %>
@@ -105,7 +105,7 @@ $(document).ready( function() {
 				<%=h entry[0].user.login %>
 				<br>
 			<% end %>
-			<%= entry[0].created_at.strftime("%m/%d/%y") %>
+			<%= entry[0].created_at.strftime("%Y %b %d") %>
 			<br>
 		</div>
 		<div class='entry_map'>
@@ -116,17 +116,30 @@ $(document).ready( function() {
 			<b><%= link_to entry[0].title, entry[0], :class=>'black_link' %></b>
 		</div>	
 		<% if !entry[1][-1].nil? && entry[0].instance_of?(Question) %>
-			<br>
 			<div class='latest_response'>
 				<i>Latest Response:</i>
 			    <%=h truncate(entry[1][-1].response, :length=>200) %>
 			</div>
 		<% end %>
 		<% if entry[0].instance_of?(Challenge) && entry[0].description.length > 0 %>
-			<br>
 			<div class='latest_response'>
 			    <%=h truncate(entry[0].description, :length=>200) %>
 			</div>
+		<% end %>
+		<% if entry[0].instance_of?(Challenge) %>
+		<div id='challenge_dates'>
+			<ul>
+				<li><b> Submission Deadline: </b> <%= entry[0].submission_deadline.strftime("%Y %b %d") %> </li>
+				<li><b> Vote Deadline: </b> <%= entry[0].vote_deadline.strftime("%Y %b %d") %> </li>
+			</ul>
+		</div>
+		<% end %>
+		<% if entry[0].instance_of?(Event) %>
+		<div id='challenge_dates'>
+			<ul>
+				<li><b> Date: </b> <%= entry[0].time.strftime("%Y %b %d") %> </li>
+			</ul>
+		</div>
 		<% end %>
 		<div class='entry_stats'>
 			<ul>

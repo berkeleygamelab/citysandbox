@@ -125,18 +125,26 @@ $(document).ready( function() {
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
 		<div class='individual'>
-		 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-		    <%= c.user.picture %>
-		 	<%=h c.user.login %> |
-	   		<%= time_ago_in_words(c.created_at) %> ago
+			<div class='entry_author'>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h c.user.picture %> 
+				<br>
+				<%=h c.user.login %>
+				<br>
+				<%= c.created_at.strftime("%Y %b %d") %>
+				<br>
+			</div>
+			<div class='entry_title'>
+				<b><%= link_to c.title, c, :class=>'black_link' %></b>
+			</div>	
 			<br>
-		    <b><%= link_to c.title, c, :class=>'black_link' %></b>
-			<br>
-		    <%=h c.description %>
-			<br>
-		    Proposal Deadline: <%=h c.submission_deadline.strftime("%Y %b %d") %>
-			<br>
-		    Vote Deadline: <%=h c.vote_deadline.strftime("%Y %b %d") %>
+			<div class='latest_response'>
+			    <%=h c.description %>
+				<ul>
+					<li><b> Submission Deadline: </b> <%= c.submission_deadline.strftime("%Y %b %d") %> </li>
+					<li><b> Vote Deadline: </b> <%= c.vote_deadline.strftime("%Y %b %d") %> </li>
+				</ul>
+			</div>
 		</div>
 		<br>
 	<% end %>
