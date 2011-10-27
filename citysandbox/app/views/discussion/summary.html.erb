@@ -145,12 +145,14 @@ $(document).ready( function() {
 			<ul>
 			<% if entry[0].instance_of?(Question) %>
 				<li><%= pluralize(entry[0].response_questions.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_questions.length, 'Follower') %></li>
 			<% elsif entry[0].instance_of?(Challenge) %>
 				<li><%= pluralize(entry[0].response_challenges.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_challenges.length, 'Follower') %></li>
 			<% elsif entry[0].instance_of?(Event) %>
-				<li><%= pluralize(entry[0].response_events.length, 'Response') %></li>	
+				<li><%= pluralize(entry[0].response_events.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_events.length, 'Follower') %></li>	
 			<% end %>
-			<li><%= pluralize(0, 'Follower') %></li>
 			<% if entry[0].instance_of?(Question) %>
 				<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>
 				<li><%= pluralize(0, 'Event') %></li>	
@@ -158,7 +160,25 @@ $(document).ready( function() {
 				<li><%= pluralize(entry[0].proposals.length, 'Proposals') %></li>
 				<li><%= pluralize(entry[0].events.length, 'Event') %></li>
 			<% end %>
-			<li><b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b></li>
+			<% if entry[0].instance_of?(Question) %>
+				<% if entry[0].followed_questions.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path, :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Question), :class=>'black_link' %></b></li>
+				<% end %>
+			<% elsif entry[0].instance_of?(Challenge) %>
+				<% if entry[0].followed_challenges.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path, :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Challenge), :class=>'black_link' %></b></li>
+				<% end %>
+			<% elsif entry[0].instance_of?(Event) %>
+				<% if entry[0].followed_events.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path, :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Event), :class=>'black_link' %></b></li>
+				<% end %>
+			<% end %>
 			</ul>
 		</div>
 	</div>

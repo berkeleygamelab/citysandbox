@@ -37,8 +37,6 @@ def summary
   size_limit_discussion = 5
   page_offset = 0
 
-  
-  
   @collection = []
   @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
   @discussion_next = []
@@ -225,6 +223,8 @@ def add_follower(item_to_follow, type)
     item = Event.where(:id => item_to_follow).first
   end
   item.create_followed(current_user)
+  
+  redirect_to summary_path
 end
 
 def sort_descending(set)

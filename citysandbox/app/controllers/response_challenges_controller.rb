@@ -1,16 +1,5 @@
 class ResponseChallengesController < ApplicationController
 
-  # GET /response_challenges/1
-  # GET /response_challenges/1.json
-  def show
-    @response_challenge = ResponseChallenge.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @response_challenge }
-    end
-  end
-
   # GET /response_challenges/new
   # GET /response_challenges/new.json
   def new

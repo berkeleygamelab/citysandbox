@@ -1,7 +1,5 @@
 <script type="text/javascript">
-$(document).ready( function() {
-	$('#related_content').stickySidebar();
-	
+$(document).ready( function() {	
 	$('#tabs ul').idTabs();
 	
 	var map;
@@ -21,9 +19,6 @@ $(document).ready( function() {
 	            map: map,
 	            position: results[0].geometry.location
 	        });
-	      } else {
-	        //alert("Geocode was not successful for the following reason: " + status);
-	      }
 	});
 	
 });
