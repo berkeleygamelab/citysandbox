@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :response_questions
   has_many :messages
   has_many :message_copys
-  
+  has_many :voting_records
  # before_create :build_inbox
 
    # def inbox

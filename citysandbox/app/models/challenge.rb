@@ -23,22 +23,27 @@ class Challenge < ActiveRecord::Base
      return categories_id
    end
    
-   def create_followed(user)
+   def create_followed
      followed = FollowedChallenge.new
-     followed.user = user
+     followed.user = current_user
      followed.challenge_id = id
      followed.save
    end
 
+   def remove_followed
+     followed = followed_challenges
+     a= followed.where(:user_id => current_user.id).first
+     return a.destroy
+   end
 
    def fetch_location
      @challenges_table = ENV['challenge_table']
-     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE challenge_id = #{id}"
+     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id}"
    end    
 
    def update_location(loc)
      @challenges_table = ENV['challenge_table']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE challenge_id = #{id}"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id}"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
@@ -57,6 +62,10 @@ class Challenge < ActiveRecord::Base
      @loc_x = location.split[0].to_f
      @loc_y = location.split[1].to_f
      return ::FT.execute "SELECT * FROM #{@challenges_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+   end
+   
+   #grabs the nearest locations by distance and location
+   def grab_nearest_by_location(distance, Loc)
    end
    
 end

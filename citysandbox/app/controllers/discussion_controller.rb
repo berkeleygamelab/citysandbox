@@ -227,6 +227,19 @@ def add_follower(item_to_follow, type)
   item.create_followed(current_user)
 end
 
+def remove_follower(item_to_follow, type)
+    if type == "Question"
+      item = Question.where(:id => item_to_follow).first
+    end
+    if type == "Challenge"
+      item = Challenge.where(:id => item_to_follow).first
+    end
+    if type == "Event"
+      item = Event.where(:id => item_to_follow).first
+    end
+    item.remove_followed(current_user)
+  end
+
 def sort_descending(set)
   return set.order("id desc")
 end
