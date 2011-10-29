@@ -58,6 +58,8 @@ def summary
   
   if (params[:follow] != nil)
     add_follower(params[:follow], params[:itemz])
+  elsif (params[:unfollow] != nil) 
+    remove_follower(params[:unfollow], params[:itemz])
   end
   
 end
@@ -237,7 +239,7 @@ def remove_follower(item_to_follow, type)
     if type == "Event"
       item = Event.where(:id => item_to_follow).first
     end
-    item.remove_followed(current_user)
+    item.remove_followed
   end
 
 def sort_descending(set)

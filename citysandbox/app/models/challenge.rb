@@ -65,7 +65,7 @@ class Challenge < ActiveRecord::Base
    end
    
    #grabs the nearest locations by distance and location
-   def grab_nearest_by_location(distance, Loc)
+   def grab_nearest_by_location(distance, loc)
    end
    
 end
