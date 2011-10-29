@@ -1,6 +1,8 @@
 class VotingRecord < ActiveRecord::Base
-  belongs_to :voting_table
-
+  belongs_to :proposal
+  belongs_to :user
   
+  
+ 
 
 end

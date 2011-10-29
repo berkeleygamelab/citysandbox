@@ -19,8 +19,22 @@
     
     scope :followed, lambda{|key| {:conditions => {:id => key}}}
     
+    scope :recent_than, lambda{|key| {:conditions => ["updated_at > ?", key]}}
+    scope :order_by_followed, {:order => "id IN (SELECT COUNT(*) FROM 'followed_questions' WHERE 'followed_questions'.'question_id' = id)"}
+    
+    scope :popularity_contest, {:order => "id IN (SELECT COUNT(*) FROM 'followed_questions' WHERE 'followed_questions'.'question_id' = id) + id IN (SELECT COUNT(*) FROM 'response_questions' WHERE 'response_questions'.'question_id' = id)"}
+    
+    scope :response_contest, {:order => "id IN (SELECT COUNT(*) FROM 'response_questions' WHERE 'response_questions'.'question_id' = id)"}
+    
     @ft = @ft
 
+    def insert_driver
+      
+    end
+
+    def before_create
+      puts "derp"
+    end
         
     def returnThis(stuff)
       return stuff
@@ -35,6 +49,10 @@
       followed.user = current_user
       followed.question_id = id
       followed.save
+    end
+    
+    def most_popular(since_last)
+      return Question.where("updated_at > '#{since_last}'").where()
     end
     
     def remove_followed
@@ -71,8 +89,44 @@
       return ::FT.execute "SELECT * FROM #{@questions_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
     end
     
-    def grab_circle(distance)
-      
+    def grab_circle(distance, target_loc, number)
+      @questions_table = ENV['question_table']
+      @loc_x = target_loc.split[0].to_f
+      @loc_y = target_loc.split[1].to_f
+      puts distance
+      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
     end
+    
+    def grab_rectangle(upper_right, lower_left)
+      @questions_table = ENV['question_table']
+      @upper_right_x = upper_right.split[0].to_f
+      @upper_right_y = upper_right.split[1].to_f
+      @lower_left_x = lower_left.split[0].to_f
+      @lower_left_y = lower_left.split[1].to_f
+      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y})))"
+    end
+    
+    def retrieve_entries(db_return)
+      rtn = []
+      db_return.each do |x|
+        rtn += [x["id"]]
+      end
+      return Question.followed(rtn)
+    end
+    
+    def retrieve_google(db_return)
+      rtn = []
+      db_return.each do |x|
+        rtn += [x[:id]]
+      end
+      return Question.followed(rtn)
+    end
+    
+    def playing_with_interface(location)
+      
+      @questions_table = ENV['question_table']
+      return 
+    end
+    
     
 end
