@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024041410) do
+ActiveRecord::Schema.define(:version => 20111028180333) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20111024041410) do
     t.string   "description"
     t.datetime "time"
     t.integer  "categories_id"
+    t.integer  "question_id"
     t.integer  "challenge_id"
   end
 
@@ -152,6 +153,20 @@ ActiveRecord::Schema.define(:version => 20111024041410) do
     t.text     "email",           :limit => 75,  :default => " ", :null => false
     t.string   "password_digest"
     t.string   "location"
+  end
+
+  create_table "voting_records", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "vote",            :default => 0, :null => false
+    t.integer  "voting_table_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "voting_tables", :force => true do |t|
+    t.integer  "proposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -18,23 +18,27 @@ class Event < ActiveRecord::Base
   end
    
    
-  def create_followed(user)
+  def create_followed
      followed = FollowedEvent.new
-     followed.user = user
+     followed.user = current_user
      followed.event_id = id
      followed.save
   end
 
-  
+  def remove_followed
+     followed = followed_events
+     a= followed.where(:user_id => current_user.id).first
+     return a.destroy
+   end
    
    def fetch_location
      @events_table = ENV['event_table']
-     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE event_id = #{id}"
+     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id}"
    end    
 
    def update_location(loc)
      @events_table = ENV['event_table']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE event_id = #{id}"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id}"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end

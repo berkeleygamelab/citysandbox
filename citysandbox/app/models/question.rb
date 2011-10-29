@@ -30,22 +30,27 @@
       return categories_id
     end
     
-    def create_followed(user)
+    def create_followed
       followed = FollowedQuestion.new
-      followed.user = user
+      followed.user = current_user
       followed.question_id = id
       followed.save
     end
     
+    def remove_followed
+       followed = followed_questions
+       a= followed.where(:user_id => current_user.id).first
+       return a.destroy
+     end
   
     def fetch_location
       @questions_table = ENV['question_table']
-      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE question_id = #{id}"
+      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE id = #{id}"
     end    
 
     def update_location(loc)
       @questions_table = ENV['question_table']
-      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE question_id = #{id}"
+      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE id = #{id}"
       if @quest_dummy[0] == nil
         return insert_location(loc)
       end
@@ -64,6 +69,10 @@
       @loc_x = location.split[0].to_f
       @loc_y = location.split[1].to_f
       return ::FT.execute "SELECT * FROM #{@questions_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+    end
+    
+    def grab_circle(distance)
+      
     end
     
 end
