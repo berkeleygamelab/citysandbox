@@ -70,11 +70,33 @@ $(document).ready( function() {
 
 <div id='sidebar'>
 <div id='filters_content'>
-	<b>SORT ITEMS BY</b>
-	<ul id='sort'>
-		<li><%= image_tag "../images/checkbox.png" %> Most Recent</li>
-		<li><%= image_tag "../images/checkbox.png" %> Most Popular</li>
-		<li><%= image_tag "../images/checkbox.png" %> Following</li>
+	<b>SORT ITEMS BY</b>	
+	<br>
+
+	<ul id='sortby'>
+	<li>
+	  <%= check_box_tag 'sort', 'recent' %> Most Recent
+	</li>
+	<!--<li>
+	  <%= check_box_tag 'sort', 'popular' %> Most Popular
+	</li>--> 
+	<li>
+	 <%= check_box_tag 'sort', 'following' %> Following
+	</li>
+	</ul>
+	<br>
+	<b>SHOW</b>
+	<ul id='sort_by_type'>
+	<li>
+	  <%= check_box_tag 'sort', 'Questions' %> Questions
+	</li>
+	<li>
+	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
+	</li>
+	<li>
+	 <%= check_box_tag 'sort', 'Events' %> Events
+	</li>
+
 	</ul>
 	<br>
 	<b>KEYWORD SEARCH</b>
@@ -86,15 +108,16 @@ $(document).ready( function() {
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
-	<ul>
-		<li><%= image_tag "../images/checkbox.png" %> Commerce</li>
-		<li><%= image_tag "../images/checkbox.png" %> Civil Rights</li>
-		<li><%= image_tag "../images/checkbox.png" %> Health & Safety</li>
-		<li><%= image_tag "../images/checkbox.png" %> History</li>
-		<li><%= image_tag "../images/checkbox.png" %> Kids/Education</li>
-		<li><%= image_tag "../images/checkbox.png" %> Public Space</li>
-		<li><%= image_tag "../images/checkbox.png" %> Transportation</li>
+	<ul id='categories'>
+	<% for category in Categories.find(:all) %>
+	<li>
+	  <%= check_box_tag 'category', category.id %>
+	  <%= category.category %>
+	</li>
+	<% end %>
 	</ul>
+	<br>
+	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
 </div>
 <div id='mapview_map'></div>
