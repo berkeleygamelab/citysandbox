@@ -21,8 +21,6 @@ $(document).ready( function() {
 	            map: map,
 	            position: results[0].geometry.location
 	        });
-	      } else {
-	        //alert("Geocode was not successful for the following reason: " + status);
 	      }
 	});
 	
@@ -31,23 +29,25 @@ $(document).ready( function() {
 <style type="text/css">
 </style>
 <div id='user_sidebar'>
-	<b>About <%= @question.user.login %> </b>
-	<br>
-	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
-	<%= @question.user.picture %> 
-	<br>
-	<b>Joined:</b> <%= @question.user.created_at.strftime("%Y %b %d")%>
-	<br>
-	<b>Questions:</b> <%= @question.user.questions.length %>
-	<br>
-	<b>Responses:</b> <%= @question.user.response_questions.length + @question.user.response_challenges.length + @question.user.response_events.length %>
-	<br>
-	<b>Challenges:</b> <%= @question.user.challenges.length %>
-	<br>
-	<br>
-	<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
-	<br>
-	<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+	<% if @question.anonymous != 1 %>
+		<b>About <%= @question.user.login %> </b>
+		<br>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
+		<%= @question.user.picture %> 
+		<br>
+		<b>Joined:</b> <%= @question.user.created_at.strftime("%Y %b %d")%>
+		<br>
+		<b>Questions:</b> <%= @question.user.questions.length %>
+		<br>
+		<b>Responses:</b> <%= @question.user.response_questions.length + @question.user.response_challenges.length + @question.user.response_events.length %>
+		<br>
+		<b>Challenges:</b> <%= @question.user.challenges.length %>
+		<br>
+		<br>
+		<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
+		<br>
+		<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+	<% end %>
 </div>
 <div id='main_question_content'>
 <div id='question_main'>
@@ -61,8 +61,12 @@ $(document).ready( function() {
 	</span>
 	<br><br>
 	<span id='question_author'>
+		<% if @question.anonymous != 1 %>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 		<%=h @question.user.picture %> by <%= @question.user.login %> |
+		<% else %>
+		Anonymous | 
+		<% end %>
 		<%= @question.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
 		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
 		<%= link_to 'Share', summary_path, :class=>'black_link' %>
@@ -125,18 +129,26 @@ $(document).ready( function() {
 <div id='challenges'>
 	<% @question.challenges.each do |c| %>
 		<div class='individual'>
-		 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-		    <%= c.user.picture %>
-		 	<%=h c.user.login %> |
-	   		<%= time_ago_in_words(c.created_at) %> ago
+			<div class='entry_author'>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h c.user.picture %> 
+				<br>
+				<%=h c.user.login %>
+				<br>
+				<%= c.created_at.strftime("%Y %b %d") %>
+				<br>
+			</div>
+			<div class='entry_title'>
+				<b><%= link_to c.title, c, :class=>'black_link' %></b>
+			</div>	
 			<br>
-		    <b><%= link_to c.title, c, :class=>'black_link' %></b>
-			<br>
-		    <%=h c.description %>
-			<br>
-		    Proposal Deadline: <%=h c.submission_deadline.strftime("%Y %b %d") %>
-			<br>
-		    Vote Deadline: <%=h c.vote_deadline.strftime("%Y %b %d") %>
+			<div class='latest_response'>
+			    <%=h c.description %>
+				<ul>
+					<li><b> Submission Deadline: </b> <%= c.submission_deadline.strftime("%Y %b %d") %> </li>
+					<li><b> Vote Deadline: </b> <%= c.vote_deadline.strftime("%Y %b %d") %> </li>
+				</ul>
+			</div>
 		</div>
 		<br>
 	<% end %>

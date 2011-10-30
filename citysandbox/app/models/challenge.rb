@@ -22,19 +22,39 @@ class Challenge < ActiveRecord::Base
   def category_id
      return categories_id
    end
-   
    def create_followed
      followed = FollowedChallenge.new
-     followed.user = current_user
+     followed.user_id = current_user.id
      followed.challenge_id = id
+     
+     
      followed.save
    end
-
-   def remove_followed
-     followed = followed_challenges
-     a= followed.where(:user_id => current_user.id).first
-     return a.destroy
+   
+   def create_followed(follower)
+     followed = FollowedChallenge.new
+     followed.user_id = follower.id
+     followed.challenge_id = id
+     if FollowedChallenge.where(:challenge_id => id).where(:user_id => follower.id) == []
+       followed.save
+     end
    end
+   
+   def most_popular(since_last)
+     return Question.where("updated_at > '#{since_last}'").where()
+   end
+   
+   def remove_followed
+      followed = followed_challenges
+      a= followed.where(:user_id => current_user.id).first
+      return a.destroy
+    end
+    
+    def remove_followed(follower)
+      followed = followed_challenges
+      a = followed.where(:user_id => follower.id).first
+      return a.destroy
+    end
 
    def fetch_location
      @challenges_table = ENV['challenge_table']
@@ -65,7 +85,7 @@ class Challenge < ActiveRecord::Base
    end
    
    #grabs the nearest locations by distance and location
-   def grab_nearest_by_location(distance, Loc)
+   def grab_nearest_by_location(distance, loc)
    end
    
 end

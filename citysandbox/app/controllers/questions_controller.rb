@@ -5,18 +5,6 @@ class QuestionsController < ApplicationController
   page_offset = 1
 
 
-
-  # GET /questions
-  # GET /questions.json
-  def index
-    @questions = Question.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @questions }
-    end
-  end
-
   # GET /questions/1
   # GET /questions/1.json
   def show

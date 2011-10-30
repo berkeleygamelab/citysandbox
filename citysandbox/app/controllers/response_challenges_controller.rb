@@ -1,25 +1,4 @@
 class ResponseChallengesController < ApplicationController
-  # GET /response_challenges
-  # GET /response_challenges.json
-  def index
-    @response_challenges = ResponseChallenge.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @response_challenges }
-    end
-  end
-
-  # GET /response_challenges/1
-  # GET /response_challenges/1.json
-  def show
-    @response_challenge = ResponseChallenge.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @response_challenge }
-    end
-  end
 
   # GET /response_challenges/new
   # GET /response_challenges/new.json
@@ -47,7 +26,7 @@ class ResponseChallengesController < ApplicationController
 
     respond_to do |format|
       if @response_challenge.save
-        format.html { redirect_to @response_challenge, notice: 'Response challenge was successfully created.' }
+        format.html { redirect_to @response_challenge.challenge, notice: 'Response challenge was successfully created.' }
         format.json { render json: @response_challenge, status: :created, location: @response_challenge }
       else
         format.html { render action: "new" }

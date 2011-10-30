@@ -1,7 +1,5 @@
 <script type="text/javascript">
-$(document).ready( function() {
-	$('#related_content').stickySidebar();
-	
+$(document).ready( function() {	
 	$('#tabs ul').idTabs();
 	
 	var map;
@@ -21,9 +19,7 @@ $(document).ready( function() {
 	            map: map,
 	            position: results[0].geometry.location
 	        });
-	      } else {
-	        //alert("Geocode was not successful for the following reason: " + status);
-	      }
+		}
 	});
 	
 });
@@ -60,10 +56,12 @@ $(document).ready( function() {
 		<b><%= @challenge.title %></b>
 	</span>
 	<br>
+	<div id='challenge_dates'>
 	<ul>
 		<li><b> Submission Deadline: </b> <%= @challenge.submission_deadline.strftime("%Y %b %d") %> </li>
 		<li><b> Vote Deadline: </b> <%= @challenge.vote_deadline.strftime("%Y %b %d") %> </li>
 	</ul>
+	</div>
 	<br>
 	<span id='question_author'>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
@@ -96,6 +94,39 @@ $(document).ready( function() {
 </ul>
 </div>
 <br>
+<div id='proposals'>
+	<% @challenge.proposals.reverse_each do |r| %>
+		<div class='individual'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		    <%= r.user.picture %>
+		 	<%=h r.user.login %> |
+		    <%= time_ago_in_words(r.created_at) %> ago
+			<br><br>
+		    <%=h r.title %>
+		 	<%=h r.description %>
+		</div>
+		<br>
+	<% end %>
+	<div id='proposal_form'>
+		Add Proposals
+		<br>
+		<%= form_for([@challenge, Proposal.new]) do |r| %>
+		    <p>
+			    <%= r.label :title, "Title" %>
+				<br>
+			    <%= r.text_field :title %>
+			  </p>
+			  <p>
+			    <%= r.label :description, "Description" %>
+				<br>
+			    <%= r.text_area :description, :rows=>3 %>
+			  </p>
+			  <p>
+			    <%= r.submit "Submit" %>
+			  </p>
+		<% end %>
+	</div>
+</div>
 <div id='responses'>
 	<% @challenge.response_challenges.reverse_each do |r| %>
 		<div class='individual'>
@@ -130,28 +161,29 @@ $(document).ready( function() {
 </div>
 <div id='events'>
 	<% @challenge.events.reverse_each do |e| %>
-		<div class='individual'>
-			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-		    <%= e.user.picture %>
-		 	<%=h e.user.login %> |
-		    <%= time_ago_in_words(e.created_at) %> ago
-			<br><br>
-			Title:
-			<b><%= link_to e.title, e, :class=>'black_link' %></b>
+	<div class='entry_main'>
+		<div class='entry_author'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+			<%=h e.user.picture %> 
 			<br>
-			Description:
-		    <%=h e.description %>
+			<%=h e.user.login %>	
 			<br>
-			Location:
-			<%=h e.location %>
+			<%= e.created_at.strftime("%Y %b %d") %>
 			<br>
-			Time:
-			<%=h e.time %>
-			<br>
-			Category:
-			<%=h Categories.find(e.categories_id).category %>
 		</div>
-		<br>
+		<div class='entry_title'>
+			<b><%= link_to e.title, e, :class=>'black_link' %></b>
+		</div>
+		<div id='challenge_dates'>
+			<ul>
+				<li><b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
+			</ul>
+		</div>	
+		<div class='latest_response'>
+		    <%=h e.description %>
+		</div>
+	</div>
+	<br>
 	<% end %>
 	<div id='response_form'>
 		Add Event

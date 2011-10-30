@@ -1,26 +1,4 @@
 class ResponseQuestionsController < ApplicationController
-  # GET /response_questions
-  # GET /response_questions.json
-  def index
-    @response_questions = ResponseQuestion.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @response_questions }
-    end
-  end
-
-  # GET /response_questions/1
-  # GET /response_questions/1.json
-  def show
-    @response_question = ResponseQuestion.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @response_question }
-    end
-  end
-
   # GET /response_questions/new
   # GET /response_questions/new.json
   def new

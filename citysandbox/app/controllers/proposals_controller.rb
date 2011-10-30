@@ -1,15 +1,4 @@
 class ProposalsController < ApplicationController
-  # GET /proposals
-  # GET /proposals.json
-  def index
-    @proposals = Proposal.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @proposals }
-    end
-  end
-
   # GET /proposals/1
   # GET /proposals/1.json
   def show
@@ -41,14 +30,16 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     @proposal = Proposal.new(params[:proposal])
+    @proposal.challenge_id = params[:challenge_id]
+    @proposal.user_id = current_user.id
 
     respond_to do |format|
       if @proposal.save
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
-        format.json { render json: @proposal, status: :created, location: @proposal }
+        format.html { redirect_to @proposal.challenge, notice: 'Proposal was successfully created.' }
+        format.json { render json: @proposal.challenge, status: :created, location: @proposal }
       else
         format.html { render action: "new" }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
+        format.json { render json: @proposal.challenge.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -46,9 +46,20 @@
     
     def create_followed
       followed = FollowedQuestion.new
-      followed.user = current_user
+      followed.user_id = current_user.id
       followed.question_id = id
+      
+      
       followed.save
+    end
+    
+    def create_followed(follower)
+      followed = FollowedQuestion.new
+      followed.user_id = follower.id
+      followed.question_id = id
+      if FollowedQuestion.where(:question_id => id).where(:user_id => follower.id) == []
+        followed.save
+      end
     end
     
     def most_popular(since_last)
@@ -58,6 +69,12 @@
     def remove_followed
        followed = followed_questions
        a= followed.where(:user_id => current_user.id).first
+       return a.destroy
+     end
+     
+     def remove_followed(follower)
+       followed = followed_questions
+       a = followed.where(:user_id => follower.id).first
        return a.destroy
      end
   

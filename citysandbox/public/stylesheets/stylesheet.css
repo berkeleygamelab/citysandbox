@@ -177,7 +177,7 @@ footer a {
 	line-height:2em;
 	padding-bottom:20px;
 }
-#question_main, .individual, #response_form, #challenge_form, .individual_question {
+#question_main, .individual, #response_form, #challenge_form, .individual_question, #proposal_form {
 	padding: 3%;
 	background-color: rgba(255, 255, 255,0.5);
 }
@@ -190,10 +190,10 @@ footer a {
 	min-height:170px;
 	font-size: 14px;
 }
-#question_main ul {
-	text-indent: -2em;
+#challenge_dates ul {
+	font-size:12px;
 }
-#question_main li {
+#challenge_dates li {
 	list-style: none;
 	display: inline;
 	padding-right:30px;
@@ -207,7 +207,7 @@ footer a {
 	font-size: 20px;
 }
 #question_description {
-	font-size:12px;
+	font-size:14px;
 }
 #user_sidebar {
 	float: left;
@@ -253,7 +253,7 @@ footer a {
 }
 .entry_main {
 	background-color: rgba(255, 255, 255, 0.6);
-	height: 150px;
+	min-height: 150px;
 }
 .entry_map {
 	float:right;
@@ -289,14 +289,15 @@ footer a {
 }
 .latest_response {
 	font-size: 12px;
+	padding-top:10px;
 }
 
 /* NEW QUESTION */
 .form {
-	background: url('../images/content_pane.png');
 	padding-left: 25px;
 	margin: 25px;
 	width: 450px;
+	color: #DDDDDD;
 }
 
 /* MAP */

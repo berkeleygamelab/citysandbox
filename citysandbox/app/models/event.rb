@@ -19,15 +19,36 @@ class Event < ActiveRecord::Base
    
    
   def create_followed
-     followed = FollowedEvent.new
-     followed.user = current_user
-     followed.event_id = id
-     followed.save
+    followed = FollowedEvent.new
+    followed.user_id = current_user.id
+    followed.event_id = id
+    
+    
+    followed.save
   end
-
+  
+  def create_followed(follower)
+    followed = FollowedEvent.new
+    followed.user_id = follower.id
+    followed.event_id = id
+    if FollowedEvent.where(:event_id => id).where(:user_id => follower.id) == []
+      followed.save
+    end
+  end
+  
+  def most_popular(since_last)
+    return Question.where("updated_at > '#{since_last}'").where()
+  end
+  
   def remove_followed
      followed = followed_events
      a= followed.where(:user_id => current_user.id).first
+     return a.destroy
+   end
+   
+   def remove_followed(follower)
+     followed = followed_events
+     a = followed.where(:user_id => follower.id).first
      return a.destroy
    end
    

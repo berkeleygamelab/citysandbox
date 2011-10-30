@@ -37,8 +37,7 @@ def summary
   size_limit_discussion = 5
   page_offset = 0
 
-  ::SONS = [2,3]
-  
+
   @collection = []
   @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
   @discussion_next = []
@@ -60,6 +59,8 @@ def summary
   
   if (params[:follow] != nil)
     add_follower(params[:follow], params[:itemz])
+  elsif (params[:unfollow] != nil) 
+    remove_follower(params[:unfollow], params[:itemz])
   end
   
 end
@@ -225,6 +226,8 @@ def add_follower(item_to_follow, type)
     item = Event.where(:id => item_to_follow).first
   end
   item.create_followed(current_user)
+  
+  redirect_to summary_path
 end
 
 def remove_follower(item_to_follow, type)
@@ -238,6 +241,8 @@ def remove_follower(item_to_follow, type)
       item = Event.where(:id => item_to_follow).first
     end
     item.remove_followed(current_user)
+    
+      redirect_to summary_path
   end
 
 def sort_descending(set)

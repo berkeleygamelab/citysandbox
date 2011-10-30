@@ -5,9 +5,58 @@ $(document).ready( function() {
 	$('#tabs ul').idTabs();
 	
 	$('.entry_map img').each( function(index) {
-		var address = $('#entry_address' + index).val().replace(/[\t\n\r]/gi, " ");
-		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+
-		address+'&zoom=14&size=130x130&sensor=false');
+		var address = $('#entry_address' + index).val().replace(/[\t\n\r\s]/gi, "+");
+		//$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C' + address+'&sensor=false');
+		// challenge: http://i42.tinypic.com/2qs86fd.png
+		// question: http://i39.tinypic.com/2myrj0y.png
+		// event: http://i39.tinypic.com/14bq4p2.png
+		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false');
+		
+	});
+	$('#sortby li').each( function () {
+		$(this).click( function() {
+			console.log(this.children);
+		})
+	});
+	
+	var categories_checked = [];
+	$('#categories li').each( function () {
+		$(this).click( function() {
+			categories_checked = [];
+			$('#categories li :checked').each( function () {
+				categories_checked.push($(this).attr('value'));
+			});
+			var url_string = '/summary'
+			for (category in categories_checked) {
+				if (url_string.indexOf('category') == -1) {
+					url_string += '?category[]=' + categories_checked[category];
+				} else {
+					url_string += '&category[]=' + categories_checked[category];
+				} 
+			console.log(url_string);
+			window.location = url_string;
+			}
+			
+		});
+	});
+	types_checked = [];
+	$('#sort_by_type li').each( function () {
+		$(this).click( function() {
+			type_checked = [];
+			$('#sort_by_type li :checked').each( function () {
+				type_checked.push($(this).attr('value'));
+			});
+			var url_string = '/summary'
+			for (type in type_checked) {
+				if (url_string.indexOf('itemz') == -1) {
+					url_string += '?itemz=' + type_checked[type];
+				} else {
+					url_string += '&itemz=' + type_checked[type];
+				} 
+			window.location = url_string;
+			}
+			
+		});
 	});
 });
 </script>
@@ -15,17 +64,37 @@ $(document).ready( function() {
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>
-	<ul id='sort'>
-		<li><%= image_tag "../images/checkbox.png" %> Most Recent</li>
-		<li><%= image_tag "../images/checkbox.png" %> Most Popular</li>
-		<li><%= image_tag "../images/checkbox.png" %> Following</li>
-		
+
+	<ul id='sortby'>
+	<li>
+	  <%= check_box_tag 'sort', 'recent' %> Most Recent
+	</li>
+	<li>
+	  <%= check_box_tag 'sort', 'popular' %> Most Popular
+	</li>
+	<li>
+	 <%= check_box_tag 'sort', 'following' %> Following
+	</li>
+	</ul>
+	<br>
+	<b>SHOW</b>
+	<ul id='sort_by_type'>
+	<li>
+	  <%= check_box_tag 'sort', 'Questions' %> Questions
+	</li>
+	<li>
+	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
+	</li>
+	<li>
+	 <%= check_box_tag 'sort', 'Events' %> Events
+	</li>
+
 	</ul>
 	<br>
 	<b>KEYWORD SEARCH</b>
 	<br>
 	<br>
-	<%=h ::SONS[0]%>
+
 	<br>
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
@@ -34,17 +103,15 @@ $(document).ready( function() {
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
-	<ul>
-		<li><%= image_tag "../images/checkbox.png" %> Commerce</li>
-		<li><%= image_tag "../images/checkbox.png" %> Civil Rights</li>
-		<li><%= image_tag "../images/checkbox.png" %> Health & Safety</li>
-		<li><%= image_tag "../images/checkbox.png" %> History</li>
-		<li><%= image_tag "../images/checkbox.png" %> Kids/Education</li>
-		<li><%= image_tag "../images/checkbox.png" %> Public Space</li>
-		<li><%= image_tag "../images/checkbox.png" %> Transportation</li>
+	<ul id='categories'>
+	<% for category in Categories.find(:all) %>
+	<li>
+	  <%= check_box_tag 'category', category.id %>
+	  <%= category.category %>
+	</li>
+	<% end %>
 	</ul>
 </div>
-<!--<%= link_to "summary", :category => ["fish", "sticks"] %>-->
 </div>
 <div id='main_content'>
 <% if @collection.length == 0 %>
@@ -76,39 +143,55 @@ $(document).ready( function() {
 				<%=h entry[0].user.login %>
 				<br>
 			<% end %>
-			<%= entry[0].created_at.strftime("%m/%d/%y") %>
+			<%= entry[0].created_at.strftime("%Y %b %d") %>
 			<br>
 		</div>
 		<div class='entry_map'>
 			<img>
 			<%= hidden_field_tag 'entry_address' + index.to_s, entry[0].location %>
+			<%= hidden_field_tag 'entry_type' + index.to_s, entry[0].class %>
 		</div>
 		<div class='entry_title'>
 			<b><%= link_to entry[0].title, entry[0], :class=>'black_link' %></b>
 		</div>	
 		<% if !entry[1][-1].nil? && entry[0].instance_of?(Question) %>
-			<br>
 			<div class='latest_response'>
 				<i>Latest Response:</i>
 			    <%=h truncate(entry[1][-1].response, :length=>200) %>
 			</div>
 		<% end %>
 		<% if entry[0].instance_of?(Challenge) && entry[0].description.length > 0 %>
-			<br>
 			<div class='latest_response'>
 			    <%=h truncate(entry[0].description, :length=>200) %>
 			</div>
+		<% end %>
+		<% if entry[0].instance_of?(Challenge) %>
+		<div id='challenge_dates'>
+			<ul>
+				<li><b> Submission Deadline: </b> <%= entry[0].submission_deadline.strftime("%Y %b %d") %> </li>
+				<li><b> Vote Deadline: </b> <%= entry[0].vote_deadline.strftime("%Y %b %d") %> </li>
+			</ul>
+		</div>
+		<% end %>
+		<% if entry[0].instance_of?(Event) %>
+		<div id='challenge_dates'>
+			<ul>
+				<li><b> Date: </b> <%= entry[0].time.strftime("%Y %b %d") %> </li>
+			</ul>
+		</div>
 		<% end %>
 		<div class='entry_stats'>
 			<ul>
 			<% if entry[0].instance_of?(Question) %>
 				<li><%= pluralize(entry[0].response_questions.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_questions.length, 'Follower') %></li>
 			<% elsif entry[0].instance_of?(Challenge) %>
 				<li><%= pluralize(entry[0].response_challenges.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_challenges.length, 'Follower') %></li>
 			<% elsif entry[0].instance_of?(Event) %>
-				<li><%= pluralize(entry[0].response_events.length, 'Response') %></li>	
+				<li><%= pluralize(entry[0].response_events.length, 'Response') %></li>
+				<li><%= pluralize(entry[0].followed_events.length, 'Follower') %></li>	
 			<% end %>
-			<li><%= pluralize(0, 'Follower') %></li>
 			<% if entry[0].instance_of?(Question) %>
 				<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>
 				<li><%= pluralize(0, 'Event') %></li>	
@@ -116,7 +199,25 @@ $(document).ready( function() {
 				<li><%= pluralize(entry[0].proposals.length, 'Proposals') %></li>
 				<li><%= pluralize(entry[0].events.length, 'Event') %></li>
 			<% end %>
-			<li><b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b></li>
+			<% if entry[0].instance_of?(Question) %>
+				<% if entry[0].followed_questions.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Question), :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Question), :class=>'black_link' %></b></li>
+				<% end %>
+			<% elsif entry[0].instance_of?(Challenge) %>
+				<% if entry[0].followed_challenges.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Challenge), :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Challenge), :class=>'black_link' %></b></li>
+				<% end %>
+			<% elsif entry[0].instance_of?(Event) %>
+				<% if entry[0].followed_events.find_by_user_id(current_user.id) != nil %>
+					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Event), :class=>'black_link' %></b></li>
+				<% else %>
+				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Event), :class=>'black_link' %></b></li>
+				<% end %>
+			<% end %>
 			</ul>
 		</div>
 	</div>
