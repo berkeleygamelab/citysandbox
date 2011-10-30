@@ -33,28 +33,7 @@ end
 
 
 def summary
-  size_limit_questions = 15
-  size_limit_discussion = 5
-  page_offset = 0
 
-
-  @collection = []
-  @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
-  @discussion_next = []
-
-  @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-  @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-  
-  @dummy_set =[]
-  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
-  @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-  @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
-
-  
-  @collection = @dummy_set
-  @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-  @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
-  
   @collection = self.filter
   
   if (params[:follow] != nil)
@@ -87,9 +66,17 @@ def filter
   @followed = params[:followed]
   @followed_type = params[:followed_type]  
   
-  
+    @checkQuestion = @type_of_stuff =~ /Questions/
+    @type_of_stuff = params[:itemz]
+    @checkChallenge = @type_of_stuff =~ /Challenges/
+    @type_of_stuff = params[:itemz]
+    @checkEvent = @type_of_stuff =~ /Events/
+    puts @type_of_stuff
+    puts @checkQuestion
+    puts @checkEvent
+    puts @checkChallenge
     
-    if(@type_of_stuff == nil or @type_of_stuff == "Questions")
+    if(@type_of_stuff == nil or @checkQuestion != nil)
       if @followed != nil
         @questions = display_following(@questions, "Question")
         @flagsorted = true
@@ -110,7 +97,7 @@ def filter
 
     end
     
-    if(@type_of_stuff == nil or @type_of_stuff == "Events")
+    if(@type_of_stuff == nil or @checkEvent != nil)
       if @followed != nil
          @events = display_following(@events, "Event")
          @flagsorted = true
@@ -133,7 +120,7 @@ def filter
        
      end
      
-     if(@type_of_stuff == nil or @type_of_stuff == "Challenges")
+     if(@type_of_stuff == nil or @checkChallenge != nil)
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
             @flagsorted = true
@@ -172,13 +159,13 @@ def filter
        @questions = []
        @challenges = []
        @events = []
-       if(@type_of_stuff == "Questions" or @type_of_stuff == nil)
+       if(@type_of_stuff == "Questions" or @type_of_stuff == nil or @checkQuestion != nil)
          @questions = Question.find(:all)
        end
-       if(@type_of_stuff == "Challenges" or @type_of_stuff == nil)
+       if(@type_of_stuff == "Challenges" or @type_of_stuff == nil or @checkChallenge != nil)
          @challenges = Challenge.find(:all)
        end
-       if(@type_of_stuff == "Events" or @type_of_stuff == nil)
+       if(@type_of_stuff == "Events" or @type_of_stuff == nil or @checkEvent != nil)
          @events = Event.find(:all)
        end
      end
