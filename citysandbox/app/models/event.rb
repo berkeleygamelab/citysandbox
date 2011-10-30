@@ -5,6 +5,8 @@ class Event < ActiveRecord::Base
   belongs_to :categories
   belongs_to :challenge
   
+  validates :categories_id, :presence => true
+  
   has_many :response_events
   has_many :followed_events
   

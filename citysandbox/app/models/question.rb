@@ -10,6 +10,7 @@
   validates :user_id, :presence => true
   validates :title, :presence => true
   validates :location, :presence => true
+   validates :categories_id, :presence => true
   
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
     scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}

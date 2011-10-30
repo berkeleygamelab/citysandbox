@@ -44,7 +44,21 @@ def summary
   
 end
 
-
+def parse_types(stuff)
+  item_returner = [false, false, false]
+  stuff.each do |check|
+    if check == "Questions"
+      item_returner[0] = true
+    end
+    if check == "Events"
+      item_returner[1] = true
+    end
+    if check == "Challenges"
+      item_returner[2] = true
+    end
+  end
+  return item_returner
+end
 
 def filter
   size_limit_questions = 15
@@ -66,17 +80,27 @@ def filter
   @followed = params[:followed]
   @followed_type = params[:followed_type]  
   
-    @checkQuestion = @type_of_stuff =~ /Questions/
-    @type_of_stuff = params[:itemz]
-    @checkChallenge = @type_of_stuff =~ /Challenges/
-    @type_of_stuff = params[:itemz]
-    @checkEvent = @type_of_stuff =~ /Events/
-    puts @type_of_stuff
-    puts @checkQuestion
-    puts @checkEvent
-    puts @checkChallenge
+  @type_params = [false, false, false]
+  
+  if @type_of_stuff == "Questions"
+    @type_of_stuff = ["Questions"]
+  end
+  
+  if @type_of_stuff == "Challenges"
+    @type_of_stuff = ["Challenges"]
+  end
+  
+  if @type_of_stuff == "Events"
+    @type_of_stuff = ["Events"]
+  end
+  
+  if @type_of_stuff != nil
+    @type_params = parse_types(@type_of_stuff)
+  end
+  
+  puts @type_params
     
-    if(@type_of_stuff == nil or @checkQuestion != nil)
+    if(@type_of_stuff == nil or @type_params[0])
       if @followed != nil
         @questions = display_following(@questions, "Question")
         @flagsorted = true
@@ -97,7 +121,7 @@ def filter
 
     end
     
-    if(@type_of_stuff == nil or @checkEvent != nil)
+    if(@type_of_stuff == nil or @type_params[1])
       if @followed != nil
          @events = display_following(@events, "Event")
          @flagsorted = true
@@ -120,7 +144,7 @@ def filter
        
      end
      
-     if(@type_of_stuff == nil or @checkChallenge != nil)
+     if(@type_of_stuff == nil or @type_params[2])
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
             @flagsorted = true
@@ -159,14 +183,15 @@ def filter
        @questions = []
        @challenges = []
        @events = []
-       if(@type_of_stuff == "Questions" or @type_of_stuff == nil or @checkQuestion != nil)
+       if(@type_of_stuff == "Questions" or @type_of_stuff == nil or @type_params[0])
          @questions = Question.find(:all)
        end
-       if(@type_of_stuff == "Challenges" or @type_of_stuff == nil or @checkChallenge != nil)
-         @challenges = Challenge.find(:all)
-       end
-       if(@type_of_stuff == "Events" or @type_of_stuff == nil or @checkEvent != nil)
+
+       if(@type_of_stuff == "Events" or @type_of_stuff == nil or @type_params[1])
          @events = Event.find(:all)
+       end
+       if(@type_of_stuff == "Challenges" or @type_of_stuff == nil or @type_params[2])
+         @challenges = Challenge.find(:all)
        end
      end
      
