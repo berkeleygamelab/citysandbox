@@ -34,13 +34,13 @@ end
 
 def summary
 
-  @collection = self.filter
   
   if (params[:follow] != nil)
     add_follower(params[:follow], params[:itemz])
   elsif (params[:unfollow] != nil) 
     remove_follower(params[:unfollow], params[:itemz])
   end
+  @collection = self.filter
   
 end
 
@@ -82,17 +82,18 @@ def filter
   
   @type_params = [false, false, false]
   
-  if @type_of_stuff == "Questions"
+  if @type_of_stuff == "Questions" or @type_of_stuff == "Question"
     @type_of_stuff = ["Questions"]
   end
   
-  if @type_of_stuff == "Challenges"
+  if @type_of_stuff == "Challenges" or @type_of_stuff == "Challenge"
     @type_of_stuff = ["Challenges"]
   end
   
-  if @type_of_stuff == "Events"
+  if @type_of_stuff == "Events" or @type_of_stuff == "Event"
     @type_of_stuff = ["Events"]
   end
+  
   
   if @type_of_stuff != nil
     @type_params = parse_types(@type_of_stuff)
