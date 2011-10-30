@@ -3,6 +3,8 @@ class Challenge < ActiveRecord::Base
   has_many :response_challenges
   has_many :followed_challenges
   has_many :events
+  attr_accessor :lat
+  attr_accessor :lng
   
   belongs_to :question
   belongs_to :user
@@ -75,7 +77,7 @@ class Challenge < ActiveRecord::Base
    
    def insert_location(loc)
      @challenges_table = ENV['challenge_table']
-     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, challenge_id) VALUES ('#{loc}', #{id})"
+     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id) VALUES ('#{loc}', #{id})"
    end
    
    def grab_nearest(number)

@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :categories
   belongs_to :challenge
+  attr_accessor :lat
+  attr_accessor :lng
   
   validates :categories_id, :presence => true
   
@@ -72,7 +74,7 @@ class Event < ActiveRecord::Base
    
    def insert_location(loc)
      @events_table = ENV['event_table']
-     return ::FT.execute "INSERT INTO #{@events_table} (Location, event_id) VALUES ('#{loc}', #{id})"
+     return ::FT.execute "INSERT INTO #{@events_table} (Location, id) VALUES ('#{loc}', #{id})"
    end
    
    def grab_nearest(number)

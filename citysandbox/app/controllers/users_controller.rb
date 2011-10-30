@@ -4,6 +4,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find(session[:user_id])
+  end
+
   def create
     @user = User.new(params[:user])
     if @user.save
@@ -12,6 +16,20 @@ class UsersController < ApplicationController
       render "new"
     end
   end
+  
+  def update
+     @user = User.find(session[:user_id])
+
+     respond_to do |format|
+       if @user.update_attributes(params[:user])
+         format.html { redirect_to summary_path, notice: 'Question was successfully updated.' }
+         format.json { head :ok }
+       else
+         format.html { render action: "edit" }
+         format.json { render json: @question.errors, status: :unprocessable_entity }
+       end
+     end
+   end
   
   def destroy
     if not User.exists?(params[:user])

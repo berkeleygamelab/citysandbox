@@ -18,44 +18,29 @@ $(document).ready( function() {
 			console.log(this.children);
 		})
 	});
-	
 	var categories_checked = [];
-	$('#categories li').each( function () {
+	var types_checked = [];
+	$('#sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
 			categories_checked = [];
 			$('#categories li :checked').each( function () {
 				categories_checked.push($(this).attr('value'));
 			});
-			var url_string = '/summary'
-			for (category in categories_checked) {
-				if (url_string.indexOf('category') == -1) {
-					url_string += '?category[]=' + categories_checked[category];
-				} else {
-					url_string += '&category[]=' + categories_checked[category];
-				} 
-			console.log(url_string);
-			window.location = url_string;
-			}
-			
-		});
-	});
-	types_checked = [];
-	$('#sort_by_type li').each( function () {
-		$(this).click( function() {
-			type_checked = [];
+			types_checked = [];
 			$('#sort_by_type li :checked').each( function () {
-				type_checked.push($(this).attr('value'));
+				types_checked.push($(this).attr('value'));
 			});
-			var url_string = '/summary'
-			for (type in type_checked) {
-				if (url_string.indexOf('itemz') == -1) {
-					url_string += '?itemz=' + type_checked[type];
-				} else {
-					url_string += '&itemz=' + type_checked[type];
-				} 
-			window.location = url_string;
+			var params = {};
+			if (categories_checked.length > 0) {
+				params['category'] = categories_checked;
 			}
-			
+			if (types_checked.length > 0) {
+				params['types'] = types_checked;
+			}
+			console.log(params);
+			$.get('/filter', params, function(data) {
+
+			});
 		});
 	});
 });
@@ -70,9 +55,9 @@ $(document).ready( function() {
 	<li>
 	  <%= check_box_tag 'sort', 'recent' %> Most Recent
 	</li>
-	<li>
+	<!--<li>
 	  <%= check_box_tag 'sort', 'popular' %> Most Popular
-	</li>
+	</li>--> 
 	<li>
 	 <%= check_box_tag 'sort', 'following' %> Following
 	</li>

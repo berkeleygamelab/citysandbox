@@ -38,6 +38,7 @@ class ChallengesController < ApplicationController
 
     respond_to do |format|
       if @challenge.save
+        @challenge.insert_location(@challenge.lat + ', ' + @challenge.lng)
         format.html { redirect_to @challenge.question, notice: 'Challenge was successfully created.' }
         format.json { render json: @challenge, status: :created, location: @challenge }
       else

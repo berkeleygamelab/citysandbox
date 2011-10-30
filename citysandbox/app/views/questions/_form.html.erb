@@ -29,6 +29,8 @@ function center_map(map) {
 	            map: map,
 	            position: results[0].geometry.location
 	        });
+			$('#question_lat').attr('value', results[0].geometry.location.lat());
+			$('#question_lng').attr('value', results[0].geometry.location.lng());
 	      }
 	});
 }
@@ -46,6 +48,8 @@ function center_map(map) {
     </div>
   <% end %>
 	<p>
+		<%= f.hidden_field :lat %>
+		<%= f.hidden_field :lng %>
 		<%= f.label :title %>
 		<br>
 		<%= f.text_area :title, :rows=>3 %>

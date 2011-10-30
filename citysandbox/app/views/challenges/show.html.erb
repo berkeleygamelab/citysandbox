@@ -22,6 +22,17 @@ $(document).ready( function() {
 		}
 	});
 	
+	$('#event_location').blur( function() {
+		var event_geocoder = new google.maps.Geocoder();
+		var event_address = $.trim(event_address = $('#event_location').val().replace(/[\t\n\r]/gi, ""));
+		    geocoder.geocode( { 'address': event_address}, function(results, status) {
+		      if (status == google.maps.GeocoderStatus.OK) {		      
+				$('#event_lat').attr('value', results[0].geometry.location.lat());
+				$('#event_lng').attr('value', results[0].geometry.location.lng());
+		      }	
+		});
+	});
+	
 });
 </script>
 <style type="text/css">
@@ -62,7 +73,6 @@ $(document).ready( function() {
 		<li><b> Vote Deadline: </b> <%= @challenge.vote_deadline.strftime("%Y %b %d") %> </li>
 	</ul>
 	</div>
-	<br>
 	<span id='question_author'>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 		<%=h @challenge.user.picture %> by <%= @challenge.user.login %> |
@@ -72,7 +82,13 @@ $(document).ready( function() {
 	</span>
 	<br>
 	<br>
-
+	<div id='form_links'>
+	<ul>
+	<li><a href="#proposal_form" class="black_link" onclick='$("#proposals_tab").click();'>Add Proposal</a></li>
+	<li><a href="#response_form" class="black_link" onclick='$("#responses_tab").click();'>Add Response</a></li>
+	<li><a href="#event_form" class="black_link" onclick='$("#events_tab").click();'>Add Event</a></li>
+	</ul>
+	</div>
 </div>
 <% if @challenge.description.length > 0 %>
 	<br>
@@ -86,11 +102,11 @@ $(document).ready( function() {
 <br>
 <div id='tabs_menu'>	
 <ul>
-	<li><b><a href="#proposals">Proposals</a></b></li>
+	<li><b><a href="#proposals" id='proposals_tab'>Proposals</a></b></li>
 	<li>|</li>
-	<li><b><a href="#responses">Responses</a></b></li>
+	<li><b><a href="#responses" id='responses_tab'>Responses</a></b></li>
 	<li>|</li>
-	<li><b><a href="#events">Events</a></b></li>
+	<li><b><a href="#events" id='events_tab'>Events</a></b></li>
 </ul>
 </div>
 <br>
@@ -185,11 +201,13 @@ $(document).ready( function() {
 	</div>
 	<br>
 	<% end %>
-	<div id='response_form'>
+	<div id='event_form'>
 		Add Event
 		<br>
 		<%= form_for([@challenge, Event.new]) do |c| %>
 		      <%= c.hidden_field :challenge_id, :value => @challenge.id %>
+			  <%= c.hidden_field :lat %>
+			  <%= c.hidden_field :lng %>
 			  <p>
 			    <%= c.label :title, "Title" %>
 				<br>
