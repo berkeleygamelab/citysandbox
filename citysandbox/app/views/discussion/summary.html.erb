@@ -43,6 +43,14 @@ $(document).ready( function() {
 			});
 		});
 	});
+	
+	$('#uncheck').click(function() {
+		if ($(this).attr('checked')) {
+			$('#sort_by_type li :checked, #categories li :checked, #sortby li :checked').each( function () {
+				$(this).attr('checked', false);
+			});	
+		};
+	});
 });
 </script>
 
@@ -97,6 +105,8 @@ $(document).ready( function() {
 	</li>
 	<% end %>
 	</ul>
+	<br>
+	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
 </div>
 <div id='main_content'>
