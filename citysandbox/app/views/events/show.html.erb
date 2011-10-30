@@ -24,6 +24,11 @@ $(document).ready( function() {
 	      }
 	});
 	
+	var qr_url = window.location.href;
+	qr_url = (qr_url.indexOf('?') != -1) ? qr_url.substring(0, qr_url.indexOf('?')) : qr_url;
+	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
+	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
+	
 });
 </script>
 <style type="text/css">
@@ -63,7 +68,8 @@ $(document).ready( function() {
 		<%=h @event.user.picture %> by <%= @event.user.login %> |
 		<%= @event.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
 		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
-		<%= link_to 'Share', summary_path, :class=>'black_link' %>
+		<%= link_to 'Share', summary_path, :class=>'black_link' %> |
+		<a id='QR' class='black_link'>QR</a>
 	</span>
 	<br>
 	<br>
