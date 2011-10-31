@@ -40,65 +40,65 @@ def filter
   @title = params[:title]
   @timestamp = params[:timeBefore]
     
-  @events = Event
-  @questions = Question
-  @challenges = Challenge
+  @events = []
+  @questions = []
+  @challenges = []
   @followed = params[:followed]
   @followed_type = params[:followed_type]  
       
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       if @followed != nil
-        @questions = display_following(@questions, "Question")
+        @questions = display_following(Question, "Question")
         @flagsorted = true
       end
       if @title != nil
-        @questions = sort_by_title(@questions, @title)
+        @questions = sort_by_title(Question, @title)
         @flagsorted = true
       end
       if @category_type != nil
-        @questions = sort_by_category(@questions, @category_type)
+        @questions = sort_by_category(Question, @category_type)
         @flagsorted = true
       end
       if @timestamp != nil
-        @questions = sort_by_timestamp(@questions, @category_type)
+        @questions = sort_by_timestamp(Question, @category_type)
         @flagsorted = true
       end
     end
     
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
       if @followed != nil
-         @events = display_following(@events, "Event")
+         @events = display_following(Event, "Event")
          @flagsorted = true
       end
        if @title != nil
-         @events = sort_by_title(@events, @title)
+         @events = sort_by_title(Event, @title)
          @flagsorted = true
        end
        if @category_type != nil
-         @events = sort_by_category(@events, @category_type)
+         @events = sort_by_category(Event, @category_type)
          @flagsorted = true
        end
        if @timestamp != nil
-         @events = sort_by_timestamp(@events, @category_type)
+         @events = sort_by_timestamp(Event, @category_type)
          @flagsorted = true
        end
      end
      
      if(@type_of_stuff == nil or@type_of_stuff.find_index("Challenges") != nil)
          if @followed != nil
-            @challenges = display_following(@challenges, "Challenge")
+            @challenges = display_following(Challenge, "Challenge")
             @flagsorted = true
          end
         if @title != nil
-          @challenges = sort_by_title(@challenges, @title)
+          @challenges = sort_by_title(Challenge, @title)
           @flagsorted = true
         end
         if @category_type != nil
-          @challenges = sort_by_category(@challenges, @category_type)
+          @challenges = sort_by_category(Challenge, @category_type)
           @flagsorted = true
         end
         if @timestamp != nil
-          @challenges = sort_by_timestamp(@challenges, @category_type)
+          @challenges = sort_by_timestamp(Challenge, @category_type)
           @flagsorted = true
         end
       
