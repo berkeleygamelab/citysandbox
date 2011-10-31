@@ -6,43 +6,15 @@ $(document).ready( function() {
 
 	draw_maps();
 
-	$('#sortby li').each( function () {
+	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
-			console.log(this.children);
-		})
-	});
-	var categories_checked = [];
-	var types_checked = [];
-	$('#sort_by_type li, #categories li').each( function () {
-		$(this).click( function() {
-			$('#uncheck').attr('checked', false);
-			categories_checked = [];
-			$('#categories li :checked').each( function () {
-				categories_checked.push($(this).attr('value'));
-			});
-			types_checked = [];
-			$('#sort_by_type li :checked').each( function () {
-				types_checked.push($(this).attr('value'));
-			});
-			var params = {};
-			if (categories_checked.length > 0) {
-				params['category'] = categories_checked;
-			}
-			if (types_checked.length > 0) {
-				params['types'] = types_checked;
-			}
-			if ($.isEmptyObject(params)) {
-				params['types'] = ['Questions', 'Challenges', 'Events'];
-			}
-			$.get('/filter', params, function(data) {
-				populate_content(data);
-			});
+			ajax_call();
 		});
 	});
 	
 	$('#uncheck').click(function() {
 		if ($(this).attr('checked')) {
-			$('#sort_by_type li :checked, #categories li :checked, #sortby li :checked').each( function () {
+			$('#sort_by_type li :checked, #categories li :checked, #sort_by li :checked').each( function () {
 				$(this).attr('checked', false);
 				var params = {};
 				params['types'] = ['Questions', 'Challenges', 'Events'];
@@ -52,8 +24,82 @@ $(document).ready( function() {
 			});	
 		};
 	});
+	$('.follow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, true);
+	});
+	
+	$('.unfollow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, false);
+	});
 });
 
+function ajax_call() {
+	var params = {};
+	$('#uncheck').attr('checked', false);
+	sort_by_checked = [];
+	$('#sort_by li :checked').each( function () {
+		sort_by_checked.push($(this).attr('value'));
+	});
+	if (sort_by_checked.indexOf('following') != -1) {
+		params['following'] = true;
+	}
+	categories_checked = [];
+	$('#categories li :checked').each( function () {
+		categories_checked.push($(this).attr('value'));
+	});
+	types_checked = [];
+	$('#sort_by_type li :checked').each( function () {
+		types_checked.push($(this).attr('value'));
+	});
+	if (categories_checked.length > 0) {
+		params['category'] = categories_checked;
+	}
+	if (types_checked.length > 0) {
+		params['types'] = types_checked;
+	}
+	if ($.isEmptyObject(params)) {
+		params['types'] = ['Questions', 'Challenges', 'Events'];
+	}
+	$.get('/filter', params, function(data) {
+		populate_content(data);
+	});
+}
+
+function follow_unfollow(id, type, follow) {
+	$('#uncheck').attr('checked', false);
+	categories_checked = [];
+	$('#categories li :checked').each( function () {
+		categories_checked.push($(this).attr('value'));
+	});
+	types_checked = [];
+	$('#sort_by_type li :checked').each( function () {
+		types_checked.push($(this).attr('value'));
+	});
+	var params = {};
+	if (categories_checked.length > 0) {
+		params['category'] = categories_checked;
+	}
+	if (types_checked.length > 0) {
+		params['types'] = types_checked;
+	} else {
+		params['types'] = ['Questions', 'Challenges', 'Events'];	
+	}
+	if (follow) {
+		params['follow'] = id;
+	} else {
+		params['unfollow'] = id;	
+	}
+	params['itemz'] = type;
+	$.get('/filter', params, function(data) {
+		populate_content(data);
+	});
+}
 function draw_maps() {
 	$('.entry_map img').each( function(index) {
 		var address = $('#entry_address' + index).val().replace(/[\t\n\r\s]/gi, "+");
@@ -116,10 +162,29 @@ function populate_content(content) {
 				html_string += '<li>' + value + ' ' + key;
 				html_string += (value == 1) ? '</li>' : 's</li>';
 			});
+			if (entry['followed']) {
+				html_string	+= '<li><b><a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></b></li>';	
+			} else {
+				html_string	+= '<li><b><a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></b></li>';		
+			}
 			html_string += '</ul></div></div><br>'
 		});
 	}
 	$('#main_content').html(html_string);
+	
+	$('.follow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, true);
+	});
+	
+	$('.unfollow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, false);
+	});
 }
 
 </script>
@@ -129,7 +194,7 @@ function populate_content(content) {
 	<b>SORT ITEMS BY</b>	
 	<br>
 
-	<ul id='sortby'>
+	<ul id='sort_by'>
 	<li>
 	  <%= check_box_tag 'sort', 'recent' %> Most Recent
 	</li>
@@ -141,7 +206,7 @@ function populate_content(content) {
 	</li>
 	</ul>
 	<br>
-	<b>SHOW</b>
+	<b>SORT BY TYPE</b>
 	<ul id='sort_by_type'>
 	<li>
 	  <%= check_box_tag 'sort', 'Questions' %> Questions
@@ -264,21 +329,21 @@ function populate_content(content) {
 			<% end %>
 			<% if entry[0].instance_of?(Question) %>
 				<% if entry[0].followed_questions.find_by_user_id(current_user.id) != nil %>
-					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Question), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Question">Unfollow</a></b></li>
 				<% else %>
-				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Question), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Question">Follow</a></b></li>
 				<% end %>
 			<% elsif entry[0].instance_of?(Challenge) %>
 				<% if entry[0].followed_challenges.find_by_user_id(current_user.id) != nil %>
-					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Challenge), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Challenge">Unfollow</a></b></li>
 				<% else %>
-				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Challenge), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Challenge">Follow</a></b></li>
 				<% end %>
 			<% elsif entry[0].instance_of?(Event) %>
 				<% if entry[0].followed_events.find_by_user_id(current_user.id) != nil %>
-					<li><b><%= link_to 'Unfollow', summary_path(:unfollow=>entry[0].id, :itemz=>Event), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Event">Unfollow</a></b></li>
 				<% else %>
-				<li><b><%= link_to 'Follow', summary_path(:follow=>entry[0].id, :itemz=>Event), :class=>'black_link' %></b></li>
+				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Event">Follow</a></b></li>
 				<% end %>
 			<% end %>
 			</ul>
