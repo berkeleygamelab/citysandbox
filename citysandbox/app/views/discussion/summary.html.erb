@@ -15,6 +15,7 @@ $(document).ready( function() {
 	var types_checked = [];
 	$('#sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
+			$('#uncheck').attr('checked', false);
 			categories_checked = [];
 			$('#categories li :checked').each( function () {
 				categories_checked.push($(this).attr('value'));
@@ -30,7 +31,9 @@ $(document).ready( function() {
 			if (types_checked.length > 0) {
 				params['types'] = types_checked;
 			}
-			console.log(params);
+			if ($.isEmptyObject(params)) {
+				params['types'] = ['Questions', 'Challenges', 'Events'];
+			}
 			$.get('/filter', params, function(data) {
 				populate_content(data);
 			});
@@ -41,6 +44,11 @@ $(document).ready( function() {
 		if ($(this).attr('checked')) {
 			$('#sort_by_type li :checked, #categories li :checked, #sortby li :checked').each( function () {
 				$(this).attr('checked', false);
+				var params = {};
+				params['types'] = ['Questions', 'Challenges', 'Events'];
+				$.get('/filter', params, function(data) {
+					populate_content(data);
+				});
 			});	
 		};
 	});
