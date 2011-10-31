@@ -229,7 +229,7 @@ def sort_by_timestamp(set, timestamp)
 end
 
 def sort_by_keyword(set, keyword)
-  return set.keyword_sort(keyword)
+  return set.keyword(keyword)
 end
 
 def add_follower(item_to_follow, type)
