@@ -14,7 +14,7 @@ class ChallengesController < ApplicationController
   
   
   def vote_permission(user, @challenge)
-    if @challenge.vote_deadline <= Time.now
+    if @challenge.vote_deadline > Time.now
       temp = @challenge.proposals
       temp.each do |x|
         if VotingRecord.where(:proposal_id => x.id).where(:user_id => user.id).first != nil
