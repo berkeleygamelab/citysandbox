@@ -121,12 +121,66 @@ def filter
      
     
       @collection = []
-      @questions.each{|x| @collection = @collection +[[x,x.response_questions.limit(size_limit_discussion)]]}
-      @challenges.each{|x| @collection = @collection + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-      @events.each{|x| @collection = @collection + [[x, x.response_events.limit(size_limit_discussion)]]}
+      @questions.each{ |x| 
+        entry = {}
+        entry['type'] = 'Question'
+        entry['entry'] = x
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['login'] = (x.anonymous == 1) ? nil : x.user.login
+        if (x.response_questions.length > 0)
+           entry['latest_response'] = (x.response_questions.last.response.length < 200) ? x.response_questions.last.response :
+            (x.response_questions.last.response[0..200]  + '...')
+        end
+        entry_stats = {}
+        entry_stats['Response'] = x.response_questions.length
+        entry_stats['Follower'] = x.followed_questions.length
+        entry_stats['Challenge'] = x.challenges.length
+        entry['address'] = x.location
+        num_events = 0
+        x.challenges.each { |challenge| 
+          num_events += challenge.events.length
+        }
+        entry_stats['Event'] = num_events
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        @collection = @collection + [entry]
+      }
+      @challenges.each{ |x|
+        entry = {}
+        entry['type'] = 'Challenge'
+        entry['entry'] = x
+        entry['login'] = x.user.login     
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['submission_deadline'] = x.submission_deadline.strftime("%Y %b %d")
+        entry['vote_deadline'] = x.vote_deadline.strftime("%Y %b %d")
+        entry['description'] = (x.description.length > 200) ? x.description[0..200] + '...' : x.description;
+        entry_stats = {}
+        entry_stats['Response'] = x.response_challenges.length
+        entry_stats['Follower'] = x.followed_challenges.length
+        entry_stats['Proposal'] = x.proposals.length
+        entry_stats['Event'] = x.events.length
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        entry['address'] = x.location
+        @collection = @collection + [entry]
+      }
+      @events.each{|x|
+        entry = {}
+        entry['type'] = 'Event'
+        entry['entry'] = x
+        entry['login'] = x.user.login
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['date'] = x.time.strftime("%Y %b %d")
+        entry_stats = {}
+        entry_stats['Response'] = x.response_events.length
+        entry_stats['Follower'] = x.followed_events.length
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        entry['address'] = x.location
+        @collection = @collection + [entry]
+      }
 
-      @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-      @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+      @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
 
       respond_with(@collection)
 
