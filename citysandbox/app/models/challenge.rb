@@ -89,6 +89,23 @@ class Challenge < ActiveRecord::Base
    
    #grabs the nearest locations by distance and location
    def grab_nearest_by_location(distance, loc)
+     
+   end
+   
+   def most_popular_proposal
+     my_proposals = proposals
+     my_counts = -1
+     my_popular = []
+     my_proposals.each do |x|
+       if x.voting_records.size > my_counts
+         my_counts = x.voting_records.size
+         my_popular = [x.id]
+       end
+       if x.voting_records.size == my_counts
+         my_popular += [x.id]
+       end
+     end
+     return proposals.where(:id => my_popular)
    end
    
 end

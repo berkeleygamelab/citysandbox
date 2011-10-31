@@ -69,7 +69,7 @@ def filter
       if @followed != nil
          @events = display_following(Event, "Event")
          @flagsorted = true
-      end
+      end 
        if @title != nil
          @events = sort_by_title(Event, @title)
          @flagsorted = true
@@ -84,7 +84,7 @@ def filter
        end
      end
      
-     if(@type_of_stuff == nil or@type_of_stuff.find_index("Challenges") != nil)
+     if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
          if @followed != nil
             @challenges = display_following(Challenge, "Challenge")
             @flagsorted = true
@@ -119,7 +119,7 @@ def filter
        end
      end
      
-    
+     
       @collection = []
       @questions.each{ |x| 
         entry = {}
@@ -196,7 +196,7 @@ def filter
       }
       
       @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
-
+      
       respond_with(@collection)
 
 end
@@ -268,5 +268,19 @@ def display_following(set, type)
   return set.followed(followed_set_ids)
     
 end
+
+
+def can_vote(user, submission)
+  if submission.challenge.vote_deadline <= Time.now
+    if VotingRecord.where(:user_id=> user.id).where(:proposal_id => submission.id).first == nil
+      return true
+    end
+  end
+  return false
+end
+  
+
+
+
 end
 
