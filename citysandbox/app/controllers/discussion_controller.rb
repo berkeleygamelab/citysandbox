@@ -45,6 +45,7 @@ def filter
   @challenges = []
   @followed = params[:followed]
   @followed_type = params[:followed_type]  
+  @keyword = params[:keyword]
       
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       if @followed != nil
@@ -61,6 +62,10 @@ def filter
       end
       if @timestamp != nil
         @questions = sort_by_timestamp(Question, @category_type)
+        @flagsorted = true
+      end
+      if @keyword != nil
+        @questions = sort_by_keyword(Question, @keyword)
         @flagsorted = true
       end
     end
@@ -82,6 +87,10 @@ def filter
          @events = sort_by_timestamp(Event, @category_type)
          @flagsorted = true
        end
+       if @keyword != nil
+          @events = sort_by_keyword(Event, @keyword)
+          @flagsorted = true
+        end
      end
      
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
@@ -101,6 +110,10 @@ def filter
           @challenges = sort_by_timestamp(Challenge, @category_type)
           @flagsorted = true
         end
+        if @keyword != nil
+           @challenges = sort_by_keyword(Challenge, @keyword)
+           @flagsorted = true
+         end
       
       end
   
@@ -200,8 +213,7 @@ def sort_by_timestamp(set, timestamp)
 end
 
 def sort_by_keyword(set, keyword)
-  @statement = "title LIKE '% " + keyword + " %'"
-  return set.where(@statement)
+  return set.keyword_sort(keyword)
 end
 
 def add_follower(item_to_follow, type)
@@ -259,15 +271,7 @@ def display_following(set, type)
 end
 
 
-def can_vote(user, submission)
-  if submission.challenge.vote_deadline <= Time.now
-    if VotingRecord.where(:user_id=> user.id).where(:proposal_id => submission.id).first == nil
-      return true
-    end
-  end
-  return false
-end
-  
+
 
 
 

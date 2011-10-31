@@ -20,6 +20,7 @@ class Challenge < ActiveRecord::Base
   
   scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
   scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
+  scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
 
 
   def category_id

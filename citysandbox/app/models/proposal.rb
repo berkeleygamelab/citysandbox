@@ -17,5 +17,8 @@ class Proposal < ActiveRecord::Base
     end
   end
   
+  def vote_for_proposal(with_user)
+    VotingRecord.create(:proposal_id => id, :user_id => with_user.id)
+  end
   
 end

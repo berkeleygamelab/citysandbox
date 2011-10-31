@@ -5,12 +5,28 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     @category = Categories.find(@challenge.categories_id)
-
+    @can_vote = vote_permission(current_user, @challenge)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @challenge }
     end
   end
+  
+  
+  def vote_permission(user, @challenge)
+    if @challenge.vote_deadline <= Time.now
+      temp = @challenge.proposals
+      temp.each do |x|
+        if VotingRecord.where(:proposal_id => x.id).where(:user_id => user.id).first != nil
+          return false
+        end
+      end
+      return true
+      end
+    end
+    return false
+  end
+  
 
   # GET /challenges/new
   # GET /challenges/new.json

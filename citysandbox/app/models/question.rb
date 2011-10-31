@@ -29,9 +29,22 @@
     
     scope :response_contest, {:order => "id IN (SELECT COUNT(*) FROM 'response_questions' WHERE 'response_questions'.'question_id' = id)"}
     
+    scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
+    
+    
     @ft = @ft
 
     def insert_driver
+      
+    end
+    
+    def sift_keyword(key)
+      sift = ResponseQuestion.where("response LIKE ? OR response LIKE ? OR response LIKE ?", "% " + key + " %", key, key + " %")
+      set = []
+      sift.each do |resp|
+        set += [resp.question_id]
+      end
+      sift1 = ResponseQuestion.where(:id => set)
       
     end
 
@@ -73,7 +86,7 @@
        followed = followed_questions
        a= followed.where(:user_id => current_user.id).first
        return a.destroy
-     end
+    end
      
      def remove_followed(follower)
        followed = followed_questions
@@ -148,5 +161,5 @@
       return 
     end
     
-    
 end
+
