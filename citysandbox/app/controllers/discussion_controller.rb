@@ -282,6 +282,16 @@ def display_following(set, type)
     
 end
 
+def can_vote(user, submission)
+  if submission.challenge.vote_deadline <= Time.now
+    if VotingRecord.where(:user_id=> user.id).where(:proposal_id => submission.id).first == nil
+      return true
+    end
+  end
+  return false
+end
+  
+
 
 
 

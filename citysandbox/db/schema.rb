@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111029225645) do
+ActiveRecord::Schema.define(:version => 20111029231506) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -164,12 +164,7 @@ ActiveRecord::Schema.define(:version => 20111029225645) do
     t.integer  "voting_table_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "voting_tables", :force => true do |t|
     t.integer  "proposal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
