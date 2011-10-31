@@ -37,6 +37,34 @@ $(document).ready( function() {
 		var type = name.substring(name.indexOf('+') + 1);
 		follow_unfollow(id, type, false);
 	});
+	
+	$('#keyword').blur( function() {
+		if ($('#keyword').attr('value') != '') {
+			$('#uncheck').attr('checked', false);
+			categories_checked = [];
+			$('#categories li :checked').each( function () {
+				categories_checked.push($(this).attr('value'));
+			});
+			types_checked = [];
+			$('#sort_by_type li :checked').each( function () {
+				types_checked.push($(this).attr('value'));
+			});
+			var params = {};
+			if (categories_checked.length > 0) {
+				params['category'] = categories_checked;
+			}
+			if (types_checked.length > 0) {
+				params['types'] = types_checked;
+			} else {
+				params['types'] = ['Questions', 'Challenges', 'Events'];	
+			}
+			params['keyword'] = $('#keyword').attr('value');
+			console.log(params['keyword']);
+			$.get('/filter', params, function(data) {
+				populate_content(data);
+			});
+		}
+	});
 });
 
 function ajax_call() {
@@ -188,7 +216,6 @@ function populate_content(content) {
 }
 
 </script>
-
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>	
@@ -222,11 +249,11 @@ function populate_content(content) {
 	<br>
 	<b>KEYWORD SEARCH</b>
 	<br>
-	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<input type='text' class='textbox' id='keyword' size='20'>
 	<br><br>
 	<b>SHOW ITEMS FROM</b>
 	<br>
-	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<input type='text' class='textbox' id='date' size='20'>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
 	<ul id='categories'>
@@ -352,4 +379,5 @@ function populate_content(content) {
 	<br>
 	<% end %>
 <% end %>
+<%= will_paginate @collection %>
 </div>

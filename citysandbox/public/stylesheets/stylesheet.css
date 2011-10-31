@@ -300,6 +300,17 @@ footer a {
 	padding-top:10px;
 }
 
+.pagination {
+	text-align: center;
+}
+.pagination a {
+	color: #000000;
+	text-decoration: none;
+}
+.pagination .disabled {
+	display: none;
+}
+
 /* NEW QUESTION */
 .form {
 	padding-left: 25px;
@@ -314,3 +325,4 @@ footer a {
 	height:720px;
 	width:720px;
 }
+

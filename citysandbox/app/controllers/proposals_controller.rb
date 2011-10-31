@@ -5,7 +5,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to @proposal.challenge }# show.html.erb
       format.json { render json: @proposal }
     end
   end
@@ -16,7 +16,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { redirect_to @proposal.challenge }
       format.json { render json: @proposal }
     end
   end
@@ -32,7 +32,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new(params[:proposal])
     @proposal.challenge_id = params[:challenge_id]
     @proposal.user_id = current_user.id
-
+    
     respond_to do |format|
       if @proposal.save
         format.html { redirect_to @proposal.challenge, notice: 'Proposal was successfully created.' }
@@ -51,11 +51,11 @@ class ProposalsController < ApplicationController
 
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
+        format.html { redirect_to @proposal.challenge, notice: 'Proposal was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
+        format.json { render json: @proposal.challenge.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,7 +67,7 @@ class ProposalsController < ApplicationController
     @proposal.destroy
 
     respond_to do |format|
-      format.html { redirect_to proposals_url }
+      format.html { redirect_to summary_path }
       format.json { head :ok }
     end
   end
