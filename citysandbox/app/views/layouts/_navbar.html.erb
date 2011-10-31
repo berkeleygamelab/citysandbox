@@ -7,6 +7,8 @@
 <span id="user_nav">
   <% if User.exists? and current_user %>
   	<a href="/logout" class="link_logout gray_text">Log Out</a>
+	<br>
+	<a href="/edit_profile" class="link_login gray_text">Edit Profile</a>
   <% else %>
   	<a href="/login" class="link_login gray_text">Log In</a>
   <% end %>

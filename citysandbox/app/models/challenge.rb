@@ -3,6 +3,8 @@ class Challenge < ActiveRecord::Base
   has_many :response_challenges
   has_many :followed_challenges
   has_many :events
+  attr_accessor :lat
+  attr_accessor :lng
   
   belongs_to :question
   belongs_to :user
@@ -75,7 +77,7 @@ class Challenge < ActiveRecord::Base
    
    def insert_location(loc)
      @challenges_table = ENV['challenge_table']
-     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, challenge_id) VALUES ('#{loc}', #{id})"
+     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id) VALUES ('#{loc}', #{id})"
    end
    
    def grab_nearest(number)
@@ -87,6 +89,23 @@ class Challenge < ActiveRecord::Base
    
    #grabs the nearest locations by distance and location
    def grab_nearest_by_location(distance, loc)
+     
+   end
+   
+   def most_popular_proposal
+     my_proposals = proposals
+     my_counts = -1
+     my_popular = []
+     my_proposals.each do |x|
+       if x.voting_records.size > my_counts
+         my_counts = x.voting_records.size
+         my_popular = [x.id]
+       end
+       if x.voting_records.size == my_counts
+         my_popular += [x.id]
+       end
+     end
+     return proposals.where(:id => my_popular)
    end
    
 end

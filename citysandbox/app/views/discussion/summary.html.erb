@@ -3,7 +3,58 @@ $(document).ready( function() {
 	$('#filters').stickySidebar();
 	
 	$('#tabs ul').idTabs();
+
+	draw_maps();
+
+	$('#sortby li').each( function () {
+		$(this).click( function() {
+			console.log(this.children);
+		})
+	});
+	var categories_checked = [];
+	var types_checked = [];
+	$('#sort_by_type li, #categories li').each( function () {
+		$(this).click( function() {
+			$('#uncheck').attr('checked', false);
+			categories_checked = [];
+			$('#categories li :checked').each( function () {
+				categories_checked.push($(this).attr('value'));
+			});
+			types_checked = [];
+			$('#sort_by_type li :checked').each( function () {
+				types_checked.push($(this).attr('value'));
+			});
+			var params = {};
+			if (categories_checked.length > 0) {
+				params['category'] = categories_checked;
+			}
+			if (types_checked.length > 0) {
+				params['types'] = types_checked;
+			}
+			if ($.isEmptyObject(params)) {
+				params['types'] = ['Questions', 'Challenges', 'Events'];
+			}
+			$.get('/filter', params, function(data) {
+				populate_content(data);
+			});
+		});
+	});
 	
+	$('#uncheck').click(function() {
+		if ($(this).attr('checked')) {
+			$('#sort_by_type li :checked, #categories li :checked, #sortby li :checked').each( function () {
+				$(this).attr('checked', false);
+				var params = {};
+				params['types'] = ['Questions', 'Challenges', 'Events'];
+				$.get('/filter', params, function(data) {
+					populate_content(data);
+				});
+			});	
+		};
+	});
+});
+
+function draw_maps() {
 	$('.entry_map img').each( function(index) {
 		var address = $('#entry_address' + index).val().replace(/[\t\n\r\s]/gi, "+");
 		//$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C' + address+'&sensor=false');
@@ -13,52 +64,64 @@ $(document).ready( function() {
 		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false');
 		
 	});
-	$('#sortby li').each( function () {
-		$(this).click( function() {
-			console.log(this.children);
-		})
-	});
-	
-	var categories_checked = [];
-	$('#categories li').each( function () {
-		$(this).click( function() {
-			categories_checked = [];
-			$('#categories li :checked').each( function () {
-				categories_checked.push($(this).attr('value'));
-			});
-			var url_string = '/summary'
-			for (category in categories_checked) {
-				if (url_string.indexOf('category') == -1) {
-					url_string += '?category[]=' + categories_checked[category];
+}
+
+function populate_content(content) {
+	html_string = '';
+	if (content.length == 0) {
+		html_string += '<div class="individual">' 
+			+ '<%= link_to "Be the first to ask a question!", new_question_path, :class=>"black_link" %>'
+			+ '</div>';
+	}
+	else {
+		$.each(content, function (index, entry) {
+			html_string += '<div class="entry_main">'
+				+ '<div class="entry_author">';
+			if (entry['type'] == 'Question') {
+				if (entry['entry']['anonymous'] == 1) {
+					html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
+						+ '<br>Anonymous<br>';
 				} else {
-					url_string += '&category[]=' + categories_checked[category];
-				} 
-			console.log(url_string);
-			window.location = url_string;
+					html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
+					+ entry['login'] + '<br>';
+				}
+			} else {
+				html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
+				+ entry['login'] + '<br>';
 			}
+			html_string += entry['created_at']+ '<br></div>';
+			var address = entry['address'].replace(/[\t\n\r\s]/gi, " ");
+			html_string += '<div class="entry_map"><img src="http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false">';		
+			html_string += '<%= hidden_field_tag "entry_address' + index + '", ' + address + ' %>'
+			 + '<%= hidden_field_tag "entry_type' + index + '", "' + entry['type'] + '" %></div>';
+			html_string += '<div class="entry_title"><b>'
+			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id']
+			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
+			if (entry['type'] == 'Question' && entry['latest_response']) {
+				html_string +='<div class="latest_response"><i>Latest Response: </i>' + entry['latest_response'] + '</div>';
+			}
+			if (entry['type'] == 'Challenge') {
+				if (entry['description'].length > 0) {
+					html_string +='<div class="latest_response">' + entry['description'] + '</div>';
+				}
+				html_string += '<div id="challenge_dates"><ul><li><b> Submission Deadline: </b>' + entry['submission_deadline'] + '</li>'
+					+ '<li><b> Vote Deadline: </b>' + entry['vote_deadline'] + ' </li></ul></div>';
+			}
+			if (entry['type'] == 'Event') {
+				html_string += '<div id="challenge_dates"><ul><li><b>Submission Deadline: </b>' + entry['date'] + '</li></ul></div>';
+			}
+			html_string += '<div class="entry_stats"><ul>';
 			
-		});
-	});
-	types_checked = [];
-	$('#sort_by_type li').each( function () {
-		$(this).click( function() {
-			type_checked = [];
-			$('#sort_by_type li :checked').each( function () {
-				type_checked.push($(this).attr('value'));
+			$.each(entry['stats'], function(key, value) {
+				html_string += '<li>' + value + ' ' + key;
+				html_string += (value == 1) ? '</li>' : 's</li>';
 			});
-			var url_string = '/summary'
-			for (type in type_checked) {
-				if (url_string.indexOf('itemz') == -1) {
-					url_string += '?itemz=' + type_checked[type];
-				} else {
-					url_string += '&itemz=' + type_checked[type];
-				} 
-			window.location = url_string;
-			}
-			
+			html_string += '</ul></div></div><br>'
 		});
-	});
-});
+	}
+	$('#main_content').html(html_string);
+}
+
 </script>
 
 <div id='sidebar'>
@@ -70,9 +133,9 @@ $(document).ready( function() {
 	<li>
 	  <%= check_box_tag 'sort', 'recent' %> Most Recent
 	</li>
-	<li>
+	<!--<li>
 	  <%= check_box_tag 'sort', 'popular' %> Most Popular
-	</li>
+	</li>--> 
 	<li>
 	 <%= check_box_tag 'sort', 'following' %> Following
 	</li>
@@ -94,9 +157,6 @@ $(document).ready( function() {
 	<br>
 	<b>KEYWORD SEARCH</b>
 	<br>
-	<br>
-
-	<br>
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
 	<b>SHOW ITEMS FROM</b>
@@ -112,6 +172,8 @@ $(document).ready( function() {
 	</li>
 	<% end %>
 	</ul>
+	<br>
+	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
 </div>
 <div id='main_content'>

@@ -41,6 +41,7 @@ class QuestionsController < ApplicationController
     
     respond_to do |format|
       if @question.save
+        @question.insert_location(@question.lat + ', ' + @question.lng)
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else

@@ -4,6 +4,7 @@ $(document).ready( function() {
 	
 	$('#tabs ul').idTabs();
 	
+	
 	var map;
     var myOptions = {
     	zoom: 14,
@@ -13,7 +14,7 @@ $(document).ready( function() {
    	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
     var geocoder = new google.maps.Geocoder();
-	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
+	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, " "));
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        map.setCenter(results[0].geometry.location);
@@ -23,6 +24,25 @@ $(document).ready( function() {
 	        });
 	      }
 	});
+
+	$('#challenge_location').blur( function() {
+		var challenge_geocoder = new google.maps.Geocoder();
+		var challenge_address = $.trim(challenge_address = $('#challenge_location').val().replace(/[\t\n\r]/gi, ""));
+		    geocoder.geocode( { 'address': challenge_address}, function(results, status) {
+		      if (status == google.maps.GeocoderStatus.OK) {		      
+				$('#challenge_lat').attr('value', results[0].geometry.location.lat());
+				$('#challenge_lng').attr('value', results[0].geometry.location.lng());
+		      }	
+		});
+	});	
+	
+	$('#challenge_categories_id').attr('value', '<%= @question.categories_id %>');
+	$('#challenge_location').attr('value', address);
+	
+	var qr_url = window.location.href;
+	qr_url = (qr_url.indexOf('?') != -1) ? qr_url.substring(0, qr_url.indexOf('?')) : qr_url;
+	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
+	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
 	
 });
 </script>
@@ -69,11 +89,17 @@ $(document).ready( function() {
 		<% end %>
 		<%= @question.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
 		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
-		<%= link_to 'Share', summary_path, :class=>'black_link' %>
+		<%= link_to 'Share', summary_path, :class=>'black_link' %> |
+		<a id='QR' class='black_link'>QR</a>
 	</span>
 	<br>
 	<br>
-
+	<div id='form_links'>
+	<ul>
+	<li><a href="#response_form" class="black_link" onclick='$("#responses_tab").click();'>Add Response</a></li>
+	<li><a href="#challenge_form" class="black_link" onclick='$("#challenges_tab").click();'>Add Challenge</a></li>
+	</ul>
+	</div>
 </div>
 <% if @question.description.length > 0 %>
 	<br>
@@ -87,9 +113,9 @@ $(document).ready( function() {
 <br>
 <div id='tabs_menu'>	
 <ul>
-	<li><b><a href="#responses">Responses</a></b></li>
+	<li><b><a href="#responses" id='responses_tab'>Responses</a></b></li>
 	<li>|</li>
-	<li><b><a href="#challenges">Challenges</a></b></li>
+	<li><b><a href="#challenges" id='challenges_tab'>Challenges</a></b></li>
 	<li>|</li>
 	<li><b><a href="#events">Events</a></b></li>
 </ul>
@@ -157,6 +183,8 @@ $(document).ready( function() {
 		Add Challenge
 		<br>
 		<%= form_for [@challenge, Challenge.new] do |c| %>
+		  <%= c.hidden_field :lat %>
+		  <%= c.hidden_field :lng %>
 		  <p>
 		    <%= c.label :title, "Title" %>
 			<br>

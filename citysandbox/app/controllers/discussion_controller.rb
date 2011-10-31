@@ -1,212 +1,188 @@
 class DiscussionController < ApplicationController
 
-def index
+respond_to :json
+
+def summary
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0
-  @silly = "Wordsssss"
-    if params[:false_value] == nil
-    @silly = "Sup Nill"
-    end
-  
-  
+
+  if (params[:follow] != nil)
+      add_follower(params[:follow], params[:itemz])
+  elsif (params[:unfollow] != nil) 
+      remove_follower(params[:unfollow], params[:itemz])
+  end
+
   @collection = []
   @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
-  @discussion_next = []
-
   @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
   @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-  
-  @dummy_set =[]
-  @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
-  @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-  @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
 
-  
-  @collection = @dummy_set
+  @questions.each{|x| @collection = @collection +[[x,x.response_questions.limit(size_limit_discussion)]]}
+  @challenges.each{|x| @collection = @collection + [[x,x.response_challenges.limit(size_limit_discussion)]]}
+  @events.each{|x| @collection = @collection + [[x, x.response_events.limit(size_limit_discussion)]]}
+
   @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
   @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
   
-  @collection = self.filter
-  
+  return(@collection)
 end
 
-
-def summary
-
-  
-  if (params[:follow] != nil)
-    add_follower(params[:follow], params[:itemz])
-  elsif (params[:unfollow] != nil) 
-    remove_follower(params[:unfollow], params[:itemz])
-  end
-  @collection = self.filter
-  
-end
-
-def parse_types(stuff)
-  item_returner = [false, false, false]
-  stuff.each do |check|
-    if check == "Questions"
-      item_returner[0] = true
-    end
-    if check == "Events"
-      item_returner[1] = true
-    end
-    if check == "Challenges"
-      item_returner[2] = true
-    end
-  end
-  return item_returner
-end
-
-def filter
+def filter  
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0
   @collection = []
  
-  
-  @placeholder_set = []
   @flagsorted = false 
   @category_type = params[:category]
-  @type_of_stuff = params[:itemz]
+  @type_of_stuff = params[:types]
   @title = params[:title]
   @timestamp = params[:timeBefore]
     
-  @events = Event
-  @questions = Question
-  @challenges = Challenge
+  @events = []
+  @questions = []
+  @challenges = []
   @followed = params[:followed]
   @followed_type = params[:followed_type]  
-  
-  @type_params = [false, false, false]
-  
-  if @type_of_stuff == "Questions" or @type_of_stuff == "Question"
-    @type_of_stuff = ["Questions"]
-  end
-  
-  if @type_of_stuff == "Challenges" or @type_of_stuff == "Challenge"
-    @type_of_stuff = ["Challenges"]
-  end
-  
-  if @type_of_stuff == "Events" or @type_of_stuff == "Event"
-    @type_of_stuff = ["Events"]
-  end
-  
-  
-  if @type_of_stuff != nil
-    @type_params = parse_types(@type_of_stuff)
-  end
-  
-  puts @type_params
-    
-    if(@type_of_stuff == nil or @type_params[0])
+      
+    if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       if @followed != nil
-        @questions = display_following(@questions, "Question")
+        @questions = display_following(Question, "Question")
         @flagsorted = true
       end
       if @title != nil
-        @questions = sort_by_title(@questions, @title)
+        @questions = sort_by_title(Question, @title)
         @flagsorted = true
       end
       if @category_type != nil
-        @questions = sort_by_category(@questions, @category_type)
+        @questions = sort_by_category(Question, @category_type)
         @flagsorted = true
       end
       if @timestamp != nil
-        @questions = sort_by_timestamp(@questions, @category_type)
+        @questions = sort_by_timestamp(Question, @category_type)
         @flagsorted = true
       end
-
-
     end
     
-    if(@type_of_stuff == nil or @type_params[1])
+    if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
       if @followed != nil
-         @events = display_following(@events, "Event")
+         @events = display_following(Event, "Event")
          @flagsorted = true
-      end
+      end 
        if @title != nil
-         @events = sort_by_title(@events, @title)
+         @events = sort_by_title(Event, @title)
          @flagsorted = true
        end
        if @category_type != nil
-         @events = sort_by_category(@events, @category_type)
+         @events = sort_by_category(Event, @category_type)
          @flagsorted = true
        end
        if @timestamp != nil
-         @events = sort_by_timestamp(@events, @category_type)
+         @events = sort_by_timestamp(Event, @category_type)
          @flagsorted = true
        end
-
-       
-   
-       
      end
      
-     if(@type_of_stuff == nil or @type_params[2])
+     if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
          if @followed != nil
-            @challenges = display_following(@challenges, "Challenge")
+            @challenges = display_following(Challenge, "Challenge")
             @flagsorted = true
          end
         if @title != nil
-          @challenges = sort_by_title(@challenges, @title)
+          @challenges = sort_by_title(Challenge, @title)
           @flagsorted = true
         end
         if @category_type != nil
-          @challenges = sort_by_category(@challenges, @category_type)
+          @challenges = sort_by_category(Challenge, @category_type)
           @flagsorted = true
         end
         if @timestamp != nil
-          @challenges = sort_by_timestamp(@challenges, @category_type)
+          @challenges = sort_by_timestamp(Challenge, @category_type)
           @flagsorted = true
         end
       
       end
-      
-      if(@type_of_stuff == "Questions")
-        @challenges = []
-        @events = []
-      end
-      
-      if(@type_of_stuff == "Challenges")
-        @questions = []
-        @events = []
-      end
-      
-      if(@type_of_stuff == "Events")
-        @questions = []
-        @challenges = []
-      end
-    
+  
      if @flagsorted == false
        @questions = []
        @challenges = []
        @events = []
-       if(@type_of_stuff == "Questions" or @type_of_stuff == nil or @type_params[0])
+       if(@type_of_stuff.find_index("Questions") != nil or @type_of_stuff == nil)
          @questions = Question.find(:all)
        end
-
-       if(@type_of_stuff == "Events" or @type_of_stuff == nil or @type_params[1])
-         @events = Event.find(:all)
-       end
-       if(@type_of_stuff == "Challenges" or @type_of_stuff == nil or @type_params[2])
+       if(@type_of_stuff.find_index("Challenges") != nil  or @type_of_stuff == nil)
          @challenges = Challenge.find(:all)
+       end
+       if(@type_of_stuff.find_index("Events") != nil  or @type_of_stuff == nil)
+         @events = Event.find(:all)
        end
      end
      
-    
-      @dummy_set =[]
-      @questions.each{|x| @dummy_set = @dummy_set +[[x,x.response_questions.limit(size_limit_discussion)]]}
-      @challenges.each{|x| @dummy_set = @dummy_set + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-      @events.each{|x| @dummy_set = @dummy_set + [[x, x.response_events.limit(size_limit_discussion)]]}
+     
+      @collection = []
+      @questions.each{ |x| 
+        entry = {}
+        entry['type'] = 'Question'
+        entry['entry'] = x
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['login'] = (x.anonymous == 1) ? nil : x.user.login
+        if (x.response_questions.length > 0)
+           entry['latest_response'] = (x.response_questions.last.response.length < 200) ? x.response_questions.last.response :
+            (x.response_questions.last.response[0..200]  + '...')
+        end
+        entry_stats = {}
+        entry_stats['Response'] = x.response_questions.length
+        entry_stats['Follower'] = x.followed_questions.length
+        entry_stats['Challenge'] = x.challenges.length
+        entry['address'] = x.location
+        num_events = 0
+        x.challenges.each { |challenge| 
+          num_events += challenge.events.length
+        }
+        entry_stats['Event'] = num_events
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        @collection = @collection + [entry]
+      }
+      @challenges.each{ |x|
+        entry = {}
+        entry['type'] = 'Challenge'
+        entry['entry'] = x
+        entry['login'] = x.user.login     
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['submission_deadline'] = x.submission_deadline.strftime("%Y %b %d")
+        entry['vote_deadline'] = x.vote_deadline.strftime("%Y %b %d")
+        entry['description'] = (x.description.length > 200) ? x.description[0..200] + '...' : x.description;
+        entry_stats = {}
+        entry_stats['Response'] = x.response_challenges.length
+        entry_stats['Follower'] = x.followed_challenges.length
+        entry_stats['Proposal'] = x.proposals.length
+        entry_stats['Event'] = x.events.length
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        entry['address'] = x.location
+        @collection = @collection + [entry]
+      }
+      @events.each{|x|
+        entry = {}
+        entry['type'] = 'Event'
+        entry['entry'] = x
+        entry['login'] = x.user.login
+        entry['created_at'] = x.created_at.strftime("%Y %b %d")
+        entry['date'] = x.time.strftime("%Y %b %d")
+        entry_stats = {}
+        entry_stats['Response'] = x.response_events.length
+        entry_stats['Follower'] = x.followed_events.length
+        entry['stats'] = entry_stats
+        entry['id'] = x.id
+        entry['address'] = x.location
+        @collection = @collection + [entry]
+      }
 
-
-      @collection = @dummy_set
-      @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-      @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
-      return @collection
+      @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
+      
+      respond_with(@collection)
 
 end
 
@@ -282,6 +258,7 @@ def display_following(set, type)
     
 end
 
+
 def can_vote(user, submission)
   if submission.challenge.vote_deadline <= Time.now
     if VotingRecord.where(:user_id=> user.id).where(:proposal_id => submission.id).first == nil
@@ -291,7 +268,6 @@ def can_vote(user, submission)
   return false
 end
   
-
 
 
 

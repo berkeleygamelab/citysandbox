@@ -15,8 +15,10 @@ Citysandbox::Application.routes.draw do
     get  '/' => 'home#splash', :as => :splash
     get '/login' => 'sessions#new', :as => :login
     get '/logout' => 'sessions#destroy', :as => :logout
-    get  '/register' => 'users#new', :as => :register
+    get '/register' => 'users#new', :as => :register
   end
+  
+  match "/edit_profile" => "users#edit"
   
   resources :questions do
     resources :response_questions, :shallow => true
@@ -58,7 +60,7 @@ Citysandbox::Application.routes.draw do
   end
 
   get '/summary' => 'discussion#summary', :as => :summary
-
+  get '/filter' => 'discussion#filter', :as => :filter
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -3,12 +3,66 @@ $(document).ready( function() {
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
 	var lat = 0;
 	var lng = 0;
+	var center;
+	var map;
+	var question_layer;
+	var challenge_layer;
+	var event_layer;
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode( { 'address': loc}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        lat = results[0].geometry.location.lat();
 			lng = results[0].geometry.location.lng();
-	      	$('#map').attr('src', 'http://www.google.com/fusiontables/embedviz?viz=MAP&q=select+col2+from+1464641+&h=false&lat=' + lat + '&lng=' + lng + '&z=14&t=1&l=col2');
+			
+			center = new google.maps.LatLng(lat, lng);
+			map = new google.maps.Map(document.getElementById('mapview_map'), {
+			  center: center,
+			  zoom: 12,
+			  mapTypeId: 'roadmap'
+			});
+			
+			question_layer = new google.maps.FusionTablesLayer({
+			  query: {
+			    select: 'Location',
+			    from: '1943371'
+			  },
+			  styles: [{
+			    markerOptions: {
+			      iconName: "large_green"
+			    }
+			  }]
+			});
+
+			question_layer.setMap(map);
+			
+			challenge_layer = new google.maps.FusionTablesLayer({
+			  query: {
+			    select: 'Location',
+			    from: '1943952'
+			  },
+			  styles: [{
+			    markerOptions: {
+			      iconName: "large_blue"
+			    }
+			  }]
+			});
+
+			challenge_layer.setMap(map);
+			
+			event_layer = new google.maps.FusionTablesLayer({
+			  query: {
+			    select: 'Location',
+			    from: '1943933'
+			  },
+			  styles: [{
+			    markerOptions: {
+			      iconName: "large_red"
+			    }
+			  }]
+			});
+
+			event_layer.setMap(map);
+			
 		}
 	});
 });
@@ -16,11 +70,33 @@ $(document).ready( function() {
 
 <div id='sidebar'>
 <div id='filters_content'>
-	<b>SORT ITEMS BY</b>
-	<ul id='sort'>
-		<li><%= image_tag "../images/checkbox.png" %> Most Recent</li>
-		<li><%= image_tag "../images/checkbox.png" %> Most Popular</li>
-		<li><%= image_tag "../images/checkbox.png" %> Following</li>
+	<b>SORT ITEMS BY</b>	
+	<br>
+
+	<ul id='sortby'>
+	<li>
+	  <%= check_box_tag 'sort', 'recent' %> Most Recent
+	</li>
+	<!--<li>
+	  <%= check_box_tag 'sort', 'popular' %> Most Popular
+	</li>--> 
+	<li>
+	 <%= check_box_tag 'sort', 'following' %> Following
+	</li>
+	</ul>
+	<br>
+	<b>SHOW</b>
+	<ul id='sort_by_type'>
+	<li>
+	  <%= check_box_tag 'sort', 'Questions' %> Questions
+	</li>
+	<li>
+	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
+	</li>
+	<li>
+	 <%= check_box_tag 'sort', 'Events' %> Events
+	</li>
+
 	</ul>
 	<br>
 	<b>KEYWORD SEARCH</b>
@@ -32,15 +108,16 @@ $(document).ready( function() {
 	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
-	<ul>
-		<li><%= image_tag "../images/checkbox.png" %> Commerce</li>
-		<li><%= image_tag "../images/checkbox.png" %> Civil Rights</li>
-		<li><%= image_tag "../images/checkbox.png" %> Health & Safety</li>
-		<li><%= image_tag "../images/checkbox.png" %> History</li>
-		<li><%= image_tag "../images/checkbox.png" %> Kids/Education</li>
-		<li><%= image_tag "../images/checkbox.png" %> Public Space</li>
-		<li><%= image_tag "../images/checkbox.png" %> Transportation</li>
+	<ul id='categories'>
+	<% for category in Categories.find(:all) %>
+	<li>
+	  <%= check_box_tag 'category', category.id %>
+	  <%= category.category %>
+	</li>
+	<% end %>
 	</ul>
+	<br>
+	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
 </div>
-<iframe id='map' width="720px" height="720px" scrolling="no"></iframe>
+<div id='mapview_map'></div>

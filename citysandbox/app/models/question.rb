@@ -6,11 +6,13 @@
   has_many :events
   has_many :followed_questions
   belongs_to :categories
+  attr_accessor :lat
+  attr_accessor :lng
   
   validates :user_id, :presence => true
   validates :title, :presence => true
   validates :location, :presence => true
-   validates :categories_id, :presence => true
+  validates :categories_id, :presence => true
   
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
     scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
@@ -97,7 +99,7 @@
     
     def insert_location(loc)
       @questions_table = ENV['question_table']
-      return ::FT.execute "INSERT INTO #{@questions_table} (Location, question_id) VALUES ('#{loc}', #{id})"
+      return ::FT.execute "INSERT INTO #{@questions_table} (Location, id) VALUES ('#{loc}', #{id})"
     end
     
     def grab_nearest(number)
