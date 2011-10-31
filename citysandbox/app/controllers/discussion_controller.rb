@@ -7,12 +7,6 @@ def summary
   size_limit_discussion = 5
   page_offset = 0
 
-  if (params[:follow] != nil)
-      add_follower(params[:follow], params[:itemz])
-  elsif (params[:unfollow] != nil) 
-      remove_follower(params[:unfollow], params[:itemz])
-  end
-
   @collection = []
   @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
   @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
@@ -43,10 +37,17 @@ def filter
   @events = []
   @questions = []
   @challenges = []
-  @followed = params[:followed]
+  @followed = params[:following]
   @followed_type = params[:followed_type]  
+
   @keyword = params[:keyword]
-      
+
+  if (params[:follow] != nil)
+      add_follower(params[:follow], params[:itemz])
+  elsif (params[:unfollow] != nil) 
+      remove_follower(params[:unfollow], params[:itemz])
+  end
+
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       if @followed != nil
         @questions = display_following(Question, "Question")
@@ -156,6 +157,11 @@ def filter
         entry_stats['Event'] = num_events
         entry['stats'] = entry_stats
         entry['id'] = x.id
+        if x.followed_questions.find_by_user_id(current_user.id) != nil 
+          entry['followed'] = true
+        else
+          entry['followed'] = false
+        end
         @collection = @collection + [entry]
       }
       @challenges.each{ |x|
@@ -175,6 +181,11 @@ def filter
         entry['stats'] = entry_stats
         entry['id'] = x.id
         entry['address'] = x.location
+        if x.followed_challenges.find_by_user_id(current_user.id) != nil 
+          entry['followed'] = true
+        else
+          entry['followed'] = false
+        end
         @collection = @collection + [entry]
       }
       @events.each{|x|
@@ -190,9 +201,14 @@ def filter
         entry['stats'] = entry_stats
         entry['id'] = x.id
         entry['address'] = x.location
+        if x.followed_events.find_by_user_id(current_user.id) != nil 
+          entry['followed'] = true
+        else
+          entry['followed'] = false
+        end
         @collection = @collection + [entry]
       }
-
+      
       @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
       
       respond_with(@collection)
@@ -227,8 +243,6 @@ def add_follower(item_to_follow, type)
     item = Event.where(:id => item_to_follow).first
   end
   item.create_followed(current_user)
-  
-  redirect_to summary_path
 end
 
 def remove_follower(item_to_follow, type)
@@ -242,8 +256,6 @@ def remove_follower(item_to_follow, type)
       item = Event.where(:id => item_to_follow).first
     end
     item.remove_followed(current_user)
-    
-      redirect_to summary_path
   end
 
 def sort_descending(set)
