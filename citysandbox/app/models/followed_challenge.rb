@@ -23,7 +23,7 @@ class FollowedChallenge < ActiveRecord::Base
     end
 
     def update_challenge_popularity
-      challenge.popularity += env['FOLLOWED_VALUE']
+      challenge.popularity += ENV['FOLLOWED_VALUE']
       challenge.save
     end
 
@@ -33,7 +33,7 @@ class FollowedChallenge < ActiveRecord::Base
     end
 
     def update_challenge_depopularity
-      challenge.popularity -= env['FOLLOWED_VALUE']
+      challenge.popularity -= ENV['FOLLOWED_VALUE']
       challenge.save
     end
   

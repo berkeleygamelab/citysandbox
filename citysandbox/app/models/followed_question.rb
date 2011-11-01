@@ -24,7 +24,7 @@ class FollowedQuestion < ActiveRecord::Base
    end
 
    def update_question_popularity
-     question.popularity += env['FOLLOWED_VALUE']
+     question.popularity += ENV['FOLLOWED_VALUE']
      question.save
    end
 
@@ -35,7 +35,7 @@ class FollowedQuestion < ActiveRecord::Base
    end
 
    def update_question_depopularity
-     question.popularity -= env['FOLLOWED_VALUE']
+     question.popularity -= ENV['FOLLOWED_VALUE']
      question.save
    end
   
