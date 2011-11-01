@@ -9,6 +9,7 @@ class Challenge < ActiveRecord::Base
   belongs_to :challenge
   belongs_to :user
   belongs_to :categories
+  belongs_to :question
   
   validates :categories_id, :presence => true
   validates :title, :presence => true
