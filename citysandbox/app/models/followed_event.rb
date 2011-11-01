@@ -10,4 +10,30 @@ class FollowedEvent < ActiveRecord::Base
     return event_id
   end
   
+  
+  after_save :upkeep
+   after_create :upkeep
+   before_destroy :destroy_upkeep
+
+   def upkeep
+     update_event_popularity
+
+
+   end
+
+   def update_event_popularity
+     event.popularity += env['FOLLOWED_VALUE']
+     event.save
+   end
+
+  
+   def destroy_upkeep
+     update_event_depopularity
+   end
+
+   def update_event_depopularity
+     event.popularity -= env['FOLLOWED_VALUE']
+     event.save
+   end
+  
 end

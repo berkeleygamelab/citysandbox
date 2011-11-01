@@ -14,6 +14,8 @@
   validates :location, :presence => true
   validates :categories_id, :presence => true
   
+  
+  
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
     scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
 
@@ -37,6 +39,9 @@
     def insert_driver
       
     end
+    
+    
+    
     
     def sift_keyword(key)
       sift = ResponseQuestion.where("response LIKE ? OR response LIKE ? OR response LIKE ?", "% " + key + " %", key, key + " %")
@@ -78,9 +83,7 @@
       end
     end
     
-    def most_popular(since_last)
-      return Question.where("updated_at > '#{since_last}'").where()
-    end
+   
     
     def remove_followed
        followed = followed_questions
@@ -147,6 +150,10 @@
       return Question.followed(rtn)
     end
     
+    def combine_google_filter(db_return, set)
+      return set.where(:id => db_return)
+    end
+    
     def retrieve_google(db_return)
       rtn = []
       db_return.each do |x|
@@ -161,5 +168,12 @@
       return 
     end
     
+    
+     def most_popular(since_last, distance, target_location)
+        set =  Question.where("updated_at > '#{since_last}'").order("popularity DESC")
+        google_set = grab_circle(target_location, distance, 25)
+        google_fetch = retrieve_google(google_set)
+        return google_fetch.where("updated_at > '#{since_last}").order("popularity DESC")
+      end
 end
 

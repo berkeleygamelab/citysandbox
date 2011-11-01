@@ -32,7 +32,7 @@ def filter
   @category_type = params[:category]
   @type_of_stuff = params[:types]
   @title = params[:title]
-  @months = params[:timeBefore]
+  @days = params[:timeBefore]
     
   @events = []
   @questions = []
@@ -224,15 +224,15 @@ def sort_by_category(set, categoryList)
   return set.has_category(categoryList)
 end
 
-def sort_by_timestamp(set, num_months)
-  timestamp = Time.now - num_months*30*60*60*24
+def sort_by_timestamp(set, num_days)
+  timestamp = Time.now - num_days*60*60*24
   return set.where("updated_at > ?", timestamp)
 end
 
 
 
 def sort_by_keyword(set, keyword)
-  return set.keyword(keyword)
+  return set.keyword(keyword.split)
 end
 
 def add_follower(item_to_follow, type)
