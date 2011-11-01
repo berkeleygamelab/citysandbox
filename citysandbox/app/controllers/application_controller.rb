@@ -20,10 +20,10 @@ class ApplicationController < ActionController::Base
     end
     
     if type == "User"
-      FollowedUser.create(:user_id => current_user.id, :followed_user_id => item_to_follow)
-        else 
-          item.create_followed(current_user)
+        item = User.where(:id => item_to_follow).first
     end
+    item.create_followed(current_user)
+  
   end
 
   def remove_follower(item_to_follow, type)
@@ -36,16 +36,11 @@ class ApplicationController < ActionController::Base
       if type == "Event"
         item = Event.where(:id => item_to_follow).first
       end
-       if type == "User"
-          item = FollowedUser.where(:followed_user_id => item_to_follow).where(:user_id => current_user.id).first
-          if item != nil
-            item.remove
-          end
-        else 
-              if item != nil
-                item.remove_followed(current_user)
-              end
-          end
+      if type == "User"
+          item = User.where(:id => item_to_follow).first
+      end
+      item.remove_followed(current_user)
+        
   end
   
   helper_method :add_follower
