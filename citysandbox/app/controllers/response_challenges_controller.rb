@@ -5,7 +5,6 @@ class ResponseChallengesController < ApplicationController
   def new
     @response_challenge = ResponseChallenge.new
     
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @response_challenge }

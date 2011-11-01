@@ -7,17 +7,28 @@ def summary
   size_limit_discussion = 5
   page_offset = 0
 
-  @collection = []
+  @collection_full = []
   @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
   @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
   @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
 
-  @questions.each{|x| @collection = @collection +[[x,x.response_questions.limit(size_limit_discussion)]]}
-  @challenges.each{|x| @collection = @collection + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-  @events.each{|x| @collection = @collection + [[x, x.response_events.limit(size_limit_discussion)]]}
+  @questions.each{|x| @collection_full = @collection_full +[[x,x.response_questions.limit(size_limit_discussion)]]}
+  @challenges.each{|x| @collection_full = @collection_full + [[x,x.response_challenges.limit(size_limit_discussion)]]}
+  @events.each{|x| @collection_full = @collection_full + [[x, x.response_events.limit(size_limit_discussion)]]}
 
-  @collection.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-  @collection.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+  @collection_full.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
+  @collection_full.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
+  
+  current_page = 1
+  if params[:page] != nil
+    current_page = params[:page].to_i
+  end
+  per_page = 5
+  
+  @collection = WillPaginate::Collection.create(current_page, per_page, @collection_full.length) do |pager|
+    start = (current_page-1)*per_page # assuming current_page is 1 based.
+    pager.replace(@collection_full[start..(start+per_page)])
+  end
   
   return(@collection)
 end
@@ -62,7 +73,7 @@ def filter
         @flagsorted = true
       end
       if @months != nil
-        @questions = sort_by_timestamp(Question, @months)
+        @questions = sort_by_timestamp(Question, @months.to_i)
         @flagsorted = true
       end
       if @keyword != nil
@@ -85,7 +96,7 @@ def filter
          @flagsorted = true
        end
        if @months != nil
-         @events = sort_by_timestamp(Event, @months)
+         @events = sort_by_timestamp(Event, @months.to_i)
          @flagsorted = true
        end
        if @keyword != nil
@@ -108,7 +119,7 @@ def filter
           @flagsorted = true
         end
         if @months != nil
-          @challenges = sort_by_timestamp(Challenge, @months)
+          @challenges = sort_by_timestamp(Challenge, @months.to_i)
           @flagsorted = true
         end
         if @keyword != nil
@@ -132,7 +143,6 @@ def filter
          @events = Event.find(:all)
        end
      end
-     
      
       @collection = []
       @questions.each{ |x| 
@@ -209,10 +219,9 @@ def filter
         @collection = @collection + [entry]
       }
       
-      @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
+      @collection.sort!{|a,b| b['entry'].updated_at <=> a['entry'].updated_at}
       
       respond_with(@collection)
-
 end
 
 def sort_by_title(set, title)

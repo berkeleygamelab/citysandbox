@@ -1,13 +1,5 @@
 Citysandbox::Application.routes.draw do
 
-  match "users/sent" => "sent#show"
-
-  match "users/inbox/new" => "inbox#new"
-  match "users/inbox/reply" => "inbox#respond"
-  match "users/inbox/view" => "inbox#view"
-  match "users/inbox/create" => "inbox#create"
-  match "users/inbox" => "inbox#show"
-
   root :to => 'home#splash', :as => :home
   root :to => 'home#splash', :as => :root
   
@@ -18,15 +10,39 @@ Citysandbox::Application.routes.draw do
     get '/register' => 'users#new', :as => :register
   end
   
+  resources :sessions
+  
   match "/edit_profile" => "users#edit"
   
   resources :questions do
     resources :response_questions, :shallow => true
-    resources :challenges, :shallow => true do
-      resources :proposals, :shallow => true 
-    end
+    resources :challenges, :shallow => true
     resources :events, :shallow => true
   end
+  
+  resources :events do
+    resources :response_events, :shallow => true
+  end
+
+  resources :challenges do
+    resources :response_challenges, :shallow => true
+    resources :proposals, :shallow => true
+    resources :events
+  end
+  
+  resources :discussion do
+    get '/' => 'discussion#summary', :as => :summary
+  end
+
+  get '/summary' => 'discussion#summary', :as => :summary
+  get '/filter' => 'discussion#filter', :as => :filter
+  
+  match "users/sent" => "sent#show"
+  match "users/inbox/new" => "inbox#new"
+  match "users/inbox/reply" => "inbox#respond"
+  match "users/inbox/view" => "inbox#view"
+  match "users/inbox/create" => "inbox#create"
+  match "users/inbox" => "inbox#show"
   
   resources :users, :messages,  :inbox
   
@@ -45,22 +61,6 @@ Citysandbox::Application.routes.draw do
       get 'respond'
     end
   end
-  
-  resources :events do
-    resources :response_events, :shallow => true
-  end
-  resources :sessions
-  resources :challenges do
-    resources :response_challenges, :shallow => true
-    resources :events
-  end
-  resources :responses
-  resources :discussion do
-    get '/' => 'discussion#summary', :as => :summary
-  end
-
-  get '/summary' => 'discussion#summary', :as => :summary
-  get '/filter' => 'discussion#filter', :as => :filter
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
