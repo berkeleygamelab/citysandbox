@@ -228,10 +228,14 @@ $(document).ready( function() {
 		<div class='latest_response'>
 		    <%=h r.description %>
 		</div>
-		<% if @can_vote %>
+		<% if @vote == -1 %>
 			<div id='vote'>
 				<a href='javascript:;' class='vote black_link' name='<%=r.id%>'>Vote</a>
 			</div>
+		<% elsif @vote == r.id%>
+		<div id='vote'>
+			Voted
+		</div>
 		<% end %>
 	</div>
 		<br>
