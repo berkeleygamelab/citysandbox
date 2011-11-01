@@ -233,6 +233,12 @@ footer a {
 	width:140px;
 }
 
+#vote {
+	float:right;
+	height: inherit;
+	margin:10px;
+}
+
 /* SUMMARY */
 #sidebar {
 	float: left;

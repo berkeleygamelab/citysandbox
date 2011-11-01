@@ -101,9 +101,15 @@ $(document).ready( function() {
 	<br>
 	<div class='individual'>
 		<span id='question_description'>
-			<%= @challenge.description %> 
+			<b>Challenge Description:</b> <%= @challenge.description %> 
 		</span>
 	</div>
+<% end %>
+<% if @challenge.vote_deadline <= Time.now %>
+	<% @most_popular_proposals.each do |p| %>
+		Most Popular Proposal:
+		<%= p.title %>
+	<% end %>	
 <% end %>
 <div id='tabs'>
 <br>
@@ -119,20 +125,28 @@ $(document).ready( function() {
 <br>
 <div id='proposals'>
 	<% @challenge.proposals.reverse_each do |r| %>
-		<div class='individual'>
-			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-		    <%= r.user.picture %>
-		 	<%=h r.user.login %> |
-		    <%= time_ago_in_words(r.created_at) %> ago
-			<br><br>
-		    <%=h r.title %>
-		 	<%=h r.description %>
-		<% if @can_vote %>
-			<% link_to 'Vote', 'Vote' %>
-		<% else %>
-			can't vote
-		<% end %>
+	<div class='entry_main'>
+		<div class='entry_author'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+			<%=h r.user.picture %> 
+			<br>
+			<%=h r.user.login %>	
+			<br>
+			<%= r.created_at.strftime("%Y %b %d") %>
+			<br>
 		</div>
+		<div class='entry_title'>
+			<b><%= link_to r.title, r, :class=>'black_link'%></b>
+		</div>	
+		<div class='latest_response'>
+		    <%=h r.description %>
+		</div>
+		<% if @can_vote %>
+			<div id='vote'>
+			<%= link_to "Vote", vote_path(:id => r.id), :class=>'black_link' %>
+			</div>
+		<% end %>
+	</div>
 		<br>
 	<% end %>
 	<% if @can_submit %>
@@ -163,19 +177,27 @@ $(document).ready( function() {
 </div>
 <div id='responses'>
 	<% @challenge.response_challenges.reverse_each do |r| %>
-		<div class='individual'>
-			<% if r.anonymous != 1 %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-			    <%= r.user.picture %>
-			 	<%=h r.user.login %> |
+	<div class='entry_main'>
+		<div class='entry_author'>
+			<% if r.anonymous == 1 %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h r.user.picture %> 
+				<br>
+				Anonymous
+				<br>
 			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-				Anonymous | 
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h r.user.picture %> 
+				<br>
+				<%=h r.user.login %>
+				<br>
 			<% end %>
-		    <%= time_ago_in_words(r.created_at) %> ago
-			<br><br>
+			<%= r.created_at.strftime("%Y %b %d") %>
+		</div>
+		<div class='latest_response'>
 		    <%=h r.response %>
 		</div>
+	</div>
 		<br>
 	<% end %>
 	<div id='response_form'>
@@ -190,8 +212,6 @@ $(document).ready( function() {
 		    <%= r.submit "Submit" %>
 		<% end %>
 	</div>
-</div>
-<div id='proposals'>
 </div>
 <div id='events'>
 	<% @challenge.events.reverse_each do |e| %>

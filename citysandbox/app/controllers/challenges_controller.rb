@@ -6,7 +6,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     @category = Categories.find(@challenge.categories_id)
     @can_vote = vote_permission(current_user)
-    @most_popular_proposal = @challenge.most_popular_proposal()
+    @most_popular_proposals = @challenge.most_popular_proposal()
     @can_submit = @challenge.submission_deadline > Time.now
     
     respond_to do |format|

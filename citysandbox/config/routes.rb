@@ -12,6 +12,7 @@ Citysandbox::Application.routes.draw do
   
   resources :sessions
   
+  match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
   
   resources :questions do

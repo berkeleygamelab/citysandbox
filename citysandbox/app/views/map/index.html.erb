@@ -3,69 +3,138 @@ $(document).ready( function() {
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
 	var lat = 0;
 	var lng = 0;
-	var center;
+	//var center;
 	var map;
-	var question_layer;
-	var challenge_layer;
-	var event_layer;
+	// var question_layer;
+	// 	var challenge_layer;
+	// 	var event_layer;
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode( { 'address': loc}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        lat = results[0].geometry.location.lat();
 			lng = results[0].geometry.location.lng();
 			
-			center = new google.maps.LatLng(lat, lng);
-			map = new google.maps.Map(document.getElementById('mapview_map'), {
-			  center: center,
-			  zoom: 12,
-			  mapTypeId: 'roadmap'
-			});
-			
-			question_layer = new google.maps.FusionTablesLayer({
+			make_map(lat, lng);
+			/*{
 			  query: {
 			    select: 'Location',
 			    from: '1943371'
 			  },
+			  map: map,
 			  styles: [{
 			    markerOptions: {
 			      iconName: "large_green"
 			    }
 			  }]
 			});
-
-			//question_layer.setMap(map);
 			
 			challenge_layer = new google.maps.FusionTablesLayer({
 			  query: {
 			    select: 'Location',
 			    from: '1943952'
 			  },
+			  map: map,
 			  styles: [{
 			    markerOptions: {
 			      iconName: "large_blue"
 			    }
 			  }]
 			});
-
-			//challenge_layer.setMap(map);
 			
 			event_layer = new google.maps.FusionTablesLayer({
 			  query: {
 			    select: 'Location',
 			    from: '1943933'
 			  },
+			  map: map,
 			  styles: [{
 			    markerOptions: {
 			      iconName: "large_red"
 			    }
 			  }]
 			});
-
-			event_layer.setMap(map);
-			
+			*/
 		}
 	});
 });
+function make_map(lat, lng) {
+	var center = new google.maps.LatLng(lat, lng);
+	map = new google.maps.Map(document.getElementById('mapview_map'), {
+	  center: center,
+	  zoom: 12,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+	
+	question_layer = new google.maps.FusionTablesLayer({
+		query: {
+			select: 'Location',
+			from: '1943933'
+		},
+		styles: [{
+			markerOptions: {
+				iconName: "large_green"
+			}
+		}],
+		map: map
+	});
+	// question_layer.setMap(map);
+	
+	challenge_layer = new google.maps.FusionTablesLayer({
+		query: {
+			select: 'Location',
+			from: '1943952'
+		},
+		styles: [{
+			markerOptions: {
+				iconName: "large_blue"
+			}
+		}],
+		map: map
+	});
+	// challenge_layer.setMap(map);
+	
+	event_layer = new google.maps.FusionTablesLayer({
+		query: {
+			select: 'Location',
+			from: '1943933'
+		},
+		styles: [{
+			markerOptions: {
+				iconName: "large_red"
+			}
+		}],
+		map: map
+	});
+	// event_layer.setMap(map);
+	
+	// question_layer = new google.maps.FusionTablesLayer(1943371);
+	// question_layer.setQuery("SELECT 'Location' FROM 1943371");
+	// var question_style = new google.maps.FusionTablesLayerOptions({
+	// 	styles: [{
+	// 		markerOptions: {
+	// 			iconName: "large_green"
+	// 		}
+	// 	}]
+	// });
+	// question_layer.setOptions(question_style);
+	// question_layer.setOptions({
+	// 	styles: [{
+	// 		markerOptions: {
+	// 			iconName: "large_green"
+	// 		}
+	// 	}]
+	// });
+	// question_layer.setMap(map);
+	// 
+	// 
+	// challenge_layer = new google.maps.FusionTablesLayer(1943952);
+	// challenge_layer.setQuery("SELECT 'Location' FROM 1943952");
+	// challenge_layer.setMap(map);
+	// 
+	// event_layer = new google.maps.FusionTablesLayer(1943933);
+	// event_layer.setQuery("SELECT 'Location' FROM 1943933");
+	// event_layer.setMap(map);
+}
 </script>
 
 <div id='sidebar'>
