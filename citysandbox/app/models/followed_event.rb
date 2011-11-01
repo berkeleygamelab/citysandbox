@@ -1,5 +1,5 @@
 class FollowedEvent < ActiveRecord::Base
-  belongs_to :events
+  belongs_to :event
   belongs_to :user
   
   validates :user_id, :presence => true
@@ -22,7 +22,7 @@ class FollowedEvent < ActiveRecord::Base
    end
 
    def update_event_popularity
-     event.popularity += env['FOLLOWED_VALUE']
+     event.popularity += ENV['FOLLOWED_VALUE']
      event.save
    end
 
@@ -32,7 +32,7 @@ class FollowedEvent < ActiveRecord::Base
    end
 
    def update_event_depopularity
-     event.popularity -= env['FOLLOWED_VALUE']
+     event.popularity -= ENV['FOLLOWED_VALUE']
      event.save
    end
   
