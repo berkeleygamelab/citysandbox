@@ -272,7 +272,16 @@ def unfollow
 end
 
 def sort_by_keyword(set, keyword)
-  return set.keyword(keyword.split)
+  new_set = []
+  keys = keyword.split
+  keys.each do |wd| 
+    new_set = new_set | set.keyword(wd)
+  end
+  new_keys = []
+  new_set.each do |thing|
+    new_keys += [thing.id]
+  end
+  return set.followed(new_keys)
 end
 
 def add_follower(item_to_follow, type)

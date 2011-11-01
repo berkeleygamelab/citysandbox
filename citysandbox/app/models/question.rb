@@ -34,6 +34,7 @@
     scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
     
     
+    
     @ft = @ft
 
     def insert_driver
@@ -99,12 +100,12 @@
   
     def fetch_location
       @questions_table = ENV['csb_locations']
-      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE id = #{id} AND table = 'questions'"
+      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE ID = #{id} AND table = 'questions'"
     end    
 
     def update_location(loc)
       @questions_table = ENV['csb_locations']
-      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE id = #{id} AND table = 'question'"
+      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE ID = #{id} AND table = 'question'"
       if @quest_dummy[0] == nil
         return insert_location(loc)
       end
