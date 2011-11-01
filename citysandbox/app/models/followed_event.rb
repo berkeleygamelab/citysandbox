@@ -22,7 +22,7 @@ class FollowedEvent < ActiveRecord::Base
    end
 
    def update_event_popularity
-     event.popularity += ENV['FOLLOWED_VALUE']
+     event.popularity += ENV['followed_value'].to_i
      event.save
    end
 
@@ -32,7 +32,7 @@ class FollowedEvent < ActiveRecord::Base
    end
 
    def update_event_depopularity
-     event.popularity -= ENV['FOLLOWED_VALUE']
+     event.popularity -= ENV['FOLLOWED_VALUE'].to_i
      event.save
    end
   
