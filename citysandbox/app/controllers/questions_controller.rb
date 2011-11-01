@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
     @category = Categories.find(@question.category_id)
     
     @followed = current_user.followed_questions.where(:id => params[:id]).size != 0
-    @followed_user = current_user.followed_users.where(:id => @question.user_id).size != 0
+    @followed_user = current_user.followed_users.where(:folllowed_user_id => @question.user_id).size != 0
     
     respond_to do |format|
       format.html # show.html.erb
