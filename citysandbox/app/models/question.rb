@@ -171,9 +171,9 @@
     
      def most_popular(since_last, distance, target_location)
         set =  Question.where("updated_at > '#{since_last}'").order("popularity DESC")
-        google_set = grab_circle(target_location, distance, 25)
+        google_set = grab_circle(distance, target_location, 25)
         google_fetch = retrieve_google(google_set)
-        return google_fetch.where("updated_at > '#{since_last}").order("popularity DESC")
+        return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
       end
 end
 

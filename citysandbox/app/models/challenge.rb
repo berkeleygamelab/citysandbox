@@ -6,7 +6,7 @@ class Challenge < ActiveRecord::Base
   attr_accessor :lat
   attr_accessor :lng
   
-  belongs_to :question
+  belongs_to :challenge
   belongs_to :user
   belongs_to :categories
   
@@ -45,7 +45,7 @@ class Challenge < ActiveRecord::Base
    end
    
    def most_popular(since_last)
-     return Question.where("updated_at > '#{since_last}'").where()
+     return challenge.where("updated_at > '#{since_last}'").where()
    end
    
    def remove_followed
@@ -108,5 +108,12 @@ class Challenge < ActiveRecord::Base
      end
      return proposals.where(:id => my_popular)
    end
+   
+   
+    def most_popular(since_last, distance, target_location)
+       google_set = grab_circle(distance, target_location, 25)
+       google_fetch = retrieve_google(google_set)
+       return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
+     end
    
 end

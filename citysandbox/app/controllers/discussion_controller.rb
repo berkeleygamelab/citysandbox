@@ -50,6 +50,7 @@ def filter
   @challenges = []
   @followed = params[:following]
   @followed_type = params[:followed_type]  
+  @most_popular = params[:popular]
 
   @keyword = params[:keyword]
 
@@ -60,70 +61,85 @@ def filter
   end
 
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
+      @questions = Question
+      if @most_popular != nil
+        @questions = sort_by_popularity("Question", Time.now - 3600*30*24, "37.8 -122.5")
+        @flagsorted = true
+      end
       if @followed != nil
-        @questions = display_following(Question, "Question")
+        @questions = display_following(@questions, "Question")
         @flagsorted = true
       end
       if @title != nil
-        @questions = sort_by_title(Question, @title)
+        @questions = sort_by_title(@questions, @title)
         @flagsorted = true
       end
       if @category_type != nil
-        @questions = sort_by_category(Question, @category_type)
+        @questions = sort_by_category(@questions, @category_type)
         @flagsorted = true
       end
       if @months != nil
-        @questions = sort_by_timestamp(Question, @months.to_i)
+        @questions = sort_by_timestamp(@questions, @months.to_i)
         @flagsorted = true
       end
       if @keyword != nil
-        @questions = sort_by_keyword(Question, @keyword)
+        @questions = sort_by_keyword(@questions, @keyword)
         @flagsorted = true
       end
     end
     
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
+      @events = Event
+      if @most_popular != nil
+        @events = sort_by_popularity("Event", Time.now - 3600*30*24, "37.8 -122.5")
+        @flagsorted = true
+      end
       if @followed != nil
-         @events = display_following(Event, "Event")
+         @events = display_following(@events, "Event")
          @flagsorted = true
       end 
        if @title != nil
-         @events = sort_by_title(Event, @title)
+         @events = sort_by_title(@events, @title)
          @flagsorted = true
        end
        if @category_type != nil
-         @events = sort_by_category(Event, @category_type)
+         @events = sort_by_category(@events, @category_type)
          @flagsorted = true
        end
        if @months != nil
-         @events = sort_by_timestamp(Event, @months.to_i)
+         @events = sort_by_timestamp(@events, @months.to_i)
          @flagsorted = true
        end
        if @keyword != nil
-          @events = sort_by_keyword(Event, @keyword)
+          @events = sort_by_keyword(@events, @keyword)
           @flagsorted = true
         end
      end
      
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+         @challenges = Challenge
+         if @most_popular != nil
+           @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, "37.8 -122.5")
+           @flagsorted = true
+         end
          if @followed != nil
-            @challenges = display_following(Challenge, "Challenge")
+            @challenges = display_following(@challenges, "Challenge")
             @flagsorted = true
          end
         if @title != nil
-          @challenges = sort_by_title(Challenge, @title)
+          @challenges = sort_by_title(@challenges, @title)
           @flagsorted = true
         end
         if @category_type != nil
-          @challenges = sort_by_category(Challenge, @category_type)
+          @challenges = sort_by_category(@challenges, @category_type)
           @flagsorted = true
         end
         if @months != nil
-          @challenges = sort_by_timestamp(Challenge, @months.to_i)
+          @challenges = sort_by_timestamp(@challenges, @months.to_i)
           @flagsorted = true
         end
         if @keyword != nil
-           @challenges = sort_by_keyword(Challenge, @keyword)
+           @challenges = sort_by_keyword(@challenges, @keyword)
            @flagsorted = true
          end
       
@@ -294,6 +310,21 @@ def display_following(set, type)
     
 end
 
+def sort_by_popularity(type, time, location)
+  
+  if type == "Question"
+    dummy = Question.first
+    popular_set = dummy.most_popular(time, 10000, location)
+  end
+  if type == "Challenge"
+    dummy = Challenge.first
+    popular_set = dummy.most_popular(time, 10000, location)
+  end
+  if type == "Event"
+    dummy = Event.first
+    popular_set = dummy.most_popular(time, 10000, location)
+  end
+end
 
 
 
