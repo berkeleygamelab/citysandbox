@@ -18,9 +18,12 @@ class Event < ActiveRecord::Base
   scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
   scope :keyword, lambda{|key| { :conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
 
+  before_save :upkeep
+
   def category_id
      return categories_id
   end
+
    
    
   def create_followed
@@ -58,32 +61,40 @@ class Event < ActiveRecord::Base
    end
    
    def fetch_location
-     @events_table = ENV['event_table']
-     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id}"
+     @events_table = ENV['csb_locations']
+     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id} AND id_type = 'event'"
    end    
 
    def update_location(loc)
-     @events_table = ENV['event_table']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id}"
+     @events_table = ENV['csb_locations']
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id} AND id_type = 'event'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
      @rowid = @quest_dummy[0][:rowid]
      
-     return ::FT.execute "UPDATE #{@events_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}'"
+     return ::FT.execute "UPDATE #{@events_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND id_type = 'event'"
    end
    
    def insert_location(loc)
-     @events_table = ENV['event_table']
-     return ::FT.execute "INSERT INTO #{@events_table} (Location, id) VALUES ('#{loc}', #{id})"
+     @events_table = ENV['csb_locations']
+     return ::FT.execute "INSERT INTO #{@events_table} (Location, id, id_type) VALUES ('#{loc}', #{id}, 'event')"
    end
    
    def grab_nearest(number)
-     @events_table = ENV['event_table']
+     @events_table = ENV['csb_locations']
      @loc_x = location.split[0].to_f
      @loc_y = location.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@events_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+     return ::FT.execute "SELECT * FROM #{@events_table} WHERE id_type = 'event'ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
    end
+   
+    def retrieve_google(db_return)
+       rtn = []
+       db_return.each do |x|
+         rtn += [x[:id]]
+       end
+       return Event.followed(rtn)
+     end
    
    
     def most_popular(since_last, distance, target_location)

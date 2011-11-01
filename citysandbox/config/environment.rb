@@ -11,7 +11,7 @@ password = file.gets
 ENV['question_table'] = ::FT.show_tables.select{|t| t.name == "Question_Locations"}.first.id
 ENV['challenge_table'] = ::FT.show_tables.select{|t| t.name == "Challenge_Locations"}.first.id
 ENV['event_table'] = ::FT.show_tables.select{|t| t.name == "Event_Locations"}.first.id
-
+ENV['csb_locations'] = 2029434.to_s
 
 #initialize constants for popularity sort
 ENV['response_value'] = 1.to_s
