@@ -7,13 +7,16 @@ $.fn.center = function (top_offset) {
     return this;
 }
 $(window).load(function() {
-	$('.splash_box').center(10);
-	$('.form').css("position","absolute");
-	$('.form').css('top', $('.splash_box').position().top);
-	$('.form').css('left', $('.splash_box').position().left);
+	$(window).resize(function() {
+		$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
+		$('.form').center(10);
+	});
+	$('#content').css('margin-top', '10px');
+	$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
+	$('.form').center(10);
 });
 </script>
-<%= image_tag "../images/splash_box.png", :class=>'splash_box' %><style type="text/css">
+<style type="text/css">
 html {
         background: url('../../images/splash_background.png') no-repeat center center fixed;
         -webkit-background-size: cover;
@@ -22,6 +25,10 @@ html {
         background-size: cover;
 }
 </style>
+<div id='content'>
+<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <div class='form'>
 <%= render 'form' %>
+
+</div>
 </div>
