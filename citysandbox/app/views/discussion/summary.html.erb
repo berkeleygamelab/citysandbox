@@ -195,7 +195,7 @@ function populate_content(content) {
 			} else {
 				html_string	+= '<li><b><a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></b></li>';		
 			}
-			html_string += '</ul></div></div><br>'
+			html_string += '</ul></div><%= will_paginate  %></div><br>'
 		});
 	}
 	$('#main_content').html(html_string);
