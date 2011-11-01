@@ -48,6 +48,11 @@ $(document).ready( function() {
 		var params = {}; 
 		ajax_call(params);
 	});
+	
+	$(window).resize(function() {
+		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	});
+	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 });
 
 function ajax_call(params) {
@@ -186,6 +191,7 @@ function populate_content(content) {
 }
 
 </script>
+<div id='content'>
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>	
@@ -355,4 +361,5 @@ function populate_content(content) {
 	<% end %>
 <% end %>
 <%= will_paginate @collection %>
+</div>
 </div>

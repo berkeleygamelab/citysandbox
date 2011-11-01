@@ -92,11 +92,16 @@ $(document).ready( function() {
 	} else {
 		$('#unfollow_user').hide();
 	}
-	
+
+	$(window).resize(function() {
+		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	});
+	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 });
 </script>
 <style type="text/css">
 </style>
+<div id='content'>
 <div id='user_sidebar'>
 	<% if @question.anonymous != 1 %>
 		<b>About <%= @question.user.login %> </b>
@@ -315,5 +320,6 @@ $(document).ready( function() {
 	<%= link_to 'Edit', edit_question_path(@question), :class=>'black_link' %> |
 <% end %>
 <%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
+</div>
 </div>
 </div>

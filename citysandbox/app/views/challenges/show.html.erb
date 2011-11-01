@@ -98,11 +98,16 @@ $(document).ready( function() {
 			$(this).show();
 		});	
 	});
-		
+	
+	$(window).resize(function() {
+		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	});
+	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 });
 </script>
 <style type="text/css">
 </style>
+<div id='content'>
 <div id='user_sidebar'>
 	<b>About <%= @challenge.user.login %> </b>
 	<br>
@@ -365,5 +370,6 @@ $(document).ready( function() {
 	<%= link_to 'Edit', edit_challenge_path(@challenge), :class=>'black_link' %> |
 <% end %>
 <%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
+</div>
 </div>
 </div>

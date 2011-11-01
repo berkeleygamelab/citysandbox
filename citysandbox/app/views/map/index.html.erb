@@ -1,5 +1,9 @@
 <script type="text/javascript">
 $(document).ready( function() {
+	$(window).resize(function() {
+		$('#mapview_map').css('margin-left', ($(window).width()-720)/2 + 'px');
+	});
+	$('#content').css('margin-left', ($(window).width()-720)/2 + 'px');
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
 	var lat = 0;
 	var lng = 0;
@@ -84,57 +88,7 @@ $(document).ready( function() {
 // }
 </script>
 <body onload="initialize()">
-<div id='sidebar'>
-<div id='filters_content'>
-	<b>SORT ITEMS BY</b>	
-	<br>
-
-	<ul id='sortby'>
-	<li>
-	  <%= check_box_tag 'sort', 'recent' %> Most Recent
-	</li>
-	<!--<li>
-	  <%= check_box_tag 'sort', 'popular' %> Most Popular
-	</li>--> 
-	<li>
-	 <%= check_box_tag 'sort', 'following' %> Following
-	</li>
-	</ul>
-	<br>
-	<b>SHOW</b>
-	<ul id='sort_by_type'>
-	<li>
-	  <%= check_box_tag 'sort', 'Questions' %> Questions
-	</li>
-	<li>
-	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
-	</li>
-	<li>
-	 <%= check_box_tag 'sort', 'Events' %> Events
-	</li>
-
-	</ul>
-	<br>
-	<b>KEYWORD SEARCH</b>
-	<br>
-	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
-	<br><br>
-	<b>SHOW ITEMS FROM</b>
-	<br>
-	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
-	<br><br>
-	<b>VIEW CATEGORIES</b>
-	<ul id='categories'>
-	<% for category in Categories.find(:all) %>
-	<li>
-	  <%= check_box_tag 'category', category.id %>
-	  <%= category.category %>
-	</li>
-	<% end %>
-	</ul>
-	<br>
-	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
-</div>
-</div>
+<div id='content'>
 <div id='mapview_map'></div>
+</div>
 </body>
