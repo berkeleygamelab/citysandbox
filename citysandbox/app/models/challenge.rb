@@ -62,31 +62,31 @@ class Challenge < ActiveRecord::Base
     end
 
    def fetch_location
-     @challenges_table = ENV['challenge_table']
-     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id}"
+     @challenges_table = ENV['csb_locations']
+     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id} AND id_type = 'challenge'"
    end    
 
    def update_location(loc)
-     @challenges_table = ENV['challenge_table']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id}"
+     @challenges_table = ENV['csb_locations']
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id} AND id_type = 'challenge'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
      @rowid = @quest_dummy[0][:rowid]
      
-     return ::FT.execute "UPDATE #{@challenges_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}'"
+     return ::FT.execute "UPDATE #{@challenges_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND id_type = 'challenge'"
    end
    
    def insert_location(loc)
-     @challenges_table = ENV['challenge_table']
-     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id) VALUES ('#{loc}', #{id})"
+     @challenges_table = ENV['csb_locations']
+     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id, id_type) VALUES ('#{loc}', #{id}, 'challenge')"
    end
    
    def grab_nearest(number)
-     @challenges_table = ENV['challenge_table']
+     @challenges_table = ENV['csb_locations']
      @loc_x = location.split[0].to_f
      @loc_y = location.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@challenges_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+     return ::FT.execute "SELECT * FROM #{@challenges_table} WHERE id_type = 'challenge' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
    end
    
    #grabs the nearest locations by distance and location
@@ -109,6 +109,14 @@ class Challenge < ActiveRecord::Base
      end
      return proposals.where(:id => my_popular)
    end
+   
+    def retrieve_google(db_return)
+       rtn = []
+       db_return.each do |x|
+         rtn += [x[:id]]
+       end
+       return Challenge.followed(rtn)
+     end
    
    
     def most_popular(since_last, distance, target_location)
