@@ -8,7 +8,8 @@ $(document).ready( function() {
 
 	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
-			ajax_call();
+			var params = {};
+			ajax_call(params);
 		});
 	});
 	
@@ -39,36 +40,17 @@ $(document).ready( function() {
 	});
 	
 	$('#keyword').blur( function() {
-		if ($('#keyword').attr('value') != '') {
-			$('#uncheck').attr('checked', false);
-			categories_checked = [];
-			$('#categories li :checked').each( function () {
-				categories_checked.push($(this).attr('value'));
-			});
-			types_checked = [];
-			$('#sort_by_type li :checked').each( function () {
-				types_checked.push($(this).attr('value'));
-			});
-			var params = {};
-			if (categories_checked.length > 0) {
-				params['category'] = categories_checked;
-			}
-			if (types_checked.length > 0) {
-				params['types'] = types_checked;
-			} else {
-				params['types'] = ['Questions', 'Challenges', 'Events'];	
-			}
-			params['keyword'] = $('#keyword').attr('value');
-			console.log(params['keyword']);
-			$.get('/filter', params, function(data) {
-				populate_content(data);
-			});
-		}
+		var params = {};
+		ajax_call(params);
+	});
+	
+	$("#date").change(function() {
+		var params = {}; 
+		ajax_call(params);
 	});
 });
 
-function ajax_call() {
-	var params = {};
+function ajax_call(params) {
 	$('#uncheck').attr('checked', false);
 	sort_by_checked = [];
 	$('#sort_by li :checked').each( function () {
@@ -94,39 +76,27 @@ function ajax_call() {
 	if ($.isEmptyObject(params)) {
 		params['types'] = ['Questions', 'Challenges', 'Events'];
 	}
+	if ($('#keyword').attr('value') != '') {
+		params['keyword'] = $('#keyword').attr('value');
+	}
+	if ($('#date').attr('value') != '') {
+		params['timeBefore'] = $('#date').val();
+	}
+	console.log(params);
 	$.get('/filter', params, function(data) {
 		populate_content(data);
 	});
 }
 
 function follow_unfollow(id, type, follow) {
-	$('#uncheck').attr('checked', false);
-	categories_checked = [];
-	$('#categories li :checked').each( function () {
-		categories_checked.push($(this).attr('value'));
-	});
-	types_checked = [];
-	$('#sort_by_type li :checked').each( function () {
-		types_checked.push($(this).attr('value'));
-	});
 	var params = {};
-	if (categories_checked.length > 0) {
-		params['category'] = categories_checked;
-	}
-	if (types_checked.length > 0) {
-		params['types'] = types_checked;
-	} else {
-		params['types'] = ['Questions', 'Challenges', 'Events'];	
-	}
 	if (follow) {
 		params['follow'] = id;
 	} else {
 		params['unfollow'] = id;	
 	}
 	params['itemz'] = type;
-	$.get('/filter', params, function(data) {
-		populate_content(data);
-	});
+	ajax_call(params);
 }
 function draw_maps() {
 	$('.entry_map img').each( function(index) {
@@ -148,7 +118,7 @@ function populate_content(content) {
 			+ '</div>';
 	}
 	else {
-		$.each(content['entries'], function (index, entry) {
+		$.each(content, function (index, entry) {
 			html_string += '<div class="entry_main">'
 				+ '<div class="entry_author">';
 			if (entry['type'] == 'Question') {
@@ -160,7 +130,7 @@ function populate_content(content) {
 					+ entry['login'] + '<br>';
 				}
 			} else {
-				html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
+				html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
 				+ entry['login'] + '<br>';
 			}
 			html_string += entry['created_at']+ '<br></div>';
@@ -195,7 +165,7 @@ function populate_content(content) {
 			} else {
 				html_string	+= '<li><b><a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></b></li>';		
 			}
-			html_string += '</ul></div><%= will_paginate  %></div><br>'
+			html_string += '</ul></div></div><br>'
 		});
 	}
 	$('#main_content').html(html_string);
@@ -220,7 +190,6 @@ function populate_content(content) {
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>	
 	<br>
-
 	<ul id='sort_by'>
 	<li>
 	  <%= check_box_tag 'sort', 'recent' %> Most Recent
@@ -252,8 +221,14 @@ function populate_content(content) {
 	<input type='text' class='textbox' id='keyword' size='20'>
 	<br><br>
 	<b>SHOW ITEMS FROM</b>
-	<br>
-	<input type='text' class='textbox' id='date' size='20'>
+	<select id="date" >
+		<option value="">All Time</option>
+  		<option value="1">1 Day Ago</option>
+		<option value="7">1 Week Ago</option>
+		<option value="30">1 Month Ago</option>
+		<option value="60">2 Months Ago</option>
+		<option value="90">3 Months Ago</option>
+	</select>
 	<br><br>
 	<b>VIEW CATEGORIES</b>
 	<ul id='categories'>
