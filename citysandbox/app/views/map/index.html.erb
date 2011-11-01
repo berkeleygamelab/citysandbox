@@ -1,15 +1,11 @@
 <script type="text/javascript">
 $(document).ready( function() {
-	$(window).resize(function() {
-		$('#mapview_map').css('margin-left', ($(window).width()-720)/2 + 'px');
-	});
-	$('#content').css('margin-left', ($(window).width()-720)/2 + 'px');
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
 	var lat = 0;
 	var lng = 0;
 	var center;
 	var map;
-	var tableID = 2029434;
+	var tableID = 2036527;
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode( { 'address': loc}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
@@ -19,7 +15,7 @@ $(document).ready( function() {
 			center = new google.maps.LatLng(lat, lng);
 			map = new google.maps.Map(document.getElementById('mapview_map'), {
 			  center: center,
-			  zoom: 12,
+			  zoom: 10,
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 			
@@ -29,17 +25,17 @@ $(document).ready( function() {
 					from: tableID
 				},
 				styles: [{
-					where: "table = 'questions'",
+					where: "Origin = 'questions'",
 					markerOptions: {
 						iconName: "large_green"
 					}
 				}, {
-					where: "table = 'challenges'",
+					where: "Origin = 'challenges'",
 					markerOptions: {
 						iconName: "large_blue"
 					}
 				}, {
-					where: "table = 'events'",
+					where: "Origin = 'events'",
 					markerOptions: {
 						iconName: "large_red"
 					}
@@ -87,8 +83,56 @@ $(document).ready( function() {
 //   controlUI.appendChild(controlText);
 // }
 </script>
-<body onload="initialize()">
-<div id='content'>
-<div id='mapview_map'></div>
+<div id='sidebar'>
+<div id='filters_content'>
+	<b>SORT ITEMS BY</b>	
+	<br>
+
+	<ul id='sortby'>
+	<li>
+	  <%= check_box_tag 'sort', 'recent' %> Most Recent
+	</li>
+	<!--<li>
+	  <%= check_box_tag 'sort', 'popular' %> Most Popular
+	</li>--> 
+	<li>
+	 <%= check_box_tag 'sort', 'following' %> Following
+	</li>
+	</ul>
+	<br>
+	<b>SHOW</b>
+	<ul id='sort_by_type'>
+	<li>
+	  <%= check_box_tag 'sort', 'Questions' %> Questions
+	</li>
+	<li>
+	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
+	</li>
+	<li>
+	 <%= check_box_tag 'sort', 'Events' %> Events
+	</li>
+
+	</ul>
+	<br>
+	<b>KEYWORD SEARCH</b>
+	<br>
+	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<br><br>
+	<b>SHOW ITEMS FROM</b>
+	<br>
+	<%= image_tag "../images/textbox.png", :class=>'textbox' %>
+	<br><br>
+	<b>VIEW CATEGORIES</b>
+	<ul id='categories'>
+	<% for category in Categories.find(:all) %>
+	<li>
+	  <%= check_box_tag 'category', category.id %>
+	  <%= category.category %>
+	</li>
+	<% end %>
+	</ul>
+	<br>
+	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
-</body>
+</div>
+<div id='mapview_map'></div>
