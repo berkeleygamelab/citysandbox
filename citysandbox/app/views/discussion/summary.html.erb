@@ -148,7 +148,7 @@ function populate_content(content) {
 			+ '</div>';
 	}
 	else {
-		$.each(content, function (index, entry) {
+		$.each(content['entries'], function (index, entry) {
 			html_string += '<div class="entry_main">'
 				+ '<div class="entry_author">';
 			if (entry['type'] == 'Question') {

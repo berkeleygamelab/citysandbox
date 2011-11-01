@@ -43,7 +43,7 @@ def filter
   @category_type = params[:category]
   @type_of_stuff = params[:types]
   @title = params[:title]
-  @timestamp = params[:timeBefore]
+  @months = params[:timeBefore]
     
   @events = []
   @questions = []
@@ -72,8 +72,8 @@ def filter
         @questions = sort_by_category(Question, @category_type)
         @flagsorted = true
       end
-      if @timestamp != nil
-        @questions = sort_by_timestamp(Question, @category_type)
+      if @months != nil
+        @questions = sort_by_timestamp(Question, @months)
         @flagsorted = true
       end
       if @keyword != nil
@@ -95,8 +95,8 @@ def filter
          @events = sort_by_category(Event, @category_type)
          @flagsorted = true
        end
-       if @timestamp != nil
-         @events = sort_by_timestamp(Event, @category_type)
+       if @months != nil
+         @events = sort_by_timestamp(Event, @months)
          @flagsorted = true
        end
        if @keyword != nil
@@ -118,8 +118,8 @@ def filter
           @challenges = sort_by_category(Challenge, @category_type)
           @flagsorted = true
         end
-        if @timestamp != nil
-          @challenges = sort_by_timestamp(Challenge, @category_type)
+        if @months != nil
+          @challenges = sort_by_timestamp(Challenge, @months)
           @flagsorted = true
         end
         if @keyword != nil
@@ -222,7 +222,23 @@ def filter
       
       @collection.sort!{|a,b| b['entry'].updated_at<=> a['entry'].updated_at}
       
-      respond_with(@collection)
+      
+      current_page = 1
+      if params[:page] != nil
+        current_page = params[:page].to_i
+      end
+      per_page = 5
+      
+      respond_to do |format|
+        format.json {
+          render :json => {
+            :current_page => current_page,
+            :per_page => per_page,
+            :total_entries => @collection.length,
+            :entries => @collection
+          }
+        }
+      end
 
 end
 
@@ -235,12 +251,15 @@ def sort_by_category(set, categoryList)
   return set.has_category(categoryList)
 end
 
-def sort_by_timestamp(set, timestamp)
-  return set.where("updated_at <= ?", timestamp)
+def sort_by_timestamp(set, num_months)
+  timestamp = Time.now - num_months*30*60*60*24
+  return set.where("updated_at > ?", timestamp)
 end
 
+
+
 def sort_by_keyword(set, keyword)
-  return set.keyword_sort(keyword)
+  return set.keyword(keyword)
 end
 
 def add_follower(item_to_follow, type)
