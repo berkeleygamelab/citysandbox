@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20111101054122) do
     t.string   "description"
     t.datetime "time"
     t.integer  "categories_id"
-    t.integer  "challenge_id"
+    t.integer  "question_id"
     t.integer  "popularity",    :default => 0
   end
 

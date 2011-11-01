@@ -3,140 +3,87 @@ $(document).ready( function() {
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
 	var lat = 0;
 	var lng = 0;
-	//var center;
+	var center;
 	var map;
-	// var question_layer;
-	// 	var challenge_layer;
-	// 	var event_layer;
+	var tableID = 2029434;
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode( { 'address': loc}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        lat = results[0].geometry.location.lat();
 			lng = results[0].geometry.location.lng();
 			
-			make_map(lat, lng);
-			/*{
-			  query: {
-			    select: 'Location',
-			    from: '1943371'
-			  },
-			  map: map,
-			  styles: [{
-			    markerOptions: {
-			      iconName: "large_green"
-			    }
-			  }]
+			center = new google.maps.LatLng(lat, lng);
+			map = new google.maps.Map(document.getElementById('mapview_map'), {
+			  center: center,
+			  zoom: 12,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 			
-			challenge_layer = new google.maps.FusionTablesLayer({
-			  query: {
-			    select: 'Location',
-			    from: '1943952'
-			  },
-			  map: map,
-			  styles: [{
-			    markerOptions: {
-			      iconName: "large_blue"
-			    }
-			  }]
+			var fusion_layer = new google.maps.FusionTablesLayer({
+				query: {
+					select: 'Location',
+					from: tableID
+				},
+				styles: [{
+					where: "table = 'questions'",
+					markerOptions: {
+						iconName: "large_green"
+					}
+				}, {
+					where: "table = 'challenges'",
+					markerOptions: {
+						iconName: "large_blue"
+					}
+				}, {
+					where: "table = 'events'",
+					markerOptions: {
+						iconName: "large_red"
+					}
+				}],
+				map: map
 			});
 			
-			event_layer = new google.maps.FusionTablesLayer({
-			  query: {
-			    select: 'Location',
-			    from: '1943933'
-			  },
-			  map: map,
-			  styles: [{
-			    markerOptions: {
-			      iconName: "large_red"
-			    }
-			  }]
-			});
-			*/
+			// var legendDiv = document.createElement('DIV');
+			// 		  	var legend = new Legend(legendDiv, map);
+			// 		  	legendDiv.index = 1;
+			// 		  	map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legendDiv);
+
 		}
 	});
 });
-function make_map(lat, lng) {
-	var center = new google.maps.LatLng(lat, lng);
-	map = new google.maps.Map(document.getElementById('mapview_map'), {
-	  center: center,
-	  zoom: 12,
-	  mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-	
-	question_layer = new google.maps.FusionTablesLayer({
-		query: {
-			select: 'Location',
-			from: '1943933'
-		},
-		styles: [{
-			markerOptions: {
-				iconName: "large_green"
-			}
-		}],
-		map: map
-	});
-	// question_layer.setMap(map);
-	
-	challenge_layer = new google.maps.FusionTablesLayer({
-		query: {
-			select: 'Location',
-			from: '1943952'
-		},
-		styles: [{
-			markerOptions: {
-				iconName: "large_blue"
-			}
-		}],
-		map: map
-	});
-	// challenge_layer.setMap(map);
-	
-	event_layer = new google.maps.FusionTablesLayer({
-		query: {
-			select: 'Location',
-			from: '1943933'
-		},
-		styles: [{
-			markerOptions: {
-				iconName: "large_red"
-			}
-		}],
-		map: map
-	});
-	// event_layer.setMap(map);
-	
-	// question_layer = new google.maps.FusionTablesLayer(1943371);
-	// question_layer.setQuery("SELECT 'Location' FROM 1943371");
-	// var question_style = new google.maps.FusionTablesLayerOptions({
-	// 	styles: [{
-	// 		markerOptions: {
-	// 			iconName: "large_green"
-	// 		}
-	// 	}]
-	// });
-	// question_layer.setOptions(question_style);
-	// question_layer.setOptions({
-	// 	styles: [{
-	// 		markerOptions: {
-	// 			iconName: "large_green"
-	// 		}
-	// 	}]
-	// });
-	// question_layer.setMap(map);
-	// 
-	// 
-	// challenge_layer = new google.maps.FusionTablesLayer(1943952);
-	// challenge_layer.setQuery("SELECT 'Location' FROM 1943952");
-	// challenge_layer.setMap(map);
-	// 
-	// event_layer = new google.maps.FusionTablesLayer(1943933);
-	// event_layer.setQuery("SELECT 'Location' FROM 1943933");
-	// event_layer.setMap(map);
-}
+// function Legend(controlDiv, map) {
+//   // Set CSS styles for the DIV containing the control
+//   // Setting padding to 5 px will offset the control
+//   // from the edge of the map
+//   controlDiv.style.padding = '5px';
+// 
+//   // Set CSS for the control border
+//   var controlUI = document.createElement('DIV');
+//   controlUI.style.backgroundColor = 'white';
+//   controlUI.style.borderStyle = 'solid';
+//   controlUI.style.borderWidth = '1px';
+//   controlUI.title = 'Legend';
+//   controlDiv.appendChild(controlUI);
+// 
+//   // Set CSS for the control text
+//   var controlText = document.createElement('DIV');
+//   controlText.style.fontFamily = 'Arial,sans-serif';
+//   controlText.style.fontSize = '12px';
+//   controlText.style.paddingLeft = '4px';
+//   controlText.style.paddingRight = '4px';
+//   
+//   // Add the text
+//   controlText.innerHTML = '<b>Butterflies*</b><br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png" /> Battus<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/yellow-dot.png" /> Speyeria<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png" /> Papilio<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/blue-dot.png" /> Limenitis<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/purple-dot.png" /> Myscelia<br />' +
+//         '<small>*Data is fictional</small>';
+//   controlUI.appendChild(controlText);
+// }
 </script>
-
+<body onload="initialize()">
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SORT ITEMS BY</b>	
@@ -190,3 +137,4 @@ function make_map(lat, lng) {
 </div>
 </div>
 <div id='mapview_map'></div>
+</body>
