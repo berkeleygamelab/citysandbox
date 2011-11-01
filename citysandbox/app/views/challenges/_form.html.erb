@@ -9,11 +9,11 @@ $(document).ready( function() {
    	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
 
-	if ($('#question_location').val() != '') {
+	if ($('#challenge_location').val() != '') {
 		center_map(map);
 	}
 
-	$('#question_location').blur( function() {
+	$('#challenge_location').blur( function() {
 		center_map(map);
 	});	
 	
@@ -21,7 +21,7 @@ $(document).ready( function() {
 
 function center_map(map) {
 	var geocoder = new google.maps.Geocoder();
-	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
+	var address = $.trim(address = $('#challenge_location').val().replace(/[\t\n\r]/gi, ""));
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        map.setCenter(results[0].geometry.location);

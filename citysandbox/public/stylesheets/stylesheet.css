@@ -269,6 +269,15 @@ footer a {
 	background-color: rgba(255, 255, 255, 0.6);
 	min-height: 150px;
 }
+.question_entry {
+	background-color: rgba(48, 125, 126, 0.2);
+}
+.challenge_entry {
+	background-color: rgba(114, 143, 206, 0.2);
+}
+.event_entry {
+	background-color: rgba(125, 49, 47, 0.2);
+}
 .entry_map {
 	float:right;
 	width:130px;

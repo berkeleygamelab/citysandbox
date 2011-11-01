@@ -16,6 +16,7 @@ Citysandbox::Application.routes.draw do
   match "/edit_profile" => "users#edit"
   match "/follow" => "discussion#follow"
   match "/unfollow" => "discussion#unfollow"
+  match "/recent" => "users#recent"
   
   resources :questions do
     resources :response_questions, :shallow => true

@@ -124,8 +124,14 @@ function populate_content(content) {
 	}
 	else {
 		$.each(content, function (index, entry) {
-			html_string += '<div class="entry_main">'
-				+ '<div class="entry_author">';
+			if (entry['type'] == 'Question') {
+				html_string += '<div class="entry_main question_entry">';
+			} else if (entry['type'] == 'Challenge') {
+				html_string += '<div class="entry_main challenge_entry">';
+			} else if (entry['type'] == 'Event') {
+				html_string += '<div class="entry_main event_entry">';
+			}
+			html_string	+= '<div class="entry_author">';
 			if (entry['type'] == 'Question') {
 				if (entry['entry']['anonymous'] == 1) {
 					html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
@@ -211,13 +217,13 @@ function populate_content(content) {
 	<b>SORT BY TYPE</b>
 	<ul id='sort_by_type'>
 	<li>
-	  <%= check_box_tag 'sort', 'Questions' %> Questions
+	  <%= check_box_tag 'sort', 'Questions' %> <font color='#307D7E'>Questions</font>
 	</li>
 	<li>
-	  <%= check_box_tag 'sort', 'Challenges' %> Challenges
+	  <%= check_box_tag 'sort', 'Challenges' %> <font color='#728FCE'>Challenges</font>
 	</li>
 	<li>
-	 <%= check_box_tag 'sort', 'Events' %> Events
+	 <%= check_box_tag 'sort', 'Events' %> <font color='#7d312f'>Events</font>
 	</li>
 
 	</ul>
@@ -256,7 +262,13 @@ function populate_content(content) {
 </div>
 <% else %>
 	<% @collection.each_with_index do |entry, index| %>
-	<div class='entry_main'>
+	<% if entry[0].instance_of? Question %>
+	<div class='entry_main question_entry'>
+	<% elsif entry[0].instance_of? Challenge %>
+	<div class='entry_main challenge_entry'>
+	<% elsif entry[0].instance_of? Event %>
+	<div class='entry_main event_entry'>
+	<% end %>
 		<div class='entry_author'>
 			<% if entry[0].instance_of? Question %>
 				<% if entry[0].anonymous == 1 %>

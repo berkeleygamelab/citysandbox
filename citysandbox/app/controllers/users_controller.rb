@@ -43,4 +43,12 @@ class UsersController < ApplicationController
       format.xml {head :ok}
     end
   end
+  
+  respond_to :json
+  
+  def recent
+    @user = User.find(session[:user_id])
+    redirect_to
+    respond_with(@user.recent_activity)
+  end
 end
