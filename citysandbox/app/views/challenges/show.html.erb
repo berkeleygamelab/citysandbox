@@ -37,6 +37,54 @@ $(document).ready( function() {
 	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
 	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
 	
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%=@challenge.user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	
+	$('#unfollow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @challenge.user.id %>';
+		params['type'] = 'User';
+		$.get('/unfollow', params);
+		$('#unfollow_user').hide();
+		$('#follow_user').show();
+	});
+	
+	$('#follow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @challenge.user.id %>';
+		params['type'] = 'User';
+		$.get('/follow', params);
+		$('#follow_user').hide();
+		$('#unfollow_user').show();
+	});
+	
+	$('#unfollow').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @challenge.id %>';
+		params['type'] = 'Challenge';
+		$.get('/unfollow', params);
+		$('#unfollow').hide();
+		$('#follow').show();
+	});
+	
+	$('#follow').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @challenge.id %>';
+		params['type'] = 'Challenge';
+		$.get('/follow', params);
+		$('#follow').hide();
+		$('#unfollow').show();
+	});
+	
+	if ('<%= @followed %>' == 'true') {
+		$('#follow').hide();
+	} else {
+		$('#unfollow').hide();
+	}
+	if ('<%= @followed_user %>' == 'true') {
+		$('#follow_user').hide();
+	} else {
+		$('#unfollow_user').hide();
+	}
 });
 </script>
 <style type="text/css">
@@ -58,7 +106,8 @@ $(document).ready( function() {
 	<br>
 	<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
 	<br>
-	<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+	<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
+	<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 </div>
 <div id='main_question_content'>
 <div id='question_main'>
@@ -81,8 +130,9 @@ $(document).ready( function() {
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 		<%=h @challenge.user.picture %> by <%= @challenge.user.login %> |
 		<%= @challenge.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
-		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
-		<%= link_to 'Share', summary_path, :class=>'black_link' %> |
+		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
+		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
+		<a href='' class='black_link' id='share'> Share </a>|
 		<a id='QR' class='black_link'>QR</a>
 	</span>
 	<br>
@@ -107,8 +157,26 @@ $(document).ready( function() {
 <% end %>
 <% if @challenge.vote_deadline <= Time.now %>
 	<% @most_popular_proposals.each do |p| %>
-		Most Popular Proposal:
-		<%= p.title %>
+		<br>
+		<div class='entry_main'>
+			<div class='entry_author'>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%=h p.user.picture %> 
+				<br>
+				<%=h p.user.login %>	
+				<br>
+				<%= p.created_at.strftime("%Y %b %d") %>
+				<br>
+			</div>
+			<div class='entry_title'>
+				<i>Winning Proposal:</i>
+				<br>
+				<b><%= p.title %></b>
+			</div>	
+			<div class='latest_response'>
+			    <%=h p.description %>
+			</div>
+		</div>
 	<% end %>	
 <% end %>
 <div id='tabs'>
@@ -136,7 +204,7 @@ $(document).ready( function() {
 			<br>
 		</div>
 		<div class='entry_title'>
-			<b><%= link_to r.title, r, :class=>'black_link'%></b>
+			<b><%= r.title %></b>
 		</div>	
 		<div class='latest_response'>
 		    <%=h r.description %>

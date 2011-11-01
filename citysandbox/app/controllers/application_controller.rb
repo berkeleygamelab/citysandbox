@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
     if type == "Event"
       item = Event.where(:id => item_to_follow).first
     end
-    
     if type == "User"
         item = User.where(:id => item_to_follow).first
     end

@@ -254,7 +254,19 @@ def sort_by_timestamp(set, num_days)
   return set.where("updated_at > ?", timestamp)
 end
 
+def follow
+  id = params[:item_to_follow]
+  type = params[:type]
+  add_follower(id, type)
+  respond_with(true)
+end
 
+def unfollow
+  id = params[:item_to_follow]
+  type = params[:type]
+  remove_follower(id, type)
+  respond_with(true)
+end
 
 def sort_by_keyword(set, keyword)
   return set.keyword(keyword.split)
@@ -270,6 +282,9 @@ def add_follower(item_to_follow, type)
   if type == "Event"
     item = Event.where(:id => item_to_follow).first
   end
+  if type == "User"
+      item = User.where(:id => item_to_follow).first
+  end
   item.create_followed(current_user)
 end
 
@@ -283,8 +298,11 @@ def remove_follower(item_to_follow, type)
     if type == "Event"
       item = Event.where(:id => item_to_follow).first
     end
+    if type == "User"
+        item = User.where(:id => item_to_follow).first
+    end
     item.remove_followed(current_user)
-  end
+end
 
 def sort_descending(set)
   return set.order("id desc")

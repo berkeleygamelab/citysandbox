@@ -14,6 +14,8 @@ Citysandbox::Application.routes.draw do
   
   match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
+  match "/follow" => "discussion#follow"
+  match "/unfollow" => "discussion#unfollow"
   
   resources :questions do
     resources :response_questions, :shallow => true

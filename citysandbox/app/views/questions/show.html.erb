@@ -44,6 +44,55 @@ $(document).ready( function() {
 	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
 	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
 	
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%=@question.user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	
+	$('#unfollow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @question.user.id %>';
+		params['type'] = 'User';
+		$.get('/unfollow', params);
+		$('#unfollow_user').hide();
+		$('#follow_user').show();
+	});
+	
+	$('#follow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @question.user.id %>';
+		params['type'] = 'User';
+		$.get('/follow', params);
+		$('#follow_user').hide();
+		$('#unfollow_user').show();
+	});
+	
+	$('#unfollow').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @question.id %>';
+		params['type'] = 'Question';
+		$.get('/unfollow', params);
+		$('#unfollow').hide();
+		$('#follow').show();
+	});
+	
+	$('#follow').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @question.id %>';
+		params['type'] = 'Question';
+		$.get('/follow', params);
+		$('#follow').hide();
+		$('#unfollow').show();
+	});
+	
+	if ('<%= @followed %>' == 'true') {
+		$('#follow').hide();
+	} else {
+		$('#unfollow').hide();
+	}
+	if ('<%= @followed_user %>' == 'true') {
+		$('#follow_user').hide();
+	} else {
+		$('#unfollow_user').hide();
+	}
+	
 });
 </script>
 <style type="text/css">
@@ -66,7 +115,8 @@ $(document).ready( function() {
 		<br>
 		<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
 		<br>
-		<b><%= link_to 'Follow', summary_path, :class=>'black_link' %></b>
+		<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
+		<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 	<% end %>
 </div>
 <div id='main_question_content'>
@@ -88,8 +138,9 @@ $(document).ready( function() {
 		Anonymous | 
 		<% end %>
 		<%= @question.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
-		<%= link_to 'Follow', summary_path, :class=>'black_link' %> | 
-		<%= link_to 'Share', summary_path, :class=>'black_link' %> |
+		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
+		<a href='javascript:;' id='follow' class='black_link'>Follow | </a> 
+		<a href='' class='black_link' id='share'> Share </a> |
 		<a id='QR' class='black_link'>QR</a>
 	</span>
 	<br>

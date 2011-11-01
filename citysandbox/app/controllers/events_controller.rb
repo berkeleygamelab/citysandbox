@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @category = Categories.find(@event.categories_id)\
     
-    @followed = current_user.followed_events.where(:id => params[:id]).size != 0
+    @followed = current_user.followed_events.where(:event_id => params[:id]).size != 0
     @followed_user = current_user.followed_users.where(:followed_user_id => @event.user_id).size != 0
 
     respond_to do |format|
