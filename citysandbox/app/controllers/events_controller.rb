@@ -3,7 +3,10 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    @category = Categories.find(@event.categories_id)
+    @category = Categories.find(@event.categories_id)\
+    
+    @followed = current_user.followed_events.where(:id => params[:id]).size != 0
+    @followed_user = current_user.followed_users.where(:id => @event.user_id).size != 0
 
     respond_to do |format|
       format.html # show.html.erb

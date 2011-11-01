@@ -59,5 +59,19 @@ class User < ActiveRecord::Base
     stuff += followed_questions + followed_events + followed_challenges + followed_users
   end
   
+  #links the follow_user TO this user
+  def create_followed(follow_user)
+    followed = FollowedUser.new(:user_id => follow_user.id, :followed_user_id => id)
+    followed.save
+  end
+  
+  def remove_followed(follow_user)
+    followed = FollowedUser.where(:followed_user_id => id).where(:user_id => follow_user.id).first
+    if followed != nil
+      followed.destroy
+    end
+  end
+  
+  
   
 end

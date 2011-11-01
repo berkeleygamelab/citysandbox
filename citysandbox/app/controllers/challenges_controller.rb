@@ -9,6 +9,13 @@ class ChallengesController < ApplicationController
     @most_popular_proposal = @challenge.most_popular_proposal()
     @can_submit = @challenge.submission_deadline > Time.now
     
+    @followed = current_user.followed_challenges.where(:id => params[:id]).size != 0
+    @followed_user = current_user.followed_users.where(:followed_user_id => @challenge.user_id).size != 0
+    puts @followed
+    puts @followed_user
+    puts "ROKKUGO ROKKUGO PAH PAH PAH"
+    puts current_user.id
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @challenge }

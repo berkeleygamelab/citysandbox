@@ -11,6 +11,9 @@ class QuestionsController < ApplicationController
     @question = Question.where(:id => params[:id])[0]
     @category = Categories.find(@question.category_id)
     
+    @followed = current_user.followed_questions.where(:id => params[:id]).size != 0
+    @followed_user = current_user.followed_users.where(:id => @question.user_id).size != 0
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
