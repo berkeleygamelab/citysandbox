@@ -12,7 +12,10 @@ def summary
   @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
   @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
 
-  @questions.each{|x| @collection_full = @collection_full +[[x,x.response_questions.limit(size_limit_discussion)]]}
+  @questions.each{|x| 
+    num_events = 0
+    x.challenges.each{|e| num_events += e.events.length }
+    @collection_full = @collection_full +[[x,x.response_questions.limit(size_limit_discussion), num_events]]}
   @challenges.each{|x| @collection_full = @collection_full + [[x,x.response_challenges.limit(size_limit_discussion)]]}
   @events.each{|x| @collection_full = @collection_full + [[x, x.response_events.limit(size_limit_discussion)]]}
 

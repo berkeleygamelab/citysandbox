@@ -72,13 +72,14 @@ class ProposalsController < ApplicationController
     end
   end
   
+  respond_to :json
+  
   def vote
     @voting_record = VotingRecord.new()
     @voting_record.user_id = current_user.id
     @voting_record.proposal_id = params[:id]
 
-    if @voting_record.save
-      redirect_to @voting_record.proposal.challenge
-    end
+    @voting_record.save
+    respond_with(true)
   end 
 end

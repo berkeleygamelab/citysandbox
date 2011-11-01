@@ -85,6 +85,20 @@ $(document).ready( function() {
 	} else {
 		$('#unfollow_user').hide();
 	}
+	
+	$('.vote').each( function(){
+		$(this).click( function() {
+			var params = {};
+			params['id'] = $(this).attr('name');
+			$.get('/vote', params);
+			$('.vote').each( function() {
+				$(this).hide();
+			})
+			$(this).html('Voted');
+			$(this).show();
+		});	
+	});
+		
 });
 </script>
 <style type="text/css">
@@ -211,7 +225,7 @@ $(document).ready( function() {
 		</div>
 		<% if @can_vote %>
 			<div id='vote'>
-			<%= link_to "Vote", vote_path(:id => r.id), :class=>'black_link' %>
+				<a href='javascript:;' class='vote black_link' name='<%=r.id%>'>Vote</a>
 			</div>
 		<% end %>
 	</div>

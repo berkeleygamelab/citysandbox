@@ -324,7 +324,7 @@ function populate_content(content) {
 			<% end %>
 			<% if entry[0].instance_of?(Question) %>
 				<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>
-				<li><%= pluralize(0, 'Event') %></li>	
+				<li><%= pluralize(entry[2], 'Event') %></li>	
 			<% elsif entry[0].instance_of?(Challenge) %>
 				<li><%= pluralize(entry[0].proposals.length, 'Proposals') %></li>
 				<li><%= pluralize(entry[0].events.length, 'Event') %></li>
