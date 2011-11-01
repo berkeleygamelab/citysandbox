@@ -71,4 +71,15 @@ class ProposalsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  respond_to :json
+  
+  def vote
+    @voting_record = VotingRecord.new()
+    @voting_record.user_id = current_user.id
+    @voting_record.proposal_id = params[:id]
+
+    @voting_record.save
+    respond_with(true)
+  end 
 end
