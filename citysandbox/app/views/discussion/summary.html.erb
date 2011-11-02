@@ -14,16 +14,16 @@ $(document).ready( function() {
 	});
 	
 	$('#uncheck').click(function() {
-		if ($(this).attr('checked')) {
-			$('#sort_by_type li :checked, #categories li :checked, #sort_by li :checked').each( function () {
-				$(this).attr('checked', false);
-				var params = {};
-				params['types'] = ['Questions', 'Challenges', 'Events'];
-				$.get('/filter', params, function(data) {
-					populate_content(data);
-				});
-			});	
-		};
+		$('#sort_by_type li :checked, #categories li :checked, #sort_by li :checked').each( function () {
+			$(this).attr('checked', false);
+		});	
+		$('#keyword').attr('value', '');
+		$('#date').val('');
+		var params = {};
+		params['types'] = ['Questions', 'Challenges', 'Events'];
+		$.get('/filter', params, function(data) {
+			populate_content(data);
+		});
 	});
 	$('.follow').click(function() {
 		var name = $(this).attr('name');
@@ -87,7 +87,6 @@ function ajax_call(params) {
 	if ($('#date').attr('value') != '') {
 		params['timeBefore'] = $('#date').val();
 	}
-	console.log(params);
 	$.get('/filter', params, function(data) {
 		populate_content(data);
 	});
@@ -150,8 +149,9 @@ function populate_content(content) {
 			html_string += '<%= hidden_field_tag "entry_address' + index + '", ' + address + ' %>'
 			 + '<%= hidden_field_tag "entry_type' + index + '", "' + entry['type'] + '" %></div>';
 			html_string += '<div class="entry_title"><b>'
-			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id']
+			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id'];
 			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
+			html_string += '<div class="entry_category_share">' + entry['category'] + '| <a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + window.location.host + entry['url'] + '" class="black_link" id="share"> Share </a>|<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8" class="black_link">QR</a></div>';
 			if (entry['type'] == 'Question' && entry['latest_response']) {
 				html_string +='<div class="latest_response"><i>Latest Response: </i>' + entry['latest_response'] + '</div>';
 			}
@@ -225,7 +225,6 @@ function populate_content(content) {
 	<li>
 	 <%= check_box_tag 'sort', 'Events' %> <font color='#7d312f'>Events</font>
 	</li>
-
 	</ul>
 	<br>
 	<b>KEYWORD SEARCH</b>
@@ -252,7 +251,9 @@ function populate_content(content) {
 	<% end %>
 	</ul>
 	<br>
-	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
+	<div id='uncheck_div'>
+	<button type="button" id='uncheck'>Uncheck All</button>
+	</div>
 </div>
 </div>
 <div id='main_content'>

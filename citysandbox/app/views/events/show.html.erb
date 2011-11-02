@@ -29,7 +29,7 @@ $(document).ready( function() {
 	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
 	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
 
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%=@event.user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
 	
 	$('#unfollow_user').click(function(){
 		var params = {};
@@ -200,7 +200,6 @@ $(document).ready( function() {
 	<li><b><a href="#responses">Responses</a></b></li>
 </ul>
 </div>
-<br>
 <div id='responses'>
 	<% @event.response_events.reverse_each do |r| %>
 	<div class='entry_main'>

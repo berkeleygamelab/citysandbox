@@ -37,7 +37,7 @@ $(document).ready( function() {
 	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
 	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
 	
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%=@challenge.user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
 	
 	$('#unfollow_user').click(function(){
 		var params = {};
@@ -103,6 +103,8 @@ $(document).ready( function() {
 		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 	});
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	
+	$('.user_avatar').css('vertical-align', 'middle');
 });
 </script>
 <style type="text/css">
@@ -203,13 +205,10 @@ $(document).ready( function() {
 <div id='tabs_menu'>	
 <ul>
 	<li><b><a href="#proposals" id='proposals_tab'>Proposals</a></b></li>
-	<li>|</li>
 	<li><b><a href="#responses" id='responses_tab'>Responses</a></b></li>
-	<li>|</li>
 	<li><b><a href="#events" id='events_tab'>Events</a></b></li>
 </ul>
 </div>
-<br>
 <div id='proposals'>
 	<% @challenge.proposals.reverse_each do |r| %>
 	<div class='entry_main'>
@@ -238,7 +237,7 @@ $(document).ready( function() {
 		</div>
 		<% end %>
 	</div>
-		<br>
+	<br>
 	<% end %>
 	<% if @can_submit %>
 	<div id='proposal_form'>

@@ -15,7 +15,7 @@ $(document).ready(function() {
 	
 	function center_elements() {
 		window_height =  $(window).height() > 700 ? $(window).height() : 700;
-		$('.splash_box').center();
+		$('.splash_box').center(10);
 	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
 		$('.splash_title').center(20);
 		$('.splash_logo').center(150);

@@ -12,7 +12,6 @@ body {
 
 /* THEME */
 .gray_text {
-	line-height:2em;
 	color: #BBBBBB;
 	text-decoration: none;
 }
@@ -152,7 +151,6 @@ footer a {
 #tabs li {
 	list-style: none;
 	display: inline;
-	padding-right:3%;
 }
 #tabs li a {
 	text-decoration: none;
@@ -161,12 +159,23 @@ footer a {
 }
 #tabs_menu ul {
 	margin: 0;
-	padding-left: 5%;
 	line-height: 3em;
 	font-size:18px;
 }
 #tabs_menu {
-	background-color: rgba(255, 255, 255, 0.6);
+	/*background-color: rgba(255, 255, 255, 0.6);*/
+}
+#tabs_menu a {
+	background-color: rgba(255, 255, 255, 0.9);
+	/*background-color: rgba(101, 115, 131, 0.5);*/
+	padding: 15px;
+	border-bottom: none;
+}
+#tabs_menu a.selected {
+	background-color: rgba(255, 255, 255, 0.5);
+	/*background-color: rgba(101, 115, 131, 0.2);*/
+	padding: 15px;
+	border-bottom: none;
 }
 #main_question_content {
 	background-image: url('../images/content_pane.png');
@@ -266,7 +275,7 @@ footer a {
 	background: url('../images/content_pane.png');
 }
 .entry_main {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.5);
 	min-height: 150px;
 }
 .question_entry {
@@ -296,9 +305,12 @@ footer a {
 	padding-top:20px;
 	line-height: 1.25em;
 }
-.entry_stats {
+.entry_stats, .entry_category_share {
 	line-height: 1em;
 	font-size: 12px;
+}
+.entry_category_share {
+	padding-top:5px;
 }
 .entry_stats ul li{
 	display: inline;
@@ -326,6 +338,10 @@ footer a {
 	display: none;
 }
 
+#uncheck_div {
+	margin-left:20px;
+}
+
 /* NEW QUESTION */
 .form {
 	padding-left: 25px;
@@ -340,4 +356,13 @@ footer a {
 	height:720px;
 	width:720px;
 }
-
+#city {
+	padding: 25px;
+	margin-left:240px;
+}
+#city input {
+	border:0;
+	background-color: #DDDDDD;
+	font-size:20px;
+	box-shadow: none;
+}

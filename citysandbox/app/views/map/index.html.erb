@@ -1,6 +1,46 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready( function() {
+	$('#sort_by_type li').each( function () {
+		$(this).click( function() {
+			sort_by_checked = [];
+			$('#sort_by_type li :checked').each( function () {
+				sort_by_checked.push($(this).attr('value'));
+			});
+			console.log(sort_by_checked);
+		});
+	});
 	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
+	if (loc == '') {
+		$('#mapview_map').hide();
+		var defaultBounds = new google.maps.LatLngBounds(
+		  new google.maps.LatLng(-33.8902, 151.1759),
+		  new google.maps.LatLng(-33.8474, 151.2631));
+		var input = document.getElementById('city_input');
+		var options = {
+		  bounds: defaultBounds,
+		  types: ['geocode']
+		};
+
+		autocomplete = new google.maps.places.Autocomplete(input, options);
+		//$('#city_input').addClass('formatted_input');
+
+		
+		$('#city_input').bind('keypress', function(e) {
+			if (e.keyCode == 13) {
+				loc = $('#city_input').val();
+				$('#city').hide();
+				$('#mapview_map').show();
+				load_map(loc);
+			}
+		});
+	} else {
+		$('#city').hide();
+		load_map(loc);
+	}
+});
+function load_map(loc) {
 	var lat = 0;
 	var lng = 0;
 	var center;
@@ -50,7 +90,7 @@ $(document).ready( function() {
 
 		}
 	});
-});
+}
 // function Legend(controlDiv, map) {
 //   // Set CSS styles for the DIV containing the control
 //   // Setting padding to 5 px will offset the control
@@ -85,21 +125,6 @@ $(document).ready( function() {
 </script>
 <div id='sidebar'>
 <div id='filters_content'>
-	<b>SORT ITEMS BY</b>	
-	<br>
-
-	<ul id='sortby'>
-	<li>
-	  <%= check_box_tag 'sort', 'recent' %> Most Recent
-	</li>
-	<!--<li>
-	  <%= check_box_tag 'sort', 'popular' %> Most Popular
-	</li>--> 
-	<li>
-	 <%= check_box_tag 'sort', 'following' %> Following
-	</li>
-	</ul>
-	<br>
 	<b>SHOW</b>
 	<ul id='sort_by_type'>
 	<li>
@@ -136,3 +161,6 @@ $(document).ready( function() {
 </div>
 </div>
 <div id='mapview_map'></div>
+<div id='city'>
+	<input type='text' class='textbox' id='city_input' size='30'>
+</div>
