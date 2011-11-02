@@ -1,0 +1,62 @@
+<script type="text/javascript">
+$.fn.center = function (top_offset) {
+	window_width =  $(window).width() > 500 ? $(window).width() : 500;
+    this.css("position","absolute");
+	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
+    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+    return this;
+}
+$(document).ready(function() {
+	center_elements();
+	
+	$(window).resize(function() {
+		center_elements();
+	});
+	
+	function center_elements() {
+		window_height =  $(window).height() > 700 ? $(window).height() : 700;
+		$('.splash_box').center(10);
+	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
+		$('.splash_title').center(20);
+		$('.splash_logo').center(150);
+		$('.splash_login_box').center(400);
+		$('#links').center(550);
+		$('#username').center(400 + $('#username').outerHeight());
+		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 15);
+		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 15);
+	}
+	
+	$('#username').tbHinter({
+		text: 'User ID',
+		class: 'gray_text'
+	});	
+	$('#password_clear').tbHinter({
+		text: 'Password',
+		class: 'gray_text'
+	});
+	
+	$('#password_clear').show();
+	$('#password_password').hide();
+
+	$('#password_clear').focus(function() {
+	    $('#password_clear').hide();
+	    $('#password_password').show();
+	    $('#password_password').focus();
+	});
+	$('#password_password').blur(function() {
+	    if($('#password_password').val() == '') {
+	        $('#password_clear').show();
+	        $('#password_password').hide();
+	    }
+	});
+
+ });
+</script>
+<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
+<%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
+<%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
+<%= image_tag "../images/splash_login_box.png", :class=>'splash_login_box' %>
+
+<input id="password_clear" type="text" size="18" class='formatted_input gray_text'/>
+
+<%= render 'form' %>

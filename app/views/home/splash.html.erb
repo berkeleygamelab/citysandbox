@@ -1,0 +1,66 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
+<script type="text/javascript">
+$.fn.center = function (top_offset) {
+	window_width =  $(window).width() > 500 ? $(window).width() : 500;
+    this.css("position","absolute");
+	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
+    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+    return this;
+}
+
+function center_elements() {
+	window_height =  $(window).height() > 700 ? $(window).height() : 700;
+	$('.splash_box').center(0);
+   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
+	$('.splash_title').center(20);
+	$('.splash_logo').center(150);
+	$('.splash_textbox').center(425);
+	$('#links').center(550);
+	$('#city_input').center(425 + $('#city_input').outerHeight());
+	$('#city_input').css("left", ($('.splash_textbox').position().left + 20) + 'px');
+	$('#city_input').css("top", ($('.splash_textbox').position().top + 35) + 'px');
+}
+
+$(window).load(function() {
+	center_elements();
+	
+	$(window).resize(function() {
+		center_elements();
+	});
+	
+	$('#city_input').tbHinter({
+		text: 'Enter a city...',
+		class: 'gray_text'
+	});	
+	
+	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('city_input');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+	
+	$('#city_input').addClass('formatted_input gray_text');
+	$('.city_submit').css('display', 'none');
+ });
+</script>
+<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
+<%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
+<%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
+<%= image_tag "../images/splash_textbox.png", :class=>'splash_textbox' %>
+
+<%= form_tag("/map", :method => "index") do %>
+  <%= text_field_tag(:city_input, '', :size=>'18') %>
+  <%= submit_tag("Search", :class=>'city_submit') %>
+<% end %>
+
+<div id="links">
+	<%=link_to "Register", home_register_path %>
+	<%=link_to "Log In", home_login_path %>
+</div>

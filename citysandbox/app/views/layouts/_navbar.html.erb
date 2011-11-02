@@ -1,0 +1,30 @@
+<div id='header'>
+<div id='icon_title'>
+<%= link_to image_tag("../images/splash_logo_temp.png", :class=>'navbar_logo', :size=>'85x85', :alt => "Logo"), summary_path %>
+<%= link_to image_tag("../images/title.png", :class=>'navbar_title', :size=>'265x75', :alt => "City Sandbox"), summary_path %>
+</div>
+
+<span id="user_nav">
+  <% if User.exists? and current_user %>
+  	<a href="/logout" class="link_logout gray_text">Log Out</a>
+	<br>
+	<a href="/edit_profile" class="link_login gray_text">Edit Profile</a>
+  <% else %>
+  	<a href="/login" class="link_login gray_text">Log In</a>
+  <% end %>
+</span>
+
+<div id='header_tabs'>
+	<div id='map_view'>
+	<% if params[:controller] != "map" %>
+		<%= link_to 'Map View', map_path, :class=>'gray_text' %>
+	<% else %>
+		<%= link_to 'Summary View', summary_path, :class=>'gray_text' %>
+ 	<% end %>
+	</div>
+	<div id='ask_question'>
+		<%= link_to 'Ask a question!', new_question_path, :class=>'gray_text' %>
+	</div>
+</div>
+</div>
+
