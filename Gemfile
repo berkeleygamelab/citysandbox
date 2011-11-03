@@ -14,6 +14,7 @@ gem 'georuby'
 gem 'ap'
 gem 'crack'
 gem 'httparty'
+gem 'thin'
 
 gem 'fleakr'
 
