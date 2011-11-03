@@ -2,7 +2,7 @@ class Rebuild < ActiveRecord::Migration
   def up
     create_table "challenges", :force => true do |t|
        t.integer  "question_id"
-       t.text     "description",       :limit => 1600
+       t.string     "description",       :limit => 1600
        t.datetime "created_at"
        t.datetime "updated_at"
        t.string   "title"
