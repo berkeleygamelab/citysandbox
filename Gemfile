@@ -21,6 +21,7 @@ end
 gem 'will_paginate', '~> 3.0.2'
 gem 'georuby'
 gem 'ap'
+gem 'httparty'
 gem 'jquery-rails'
 
 # Use unicorn as the web server
