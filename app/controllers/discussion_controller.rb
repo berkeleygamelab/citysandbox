@@ -191,7 +191,7 @@ def filter
         else
           entry['followed'] = false
         end
-        entry['category'] = Categories.find(x.category_id).category
+        entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = question_path(x)
         @collection = @collection + [entry]
       }
@@ -217,7 +217,7 @@ def filter
         else
           entry['followed'] = false
         end
-        entry['category'] = Categories.find(x.category_id).category
+        entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = challenge_path(x)
         @collection = @collection + [entry]
       }
@@ -239,7 +239,7 @@ def filter
         else
           entry['followed'] = false
         end
-        entry['category'] = Categories.find(x.category_id).category
+        entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = event_path(x)
         @collection = @collection + [entry]
       }

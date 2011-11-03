@@ -151,7 +151,7 @@ function populate_content(content) {
 			html_string += '<div class="entry_title"><b>'
 			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id'];
 			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
-			html_string += '<div class="entry_category_share">' + entry['category'] + '| <a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + window.location.host + entry['url'] + '" class="black_link" id="share"> Share </a>|<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8" class="black_link">QR</a></div>';
+			html_string += '<div class="entry_category_share">' + entry['category'] + '| <a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + window.location.host + entry['url'] + '" class="black_link" id="share"> Share </a>|<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + window.location.host + entry['url'] + '&choe=UTF-8" class="black_link">QR</a></div>';
 			if (entry['type'] == 'Question' && entry['latest_response']) {
 				html_string +='<div class="latest_response"><i>Latest Response: </i>' + entry['latest_response'] + '</div>';
 			}
