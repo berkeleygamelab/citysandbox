@@ -100,30 +100,30 @@
   
     def fetch_location
       @questions_table = ENV['csb_locations']
-      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE ID = #{id} AND table = 'questions'"
+      return ::FT.execute "SELECT Location FROM #{@questions_table} WHERE ID = #{id} AND Origin = 'questions'"
     end    
 
     def update_location(loc)
       @questions_table = ENV['csb_locations']
-      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE ID = #{id} AND table = 'question'"
+      @quest_dummy = ::FT.execute "SELECT rowid FROM #{@questions_table} WHERE ID = #{id} AND Origin = 'questions'"
       if @quest_dummy[0] == nil
         return insert_location(loc)
       end
       @rowid = @quest_dummy[0][:rowid]
       
-      return ::FT.execute "UPDATE #{@questions_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND table = 'question'"
+      return ::FT.execute "UPDATE #{@questions_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND Origin = 'questions'"
     end
     
     def insert_location(loc)
       @questions_table = ENV['csb_locations']
-      return ::FT.execute "INSERT INTO #{@questions_table} (Location, id, table) VALUES ('#{loc}', #{id}, 'question') "
+      return ::FT.execute "INSERT INTO #{@questions_table} (Location, ID, Origin, Category) VALUES ('#{loc}', #{id}, 'questions', #{categories_id}) "
     end
     
     def grab_nearest(number)
       @questions_table = ENV['csb_locations']
       @loc_x = location.split[0].to_f
       @loc_y = location.split[1].to_f
-      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE table = 'question' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE Origin = 'questions' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
     end
     
     def grab_circle(distance, target_loc, number)
@@ -131,7 +131,7 @@
       @loc_x = target_loc.split[0].to_f
       @loc_y = target_loc.split[1].to_f
       puts distance
-      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND table = 'question'"
+      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'questions'"
     end
     
     def grab_rectangle(upper_right, lower_left)
@@ -140,7 +140,7 @@
       @upper_right_y = upper_right.split[1].to_f
       @lower_left_x = lower_left.split[0].to_f
       @lower_left_y = lower_left.split[1].to_f
-      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y}))) AND table = 'question'"
+      return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y}))) AND Origin = 'questions'"
     end
     
     def retrieve_entries(db_return)

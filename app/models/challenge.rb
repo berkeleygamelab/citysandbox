@@ -63,30 +63,30 @@ class Challenge < ActiveRecord::Base
 
    def fetch_location
      @challenges_table = ENV['csb_locations']
-     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id} AND id_type = 'challenge'"
+     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id} AND Origin = 'challenges'"
    end    
 
    def update_location(loc)
      @challenges_table = ENV['csb_locations']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id} AND id_type = 'challenge'"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id} AND Origin = 'challenges'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
      @rowid = @quest_dummy[0][:rowid]
      
-     return ::FT.execute "UPDATE #{@challenges_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND id_type = 'challenge'"
+     return ::FT.execute "UPDATE #{@challenges_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND Origin = 'challenges'"
    end
    
    def insert_location(loc)
      @challenges_table = ENV['csb_locations']
-     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id, id_type) VALUES ('#{loc}', #{id}, 'challenge')"
+     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id, Origin, Category) VALUES ('#{loc}', #{id}, 'challenges', #{categories_id})"
    end
    
    def grab_nearest(number)
      @challenges_table = ENV['csb_locations']
      @loc_x = location.split[0].to_f
      @loc_y = location.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@challenges_table} WHERE id_type = 'challenge' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+     return ::FT.execute "SELECT * FROM #{@challenges_table} WHERE Origin = 'challenge' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
    end
    
    #grabs the nearest locations by distance and location

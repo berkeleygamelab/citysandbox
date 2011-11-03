@@ -62,30 +62,30 @@ class Event < ActiveRecord::Base
    
    def fetch_location
      @events_table = ENV['csb_locations']
-     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id} AND id_type = 'event'"
+     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id} AND Origin = 'events'"
    end    
 
    def update_location(loc)
      @events_table = ENV['csb_locations']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id} AND id_type = 'event'"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id} AND Origin = 'events'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
      @rowid = @quest_dummy[0][:rowid]
      
-     return ::FT.execute "UPDATE #{@events_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND id_type = 'event'"
+     return ::FT.execute "UPDATE #{@events_table} SET Location='#{loc}' WHERE ROWID = '#{@rowid}' AND Origin = 'events'"
    end
    
    def insert_location(loc)
      @events_table = ENV['csb_locations']
-     return ::FT.execute "INSERT INTO #{@events_table} (Location, id, id_type) VALUES ('#{loc}', #{id}, 'event')"
+     return ::FT.execute "INSERT INTO #{@events_table} (Location, id, Origin, Category) VALUES ('#{loc}', #{id}, 'events', #{categories_id})"
    end
    
    def grab_nearest(number)
      @events_table = ENV['csb_locations']
      @loc_x = location.split[0].to_f
      @loc_y = location.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@events_table} WHERE id_type = 'event'ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+     return ::FT.execute "SELECT * FROM #{@events_table} WHERE Origin = 'events' ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
    end
    
     def retrieve_google(db_return)

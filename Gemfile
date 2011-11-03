@@ -8,7 +8,9 @@ gem 'rails', '3.1.0'
 gem 'sqlite3'
 
 gem 'fusion_tables'
-gem 'pg'
+
+
+gem 'fleakr'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,10 +21,7 @@ group :assets do
 end
 
 gem 'will_paginate', '~> 3.0.2'
-gem 'georuby'
-gem 'ap'
-gem 'crack'
-gem 'httparty'
+
 gem 'jquery-rails'
 
 # Use unicorn as the web server
