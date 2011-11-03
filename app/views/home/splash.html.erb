@@ -50,10 +50,10 @@ $(window).load(function() {
 	$('.city_submit').css('display', 'none');
  });
 </script>
-<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
-<%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
-<%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'splash_textbox' %>
+<%= image_tag "splash_box_assets.png", :class=>'splash_box' %>
+<%= image_tag "splash_title.png", :class=>'splash_title' %>
+<%= image_tag "splash_logo_temp.png", :class=>'splash_logo' %>
+<%= image_tag "splash_textbox.png", :class=>'splash_textbox' %>
 
 <%= form_tag("/map", :method => "index") do %>
   <%= text_field_tag(:city_input, '', :size=>'18') %>
