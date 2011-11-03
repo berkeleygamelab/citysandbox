@@ -9,6 +9,9 @@ gem 'sqlite3'
 
 gem 'fusion_tables'
 
+
+gem 'fleakr'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
