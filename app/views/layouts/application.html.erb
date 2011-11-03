@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>City Sandbox</title>
+  <%= stylesheet_link_tag    '../stylesheets/stylesheet.css' %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "../javascript/textbox.js" %>
+  <%= javascript_include_tag "../javascript/stickysidebar.js" %>
+  <%= javascript_include_tag "../javascript/tabs.js" %>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+<style type="text/css">
+html {
+        background: url('../images/splash_background.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+</style>
+
+<body class="<%= params[:controller] %>">
+<div id='wrap'>
+   <div id="container">
+	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions'%>
+ 		<%= render :partial => 'layouts/navbar' %>
+ 	<% end %>
+	
+	<%= yield %>
+   </div>
+</div>
+<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' %>
+	<%= render :partial => 'layouts/footer', :class=>'footer' %>
+<% end %>
+ </body>
+</html>
