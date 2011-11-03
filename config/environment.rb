@@ -21,8 +21,6 @@ ENV['flickr_key'] = '1228cbd1e0d67c0e3bf5715d576c0e12'
 ENV['flickr_secret'] = '2b99455c7381e96e'
 ENV['token_cache'] = "token_cache.yml"
 
-config.assets.precompile += %w[active_admin.css active_admin.js]
-
 @why_not_global = 2
 
 
