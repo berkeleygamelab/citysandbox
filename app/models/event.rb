@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
   scope :keyword, lambda{|key| { :conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
 
-  before_save :upkeep
+  #before_save :upkeep
 
   def category_id
      return categories_id
@@ -78,7 +78,7 @@ class Event < ActiveRecord::Base
    
    def insert_location(loc)
      @events_table = ENV['csb_locations']
-     return ::FT.execute "INSERT INTO #{@events_table} (Location, id, Origin, Category) VALUES ('#{loc}', #{id}, 'events', #{categories_id})"
+     return ::FT.execute "INSERT INTO #{@events_table} (Location, ID, Origin, Category) VALUES ('#{loc}', #{id}, 'events', #{categories_id})"
    end
    
    def grab_nearest(number)

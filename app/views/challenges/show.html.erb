@@ -288,6 +288,7 @@ function get_count(){
 		<hr style='color:#C0C0C0'>
 	</div>
 	<% end %>
+	<br>
 	<% if @can_submit %>
 	<div id='proposal_form'>
 		Add Proposals
@@ -332,10 +333,11 @@ function get_count(){
 			<div class='latest_response'>
 			    <%=h r.response %>
 			</div>
-		</div>
+		<br>
 		<hr>
 	</div>
 	<% end %>
+	<br>
 	<div id='response_form'>
 		Add Response
 		<br>
@@ -351,31 +353,27 @@ function get_count(){
 </div>
 </div>
 <div id='events'>
+<div class='tab_body'>
 	<% @challenge.events.reverse_each do |e| %>
-	<div class='entry_main'>
-		<div class='entry_author'>
-			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+	<div class='individual event_individual'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 			<%=h e.user.picture %> 
-			<br>
-			<%=h e.user.login %>	
-			<br>
+			<%=h e.user.login %> | 
 			<%= e.created_at.strftime("%Y %b %d") %>
-			<br>
-		</div>
 		<div class='entry_title'>
 			<b><%= link_to e.title, e, :class=>'black_link' %></b>
 		</div>
-		<div id='challenge_dates'>
-			<ul>
-				<li><b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
-			</ul>
-		</div>	
+		<div class='event_date'>
+		<b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
+		</div>
 		<div class='latest_response'>
 		    <%=h e.description %>
 		</div>
+		<br>
+		<hr>
 	</div>
-	<br>
 	<% end %>
+	<br>
 	<div id='event_form'>
 		Add Event
 		<br>
@@ -413,6 +411,7 @@ function get_count(){
 			  </p>
 		<% end %>
 	</div>
+</div>
 </div>
 </div>
 <br>
