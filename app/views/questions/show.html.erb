@@ -39,12 +39,9 @@ $(document).ready( function() {
 	$('#challenge_categories_id').attr('value', '<%= @question.categories_id %>');
 	$('#challenge_location').attr('value', address);
 	
-	var qr_url = window.location.href;
-	qr_url = (qr_url.indexOf('?') != -1) ? qr_url.substring(0, qr_url.indexOf('?')) : qr_url;
-	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
-	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
+	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<%=question_url(@question)%>&choe=UTF-8');
 	
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<% current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<% current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=<%=question_url(@question)%>');
 	
 	$('#unfollow_user').click(function(){
 		var params = {};
@@ -284,6 +281,11 @@ $(document).ready( function() {
 </div>
 </div>
 <div id='events'>
+<% if @num_events == 0 %>
+	<div class='individual'>
+		There are no events for this question.
+	</div>
+<% else %>	
 	<% @question.challenges.each do |challenge| %>
 		<% challenge.events.each do |e| %>
 		<div class='entry_main'>
@@ -311,6 +313,7 @@ $(document).ready( function() {
 		<br>
 		<% end %>
 	<% end %>
+<% end %>
 </div>
 </div>
 <br>

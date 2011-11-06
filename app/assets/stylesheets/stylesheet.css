@@ -147,6 +147,10 @@ footer a {
 	height: 700px;
 }
 
+#username, #password_password, #password_clear {
+	border-radius: 5px;
+}
+
 /* INDIVIDUAL QUESTIONS PAGE */
 #tabs li {
 	list-style: none;
@@ -168,7 +172,7 @@ footer a {
 #tabs_menu a {
 	background-color: rgba(255, 255, 255, 0.9);
 	/*background-color: rgba(101, 115, 131, 0.5);*/
-	padding: 15px;
+	padding: 16px;
 	border-bottom: none;
 }
 #tabs_menu a.selected {
@@ -207,10 +211,12 @@ footer a {
 	display: inline;
 	padding-right:30px;
 }
-#form_links ul {
+#form_links ul, #ind_challenge_dates ul {
 	font-size:14px;
+	margin-left:-40px;
+	padding-left:-10px;
 }
-#form_links li {
+#form_links li, #ind_challenge_dates li {
 	list-style: none;
 	display: inline;
 	padding-right:30px;
@@ -243,11 +249,12 @@ footer a {
 }
 
 #vote {
-	float:right;
-	height: inherit;
-	margin:10px;
+	font-size: 12px;
 }
 
+#proposal_individual {
+	padding-bottom: 0;
+}
 /* SUMMARY */
 #sidebar {
 	float: left;
@@ -305,12 +312,9 @@ footer a {
 	padding-top:20px;
 	line-height: 1.25em;
 }
-.entry_stats, .entry_category_share {
+.entry_stats {
 	line-height: 1em;
 	font-size: 12px;
-}
-.entry_category_share {
-	padding-top:5px;
 }
 .entry_stats ul li{
 	display: inline;
@@ -340,6 +344,10 @@ footer a {
 
 #uncheck_div {
 	margin-left:20px;
+}
+.category_share {
+	font-size: 12px;
+	padding-top:5px;
 }
 
 /* NEW QUESTION */

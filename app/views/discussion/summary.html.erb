@@ -3,6 +3,9 @@ $(document).ready( function() {
 	$('#filters').stickySidebar();
 	
 	$('#tabs ul').idTabs();
+	
+	var params = {};
+	ajax_call(params);
 
 	draw_maps();
 
@@ -78,7 +81,7 @@ function ajax_call(params) {
 	if (types_checked.length > 0) {
 		params['types'] = types_checked;
 	}
-	if ($.isEmptyObject(params)) {
+	if (!params['types']) {
 		params['types'] = ['Questions', 'Challenges', 'Events'];
 	}
 	if ($('#keyword').attr('value') != '') {
@@ -151,7 +154,14 @@ function populate_content(content) {
 			html_string += '<div class="entry_title"><b>'
 			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id'];
 			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
-			html_string += '<div class="entry_category_share">' + entry['category'] + '| <a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + window.location.host + entry['url'] + '" class="black_link" id="share"> Share </a>|<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + window.location.host + entry['url'] + '&choe=UTF-8" class="black_link">QR</a></div>';
+			html_string += '<div class="category_share">' + entry['category'] + ' | ';
+			html_string += '<a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + entry['url'] + '" class="black_link" id="share"> Share </a> | ';
+			html_string += '<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + entry['url'] + '&choe=UTF-8" class="black_link">QR</a> | ';
+			if (entry['followed']) {
+				html_string	+= '<a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></div>';	
+			} else {
+				html_string	+= '<a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></div>';		
+			}
 			if (entry['type'] == 'Question' && entry['latest_response']) {
 				html_string +='<div class="latest_response"><i>Latest Response: </i>' + entry['latest_response'] + '</div>';
 			}
@@ -171,11 +181,6 @@ function populate_content(content) {
 				html_string += '<li>' + value + ' ' + key;
 				html_string += (value == 1) ? '</li>' : 's</li>';
 			});
-			if (entry['followed']) {
-				html_string	+= '<li><b><a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></b></li>';	
-			} else {
-				html_string	+= '<li><b><a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></b></li>';		
-			}
 			html_string += '</ul></div></div><br>'
 		});
 	}
@@ -257,122 +262,5 @@ function populate_content(content) {
 </div>
 </div>
 <div id='main_content'>
-<% if @collection.length == 0 %>
-<div class='individual'>
-	<%= link_to 'Be the first to ask a question!', new_question_path, :class=>'black_link' %>
-</div>
-<% else %>
-	<% @collection.each_with_index do |entry, index| %>
-	<% if entry[0].instance_of? Question %>
-	<div class='entry_main question_entry'>
-	<% elsif entry[0].instance_of? Challenge %>
-	<div class='entry_main challenge_entry'>
-	<% elsif entry[0].instance_of? Event %>
-	<div class='entry_main event_entry'>
-	<% end %>
-		<div class='entry_author'>
-			<% if entry[0].instance_of? Question %>
-				<% if entry[0].anonymous == 1 %>
-					<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-					<%=h entry[0].user.picture %> 
-					<br>
-					Anonymous
-					<br>
-				<% else %>
-					<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-					<%=h entry[0].user.picture %> 
-					<br>
-					<%=h entry[0].user.login %>
-					<br>
-				<% end %>
-			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-				<%=h entry[0].user.picture %> 
-				<br>
-				<%=h entry[0].user.login %>
-				<br>
-			<% end %>
-			<%= entry[0].created_at.strftime("%Y %b %d") %>
-			<br>
-		</div>
-		<div class='entry_map'>
-			<img>
-			<%= hidden_field_tag 'entry_address' + index.to_s, entry[0].location %>
-			<%= hidden_field_tag 'entry_type' + index.to_s, entry[0].class %>
-		</div>
-		<div class='entry_title'>
-			<b><%= link_to entry[0].title, entry[0], :class=>'black_link' %></b>
-		</div>	
-		<% if !entry[1][-1].nil? && entry[0].instance_of?(Question) %>
-			<div class='latest_response'>
-				<i>Latest Response:</i>
-			    <%=h truncate(entry[1][-1].response, :length=>200) %>
-			</div>
-		<% end %>
-		<% if entry[0].instance_of?(Challenge) && entry[0].description.length > 0 %>
-			<div class='latest_response'>
-			    <%=h truncate(entry[0].description, :length=>200) %>
-			</div>
-		<% end %>
-		<% if entry[0].instance_of?(Challenge) %>
-		<div id='challenge_dates'>
-			<ul>
-				<li><b> Submission Deadline: </b> <%= entry[0].submission_deadline.strftime("%Y %b %d") %> </li>
-				<li><b> Vote Deadline: </b> <%= entry[0].vote_deadline.strftime("%Y %b %d") %> </li>
-			</ul>
-		</div>
-		<% end %>
-		<% if entry[0].instance_of?(Event) %>
-		<div id='challenge_dates'>
-			<ul>
-				<li><b> Date: </b> <%= entry[0].time.strftime("%Y %b %d") %> </li>
-			</ul>
-		</div>
-		<% end %>
-		<div class='entry_stats'>
-			<ul>
-			<% if entry[0].instance_of?(Question) %>
-				<li><%= pluralize(entry[0].response_questions.length, 'Response') %></li>
-				<li><%= pluralize(entry[0].followed_questions.length, 'Follower') %></li>
-			<% elsif entry[0].instance_of?(Challenge) %>
-				<li><%= pluralize(entry[0].response_challenges.length, 'Response') %></li>
-				<li><%= pluralize(entry[0].followed_challenges.length, 'Follower') %></li>
-			<% elsif entry[0].instance_of?(Event) %>
-				<li><%= pluralize(entry[0].response_events.length, 'Response') %></li>
-				<li><%= pluralize(entry[0].followed_events.length, 'Follower') %></li>	
-			<% end %>
-			<% if entry[0].instance_of?(Question) %>
-				<li><%= pluralize(entry[0].challenges.length, 'Challenge') %></li>
-				<li><%= pluralize(entry[2], 'Event') %></li>	
-			<% elsif entry[0].instance_of?(Challenge) %>
-				<li><%= pluralize(entry[0].proposals.length, 'Proposals') %></li>
-				<li><%= pluralize(entry[0].events.length, 'Event') %></li>
-			<% end %>
-			<% if entry[0].instance_of?(Question) %>
-				<% if entry[0].followed_questions.find_by_user_id(current_user.id) != nil %>
-				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Question">Unfollow</a></b></li>
-				<% else %>
-				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Question">Follow</a></b></li>
-				<% end %>
-			<% elsif entry[0].instance_of?(Challenge) %>
-				<% if entry[0].followed_challenges.find_by_user_id(current_user.id) != nil %>
-				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Challenge">Unfollow</a></b></li>
-				<% else %>
-				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Challenge">Follow</a></b></li>
-				<% end %>
-			<% elsif entry[0].instance_of?(Event) %>
-				<% if entry[0].followed_events.find_by_user_id(current_user.id) != nil %>
-				<li><b><a class="black_link unfollow" href="javascript:;" name="<%= entry[0].id %>+Event">Unfollow</a></b></li>
-				<% else %>
-				<li><b><a class="black_link follow" href="javascript:;" name="<%= entry[0].id %>+Event">Follow</a></b></li>
-				<% end %>
-			<% end %>
-			</ul>
-		</div>
-	</div>
-	<br>
-	<% end %>
-<% end %>
-<%= will_paginate @collection %>
 </div>
 </div>

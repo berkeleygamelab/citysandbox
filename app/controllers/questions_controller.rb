@@ -13,6 +13,11 @@ class QuestionsController < ApplicationController
     
     @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
     @followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
+  
+    @num_events = 0
+    @question.challenges.each { |challenge| 
+      @num_events += challenge.events.length
+    }
     
     respond_to do |format|
       format.html # show.html.erb

@@ -29,7 +29,7 @@ class Rebuild < ActiveRecord::Migration
       t.string   "description"
       t.datetime "time"
       t.integer  "categories_id"
-      t.integer  "question_id"
+      t.integer  "challenge_id"
       t.integer  "popularity",    :default => 0
     end
 

@@ -19,11 +19,10 @@ $(document).ready(function() {
 	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
 		$('.splash_title').center(20);
 		$('.splash_logo').center(150);
-		$('.splash_login_box').center(400);
 		$('#links').center(550);
 		$('#username').center(400 + $('#username').outerHeight());
-		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 15);
-		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 15);
+		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 5);
+		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 5);
 	}
 	
 	$('#username').tbHinter({
@@ -55,7 +54,6 @@ $(document).ready(function() {
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
 <%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
-<%= image_tag "../images/splash_login_box.png", :class=>'splash_login_box' %>
 
 <input id="password_clear" type="text" size="18" class='formatted_input gray_text'/>
 

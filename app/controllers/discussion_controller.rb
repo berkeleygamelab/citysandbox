@@ -192,7 +192,7 @@ def filter
           entry['followed'] = false
         end
         entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = question_path(x)
+        entry['url'] = question_url(x)
         @collection = @collection + [entry]
       }
       @challenges.each{ |x|
@@ -218,7 +218,7 @@ def filter
           entry['followed'] = false
         end
         entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = challenge_path(x)
+        entry['url'] = challenge_url(x)
         @collection = @collection + [entry]
       }
       @events.each{|x|
@@ -240,7 +240,7 @@ def filter
           entry['followed'] = false
         end
         entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = event_path(x)
+        entry['url'] = event_url(x)
         @collection = @collection + [entry]
       }
       

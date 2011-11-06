@@ -79,7 +79,7 @@ class Challenge < ActiveRecord::Base
    
    def insert_location(loc)
      @challenges_table = ENV['csb_locations']
-     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, id, Origin, Category) VALUES ('#{loc}', #{id}, 'challenges', #{categories_id})"
+     return ::FT.execute "INSERT INTO #{@challenges_table} (Location, ID, Origin, Category) VALUES ('#{loc}', #{id}, 'challenges', #{categories_id})"
    end
    
    def grab_nearest(number)

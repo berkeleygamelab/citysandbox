@@ -23,13 +23,8 @@ $(document).ready( function() {
 	        //alert("Geocode was not successful for the following reason: " + status);
 	      }
 	});
-	
-	var qr_url = window.location.href;
-	qr_url = (qr_url.indexOf('?') != -1) ? qr_url.substring(0, qr_url.indexOf('?')) : qr_url;
-	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
-	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
-
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<%=event_url(@event)%>&choe=UTF-8');
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=<%=event_url(@event)%>');
 	
 	$('#unfollow_user').click(function(){
 		var params = {};

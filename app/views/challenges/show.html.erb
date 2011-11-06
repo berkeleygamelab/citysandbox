@@ -32,12 +32,9 @@ $(document).ready( function() {
 		      }	
 		});
 	});
-	var qr_url = window.location.href;
-	qr_url = (qr_url.indexOf('?') != -1) ? qr_url.substring(0, qr_url.indexOf('?')) : qr_url;
-	qr_url = (qr_url.indexOf('#') != -1) ? qr_url.substring(0, qr_url.indexOf('#')) : qr_url;
-	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + qr_url + '&choe=UTF-8');
-	
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=' + qr_url);
+
+	$('#QR').attr('href', 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<%= challenge_url(@challenge)%>&choe=UTF-8');
+	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<%= current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=<%=challenge_url(@challenge)%>');
 	
 	$('#unfollow_user').click(function(){
 		var params = {};
@@ -105,7 +102,63 @@ $(document).ready( function() {
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 	
 	$('.user_avatar').css('vertical-align', 'middle');
+	
+	get_count();
 });
+function get_count(){
+	var submission = new Date('<%= @challenge.submission_deadline.strftime("%B %d, %Y %H:%M:%S") %>');
+	var vote = new Date('<%= @challenge.vote_deadline.strftime("%B %d, %Y %H:%M:%S") %> ');
+	var now = new Date();
+	var amount = 0;
+	var deadline = '';
+	if (now < vote) {
+		if (now < submission) {
+			amount = submission.getTime() - now.getTime();
+			deadline = 'Submission';
+		} else if (now < vote) {
+			amount = vote.getTime() - now.getTime();
+			deadline = 'Vote';
+		} else {
+			return;
+		}
+
+		var vals = [0,0,0,0,0,0]; 
+		var labels = ['years', 'weeks', 'days', 'hours', 'minutes', 'seconds']
+		out = '';
+		
+		//years=0;weeks=0;days=0;hours=0;mins=0;secs=0;out="";
+		amount = Math.floor(amount/1000);//kill the "milliseconds" so just secs
+		vals[0]=Math.floor(amount/31536000);//years (no leapyear support)
+		amount=amount%31536000;
+
+		vals[1]=Math.floor(amount/604800);//weeks
+		amount=amount%604800;
+
+		vals[2]=Math.floor(amount/86400);//days
+		amount=amount%86400;
+
+		vals[3]=Math.floor(amount/3600);//hours
+		amount=amount%3600;
+
+		vals[4]=Math.floor(amount/60);//minutes
+		amount=amount%60;
+
+		vals[5]=Math.floor(amount);//seconds
+
+		var first_nonzero = -1;
+		$.each(vals, function(index, value) {
+			if (first_nonzero != -1 || value != 0) {
+				first_nonzero = index;
+				out += vals[index] + " " + ((vals[index]==1)?labels[index].substring(0, labels[index].length-1) : labels[index]) + ", ";
+			} 
+		});
+
+		out = out.substr(0,out.length-2);
+		$('#countdown').html(out + ' left till the ' + deadline + ' Deadline.');
+
+		setTimeout(function() { get_count(); }, 1000);
+	}	
+}
 </script>
 <style type="text/css">
 </style>
@@ -141,11 +194,13 @@ $(document).ready( function() {
 		<b><%= @challenge.title %></b>
 	</span>
 	<br>
-	<div id='challenge_dates'>
+	<div id='form_links'>
 	<ul>
 		<li><b> Submission Deadline: </b> <%= @challenge.submission_deadline.strftime("%Y %b %d") %> </li>
 		<li><b> Vote Deadline: </b> <%= @challenge.vote_deadline.strftime("%Y %b %d") %> </li>
 	</ul>
+	<div id="countdown"></div>
+	<br>
 	</div>
 	<span id='question_author'>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
@@ -157,15 +212,14 @@ $(document).ready( function() {
 		<a id='QR' class='black_link'>QR</a>
 	</span>
 	<br>
-	<br>
 	<div id='form_links'>
-	<ul>
-	<% if @can_submit %>
-	<li><a href="#proposal_form" class="black_link" onclick='$("#proposals_tab").click();'>Add Proposal</a></li>
-	<% end %>
-	<li><a href="#response_form" class="black_link" onclick='$("#responses_tab").click();'>Add Response</a></li>
-	<li><a href="#event_form" class="black_link" onclick='$("#events_tab").click();'>Add Event</a></li>
-	</ul>
+		<ul>
+		<% if @can_submit %>
+		<li><a href="#proposal_form" class="black_link" onclick='$("#proposals_tab").click();'>Add Proposal</a></li>
+		<% end %>
+		<li><a href="#response_form" class="black_link" onclick='$("#responses_tab").click();'>Add Response</a></li>
+		<li><a href="#event_form" class="black_link" onclick='$("#events_tab").click();'>Add Event</a></li>
+		</ul>
 	</div>
 </div>
 <% if @challenge.description.length > 0 %>
@@ -210,34 +264,29 @@ $(document).ready( function() {
 </ul>
 </div>
 <div id='proposals'>
+<div class='tab_body'>
 	<% @challenge.proposals.reverse_each do |r| %>
-	<div class='entry_main'>
-		<div class='entry_author'>
-			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-			<%=h r.user.picture %> 
-			<br>
-			<%=h r.user.login %>	
-			<br>
-			<%= r.created_at.strftime("%Y %b %d") %>
-			<br>
-		</div>
+	<div class='individual proposal_individual'>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+		<%=h r.user.picture %> 
+		<%=h r.user.login %> | 
+		<%= time_ago_in_words(r.created_at) %> ago 
+		<% if @vote == -1 %>
+			 | <a id='vote' href='javascript:;' class='vote black_link' name='<%=r.id%>'>Vote</a>
+		<% elsif @vote == r.id%>
+		<span id='vote'>
+			 | Voted
+		</span>
+		<% end %>
 		<div class='entry_title'>
 			<b><%= r.title %></b>
 		</div>	
 		<div class='latest_response'>
 		    <%=h r.description %>
 		</div>
-		<% if @vote == -1 %>
-			<div id='vote'>
-				<a href='javascript:;' class='vote black_link' name='<%=r.id%>'>Vote</a>
-			</div>
-		<% elsif @vote == r.id%>
-		<div id='vote'>
-			Voted
-		</div>
-		<% end %>
+		<br>
+		<hr style='color:#C0C0C0'>
 	</div>
-	<br>
 	<% end %>
 	<% if @can_submit %>
 	<div id='proposal_form'>
@@ -265,30 +314,27 @@ $(document).ready( function() {
 	</div>
 	<% end %>
 </div>
+</div>
 <div id='responses'>
+<div class='tab_body'>
 	<% @challenge.response_challenges.reverse_each do |r| %>
-	<div class='entry_main'>
-		<div class='entry_author'>
+	<div class='individual response_individual'>
 			<% if r.anonymous == 1 %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				Anonymous
-				<br>
+				Anonymous | 
 			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				<%=h r.user.login %>
-				<br>
+				<%=h r.user.login %> |
 			<% end %>
-			<%= r.created_at.strftime("%Y %b %d") %>
+			<%= time_ago_in_words(r.created_at) %> ago 
+			<div class='latest_response'>
+			    <%=h r.response %>
+			</div>
 		</div>
-		<div class='latest_response'>
-		    <%=h r.response %>
-		</div>
+		<hr>
 	</div>
-		<br>
 	<% end %>
 	<div id='response_form'>
 		Add Response
@@ -302,6 +348,7 @@ $(document).ready( function() {
 		    <%= r.submit "Submit" %>
 		<% end %>
 	</div>
+</div>
 </div>
 <div id='events'>
 	<% @challenge.events.reverse_each do |e| %>
