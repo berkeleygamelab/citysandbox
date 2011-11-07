@@ -86,20 +86,15 @@ $(document).ready( function() {
 		'titleFormat': formatTitle
 	});
 	$('#fancybox-wrap').click(function () {
-		console.log('print');
 		printIframe('fancybox-frame');
 	});
 });
 function printIframe(id)
 {
-    var iframe = document.frames ? document.frames[id] : document.getElementById(id);
-    var ifWin = iframe.contentWindow || iframe;
-    iframe.focus();
-    ifWin.printPage();
-    return false;
+    frames[0].print();
 }
 function formatTitle(title, currentArray, currentIndex, currentOpts) {
-    return '<div id="print"><img src="../images/print.png" title="Print QR Code."></div>';
+    return '<div id="print"><a href="javascript:;"><img src="../images/print.png" title="Print QR Code."></a></div>';
 }
 </script>
 <style type="text/css">
@@ -143,8 +138,7 @@ function formatTitle(title, currentArray, currentIndex, currentOpts) {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
 		<a class='black_link' id='share'> Share </a>|
-		<a id='QR' class='black_link'>QR</a> |
-		<a class="iframe" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<%=event_url(@event)%>&choe=UTF-8">QR</a>
+		<%= link_to 'QR', qr_url(event_url(@event)), :class=>'iframe'%>
 	</span>
 	<br>
 	<br>

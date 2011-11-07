@@ -26,14 +26,14 @@ html {
 <body class="<%= params[:controller] %>">
 <div id='wrap'>
    <div id="container">
-	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions'%>
+	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions' && params[:action] != 'qr' %>
  		<%= render :partial => 'layouts/navbar' %>
  	<% end %>
 	
 	<%= yield %>
    </div>
 </div>
-<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' %>
+<% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' && params[:action] != 'qr' %>
 	<%= render :partial => 'layouts/footer', :class=>'footer' %>
 <% end %>
  </body>

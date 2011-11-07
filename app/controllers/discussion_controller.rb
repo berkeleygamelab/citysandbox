@@ -1,5 +1,10 @@
 class DiscussionController < ApplicationController
 
+def qr
+  @url = params[:format]
+  return(@url)
+end
+
 respond_to :json
 
 def summary
