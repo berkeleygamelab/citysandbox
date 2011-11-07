@@ -77,7 +77,30 @@ $(document).ready( function() {
 		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 	});
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	$('.iframe').fancybox({
+		'width' : 167,
+		'height' : 167, 
+		'autoscale': false,
+		'autoDimensions': false,
+		'titlePosition': 'over',
+		'titleFormat': formatTitle
+	});
+	$('#fancybox-wrap').click(function () {
+		console.log('print');
+		printIframe('fancybox-frame');
+	});
 });
+function printIframe(id)
+{
+    var iframe = document.frames ? document.frames[id] : document.getElementById(id);
+    var ifWin = iframe.contentWindow || iframe;
+    iframe.focus();
+    ifWin.printPage();
+    return false;
+}
+function formatTitle(title, currentArray, currentIndex, currentOpts) {
+    return '<div id="print"><img src="../images/print.png" title="Print QR Code."></div>';
+}
 </script>
 <style type="text/css">
 </style>
@@ -120,7 +143,8 @@ $(document).ready( function() {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
 		<a class='black_link' id='share'> Share </a>|
-		<a id='QR' class='black_link'>QR</a>
+		<a id='QR' class='black_link'>QR</a> |
+		<a class="iframe" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<%=event_url(@event)%>&choe=UTF-8">QR</a>
 	</span>
 	<br>
 	<br>
