@@ -104,6 +104,13 @@ $(document).ready( function() {
 	$('.user_avatar').css('vertical-align', 'middle');
 	
 	get_count();
+	
+	$('.response_individual hr').last().remove();
+	$('.proposal_individual hr').last().remove();
+	$('.event_individual hr').last().remove();
+	$('.response_individual br').last().remove();
+	$('.proposal_individual br').last().remove();
+	$('.event_individual br').last().remove();
 });
 function get_count(){
 	var submission = new Date('<%= @challenge.submission_deadline.strftime("%B %d, %Y %H:%M:%S") %>');
@@ -288,10 +295,9 @@ function get_count(){
 		<hr style='color:#C0C0C0'>
 	</div>
 	<% end %>
-	<br>
+	<div id='proposal_form' class='individual_form'>
 	<% if @can_submit %>
-	<div id='proposal_form'>
-		Add Proposals
+		Add Proposal
 		<br>
 		<%= form_for([@challenge, Proposal.new]) do |r| %>
 		    <p>
@@ -308,12 +314,10 @@ function get_count(){
 			    <%= r.submit "Submit" %>
 			  </p>
 		<% end %>
-	</div>
 	<% else %>
-	<div id='proposal_form'>
 		Sorry, the submission deadline has passed. No more proposals will be accepted at this time.
-	</div>
 	<% end %>
+	</div>
 </div>
 </div>
 <div id='responses'>
@@ -337,8 +341,7 @@ function get_count(){
 		<hr>
 	</div>
 	<% end %>
-	<br>
-	<div id='response_form'>
+	<div id='response_form' class='individual_form'> 
 		Add Response
 		<br>
 		<%= form_for([@challenge, ResponseChallenge.new]) do |r| %>
@@ -373,8 +376,7 @@ function get_count(){
 		<hr>
 	</div>
 	<% end %>
-	<br>
-	<div id='event_form'>
+	<div id='event_form' class='individual_form'>
 		Add Event
 		<br>
 		<%= form_for([@challenge, Event.new]) do |c| %>
@@ -414,7 +416,6 @@ function get_count(){
 </div>
 </div>
 </div>
-<br>
 <% if @challenge.user == current_user %>
 	<%= link_to 'Edit', edit_challenge_path(@challenge), :class=>'black_link' %> |
 <% end %>

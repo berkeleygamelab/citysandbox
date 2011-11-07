@@ -95,6 +95,12 @@ $(document).ready( function() {
 	});
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 	$('.user_avatar').css('vertical-align', 'middle');
+	
+	$('.response_individual hr').last().remove();
+	$('.challenge_individual hr').last().remove();
+	$('.event_individual hr').last().remove();
+	$('.response_individual br').last().remove();
+	$('.challenge_individual br').last().remove();
 });
 </script>
 <style type="text/css">
@@ -173,31 +179,28 @@ $(document).ready( function() {
 </ul>
 </div>
 <div id='responses'>
+<div class='tab_body'>
 	<% @question.response_questions.reverse_each do |r| %>
-	<div class='entry_main'>
-		<div class='entry_author'>
+	<div class='individual response_individual'>
 			<% if r.anonymous == 1 %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				Anonymous
-				<br>
+				Anonymous | 
 			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				<%=h r.user.login %>
-				<br>
+				<%=h r.user.login %> |
 			<% end %>
-			<%= r.created_at.strftime("%Y %b %d") %>
-		</div>
-		<div class='latest_response'>
-		    <%=h r.response %>
-		</div>
-	</div>
+			<%= time_ago_in_words(r.created_at) %> ago 
+			<div class='latest_response'>
+			    <%=h r.response %>
+			</div>
 		<br>
+		<hr>
+	</div>
 	<% end %>
-	<div id='response_form'>
+	<br>
+	<div id='response_form' class='individual_form'>
 		Add Response
 		<br>
 		<%= form_for([@question, ResponseQuestion.new]) do |r| %>
@@ -210,35 +213,36 @@ $(document).ready( function() {
 		<% end %>
 	</div>
 </div>
+</div>
+
 
 <div id='challenges'>
-	<% @question.challenges.each do |c| %>
-		<div class='individual'>
-			<div class='entry_author'>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
-				<%=h c.user.picture %> 
-				<br>
-				<%=h c.user.login %>
-				<br>
-				<%= c.created_at.strftime("%Y %b %d") %>
-				<br>
-			</div>
-			<div class='entry_title'>
-				<b><%= link_to c.title, c, :class=>'black_link' %></b>
-			</div>	
-			<br>
-			<div class='latest_response'>
-			    <%=h c.description %>
-				<ul>
-					<li><b> Submission Deadline: </b> <%= c.submission_deadline.strftime("%Y %b %d") %> </li>
-					<li><b> Vote Deadline: </b> <%= c.vote_deadline.strftime("%Y %b %d") %> </li>
-				</ul>
-			</div>
+<div class='tab_body'>
+	<% @question.challenges.each do |e| %>
+	<div class='individual challenge_individual'>
+			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
+			<%=h e.user.picture %> 
+			<%=h e.user.login %> | 
+			<%= time_ago_in_words(e.created_at) %> ago 
+		<div class='entry_title'>
+			<b><%= link_to e.title, e, :class=>'black_link' %></b>
+		</div>
+		<div id='ind_challenge_dates'>
+			<ul>
+				<li><b> Submission Deadline: </b> <%= e.submission_deadline.strftime("%Y %b %d") %> </li>
+				<li><b> Vote Deadline: </b> <%= e.vote_deadline.strftime("%Y %b %d") %> </li>
+			</ul>			</ul>
+		</div>
+		<div class='latest_response'>
+		    <%=h e.description %>
 		</div>
 		<br>
+		<hr>
+	</div>
+	<br>
 	<% end %>
 
-	<div id='challenge_form'>
+	<div id='challenge_form' class='individual_form'>
 		Add Challenge
 		<br>
 		<%= form_for [@challenge, Challenge.new] do |c| %>
@@ -280,7 +284,9 @@ $(document).ready( function() {
 		<% end %>
 </div>
 </div>
+</div>
 <div id='events'>
+<div class='tab_body'>
 <% if @num_events == 0 %>
 	<div class='individual'>
 		There are no events for this question.
@@ -288,32 +294,27 @@ $(document).ready( function() {
 <% else %>	
 	<% @question.challenges.each do |challenge| %>
 		<% challenge.events.each do |e| %>
-		<div class='entry_main'>
-			<div class='entry_author'>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+		<div class='individual event_individual'>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h e.user.picture %> 
-				<br>
-				<%=h e.user.login %>	
-				<br>
+				<%=h e.user.login %> | 
 				<%= e.created_at.strftime("%Y %b %d") %>
-				<br>
-			</div>
 			<div class='entry_title'>
 				<b><%= link_to e.title, e, :class=>'black_link' %></b>
 			</div>
-			<div id='challenge_dates'>
-				<ul>
-					<li><b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
-				</ul>
-			</div>	
+			<div class='event_date'>
+			<b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
+			</div>
 			<div class='latest_response'>
 			    <%=h e.description %>
 			</div>
+			<br>
+			<hr>
 		</div>
-		<br>
 		<% end %>
 	<% end %>
 <% end %>
+</div>
 </div>
 </div>
 <br>
