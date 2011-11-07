@@ -93,7 +93,7 @@ function printIframe(id)
 {
     frames[0].print();
 }
-function formatTitle(title, currentArray, currentIndex, currentOpts) {
+function formatTitle() {
     return '<div id="print"><a href="javascript:;"><img src="../images/print.png" title="Print QR Code."></a></div>';
 }
 </script>
@@ -138,7 +138,7 @@ function formatTitle(title, currentArray, currentIndex, currentOpts) {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
 		<a class='black_link' id='share'> Share </a>|
-		<%= link_to 'QR', qr_url(event_url(@event)), :class=>'iframe'%>
+		<%= link_to 'QR', qr_url(event_url(@event)), :class=>'iframe black_link'%>
 	</span>
 	<br>
 	<br>

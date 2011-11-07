@@ -58,6 +58,14 @@ $(document).ready( function() {
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 });
 
+function printIframe(id)
+{
+    frames[0].print();
+}
+function formatTitle() {
+    return '<div id="print"><a href="javascript:;"><img src="../images/print.png" title="Print QR Code."></a></div>';
+}
+
 function ajax_call(params) {
 	$('#uncheck').attr('checked', false);
 	sort_by_checked = [];
@@ -92,6 +100,17 @@ function ajax_call(params) {
 	}
 	$.get('/filter', params, function(data) {
 		populate_content(data);
+		$('.iframe').fancybox({
+			'width' : 167,
+			'height' : 167, 
+			'autoscale': false,
+			'autoDimensions': false,
+			'titlePosition': 'over',
+			'titleFormat': formatTitle
+		});
+		$('#fancybox-wrap').click(function () {
+			printIframe('fancybox-frame');
+		});
 	});
 }
 
@@ -156,7 +175,7 @@ function populate_content(content) {
 			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
 			html_string += '<div class="category_share">' + entry['category'] + ' | ';
 			html_string += '<a href="mailto:?subject=[City%20Sandbox]%20<%= current_user.login %>%20has%20shared%20a%20link%20with%20you!&body=' + entry['url'] + '" class="black_link" id="share"> Share </a> | ';
-			html_string += '<a id="QR" href="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + entry['url'] + '&choe=UTF-8" class="black_link">QR</a> | ';
+			html_string += '<a href="/qr?format=' + entry['url'] +'" class="iframe black_link">QR</a> | ';
 			if (entry['followed']) {
 				html_string	+= '<a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></div>';	
 			} else {

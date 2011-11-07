@@ -101,7 +101,26 @@ $(document).ready( function() {
 	$('.event_individual hr').last().remove();
 	$('.response_individual br').last().remove();
 	$('.challenge_individual br').last().remove();
+	
+	$('.iframe').fancybox({
+		'width' : 167,
+		'height' : 167, 
+		'autoscale': false,
+		'autoDimensions': false,
+		'titlePosition': 'over',
+		'titleFormat': formatTitle
+	});
+	$('#fancybox-wrap').click(function () {
+		printIframe('fancybox-frame');
+	});
 });
+function printIframe(id)
+{
+    frames[0].print();
+}
+function formatTitle() {
+    return '<div id="print"><a href="javascript:;"><img src="../images/print.png" title="Print QR Code."></a></div>';
+}
 </script>
 <style type="text/css">
 </style>
@@ -150,7 +169,7 @@ $(document).ready( function() {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a> 
 		<a href='' class='black_link' id='share'> Share </a> |
-		<a id='QR' class='black_link'>QR</a>
+		<%= link_to 'QR', qr_url(question_url(@question)), :class=>'iframe black_link'%>
 	</span>
 	<br>
 	<br>
