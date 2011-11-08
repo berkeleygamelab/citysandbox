@@ -20,7 +20,8 @@ $(document).ready( function() {
 	        map.setCenter(results[0].geometry.location);
 	        var marker = new google.maps.Marker({
 	            map: map,
-	            position: results[0].geometry.location
+	            position: results[0].geometry.location,
+				icon: '../images/question_map_icon.png'
 	        });
 	      }
 	});
@@ -285,11 +286,11 @@ function formatTitle() {
 		  </p>
 		  <p>
 		    <%= c.label :submission_deadline, "Proposal Deadline" %><br />
-		    <%= c.datetime_select :submission_deadline %>
+		    <%= c.datetime_select :submission_deadline, :default=> 7.days.from_now %>
 		  </p>
 		  <p>
 		    <%= c.label :vote_deadline , "Vote Deadline" %><br />
-		    <%= c.datetime_select :vote_deadline %>
+		    <%= c.datetime_select :vote_deadline, :default=> 14.days.from_now %>
 		  </p>
 		  <p>
 			<%= c.label 'Categories: ' %>

@@ -1,3 +1,5 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready( function() {
 	var map;
@@ -6,9 +8,20 @@ $(document).ready( function() {
     	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
     	mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+   	map = new google.maps.Map(document.getElementById('form_map_canvas'), myOptions);
 
+	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
 
+	var input = document.getElementById('question_location');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+	
 	if ($('#question_location').val() != '') {
 		center_map(map);
 	}
@@ -52,14 +65,14 @@ function center_map(map) {
 		<%= f.hidden_field :lng %>
 		<%= f.label :title %>
 		<br>
-		<%= f.text_area :title, :rows=>3 %>
+		<%= f.text_area :title, :rows=>2 %>
 	</p>
 	<p>
 		<%= f.label :location %>
 		<br>
-		<%= f.text_area :location, :rows=>2 %>
+		<%= f.text_area :location, :rows=>1, :placeholder=>"" %>
 		<br>
-		<div id="map_canvas"></div>
+		<div id="form_map_canvas"></div>
 	</p>
 	<p>
 		<%= f.label :description %>
@@ -75,8 +88,7 @@ function center_map(map) {
 		<br>
 		<%= f.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
 	</p>
-  <div class="formatted_button">
+
     <%= f.submit %>
-  </div>
 <% end %>
 

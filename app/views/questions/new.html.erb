@@ -9,17 +9,17 @@ $.fn.center = function (top_offset) {
 $(window).load(function() {
 	$(window).resize(function() {
 		$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
-		$('.form').center(10);
+		$('.form').center(0);
 	});
 	$('#content').css('margin-top', '10px');
 	$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
-	$('.form').center(10);
+	$('.form').center(0);
 });
 </script>
 <div id='content'>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <div class='form'>
-<h3>New question</h3> 
+<h3>Ask a question!</h3> 
 
 <%= render 'form' %>
 </div>

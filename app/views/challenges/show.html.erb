@@ -17,7 +17,8 @@ $(document).ready( function() {
 	        map.setCenter(results[0].geometry.location);
 	        var marker = new google.maps.Marker({
 	            map: map,
-	            position: results[0].geometry.location
+	            position: results[0].geometry.location, 
+				icon: '../images/challenge_map_icon.png'
 	        });
 		}
 	});
@@ -419,7 +420,7 @@ function get_count(){
 			  </p>
 			  <p>
 			    <%= c.label :time, "Time" %><br />
-			    <%= c.datetime_select :time %>
+			    <%= c.datetime_select :time, :default=> 7.days.from_now %>
 			  </p>
 			  <p>
 				<%= c.label 'Categories: ' %>

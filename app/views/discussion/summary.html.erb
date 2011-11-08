@@ -44,6 +44,10 @@ $(document).ready( function() {
 		var params = {};
 		ajax_call(params);
 	});
+	$('#keyword_button').click( function() {
+		var params = {};
+		ajax_call(params);
+	});
 	
 	$("#date").change(function() {
 		var params = {}; 
@@ -143,7 +147,8 @@ function populate_content(content) {
 	html_string = '';
 	if (content.length == 0) {
 		html_string += '<div class="individual">' 
-			+ '<%= link_to "Be the first to ask a question!", new_question_path, :class=>"black_link" %>'
+			+ '<%= link_to "Be the first to ask a question,", new_question_path, :class=>"black_link" %>'
+			+ ' pose a challenge, or plan an event!' 
 			+ '</div>';
 	}
 	else {
@@ -258,6 +263,8 @@ function populate_content(content) {
 	<b>KEYWORD SEARCH</b>
 	<br>
 	<input type='text' class='textbox' id='keyword' size='20'>
+	<br>
+	<button id="keyword_search" type="button">Search</button>
 	<br><br>
 	<b>SHOW ITEMS FROM</b>
 	<select id="date" >

@@ -16,15 +16,17 @@
 
 <div id='header_tabs'>
 	<div id='map_view'>
-	<% if params[:controller] != "map" %>
+	<% if params[:controller] == "summary" %>
 		<%= link_to 'Map View', map_path, :class=>'gray_text' %>
 	<% else %>
 		<%= link_to 'Summary View', summary_path, :class=>'gray_text' %>
  	<% end %>
 	</div>
+	<% if params[:controller] != "questions" || (params[:action] != 'new') %>
 	<div id='ask_question'>
 		<%= link_to 'Ask a question!', new_question_path, :class=>'gray_text' %>
 	</div>
+	<% end %>
 </div>
 </div>
 
