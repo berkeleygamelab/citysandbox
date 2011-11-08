@@ -93,9 +93,15 @@ $(document).ready( function() {
 
 	$(window).resize(function() {
 		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+		$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
 	});
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
 	$('.user_avatar').css('vertical-align', 'middle');
+	$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+	$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
 	
 	$('.response_individual hr').last().remove();
 	$('.challenge_individual hr').last().remove();
@@ -308,8 +314,10 @@ function formatTitle() {
 <div id='events'>
 <div class='tab_body'>
 <% if @num_events == 0 %>
-	<div class='individual'>
+	<div class='individual event_individual'>
 		There are no events for this question.
+		<br>
+		<br>
 	</div>
 <% else %>	
 	<% @question.challenges.each do |challenge| %>

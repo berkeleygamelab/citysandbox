@@ -83,14 +83,14 @@ footer a {
 	line-height: 2.5em;
 }
 #map_view {
-	margin-left: 450px;
+	margin-left: 550px;
 	background: url('../images/header_tab.png');
 	width:120px;
 	height:33px;
 	text-align:center;
 }
 #ask_question {
-	margin-left: 600px;
+	margin-left: 680px;
 	background: url('../images/header_tab.png');
 	width:120px;
 	height:33px;
@@ -111,6 +111,7 @@ footer a {
 	background-color: #DDDDDD;
 	font-size:25px;
 	box-shadow: none;
+	border-radius:5px;
 }
 
 .formatted_button input {
@@ -148,7 +149,7 @@ footer a {
 	height: 700px;
 }
 
-#username, #password_password, #password_clear {
+#username, #password_password, #password_clear, #city_input {
 	border-radius: 5px;
 }
 
@@ -360,7 +361,8 @@ footer a {
 }
 
 .individual_form {
-	margin:3%;
+	margin-left:3%;
+	margin-right:3%;
 }
 
 /* NEW QUESTION */

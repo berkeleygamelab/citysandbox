@@ -6,7 +6,7 @@ $.fn.center = function (top_offset) {
     this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
     return this;
 }
-$(document).ready(function() {
+$(window).load(function() {
 	center_elements();
 	
 	$(window).resize(function() {
@@ -21,16 +21,16 @@ $(document).ready(function() {
 		$('.splash_logo').center(150);
 		$('#links').center(550);
 		$('#username').center(400 + $('#username').outerHeight());
-		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 5);
-		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 5);
+		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 20);
+		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 20);
 	}
 	
 	$('#username').tbHinter({
-		text: 'User ID',
+		text: '  User ID',
 		class: 'gray_text'
 	});	
 	$('#password_clear').tbHinter({
-		text: 'Password',
+		text: '  Password',
 		class: 'gray_text'
 	});
 	

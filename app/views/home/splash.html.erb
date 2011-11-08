@@ -15,11 +15,10 @@ function center_elements() {
    	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
 	$('.splash_title').center(20);
 	$('.splash_logo').center(150);
-	$('.splash_textbox').center(425);
 	$('#links').center(550);
-	$('#city_input').center(425 + $('#city_input').outerHeight());
-	$('#city_input').css("left", ($('.splash_textbox').position().left + 20) + 'px');
-	$('#city_input').css("top", ($('.splash_textbox').position().top + 35) + 'px');
+	$('#city_input').css('position', 'absolute');
+	$('#city_input').css('left', $('.splash_title').position().left + 85 + 'px');
+	$('#city_input').css('top', $('.splash_logo').position().top + 300 + 'px');
 }
 
 $(window).load(function() {
@@ -30,7 +29,7 @@ $(window).load(function() {
 	});
 	
 	$('#city_input').tbHinter({
-		text: 'Enter a city...',
+		text: '  Enter a city...',
 		class: 'gray_text'
 	});	
 	
@@ -53,7 +52,6 @@ $(window).load(function() {
 <%= image_tag "splash_box.png", :class=>'splash_box' %>
 <%= image_tag "splash_title.png", :class=>'splash_title' %>
 <%= image_tag "splash_logo_temp.png", :class=>'splash_logo' %>
-<%= image_tag "splash_textbox.png", :class=>'splash_textbox' %>
 
 <%= form_tag("/map", :method => "index") do %>
   <%= text_field_tag(:city_input, '', :size=>'18') %>

@@ -63,19 +63,19 @@ function center_map(map) {
 	<p>
 		<%= f.hidden_field :lat %>
 		<%= f.hidden_field :lng %>
-		<%= f.label :title %>
+		<%= f.label :title %> (255)
 		<br>
 		<%= f.text_area :title, :rows=>2 %>
 	</p>
 	<p>
-		<%= f.label :location %>
+		<%= f.label :location %> (100)
 		<br>
 		<%= f.text_area :location, :rows=>1, :placeholder=>"" %>
 		<br>
 		<div id="form_map_canvas"></div>
 	</p>
 	<p>
-		<%= f.label :description %>
+		<%= f.label :description %> (800)
 		<br>
 		<%= f.text_area :description, :rows=>3 %>
 	</p>

@@ -18,7 +18,7 @@ $(window).load(function() {
 	function center_elements() {
 		window_height =  $(window).height() > 700 ? $(window).height() : 700;
 		window_width =  $(window).width() > 500 ? $(window).width() : 500;
-		$('.splash_box').center();
+		$('.splash_box').center(10);
 	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
 		$('.username').center(90);
 		$('.email').center(200);
@@ -38,15 +38,15 @@ $(window).load(function() {
 		$('#location_input').center(560);
 		
 		$('#username_prompt').center(80);
-		$('#username_prompt').css("left", ($('.username').position().left + 10) + "px");
+		$('#username_prompt').css("left", ($('#username_input').position().left) + "px");
 		$('#email_prompt').center(190);
-		$('#email_prompt').css("left", ($('.email').position().left + 10) + "px");
+		$('#email_prompt').css("left", ($('#email_input').position().left) + "px");
 		$('#password_prompt').center(300);
-		$('#password_prompt').css("left", ($('.password').position().left + 10) + "px");
+		$('#password_prompt').css("left", ($('#password_password').position().left) + "px");
 		$('#re_password_prompt').center(410);
-		$('#re_password_prompt').css("left", ($('.re_password').position().left + 10) + "px");
+		$('#re_password_prompt').css("left", ($('#re_password_password').position().left) + "px");
 		$('#location_prompt').center(520);
-		$('#location_prompt').css("left", ($('.re_password').position().left + 10) + "px");
+		$('#location_prompt').css("left", ($('#location_input').position().left) + "px");
 	}
 	
 	var defaultBounds = new google.maps.LatLngBounds(
@@ -63,11 +63,7 @@ $(window).load(function() {
  });
 </script>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'username' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'email' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'password' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'re_password' %>
-<%= image_tag "../images/splash_textbox.png", :class=>'location' %>
+
 
 <div class="labels">
 	<div id="username_prompt">Enter a User ID</div>
