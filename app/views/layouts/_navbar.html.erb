@@ -16,7 +16,7 @@
 
 <div id='header_tabs'>
 	<div id='map_view'>
-	<% if params[:controller] == "summary" %>
+	<% if params[:controller] == "discussion" && params[:action] == "summary" %>
 		<%= link_to 'Map View', map_path, :class=>'gray_text' %>
 	<% else %>
 		<%= link_to 'Summary View', summary_path, :class=>'gray_text' %>

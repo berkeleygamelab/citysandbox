@@ -191,13 +191,16 @@ def filter
         entry_stats['Event'] = num_events
         entry['stats'] = entry_stats
         entry['id'] = x.id
-        if x.followed_questions.find_by_user_id(current_user.id) != nil 
-          entry['followed'] = true
-        else
-          entry['followed'] = false
-        end
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = question_url(x)
+        if current_user != nil 
+          entry['current_user'] = current_user.login
+          if x.followed_questions.find_by_user_id(current_user.id) != nil 
+            entry['followed'] = true
+          else
+            entry['followed'] = false
+          end
+        end
         @collection = @collection + [entry]
       }
       @challenges.each{ |x|
@@ -217,13 +220,16 @@ def filter
         entry['stats'] = entry_stats
         entry['id'] = x.id
         entry['address'] = x.location
-        if x.followed_challenges.find_by_user_id(current_user.id) != nil 
-          entry['followed'] = true
-        else
-          entry['followed'] = false
-        end
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = challenge_url(x)
+        if current_user != nil 
+          entry['current_user'] = current_user.login
+          if x.followed_challenges.find_by_user_id(current_user.id) != nil 
+            entry['followed'] = true
+          else
+            entry['followed'] = false
+          end
+        end
         @collection = @collection + [entry]
       }
       @events.each{|x|
@@ -239,13 +245,16 @@ def filter
         entry['stats'] = entry_stats
         entry['id'] = x.id
         entry['address'] = x.location
-        if x.followed_events.find_by_user_id(current_user.id) != nil 
-          entry['followed'] = true
-        else
-          entry['followed'] = false
-        end
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = event_url(x)
+        if current_user != nil 
+          entry['current_user'] = current_user.login
+          if x.followed_events.find_by_user_id(current_user.id) != nil 
+            entry['followed'] = true
+          else
+            entry['followed'] = false
+          end
+        end
         @collection = @collection + [entry]
       }
       

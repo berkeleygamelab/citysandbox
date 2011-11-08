@@ -76,8 +76,15 @@ $(document).ready( function() {
 	
 	$(window).resize(function() {
 		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+		$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
 	});
 	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
+	$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+	$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
+	
 	$('.iframe').fancybox({
 		'width' : 167,
 		'height' : 167, 
