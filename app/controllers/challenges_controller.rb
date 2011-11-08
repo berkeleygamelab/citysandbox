@@ -17,7 +17,7 @@ class ChallengesController < ApplicationController
       @category = Categories.find(@challenge.categories_id)
       @vote = vote_permission(current_user)
       @most_popular_proposals = @challenge.most_popular_proposal()
-      @can_submit = @challenge.submission_deadline < Time.now
+      @can_submit = @challenge.submission_deadline > Time.now
 
       @followed = current_user.followed_challenges.where(:challenge_id => params[:id]).size != 0
       @followed_user = current_user.followed_users.where(:followed_user_id => @challenge.user_id).size != 0
@@ -71,7 +71,7 @@ class ChallengesController < ApplicationController
     respond_to do |format|
       if @challenge.save
         @challenge.insert_location(@challenge.lat + ', ' + @challenge.lng)
-        format.html { redirect_to @challenge.question, notice: 'Challenge was successfully created.' }
+        format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
         format.json { render json: @challenge, status: :created, location: @challenge }
       else
         format.html { render action: "new" }

@@ -112,10 +112,6 @@ $(document).ready( function() {
 	
 	get_count();
 	
-	$('.response_individual hr').last().remove();
-	$('.proposal_individual hr').last().remove();
-	$('.event_individual hr').last().remove();
-	
 	$('.iframe').fancybox({
 		'width' : 167,
 		'height' : 167, 
@@ -318,7 +314,7 @@ function get_count(){
 		<hr style='color:#C0C0C0'>
 	</div>
 	<% end %>
-	<div id='proposal_form' class='individual_form'>
+	<div id='proposal_form'>
 	<% if @can_submit %>
 		Add Proposal
 		<br>
@@ -338,6 +334,7 @@ function get_count(){
 			  </p>
 		<% end %>
 	<% else %>
+		<br>
 		Sorry, the submission deadline has passed. No more proposals will be accepted at this time.
 	<% end %>
 	</div>

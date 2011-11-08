@@ -103,11 +103,7 @@ $(document).ready( function() {
 	$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
 	$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
 	
-	$('.response_individual hr').last().remove();
-	$('.challenge_individual hr').last().remove();
 	$('.event_individual hr').last().remove();
-	$('.response_individual br').last().remove();
-	$('.challenge_individual br').last().remove();
 	
 	$('.iframe').fancybox({
 		'width' : 167,
@@ -226,7 +222,7 @@ function formatTitle() {
 	</div>
 	<% end %>
 	<br>
-	<div id='response_form' class='individual_form'>
+	<div id='response_form'>
 		Add Response
 		<br>
 		<%= form_for([@question, ResponseQuestion.new]) do |r| %>
@@ -268,7 +264,7 @@ function formatTitle() {
 	<br>
 	<% end %>
 
-	<div id='challenge_form' class='individual_form'>
+	<div id='challenge_form'>
 		Add Challenge
 		<br>
 		<%= form_for [@challenge, Challenge.new] do |c| %>

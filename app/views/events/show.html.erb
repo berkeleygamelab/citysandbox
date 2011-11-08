@@ -92,7 +92,7 @@ $(document).ready( function() {
 		'autoDimensions': false,
 		'titlePosition': 'over',
 		'titleFormat': formatTitle
-	});
+	});	
 	$('#fancybox-wrap').click(function () {
 		printIframe('fancybox-frame');
 	});
@@ -222,31 +222,27 @@ function formatTitle() {
 </ul>
 </div>
 <div id='responses'>
+<div class='tab_body'>
 	<% @event.response_events.reverse_each do |r| %>
-	<div class='entry_main'>
-		<div class='entry_author'>
+	<div class='individual response_individual'>
 			<% if r.anonymous == 1 %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				Anonymous
-				<br>
+				Anonymous | 
 			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
+				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
 				<%=h r.user.picture %> 
-				<br>
-				<%=h r.user.login %>
-				<br>
+				<%=h r.user.login %> |
 			<% end %>
-			<%= r.created_at.strftime("%Y %b %d") %>
-		</div>
-		<div class='latest_response'>
-		    <%=h r.response %>
-		</div>
-	</div>
+			<%= time_ago_in_words(r.created_at) %> ago 
+			<div class='latest_response'>
+			    <%=h r.response %>
+			</div>
 		<br>
+		<hr>
+	</div>
 	<% end %>
-	<div id='response_form'>
+	<div id='response_form' class='individual_form'> 
 		Add Response
 		<br>
 		<%= form_for([@event, ResponseEvent.new]) do |r| %>

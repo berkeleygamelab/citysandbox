@@ -192,7 +192,7 @@ footer a {
 	line-height:2em;
 	padding-bottom:20px;
 }
-#question_main, .individual, #response_form, #challenge_form, .individual_question, #proposal_form, #event_form {
+#question_main, .individual, .individual_question {
 	padding: 3%;
 	background-color: rgba(255, 255, 255,0.5);
 }
@@ -251,7 +251,8 @@ footer a {
 }
 #form_map_canvas {
 	height:200px;
-	width:200px;	
+	width:200px;
+	margin-left:60px;	
 }
 
 .proposal_individual, .response_individual, .event_individual, .challenge_individual {
@@ -325,6 +326,7 @@ footer a {
 .entry_stats {
 	line-height: 1em;
 	font-size: 12px;
+	padding-bottom:5px;
 }
 .entry_stats ul li{
 	display: inline;
@@ -360,9 +362,8 @@ footer a {
 	padding-top:5px;
 }
 
-.individual_form {
-	margin-left:3%;
-	margin-right:3%;
+.individual_form, #response_form, #challenge_form, #proposal_form, #event_form {
+	padding:3%;
 }
 
 /* NEW QUESTION */

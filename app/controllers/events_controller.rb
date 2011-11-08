@@ -44,7 +44,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         @event.insert_location(@event.lat + ', ' + @event.lng)
-        format.html { redirect_to @event.challenge, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
