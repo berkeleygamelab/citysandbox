@@ -235,7 +235,7 @@ footer a {
 #user_sidebar {
 	float: left;
 	width: 240px;
-	background: url('../images/left_column.png');
+	background: rgba(255, 255, 255, 0.6);
 }
 
 #main_question_content {
