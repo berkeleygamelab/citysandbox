@@ -18,6 +18,7 @@ Citysandbox::Application.routes.draw do
   match "/unfollow" => "discussion#unfollow"
   match "/recent" => "users#recent"
   match "/qr" => 'discussion#qr'
+  match "/map_info" => 'map#get_info'
   
   resources :questions do
     resources :response_questions, :shallow => true

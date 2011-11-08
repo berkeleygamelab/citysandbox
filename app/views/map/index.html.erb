@@ -83,6 +83,52 @@ function load_map(loc) {
 				map: map
 			});
 			
+			google.maps.event.addListener(fusion_layer, 'click', function(e) {
+				console.log(e);
+				if (e != null) {
+					var params = {};
+					params['id'] = e.row['ID'].value;
+					params['category'] = e.row['Origin'].value;
+					$.get('/map_info', params, function(entry) {
+						console.log($('#loading'));
+						html_string = '';
+						html_string	+= '<div class="entry_author">';
+						if (entry['type'] == 'questions') {
+							if (entry['item']['anonymous'] == 1) {
+								html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
+									+ '<br>Anonymous<br>';
+							} else {
+								html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
+								+ entry['user']['login'] + '<br>';
+							}
+						} else {
+							html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
+							+ entry['user']['login'] + '<br>';
+						}
+						html_string += entry['created_at_formatted']+ '<br></div>';
+						html_string += '<div class="entry_title"><br><b>'
+						link_to_entry = '/' + entry['type'] +'/' + entry['item']['id'];
+						html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['item']['title'] + '</a></b></div>';
+						html_string += '<div class="entry_stats"><ul>';
+
+						$.each(entry['stats'], function(key, value) {
+							html_string += '<li>' + value + ' ' + key;
+							html_string += (value == 1) ? '</li>' : 's</li>';
+						});
+						html_string += '</ul></div></div><br>';
+						$('#loading').html(html_string);
+					})
+					e.infoWindowHtml = '<div id="loading" style="height:125px; width:450px">Loading..</div>';
+				}
+				
+
+			
+			    //e.infoWindowHtml = "Name: " + e.row['ID'].value + "<br />";
+
+			    //if the value exists, add the content to the window
+			      //e.infoWindowHtml += "Value: " + e.row['Location'].value + "<br />";
+			});
+			
 			// var legendDiv = document.createElement('DIV');
 			// 		  	var legend = new Legend(legendDiv, map);
 			// 		  	legendDiv.index = 1;
