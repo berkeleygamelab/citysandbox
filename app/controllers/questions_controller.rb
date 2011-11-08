@@ -8,20 +8,24 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = Question.where(:id => params[:id])[0]
-    @category = Categories.find(@question.category_id)
+    if current_user == nil
+      redirect_to home_login_url
+    else
+      @question = Question.where(:id => params[:id])[0]
+      @category = Categories.find(@question.category_id)
     
-    @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
-    @followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
+      @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
+      @followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
   
-    @num_events = 0
-    @question.challenges.each { |challenge| 
-      @num_events += challenge.events.length
-    }
+      @num_events = 0
+      @question.challenges.each { |challenge| 
+        @num_events += challenge.events.length
+      }
     
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @question }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @question }
+      end
     end
   end
 

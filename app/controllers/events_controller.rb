@@ -2,15 +2,19 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @event = Event.find(params[:id])
-    @category = Categories.find(@event.categories_id)\
+    if current_user == nil
+      redirect_to home_login_url
+    else
+      @event = Event.find(params[:id])
+      @category = Categories.find(@event.categories_id)\
     
-    @followed = current_user.followed_events.where(:event_id => params[:id]).size != 0
-    @followed_user = current_user.followed_users.where(:followed_user_id => @event.user_id).size != 0
+      @followed = current_user.followed_events.where(:event_id => params[:id]).size != 0
+      @followed_user = current_user.followed_users.where(:followed_user_id => @event.user_id).size != 0
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @event }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @event }
+      end
     end
   end
 

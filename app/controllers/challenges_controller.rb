@@ -10,18 +10,22 @@ class ChallengesController < ApplicationController
   # GET /challenges/1
   # GET /challenges/1.json
   def show
-    @challenge = Challenge.find(params[:id])
-    @category = Categories.find(@challenge.categories_id)
-    @vote = vote_permission(current_user)
-    @most_popular_proposals = @challenge.most_popular_proposal()
-    @can_submit = @challenge.submission_deadline < Time.now
-    
-    @followed = current_user.followed_challenges.where(:challenge_id => params[:id]).size != 0
-    @followed_user = current_user.followed_users.where(:followed_user_id => @challenge.user_id).size != 0
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @challenge }
+    if current_user == nil
+      redirect_to home_login_url
+    else 
+      @challenge = Challenge.find(params[:id])
+      @category = Categories.find(@challenge.categories_id)
+      @vote = vote_permission(current_user)
+      @most_popular_proposals = @challenge.most_popular_proposal()
+      @can_submit = @challenge.submission_deadline < Time.now
+
+      @followed = current_user.followed_challenges.where(:challenge_id => params[:id]).size != 0
+      @followed_user = current_user.followed_users.where(:followed_user_id => @challenge.user_id).size != 0
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @challenge }
+      end
     end
   end
   
