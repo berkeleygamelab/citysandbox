@@ -39,6 +39,10 @@ $(document).ready( function() {
 		$('#city').hide();
 		load_map(loc);
 	}
+	$(window).resize(function() {
+		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+	});
+	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 });
 function load_map(loc) {
 	var lat = 0;
@@ -169,6 +173,7 @@ function load_map(loc) {
 //   controlUI.appendChild(controlText);
 // }
 </script>
+<div id='content'>
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SHOW</b>
@@ -209,4 +214,5 @@ function load_map(loc) {
 <div id='mapview_map'></div>
 <div id='city'>
 	<input type='text' class='textbox' id='city_input' size='30'>
+</div>
 </div>
