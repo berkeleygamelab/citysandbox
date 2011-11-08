@@ -7,8 +7,6 @@ $(document).ready( function() {
 	var params = {};
 	ajax_call(params);
 
-	draw_maps();
-
 	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
 			var params = {};
@@ -127,12 +125,17 @@ function follow_unfollow(id, type, follow) {
 function draw_maps() {
 	$('.entry_map img').each( function(index) {
 		var address = $('#entry_address' + index).val().replace(/[\t\n\r\s]/gi, "+");
-		//$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C' + address+'&sensor=false');
-		// challenge: http://i42.tinypic.com/2qs86fd.png
-		// question: http://i39.tinypic.com/2myrj0y.png
-		// event: http://i39.tinypic.com/14bq4p2.png
-		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false');
 		
+		var icon_url = '';
+		if ($('#entry_type' + index).val() == 'Question') {
+			icon_url = 'http://i41.tinypic.com/ajvugz.png';
+		} else if ($('#entry_type' + index).val() == 'Challenge') {
+				icon_url = 'http://i41.tinypic.com/23tsbqe.png';
+		} else if ($('#entry_type' + index).val() == 'Event') {
+			icon_url = 'http://i43.tinypic.com/2rhycjk.png';
+		}
+
+		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:' + icon_url + '%7C' + address+'&sensor=false');
 	});
 }
 
@@ -167,9 +170,9 @@ function populate_content(content) {
 			}
 			html_string += entry['created_at']+ '<br></div>';
 			var address = entry['address'].replace(/[\t\n\r\s]/gi, " ");
-			html_string += '<div class="entry_map"><img src="http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false">';		
-			html_string += '<%= hidden_field_tag "entry_address' + index + '", ' + address + ' %>'
-			 + '<%= hidden_field_tag "entry_type' + index + '", "' + entry['type'] + '" %></div>';
+			html_string += '<div class="entry_map"><img src="http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false"></div>';		
+			html_string += '<input type="hidden" value="' + address + '" name="entry_address' + index + '" id="entry_address' + index +'">';
+			html_string += '<input type="hidden" value="' + entry['type'] + '" name="entry_type' + index + '" id="entry_type' + index +'">';
 			html_string += '<div class="entry_title"><b>'
 			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id'];
 			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
@@ -218,6 +221,7 @@ function populate_content(content) {
 		var type = name.substring(name.indexOf('+') + 1);
 		follow_unfollow(id, type, false);
 	});
+	draw_maps();
 }
 
 </script>
