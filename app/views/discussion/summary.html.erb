@@ -83,6 +83,9 @@ function ajax_call(params) {
 	if (sort_by_checked.indexOf('following') != -1) {
 		params['following'] = true;
 	}
+	if (sort_by_checked.indexOf('popular') != -1) {
+		params['popular'] = true;
+	}
 	categories_checked = [];
 	$('#categories li :checked').each( function () {
 		categories_checked.push($(this).attr('value'));
@@ -106,6 +109,7 @@ function ajax_call(params) {
 	if ($('#date').attr('value') != '') {
 		params['timeBefore'] = $('#date').val();
 	}
+	console.log(params);
 	$.get('/filter', params, function(data) {
 		populate_content(data);
 		$('.iframe').fancybox({
@@ -249,10 +253,10 @@ function populate_content(content) {
 	<ul id='sort_by'>
 	<!--<li>
 	  <%= check_box_tag 'sort', 'recent' %> Most Recent
-	</li>
+	</li>-->
 	<li>
 	  <%= check_box_tag 'sort', 'popular' %> Most Popular
-	</li>--> 
+	</li>
 	<li>
 	 <%= check_box_tag 'sort', 'following' %> Following
 	</li>
