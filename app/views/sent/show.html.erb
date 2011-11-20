@@ -1,41 +1,37 @@
-<h1>Sent#index</h1>
-<p>Hey look gaiz! </p>
-
-<table>
+<style type="text/css">
+#content {
+	background-color: rgba(255, 255, 255, 0.5);
+	padding:10px;
+}
+#content table, th, td {
+	border: 1px ridge gray;
+	margin: 0;
+}
+</style>
+<div id='content'>
+<h2>Sent Messages </h2>
+<table style='width:50%' cellspacing='0'>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th style='width:33%'>Subject</th>
+    <th style='width:33%'>Body</th>
+    <th style='width:33%'>User</th>
   </tr>
-  <tr>
-	<td>
-	
-		MESSAGES!
-	</td>
-	<tr>
-
-  </tr>
-
 <% @messages.each do |x| %>
   <tr>
 	<% x.message_copys.each do |msg| %>
-	<td>
-	 Subject: <%=h x.subject %>
+	<td >
+	 <%=h x.subject %>
 	</td>
-	
 	<td>
-	 Body:	<%=h x.body %>
+	 <%=h x.body %>
 	</td>
-	
 	<td>
-	User:	<%=h msg.user.login %>
+	<%=h msg.user.login %>
 	</td>	
 	<% end %>
-
-
-
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'New post', 'new' %>
+<br>
+<%= link_to 'Send a message', '/users/sent/new', :class=>'black_link' %>
+</div>

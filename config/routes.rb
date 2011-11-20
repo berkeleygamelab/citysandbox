@@ -43,6 +43,9 @@ Citysandbox::Application.routes.draw do
   get '/summary' => 'discussion#summary', :as => :summary
   get '/filter' => 'discussion#filter', :as => :filter
   
+  match "/map" => 'map#index', :as => :map
+  
+  
   match "users/sent" => "sent#show"
   match "users/inbox/new" => "inbox#new"
   match "users/inbox/reply" => "inbox#respond"
@@ -56,9 +59,6 @@ Citysandbox::Application.routes.draw do
     resources :mailbox
     resources :sent
   end
-  
-  match "/map" => 'map#index', :as => :map
-  
   
   resources :inbox do
     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
