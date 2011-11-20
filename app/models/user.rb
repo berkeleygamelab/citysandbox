@@ -34,7 +34,13 @@ class User < ActiveRecord::Base
   validates :email, :presence => true
   validates :password, :presence => true
   validates :location, :presence => true
+  validate :name_check
   
+  def name_check
+    if(login.strip != login)
+      errors.add(:login, "login can't start or end with blank spaces")
+    end
+  end
   #has the given user link to this user
   def follow_this_user(follow_user)
     followed = FollowedUser.new(:followed_id => id, :user_id => follow_user.id)

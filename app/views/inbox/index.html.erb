@@ -30,7 +30,7 @@
 	 <%=h x.message.user.login %>
 	</td>	
 	<td>
-		<%= link_to 'Reply', 'inbox/new/1' %>
+		<%= link_to 'inbox/reply', :message_id => x.id %>
 	</td>
   </tr>
 <% end %>
