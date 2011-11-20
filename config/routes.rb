@@ -53,7 +53,7 @@ Citysandbox::Application.routes.draw do
   # match "users/inbox/new" => "inbox#new"
   match "users/inbox/reply" => "inbox#respond"
   
-  # resources :users, :messages,  :inbox
+  resources :users, :messages,  :inbox
   
   # scope "/users" do
   #   resources :mailbox
