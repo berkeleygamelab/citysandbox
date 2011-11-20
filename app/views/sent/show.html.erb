@@ -26,12 +26,16 @@
 	 <%=h x.body %>
 	</td>
 	<td>
-	<%=h msg.user.login %>
+	<% if msg.user != nil %>
+		<%=h msg.user.login %>
+	<% else %>
+		<%= msg.user_id %>
+	<% end %>
 	</td>	
 	<% end %>
   </tr>
 <% end %>
 </table>
 <br>
-<%= link_to 'Send a message', '/users/sent/new', :class=>'black_link' %>
+<%= link_to 'Send a message', '/messages/new', :class=>'black_link' %>
 </div>

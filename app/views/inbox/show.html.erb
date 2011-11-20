@@ -1,42 +1,40 @@
-<h1>Sent#show</h1>
-
-
-<table>
+<style type="text/css">
+#content {
+	background-color: rgba(255, 255, 255, 0.5);
+	padding:10px;
+}
+#content table, th, td {
+	border: 1px ridge gray;
+	margin: 0;
+}
+</style>
+<div id='content'>
+<h2>Inbox</h2>
+<table style='width:50%' cellspacing='0'>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th style='width:25%'>Subject</th>
+    <th style='width:25%'>Body</th>
+    <th style='width:25%'>From</th>
+	<th style='width:25%'>Reply</th>
   </tr>
-  <tr>
-	<td>
-	
-		MESSAGES!
-	</td>
-	<tr>
-		</tr>
-		<tr>
- 			</tr>
-  </tr>
 
-<% @messages.each_with_index do |x, i| %>
+<% @messages.each do |x| %>
   <tr>
 	<td>
-	 Subject: <%=h x.message.subject %>
+	 <%=h x.message.subject %>
 	</td>
-	
 	<td>
-	 Body:	<%=h x.message.body %>
+	 <%=h x.message.body %>
 	</td>
-	
 	<td>
-	Sent from:	<%=h x.message.user.login %>
+	 <%=h x.message.user.login %>
 	</td>	
-
-	<td> <%= link_to "Reply", :action => "respond", :value => i %>
-
-
+	<td>
+		<%= link_to 'Reply', 'inbox/new/1' %>
+	</td>
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'New post', 'sent/new' %>
+<br>
+<%= link_to 'Send a message', '/messages/new', :class=>'black_link' %>
+</div>

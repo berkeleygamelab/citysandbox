@@ -18,8 +18,7 @@ class InboxController < ApplicationController
   end
   
   def create
-    
-    id = params[:user_id].to_i
+    id = User.find_by_login(params[:sendTo]).id
     body = params[:body]
     subject = params[:subject]
     message = Message.create(:user_id => current_user.id, :body => body, :subject => subject)
@@ -27,6 +26,11 @@ class InboxController < ApplicationController
     @success = false 
     if message.id != nil
       @success = true
+    end
+    if @success == false
+      redirect_to messages_new_path
+    else
+      redirect_to messages_inbox_path
     end
     
   end

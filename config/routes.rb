@@ -45,28 +45,28 @@ Citysandbox::Application.routes.draw do
   
   match "/map" => 'map#index', :as => :map
   
+  match "messages/sent" => "sent#show"
+  match "messages/inbox" => "inbox#show"
+  match "messages/new" => 'inbox#new'
+  match "messages/create" => "inbox#create"
   
-  match "users/sent" => "sent#show"
-  match "users/inbox/new" => "inbox#new"
+  # match "users/inbox/new" => "inbox#new"
   match "users/inbox/reply" => "inbox#respond"
-  match "users/inbox/view" => "inbox#view"
-  match "users/inbox/create" => "inbox#create"
-  match "users/inbox" => "inbox#show"
   
-  resources :users, :messages,  :inbox
+  # resources :users, :messages,  :inbox
   
-  scope "/users" do
-    resources :mailbox
-    resources :sent
-  end
+  # scope "/users" do
+  #   resources :mailbox
+  #   resources :sent
+  # end
   
-  resources :inbox do
-    get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
-
-    member do
-      get 'respond'
-    end
-  end
+  # resources :inbox do
+  #     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
+  # 
+  #     member do
+  #       get 'respond'
+  #     end
+  #   end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
