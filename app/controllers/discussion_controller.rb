@@ -103,13 +103,10 @@ def filter
     
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
       @events = Event
-      @events = sort_by_popularity("Event", Time.now - 3600*30*24, @location_to_grab)
-      @flagsorted = true
 
-      if @most_popular == nil
         @events = sort_by_location(distance, @location_to_grab, "Event", @events)
         @flagsorted = true
-      end
+
       if @followed != nil
          @events = display_following(@events, "Event")
          @flagsorted = true
@@ -134,10 +131,6 @@ def filter
      
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
         @challenges = Challenge
-        @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, @location_to_grab)
-        @flagsorted = true
-
-         if @most_popular == nil
            @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
            @flagsorted = true
          end
@@ -165,9 +158,9 @@ def filter
       end
   
       if @most_popular == nil
-        @questions.order("popularity DESC")
-        @challenges.order("popularity DESC")
-        @events.order("popularity DESC")
+        @questions = @questions.order("popularity DESC")
+        @challenges = @challenges.order("popularity DESC")
+        @events = @events.order("popularity DESC")
       end
   
      if @flagsorted == false
