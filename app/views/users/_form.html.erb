@@ -2,7 +2,7 @@
       type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready( function() {
-	var map;
+
    
 
 	var input = document.getElementById('user_location');
@@ -12,25 +12,21 @@ $(document).ready( function() {
 	};
 
 	if ($('#user_location').val() != '') {
-		center_map(map);
+		center_map();
 	}
 
 	$('#user_location').blur( function() {
-		center_map(map);
+		center_map();
 	});	
 	
 });
 
-	function center_map(map) {
+	function center_map() {
 		var geocoder = new google.maps.Geocoder();
 		var address = $.trim(address = $('#user_location').val().replace(/[\t\n\r]/gi, ""));
 		    geocoder.geocode( { 'address': address}, function(results, status) {
 		      if (status == google.maps.GeocoderStatus.OK) {
-		        map.setCenter(results[0].geometry.location);
-		        var marker = new google.maps.Marker({
-		            map: map,
-		            position: results[0].geometry.location
-		        });
+
 				$('#user_lat').attr('value', results[0].geometry.location.lat());
 				$('#user_lng').attr('value', results[0].geometry.location.lng());
 		      }
@@ -50,8 +46,8 @@ $(document).ready( function() {
     </div>
   <% end %>
    <%= f.text_field :login, :size => 18, :id=>'username_input', :class=>'formatted_input' %>
-	<%= f.hidden_field :lat %>
-	<%= f.hidden_field :lng %>
+	<%= f.text_field :lat %>
+	<%= f.text_field :lng %>
    <%= f.email_field :email, :size => 18, :id=>'email_input', :class=>'formatted_input' %>
    <%= f.password_field :password, :size => 18, :id=>'password_password', :class=>'formatted_input' %>
    <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_password', :class=>'formatted_input' %>
