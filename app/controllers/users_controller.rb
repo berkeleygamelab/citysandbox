@@ -10,6 +10,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    if(@user.location != nil)
+      a = Geocoder.coordinates(@user.location)
+      @user.lat = a[0]
+      @user.lng = a[1]
+    end
     if @user.save
       redirect_to new_session_path
     else
