@@ -63,6 +63,7 @@ def filter
   dist = 10000
   if(@location_to_grab == nil)
     @location_to_grab = current_user.location
+  end
   @keyword = params[:keyword]
 
   if (params[:follow] != nil)
