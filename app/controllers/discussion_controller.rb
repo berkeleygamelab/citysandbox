@@ -60,7 +60,7 @@ def filter
   @followed_type = params[:followed_type]  
   @most_popular = params[:popular]
   @location_to_grab = params[:loc]
-  DISTANCE = 10000
+  dist = 10000
   if(@location_to_grab == nil)
     @location_to_grab = current_user.location
   @keyword = params[:keyword]
@@ -78,7 +78,7 @@ def filter
         @flagsorted = true
       end
       if @most_popular == nil
-        @questions = sort_by_location(DISTANCE, @location_to_grab, "Question", @questions)
+        @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
       end
       if @followed != nil
         @questions = display_following(@questions, "Question")
@@ -109,7 +109,7 @@ def filter
         @flagsorted = true
       end
       if @most_popular == nil
-        @questions = sort_by_location(DISTANCE, @location_to_grab, "Event", @events)
+        @questions = sort_by_location(distance, @location_to_grab, "Event", @events)
       end
       if @followed != nil
          @events = display_following(@events, "Event")
@@ -140,7 +140,7 @@ def filter
            @flagsorted = true
          end
          if @most_popular == nil
-           @questions = sort_by_location(DISTANCE, @location_to_grab, "Challenge", @challenges)
+           @questions = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
          end
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
