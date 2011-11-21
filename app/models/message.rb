@@ -8,7 +8,8 @@ class Message < ActiveRecord::Base
   validates :body, :presence => true
   
 
-
+  def do_deletin
+    
 
   
 end

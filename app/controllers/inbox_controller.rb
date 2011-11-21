@@ -33,4 +33,10 @@ class InboxController < ApplicationController
     
   end
   
+  def destroy_message(msg_id)
+    msg = MessageCopy.where(:id => msg_id)
+    msg.destroy
+  end
+  
+  
 end

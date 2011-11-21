@@ -14,18 +14,18 @@ $(document).ready( function() {
 	};
 
 	if ($('#user_location').val() != '') {
-		center_map();
+		center_map(2);
 	}
 
 	$('#user_location').blur( function() {
-		center_map();
+		center_map(2);
 	});	
 	
 });
 
-	function center_map() {
+	function center_map(value) {
 		var geocoder = new google.maps.Geocoder();
-		var address = $.trim(address = $('#user_location').val().replace(/[\t\n\r]/gi, ""));
+		var address =  $('#user_location').val().replace(/[\t\n\r]/gi, ""));
 		    geocoder.geocode( { 'address': address}, function(results, status) {
 		      if (status == google.maps.GeocoderStatus.OK) {
 
