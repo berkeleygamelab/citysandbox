@@ -1,14 +1,33 @@
-Subject: <%=h @message.subject %>
-Message: <%=h @message.body %>
+<style type="text/css">
+#content {
+	background-image: url("../../images/splash_box.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 480px;
+	width: 100%;
+	text-align: center;
+}
+#message_form {
+	color: #DDDDDD;
+	line-height:2em;
+	padding-top:20px;
+}
+#prev_message {
+	width:300px;
+	margin:auto;
+}
+</style>
+<div id="content">
+<div id='message_form'>
+<form action= "/messages/create">
+  Subject: <input type="text" name="subject" size="35" value="RE: <%=h @message.subject %>"/><br />
+  Body: <textarea name="body" rows="5" cols="35"> </textarea><br />
+  Send To: <input type ="text" name="sendTo" value="<%=h @message.user.login %>" size="35"><br />
+  <input type="submit" value="Send Message"/>
+</form>
+<div id='prev_message'>
+message: <%=h @message.body %><br>
+</div>
 <br>
-Sent from: <%=h @message.user.login %>
-<br>
-<br>
-<%= form_tag("create", :method => "get") do %>
-  <%= label_tag(:subject, "Subject:") %>
-  <%= text_field_tag(:subject) %>
-  <%= label_tag(:body, "Body:") %>
-  <%= text_field_tag(:body) %>
-  <%= hidden_field_tag(:user_id, @message.user.id)%>
-  <%= submit_tag("Create") %>
-<% end %>
+</div>
+</div>
