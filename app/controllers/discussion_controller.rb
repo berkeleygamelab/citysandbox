@@ -113,7 +113,7 @@ def filter
         @flagsorted = true
       end
       if @most_popular == nil
-        @questions = sort_by_location(distance, @location_to_grab, "Event", @events)
+        @events = sort_by_location(distance, @location_to_grab, "Event", @events)
         @flagsorted = true
       end
       if @followed != nil
@@ -145,7 +145,7 @@ def filter
            @flagsorted = true
          end
          if @most_popular == nil
-           @questions = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
+           @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
            @flagsorted = true
          end
          if @followed != nil
@@ -396,15 +396,15 @@ end
 
 def sort_by_location(distance, location, type, set)
   if type == "Question"
-    dummy = Question.first
+    dummy = Question.new
 
   end
   if type == "Challenge"
-    dummy = Challenge.first
+    dummy = Challenge.new
 
   end
   if type == "Event"
-    dummy = Event.first
+    dummy = Event.new
    
   end
   max_to_grab = 1000
