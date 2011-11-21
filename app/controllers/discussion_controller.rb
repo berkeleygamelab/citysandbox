@@ -60,7 +60,7 @@ def filter
   @followed_type = params[:followed_type]  
   @most_popular = params[:popular]
   @location_to_grab = params[:loc]
-  dist = 10000
+  distance = 10000
   if(@location_to_grab == nil)
 
     temp = Geocoder.coordinates(current_user.location)
