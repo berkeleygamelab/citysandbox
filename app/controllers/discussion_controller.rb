@@ -203,6 +203,7 @@ def filter
         entry['id'] = x.id
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = question_url(x)
+        entry['popularity'] = x.popularity
         if current_user != nil 
           entry['current_user'] = current_user.login
           if x.followed_questions.find_by_user_id(current_user.id) != nil 
@@ -232,6 +233,7 @@ def filter
         entry['address'] = x.location
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = challenge_url(x)
+        entry['popularity'] = x.popularity
         if current_user != nil 
           entry['current_user'] = current_user.login
           if x.followed_challenges.find_by_user_id(current_user.id) != nil 
@@ -257,6 +259,7 @@ def filter
         entry['address'] = x.location
         entry['category'] = Categories.find(x.categories_id).category
         entry['url'] = event_url(x)
+        entry['popularity'] = x.popularity
         if current_user != nil 
           entry['current_user'] = current_user.login
           if x.followed_events.find_by_user_id(current_user.id) != nil 
@@ -268,7 +271,7 @@ def filter
         @collection = @collection + [entry]
       }
       
-      @collection.sort!{|a,b| b['entry'].updated_at <=> a['entry'].updated_at}
+      @collection.sort!{|a,b| b['entry'].popularity <=> a['entry'].popularity}
       
       respond_with(@collection)
 end
