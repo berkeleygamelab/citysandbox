@@ -76,11 +76,11 @@ def filter
 
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       @questions = Question
-      if @most_popular != nil
+      if @most_popular == nil
         @questions = sort_by_popularity("Question", Time.now - 3600*30*24, @location_to_grab)
         @flagsorted = true
       end
-      if @most_popular == nil
+      if @most_popular != nil
         @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
         @flagsorted = true
       end
