@@ -133,7 +133,7 @@ def filter
         @challenges = Challenge
            @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
            @flagsorted = true
-         end
+         
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
             @flagsorted = true
