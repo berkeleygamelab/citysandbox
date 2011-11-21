@@ -76,14 +76,9 @@ def filter
 
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       @questions = Question
-      if @most_popular == nil
-        @questions = sort_by_popularity("Question", Time.now - 3600*30*24, @location_to_grab)
-        @flagsorted = true
-      end
-      if @most_popular != nil
-        @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
-        @flagsorted = true
-      end
+      @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
+      @flagsorted = true
+      
       if @followed != nil
         @questions = display_following(@questions, "Question")
         @flagsorted = true
@@ -108,10 +103,9 @@ def filter
     
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
       @events = Event
-      if @most_popular != nil
-        @events = sort_by_popularity("Event", Time.now - 3600*30*24, @location_to_grab)
-        @flagsorted = true
-      end
+      @events = sort_by_popularity("Event", Time.now - 3600*30*24, @location_to_grab)
+      @flagsorted = true
+
       if @most_popular == nil
         @events = sort_by_location(distance, @location_to_grab, "Event", @events)
         @flagsorted = true
@@ -139,11 +133,10 @@ def filter
      end
      
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
-         @challenges = Challenge
-         if @most_popular != nil
-           @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, @location_to_grab)
-           @flagsorted = true
-         end
+        @challenges = Challenge
+        @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, @location_to_grab)
+        @flagsorted = true
+
          if @most_popular == nil
            @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
            @flagsorted = true
@@ -169,6 +162,12 @@ def filter
            @flagsorted = true
          end
       
+      end
+  
+      if @most_popular == nil
+        @questions.order("popularity DESC")
+        @challenges.order("popularity DESC")
+        @events.order("popularity DESC")
       end
   
      if @flagsorted == false
