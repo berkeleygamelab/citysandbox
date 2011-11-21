@@ -82,6 +82,7 @@ def filter
       end
       if @most_popular == nil
         @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
+        @flagsorted = true
       end
       if @followed != nil
         @questions = display_following(@questions, "Question")
@@ -113,6 +114,7 @@ def filter
       end
       if @most_popular == nil
         @questions = sort_by_location(distance, @location_to_grab, "Event", @events)
+        @flagsorted = true
       end
       if @followed != nil
          @events = display_following(@events, "Event")
@@ -144,6 +146,7 @@ def filter
          end
          if @most_popular == nil
            @questions = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
+           @flagsorted = true
          end
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
