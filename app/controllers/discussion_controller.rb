@@ -62,7 +62,9 @@ def filter
   @location_to_grab = params[:loc]
   dist = 10000
   if(@location_to_grab == nil)
-    @location_to_grab = current_user.location
+
+    temp = Geocoder.coordinates(current_user.location)
+    @location_to_grab = temp[0].to_s + " " + temp[1].to_s
   end
   @keyword = params[:keyword]
 
