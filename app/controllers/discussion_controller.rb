@@ -59,7 +59,9 @@ def filter
   @followed = params[:following]
   @followed_type = params[:followed_type]  
   @most_popular = params[:popular]
-
+  @location_to_grab = params[:loc]
+  if(@location_to_grab == nil)
+    @location_to_grab = current_user.location
   @keyword = params[:keyword]
 
   if (params[:follow] != nil)
@@ -376,8 +378,22 @@ def sort_by_popularity(type, time, location)
   end
 end
 
+def sort_by_location(distance, location, type, set)
+  if type == "Question"
+    dummy = Question.first
 
+  end
+  if type == "Challenge"
+    dummy = Challenge.first
 
+  end
+  if type == "Event"
+    dummy = Event.first
+   
+  end
+  max_to_grab = 1000
+  return dummy.sift_circle(distance, location, max_to_grab, set)
+end
 
 
 end

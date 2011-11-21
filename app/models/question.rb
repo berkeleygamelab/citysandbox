@@ -134,6 +134,20 @@
       return ::FT.execute "SELECT * FROM #{@questions_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'questions'"
     end
     
+    def sift_circle(distance, target_loc, number, set)
+      circles = grab_circle(distance, target_loc, number)
+      circles = retrieve_google_with_set(set, circles)
+      return circles
+    end
+    
+    def retrieve_google_with_set(set, db_return)
+      rtn = []
+      db_return.each do |x|
+        rtn += [x[:id]]
+      end
+      return set.followed(rtn)
+    end
+    
     def grab_rectangle(upper_right, lower_left)
       @questions_table = ENV['question_table']
       @upper_right_x = upper_right.split[0].to_f
@@ -150,6 +164,8 @@
       end
       return Question.followed(rtn)
     end
+    
+    
     
     def combine_google_filter(db_return, set)
       return set.where(:id => db_return)
