@@ -60,6 +60,7 @@ def filter
   @followed_type = params[:followed_type]  
   @most_popular = params[:popular]
   @location_to_grab = params[:loc]
+  DISTANCE = 10000
   if(@location_to_grab == nil)
     @location_to_grab = current_user.location
   @keyword = params[:keyword]
@@ -73,8 +74,11 @@ def filter
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       @questions = Question
       if @most_popular != nil
-        @questions = sort_by_popularity("Question", Time.now - 3600*30*24, "37.8 -122.5")
+        @questions = sort_by_popularity("Question", Time.now - 3600*30*24, @location_to_grab)
         @flagsorted = true
+      end
+      if @most_popular == nil
+        @questions = sort_by_location(DISTANCE, @location_to_grab, "Question", @questions)
       end
       if @followed != nil
         @questions = display_following(@questions, "Question")
@@ -101,8 +105,11 @@ def filter
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
       @events = Event
       if @most_popular != nil
-        @events = sort_by_popularity("Event", Time.now - 3600*30*24, "37.8 -122.5")
+        @events = sort_by_popularity("Event", Time.now - 3600*30*24, @location_to_grab)
         @flagsorted = true
+      end
+      if @most_popular == nil
+        @questions = sort_by_location(DISTANCE, @location_to_grab, "Event", @events)
       end
       if @followed != nil
          @events = display_following(@events, "Event")
@@ -129,8 +136,11 @@ def filter
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
          @challenges = Challenge
          if @most_popular != nil
-           @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, "37.8 -122.5")
+           @challenges = sort_by_popularity("Challenge", Time.now - 3600*30*24, @location_to_grab)
            @flagsorted = true
+         end
+         if @most_popular == nil
+           @questions = sort_by_location(DISTANCE, @location_to_grab, "Challenge", @challenges)
          end
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
