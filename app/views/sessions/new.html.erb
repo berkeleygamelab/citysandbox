@@ -28,7 +28,15 @@ $(window).load(function() {
 	$('#username').tbHinter({
 		text: '  User ID',
 		class: 'gray_text'
-	});	
+	});
+	$('#username').keydown(function(event) {
+		if (event.keyCode == '9') {
+			event.preventDefault();
+		    $('#password_clear').hide();
+		    $('#password_password').show();
+		    $('#password_password').focus();
+		}
+	});
 	$('#password_clear').tbHinter({
 		text: '  Password',
 		class: 'gray_text'
@@ -36,6 +44,17 @@ $(window).load(function() {
 	
 	$('#password_clear').show();
 	$('#password_password').hide();
+	
+	$('#password_password').keydown(function(event) {
+		if (event.keyCode == '9') {
+			event.preventDefault();
+		    if($('#password_password').val() == '') {
+		        $('#password_clear').show();
+		        $('#password_password').hide();
+		    }
+			$('#username').focus();
+		}
+	});
 
 	$('#password_clear').focus(function() {
 	    $('#password_clear').hide();

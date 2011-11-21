@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017000942) do
+ActiveRecord::Schema.define(:version => 20111121061511) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(:version => 20111017000942) do
     t.string   "email",           :limit => 75, :default => " ", :null => false
     t.string   "password_digest"
     t.string   "location"
+    t.string   "lat"
+    t.string   "lng"
   end
 
   create_table "voting_records", :force => true do |t|

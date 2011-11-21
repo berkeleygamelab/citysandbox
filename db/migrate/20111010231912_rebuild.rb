@@ -142,6 +142,8 @@ class Rebuild < ActiveRecord::Migration
       t.string     "email",           :limit => 75,  :default => " ", :null => false
       t.string   "password_digest"
       t.string   "location"
+      t.string "lat"
+      t.string "lng"
     end
 
     create_table "voting_records", :force => true do |t|

@@ -1,3 +1,39 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+
+   	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('user_location');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	if ($('#user_location').val() != '') {
+		center_map(2);
+	}
+
+
+	
+});
+
+	function center_map(value) {
+		var geocoder = new google.maps.Geocoder();
+		var address =  $('#user_location').val().replace(/[\t\n\r]/gi, "");
+		    geocoder.geocode( { 'address': address}, function(results, status) {
+		      if (status == google.maps.GeocoderStatus.OK) {
+
+				$('#user_lat').attr('value', results[0].geometry.location.lat());
+				$('#user_lng').attr('value', results[0].geometry.location.lng());
+		      }
+		});
+	}
+	</script>
+
 <%= form_for @user do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
@@ -10,6 +46,9 @@
     </div>
   <% end %>
    <%= f.text_field :login, :size => 18, :id=>'username_input', :class=>'formatted_input' %>
+	<%= f.hidden_field :lng %>
+	<%= f.hidden_field :lat %>
+
    <%= f.email_field :email, :size => 18, :id=>'email_input', :class=>'formatted_input' %>
    <%= f.password_field :password, :size => 18, :id=>'password_password', :class=>'formatted_input' %>
    <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_password', :class=>'formatted_input' %>
@@ -21,4 +60,3 @@
 		</span>
 	</div>
 <% end %>
-
