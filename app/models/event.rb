@@ -103,5 +103,20 @@ class Event < ActiveRecord::Base
        google_fetch = retrieve_google(google_set)
        return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
      end
+     
+      def sift_circle(distance, target_loc, number, set)
+         circles = grab_circle(distance, target_loc, number)
+         circles = retrieve_google_with_set(set, circles)
+         return circles
+       end
+
+       def retrieve_google_with_set(set, db_return)
+         rtn = []
+         db_return.each do |x|
+           rtn += [x[:id]]
+         end
+         return set.followed(rtn)
+       end
+     
    
 end
