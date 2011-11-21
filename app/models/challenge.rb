@@ -93,6 +93,13 @@ class Challenge < ActiveRecord::Base
    def grab_nearest_by_location(distance, loc)
      
    end
+   def grab_circle(distance, target_loc, number)
+     @challenges_table = ENV['csb_locations']
+     @loc_x = target_loc.split[0].to_f
+     @loc_y = target_loc.split[1].to_f
+     puts distance
+     return ::FT.execute "SELECT * FROM #{@challenges_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'challenges'"
+   end
    
    def most_popular_proposal
      my_proposals = proposals
