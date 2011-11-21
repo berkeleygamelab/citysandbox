@@ -16,7 +16,7 @@ gem 'crack'
 gem 'httparty'
 gem 'thin'
 gem 'therubyracer'
-
+gem 'geocoder'
 gem 'fleakr'
 
 # Gems used only for assets and not required

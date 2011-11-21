@@ -55,6 +55,7 @@ GEM
     fusion_tables (0.3.1)
       gdata_19 (>= 1.1.2)
     gdata_19 (1.1.3)
+    geocoder (1.0.5)
     georuby (1.9.3)
     hike (1.2.1)
     hpricot (0.8.4)
@@ -142,6 +143,7 @@ DEPENDENCIES
   crack
   fleakr
   fusion_tables
+  geocoder
   georuby
   httparty
   jquery-rails
@@ -154,4 +156,3 @@ DEPENDENCIES
   turn
   uglifier
   will_paginate (~> 3.0.2)
-

@@ -20,8 +20,13 @@ ENV['followed_value'] = 2.to_s
 ENV['flickr_key'] = '1228cbd1e0d67c0e3bf5715d576c0e12'
 ENV['flickr_secret'] = '2b99455c7381e96e'
 ENV['token_cache'] = "token_cache.yml"
+ENV['auth_token'] = '72157628078360977-05a6db370fe2959b'
 
 @why_not_global = 2
+
+Fleakr.api_key = ENV['flickr_key']
+Fleakr.shared_secret = ENV['flickr_secret']
+Fleakr.auth_token = ENV['auth_token']
 
 
 
