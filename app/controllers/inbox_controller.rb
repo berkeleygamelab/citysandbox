@@ -1,8 +1,6 @@
 class InboxController < ApplicationController
   def respond
-    
-      @message = current_user.message_copys[params[:message_id].to_i].message
-
+    @message = current_user.message_copys.find(params[:id].to_i).message
   end
   def index
     @messages = current_user.message_copys

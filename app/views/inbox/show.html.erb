@@ -30,11 +30,13 @@
 	 <%=h x.message.user.login %>
 	</td>	
 	<td>
-		<%= link_to 'Reply', 'inbox/new/1' %>
+		<%= link_to 'Reply', reply_path(x.id) %>
 	</td>
   </tr>
 <% end %>
 </table>
 <br>
-<%= link_to 'Send a message', '/messages/new', :class=>'black_link' %>
+<%= link_to 'Compose message', messages_new_path, :class=>'black_link' %>
+<br>
+<%= link_to 'Sent messages', messages_sent_path, :class=>'black_link' %>
 </div>

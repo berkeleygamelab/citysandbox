@@ -51,7 +51,7 @@ Citysandbox::Application.routes.draw do
   match "messages/create" => "inbox#create"
   
   # match "users/inbox/new" => "inbox#new"
-  match "users/inbox/reply" => "inbox#respond"
+  match "messages/reply/:id" => "inbox#respond", :as => :reply
   
   resources :users, :messages,  :inbox
   
