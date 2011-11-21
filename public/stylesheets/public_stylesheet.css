@@ -393,3 +393,7 @@ footer a {
 	margin-left:140px;
 	margin-top:10px;
 }
+
+.user_avatar {
+	vertical-align: middle;
+}
