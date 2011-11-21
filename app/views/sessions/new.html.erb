@@ -23,6 +23,7 @@ $(window).load(function() {
 		$('#username').center(400 + $('#username').outerHeight());
 		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 20);
 		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 20);
+		$('.splash_logo').css('display', 'none');
 	}
 	
 	$('#username').tbHinter({
@@ -72,7 +73,7 @@ $(window).load(function() {
 </script>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
-<%= image_tag "../images/splash_logo_temp.png", :class=>'splash_logo' %>
+<%= image_tag "splash_logo.png", :class=>'splash_logo' %>
 
 <input id="password_clear" type="text" size="18" class='formatted_input gray_text'/>
 
