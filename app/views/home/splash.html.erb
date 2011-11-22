@@ -19,7 +19,6 @@ function center_elements() {
 	$('#city_input').css('position', 'absolute');
 	$('#city_input').css('left', $('.splash_title').position().left + 85 + 'px');
 	$('#city_input').css('top', $('.splash_logo').position().top + 300 + 'px');
-	$('.splash_logo').css('display', 'none');
 }
 
 $(window).load(function() {
@@ -52,7 +51,7 @@ $(window).load(function() {
 </script>
 <%= image_tag "splash_box.png", :class=>'splash_box' %>
 <%= image_tag "splash_title.png", :class=>'splash_title' %>
-<%= image_tag "splash_logo.png", :class=>'splash_logo' %>
+<%= image_tag asset_path('splash_logo.png'), :class=>'splash_logo' %>
 
 <%= form_tag("/map", :method => "index") do %>
   <%= text_field_tag(:city_input, '', :size=>'18') %>
