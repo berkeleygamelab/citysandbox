@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121061511) do
+ActiveRecord::Schema.define(:version => 20111123093546) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20111121061511) do
     t.string   "location"
     t.integer  "categories_id"
     t.integer  "popularity",                          :default => 0
+    t.datetime "most_recent",                         :default => '2011-11-23 09:43:05'
   end
 
   create_table "events", :force => true do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20111121061511) do
     t.integer  "categories_id"
     t.integer  "challenge_id"
     t.integer  "popularity",    :default => 0
+    t.datetime "most_recent",   :default => '2011-11-23 09:43:05'
   end
 
   create_table "folders", :force => true do |t|
@@ -118,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20111121061511) do
     t.string   "description"
     t.integer  "categories_id"
     t.integer  "popularity",                    :default => 0
+    t.datetime "most_recent",                   :default => '2011-11-23 09:43:05'
   end
 
   create_table "response_challenges", :force => true do |t|
