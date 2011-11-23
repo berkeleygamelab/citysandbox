@@ -51,7 +51,7 @@ def filter
   @category_type = params[:category]
   @type_of_stuff = params[:types]
   @title = params[:title]
-  @days = params[:timeBefore]
+  @months = params[:timeBefore]
     
   @events = []
   @questions = []
