@@ -65,6 +65,7 @@ def filter
   @location_to_grab = params[:loc]
   @target_user = params[:by_user]
   distance = 10000
+  
   if(@location_to_grab == nil)
     if !current_user.nil?
       temp = Geocoder.coordinates(current_user.location)
@@ -107,7 +108,7 @@ def filter
         @flagsorted = true
       end
       if @target_user != nil
-        @questions = sort_by_user("Question", @target_user)
+        @questions = sort_by_user(@questions, @target_user)
         @flagsorted = true
       end
     end
@@ -139,7 +140,7 @@ def filter
           @flagsorted = true
         end
         if @target_user != nil
-          @questions = sort_by_user("Event", @target_user)
+          @events = sort_by_user(@events, @target_user)
           @flagsorted = true
         end
      end
@@ -170,7 +171,7 @@ def filter
            @flagsorted = true
          end
          if @target_user != nil
-           @questions = sort_by_user("Challenge", @target_user)
+           @challenges = sort_by_user(@challenges, @target_user)
            @flagsorted = true
          end
       end
@@ -441,15 +442,7 @@ def sort_by_location(distance, location, type, set)
 end
 
 def sort_by_user(set, user)
-  if set == "Question"
-    return Question.where(:user_id => user)
-  end
-  if set == "Challenge"
-    return Challenge.where(:user_id => user)
-  end
-  if set == 'Event'
-    return Event.where(:user_id => user)
-  end
+  return set.where(:user_id => user)
 end
 
 end

@@ -19,6 +19,9 @@
    <%= f.password_field :password, :size => 18, :id=>'password_password', :class=>'formatted_input' %>
    <%= f.password_field :password_confirmation, :size => 18, :id=>'re_password_password', :class=>'formatted_input' %>
    <%= f.text_field :location, :size => 18, :id=>'location_input', :class=>'formatted_input', :placeholder=>'' %>
+   		<% fields_for :image do |image| %>
+		<%= image.file_field :file_data, :size => 20  %>
+		<% end %>
 	<div id="links">
 		<%=link_to "Cancel", home_splash_path %>
 		<span class="formatted_button">
