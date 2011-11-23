@@ -63,12 +63,12 @@ class Challenge < ActiveRecord::Base
 
    def fetch_location
      @challenges_table = ENV['csb_locations']
-     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE id = #{id} AND Origin = 'challenges'"
+     return ::FT.execute "SELECT Location FROM #{@challenges_table} WHERE ID = #{id} AND Origin = 'challenges'"
    end    
 
    def update_location(loc)
      @challenges_table = ENV['csb_locations']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE id = #{id} AND Origin = 'challenges'"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@challenges_table} WHERE ID = #{id} AND Origin = 'challenges'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end

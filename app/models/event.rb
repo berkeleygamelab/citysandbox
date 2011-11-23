@@ -62,12 +62,12 @@ class Event < ActiveRecord::Base
    
    def fetch_location
      @events_table = ENV['csb_locations']
-     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE id = #{id} AND Origin = 'events'"
+     return ::FT.execute "SELECT Location FROM #{@events_table} WHERE ID = #{id} AND Origin = 'events'"
    end    
 
    def update_location(loc)
      @events_table = ENV['csb_locations']
-     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE id = #{id} AND Origin = 'events'"
+     @quest_dummy = ::FT.execute "SELECT rowid FROM #{@events_table} WHERE ID = #{id} AND Origin = 'events'"
      if @quest_dummy[0] == nil
        return insert_location(loc)
      end
@@ -85,7 +85,7 @@ class Event < ActiveRecord::Base
      @events_table = ENV['csb_locations']
      @loc_x = target_loc.split[0].to_f
      @loc_y = target_loc.split[1].to_f
-     puts distance
+
      return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'events'"
    end
    
