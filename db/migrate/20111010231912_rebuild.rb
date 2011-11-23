@@ -17,6 +17,7 @@ class Rebuild < ActiveRecord::Migration
       t.integer  "user_id"
       t.string   "location"
       t.integer  "categories_id"
+          t.datetime "update_time", :default => Time.now
       t.integer  "popularity",                          :default => 0
     end
 
@@ -30,6 +31,7 @@ class Rebuild < ActiveRecord::Migration
       t.datetime "time"
       t.integer  "categories_id"
       t.integer  "challenge_id"
+          t.datetime "update_time", :default => Time.now
       t.integer  "popularity",    :default => 0
     end
 
@@ -105,6 +107,7 @@ class Rebuild < ActiveRecord::Migration
       t.string   "description"
       t.integer  "categories_id"
       t.integer  "popularity",                    :default => 0
+      t.datetime "update_time", :default => Time.now
     end
 
     create_table "response_challenges", :force => true do |t|
