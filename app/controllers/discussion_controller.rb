@@ -8,6 +8,9 @@ end
 respond_to :json
 
 def summary
+  
+  @city = params[:city_input]
+  
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0
@@ -64,7 +67,10 @@ def filter
   distance = 10000
   
   if(@location_to_grab == nil)
-    @location_to_grab = current_user.location
+    if !current_user.nil?
+      temp = Geocoder.coordinates(current_user.location)
+      @location_to_grab = temp[0].to_s + " " + temp[1].to_s
+    end
   end
   temp = Geocoder.coordinates(@location_to_grab)
    @location_to_grab = temp[0].to_s + " " + temp[1].to_s

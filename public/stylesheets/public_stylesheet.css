@@ -397,3 +397,12 @@ footer a {
 .user_avatar {
 	vertical-align: middle;
 }
+#summary_city {
+	padding: 25px;
+}
+#summary_city input {
+	border:0;
+	background-color: #DDDDDD;
+	font-size:20px;
+	box-shadow: none;
+}

@@ -126,7 +126,7 @@ function formatTitle() {
 <div id='content'>
 <div id='user_sidebar'>
 	<% if @question.anonymous != 1 %>
-		<b>About <%= @question.user.login %> </b>
+		<b>About <a href='/users/profile/<%= @question.user.id %>' class='black_link'><%= @question.user.login %></a> </b>
 		<br>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
 		<%= @question.user.picture %> 
@@ -142,6 +142,8 @@ function formatTitle() {
 		<br>
 		<!--<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
 		<br>-->
+		<b><a href='/messages/send_to/<%=@question.user.id%>' class='black_link'>Send Message</a></b>
+		<br>
 		<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
 		<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 	<% end %>

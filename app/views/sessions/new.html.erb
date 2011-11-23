@@ -18,11 +18,11 @@ $(window).load(function() {
 		$('.splash_box').center(10);
 	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
 		$('.splash_title').center(20);
-		$('.splash_logo').center(150);
-		$('#links').center(550);
-		$('#username').center(400 + $('#username').outerHeight());
-		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 20);
-		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 20);
+		$('.splash_logo').center(200);
+		$('#links').center(570);
+		$('#username').center(420 + $('#username').outerHeight());
+		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 40);
+		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 40);
 	}
 	
 	$('#username').tbHinter({
@@ -72,7 +72,7 @@ $(window).load(function() {
 </script>
 <%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
 <%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
-<%= image_tag "../images/splash_logo.png", :class=>'splash_logo' %>
+<%= image_tag "splash_logo.png", :class=>'splash_logo', :size=>'250x250' %>
 
 <input id="password_clear" type="text" size="18" class='formatted_input gray_text'/>
 

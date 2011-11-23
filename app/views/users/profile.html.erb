@@ -1,0 +1,196 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#unfollow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @user.id %>';
+		params['type'] = 'User';
+		$.get('/unfollow', params);
+		$('#unfollow_user').hide();
+		$('#follow_user').show();
+	});
+	
+	$('#follow_user').click(function(){
+		var params = {};
+		params['item_to_follow'] = '<%= @user.id %>';
+		params['type'] = 'User';
+		$.get('/follow', params);
+		$('#follow_user').hide();
+		$('#unfollow_user').show();
+	});
+
+	if ('<%= @followed %>' == 'true') {
+		$('#follow').hide();
+	} else {
+		$('#unfollow').hide();
+	}
+	if ('<%= @followed_user %>' == 'true') {
+		$('#follow_user').hide();
+	} else {
+		$('#unfollow_user').hide();
+	}
+
+	var params = {};
+	params['by_user'] = '<%= @user.id%>';
+	//params['types'] = ['Questions', 'Challenges', 'Events'];
+	$.get('/filter', params, function(data) {
+		populate_content(data);
+	});
+
+	$(window).resize(function() {
+			$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+			$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
+			$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+			$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
+		});
+		
+		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
+		$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
+		$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
+});
+function follow_unfollow(id, type, follow) {
+	var params = {};
+	if (follow) {
+		params['follow'] = id;
+	} else {
+		params['unfollow'] = id;	
+	}
+	params['itemz'] = type;
+	ajax_call(params);
+}
+function draw_maps() {
+	$('.entry_map img').each( function(index) {
+		var address = $('#entry_address' + index).val().replace(/[\t\n\r\s]/gi, "+");
+		
+		var icon_url = '';
+		if ($('#entry_type' + index).val() == 'Question') {
+			icon_url = 'http://i41.tinypic.com/ajvugz.png';
+		} else if ($('#entry_type' + index).val() == 'Challenge') {
+				icon_url = 'http://i41.tinypic.com/23tsbqe.png';
+		} else if ($('#entry_type' + index).val() == 'Event') {
+			icon_url = 'http://i43.tinypic.com/2rhycjk.png';
+		}
+
+		$(this).attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:' + icon_url + '%7C' + address+'&sensor=false');
+	});
+}
+
+function populate_content(content) {
+	html_string = '';
+	if (content.length == 0) {
+		html_string += '<div class="individual">' 
+			+ '<%= @user.login %> has not posted anything yet!' 
+			+ '</div>';
+	}
+	else {
+		$.each(content, function (index, entry) {
+			if (entry['type'] == 'Question') {
+				html_string += '<div class="entry_main question_entry">';
+			} else if (entry['type'] == 'Challenge') {
+				html_string += '<div class="entry_main challenge_entry">';
+			} else if (entry['type'] == 'Event') {
+				html_string += '<div class="entry_main event_entry">';
+			}
+			html_string	+= '<div class="entry_author">';
+			if (entry['type'] == 'Question') {
+				if (entry['entry']['anonymous'] == 1) {
+					html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %>'
+						+ '<br>Anonymous<br>';
+				} else {
+					html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
+					+ entry['login'] + '<br>';
+				}
+			} else {
+				html_string += '<%= image_tag "../images/default_avatar.png", :class=>"user_avatar", :size=>"60x60", :alt => "User avatar" %><br>'
+				+ entry['login'] + '<br>';
+			}
+			html_string += entry['created_at']+ '<br></div>';
+			var address = entry['address'].replace(/[\t\n\r\s]/gi, " ");
+			html_string += '<div class="entry_map"><img src="http://maps.googleapis.com/maps/api/staticmap?center='+address+'&zoom=14&size=130x130&markers=icon:%7C' + address+'&sensor=false"></div>';		
+			html_string += '<input type="hidden" value="' + address + '" name="entry_address' + index + '" id="entry_address' + index +'">';
+			html_string += '<input type="hidden" value="' + entry['type'] + '" name="entry_type' + index + '" id="entry_type' + index +'">';
+			html_string += '<div class="entry_title"><b>'
+			link_to_entry = '/' + entry['type'].toLowerCase() + 's/' + entry['id'];
+			html_string += '<a class="black_link" href="' + link_to_entry + '">' + entry['entry']['title'] + '</a></b></div>';
+			html_string += '<div class="category_share">' + entry['category'] + ' | ';
+			current_user ='<%= current_user %>';
+			if (current_user == '') {
+				html_string += '<a href="/login" class="black_link"> Share </a> | ';
+			} else {
+				html_string += '<a href="mailto:?subject=[City%20Sandbox]%20' + entry['current_user'] + '%20has%20shared%20a%20link%20with%20you!&body=' + entry['url'] + '" class="black_link" id="share"> Share </a> | ';
+			}
+			html_string += '<a href="/qr?format=' + entry['url'] +'" class="iframe black_link">QR</a> | ';
+			if (entry['followed']) {
+				html_string	+= '<a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></div>';	
+			} else {
+				html_string	+= '<a class="black_link follow" id="follow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Follow</a></div>';		
+			}
+			if (entry['type'] == 'Question' && entry['latest_response']) {
+				html_string +='<div class="latest_response"><i>Latest Response: </i>' + entry['latest_response'] + '</div>';
+			}
+			if (entry['type'] == 'Challenge') {
+				if (entry['description'].length > 0) {
+					html_string +='<div class="latest_response">' + entry['description'] + '</div>';
+				}
+				html_string += '<div id="challenge_dates"><ul><li><b> Submission Deadline: </b>' + entry['submission_deadline'] + '</li>'
+					+ '<li><b> Vote Deadline: </b>' + entry['vote_deadline'] + ' </li></ul></div>';
+			}
+			if (entry['type'] == 'Event') {
+				html_string += '<div id="challenge_dates"><ul><li><b>Submission Deadline: </b>' + entry['date'] + '</li></ul></div>';
+			}
+			html_string += '<div class="entry_stats"><ul>';
+			
+			$.each(entry['stats'], function(key, value) {
+				html_string += '<li>' + value + ' ' + key;
+				html_string += (value == 1) ? '</li>' : 's</li>';
+			});
+			html_string += '</ul></div></div><br>';
+		});
+	}
+	$('#main_content').html(html_string);
+	
+	$('.follow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, true);
+	});
+	
+	$('.unfollow').click(function() {
+		var name = $(this).attr('name');
+		var id = name.substring(0, name.indexOf('+'));
+		var type = name.substring(name.indexOf('+') + 1);
+		follow_unfollow(id, type, false);
+	});
+	draw_maps();
+}
+
+</script>
+<div id='content'>
+	<div id='user_sidebar'>
+		<b>About <%= @user.login %> </b>
+		<br>
+		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
+		<%= @user.picture %> 
+		<br>
+		<b>Joined:</b> <%= @user.created_at.strftime("%Y %b %d")%>
+		<br>
+		<b>Questions:</b> <%= @user.questions.length %>
+		<br>
+		<b>Responses:</b> <%= @user.response_questions.length + @user.response_challenges.length + @user.response_events.length %>
+		<br>
+		<b>Challenges:</b> <%= @user.challenges.length %>
+		<br>
+		<br>
+		<!--<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
+		<br>-->
+		<b><a href='/messages/send_to/<%=@user.id%>' class='black_link'>Send Message</a></b>
+		<br>
+		<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
+		<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
+	</div>
+<div id='main_content'>
+</div>
+</div>
