@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    picturePotential = upload_image(params[:user][:picture])
-    params[:user][:picture] = picturePotential[0].url
+    #picturePotential = upload_image(params[:user][:picture])
+   # params[:user][:picture] = picturePotential[0].url
 
     @user = User.new(params[:user])
     if(@user.location != nil)
@@ -19,8 +19,8 @@ class UsersController < ApplicationController
       @user.lng = a[1].to_s
     end
     if @user.save
-      @user.picture = picturePotential[0].url
-      @user.save
+     # @user.picture = picturePotential[0].url
+      #@user.save
       redirect_to new_session_path
     else
       render "new"
