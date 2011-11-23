@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    upload_image(params[:user][:img])
     @user = User.new(params[:user])
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
@@ -63,9 +64,9 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
-  def upload_image(user)
-    puts @user.img
-    @user.img
+  def upload_image(img)
+    puts img
+    Fleakr.upload(img)
 
   end
 end
