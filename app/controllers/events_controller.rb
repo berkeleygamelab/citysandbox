@@ -43,6 +43,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        @temp = Geocoder.coordinates(@event.location)
+        @event.lat = @temp[0]
+        @event.lng = @temp[1] 
         @event.insert_location(@event.lat + ', ' + @event.lng)
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }

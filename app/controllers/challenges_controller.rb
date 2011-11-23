@@ -70,6 +70,9 @@ class ChallengesController < ApplicationController
 
     respond_to do |format|
       if @challenge.save
+        @temp = Geocoder.coordinates(@challenge.location)
+        @challenge.lat = @temp[0]
+        @challenge.lng = @temp[1]
         @challenge.insert_location(@challenge.lat + ', ' + @challenge.lng)
         format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
         format.json { render json: @challenge, status: :created, location: @challenge }
