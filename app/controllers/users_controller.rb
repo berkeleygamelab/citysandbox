@@ -66,6 +66,7 @@ class UsersController < ApplicationController
   
   def upload_image(img)
     puts img
+    puts "attempting to do shit with the image"
     Fleakr.upload(img.tempfile)
 
   end
