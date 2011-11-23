@@ -109,7 +109,7 @@ function formatTitle() {
 </style>
 <div id='content'>
 <div id='user_sidebar'>
-	<b>About <%= @event.user.login %> </b>
+	<b>About <a href='/users/profile/<%= @event.user.id %>' class='black_link'><%= @event.user.login %></a> </b>
 	<br>
 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
 	<%= @event.user.picture %> 

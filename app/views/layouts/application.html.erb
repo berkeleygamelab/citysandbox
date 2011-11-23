@@ -28,8 +28,10 @@ html {
    <div id="container">
 	<% if params[:controller] != "home" && params[:controller] != 'users' && params[:controller] != 'sessions' && params[:action] != 'qr' %>
  		<%= render :partial => 'layouts/navbar' %>
+	<% elsif params[:controller] == 'users' && params[:action] == 'profile' %>
+		<%= render :partial => 'layouts/navbar' %>
  	<% end %>
-	
+		
 	<%= yield %>
    </div>
 </div>

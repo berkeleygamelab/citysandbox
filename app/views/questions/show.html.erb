@@ -126,7 +126,7 @@ function formatTitle() {
 <div id='content'>
 <div id='user_sidebar'>
 	<% if @question.anonymous != 1 %>
-		<b>About <%= @question.user.login %> </b>
+		<b>About <a href='/users/profile/<%= @question.user.id %>' class='black_link'><%= @question.user.login %></a> </b>
 		<br>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
 		<%= @question.user.picture %> 

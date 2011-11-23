@@ -49,6 +49,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def profile
+    @user = User.find(params[:id])
+    @followed_user = current_user.followed_users.where(:followed_user_id => @user_id).size != 0
+  end
+  
   respond_to :json
   
   def recent

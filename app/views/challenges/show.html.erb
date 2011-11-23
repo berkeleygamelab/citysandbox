@@ -193,7 +193,7 @@ function get_count(){
 </style>
 <div id='content'>
 <div id='user_sidebar'>
-	<b>About <%= @challenge.user.login %> </b>
+	<b>About <a href='/users/profile/<%= @challenge.user.id %>' class='black_link'><%= @challenge.user.login %></a></b>
 	<br>
 	<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
 	<%= @challenge.user.picture %> 
