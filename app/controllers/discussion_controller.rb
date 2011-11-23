@@ -77,7 +77,7 @@ def filter
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
       @questions = Question
       @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
-      @flagsorted = true
+   
       
       if @followed != nil
         @questions = display_following(@questions, "Question")
@@ -105,7 +105,7 @@ def filter
       @events = Event
 
         @events = sort_by_location(distance, @location_to_grab, "Event", @events)
-        @flagsorted = true
+
 
       if @followed != nil
          @events = display_following(@events, "Event")
@@ -132,7 +132,7 @@ def filter
      if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
         @challenges = Challenge
            @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
-           @flagsorted = true
+          
          
          if @followed != nil
             @challenges = display_following(@challenges, "Challenge")
@@ -157,7 +157,8 @@ def filter
       
       end
   
-      if @most_popular == nil
+      if @most_popular != nil
+        @flagsorted = true
         @questions = @questions.order("popularity DESC")
         @challenges = @challenges.order("popularity DESC")
         @events = @events.order("popularity DESC")
@@ -270,9 +271,12 @@ def filter
         end
         @collection = @collection + [entry]
       }
-      
-      @collection.sort!{|a,b| b['entry'].popularity <=> a['entry'].popularity}
-      
+      if @most_popular == nil
+        @collection.sort!{|a,b| b['entry'].updated_at <=> a['entry'].updated_at}
+      end
+      if @most_popular != nil
+        @collection.sort!{|a,b| b['entry'].popularity <=> a['entry'].popularity}
+      end
       respond_with(@collection)
 end
 
