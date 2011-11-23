@@ -97,6 +97,9 @@ $(document).ready( function() {
 		});	
 	});
 	
+	$('#event_location').attr('value', address);
+	$('#event_categories_id').attr('value', '<%= @challenge.categories_id %>');
+	
 	$(window).resize(function() {
 		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
 		$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
