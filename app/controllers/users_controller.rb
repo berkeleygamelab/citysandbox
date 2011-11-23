@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   
   def upload_image(img)
     puts img
-    Fleakr.upload(img)
+    Fleakr.upload(img.tempfile)
 
   end
 end
