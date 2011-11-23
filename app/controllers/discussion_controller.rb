@@ -60,6 +60,7 @@ def filter
   @followed_type = params[:followed_type]  
   @most_popular = params[:popular]
   @location_to_grab = params[:loc]
+  @target_user = params[:by_user]
   distance = 10000
   if(@location_to_grab == nil)
 
@@ -99,6 +100,10 @@ def filter
         @questions = sort_by_keyword(@questions, @keyword)
         @flagsorted = true
       end
+      if @target_user != nil
+        @questions = sort_by_user("Question", @target_user)
+        @flagsorted = true
+      end
     end
     
     if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
@@ -125,6 +130,10 @@ def filter
        end
        if @keyword != nil
           @events = sort_by_keyword(@events, @keyword)
+          @flagsorted = true
+        end
+        if @target_user != nil
+          @questions = sort_by_user("Event", @target_user)
           @flagsorted = true
         end
      end
@@ -154,7 +163,10 @@ def filter
            @challenges = sort_by_keyword(@challenges, @keyword)
            @flagsorted = true
          end
-      
+         if @target_user != nil
+           @questions = sort_by_user("Challenge", @target_user)
+           @flagsorted = true
+         end
       end
   
       if @most_popular != nil
@@ -164,20 +176,6 @@ def filter
         @events = @events.order("popularity DESC")
       end
   
-     if @flagsorted == false
-       @questions = []
-       @challenges = []
-       @events = []
-       if(@type_of_stuff.find_index("Questions") != nil or @type_of_stuff == nil)
-         @questions = Question.find(:all)
-       end
-       if(@type_of_stuff.find_index("Challenges") != nil  or @type_of_stuff == nil)
-         @challenges = Challenge.find(:all)
-       end
-       if(@type_of_stuff.find_index("Events") != nil  or @type_of_stuff == nil)
-         @events = Event.find(:all)
-       end
-     end
      
       @collection = []
       @questions.each{ |x| 
@@ -410,6 +408,17 @@ def sort_by_location(distance, location, type, set)
   return dummy.sift_circle(distance, location, max_to_grab, set)
 end
 
+def sort_by_user(set, user)
+  if set == "Question"
+    return Question.where(:user => user)
+  end
+  if set == "Challenge"
+    return Challenge.where(:user => user)
+  end
+  if set == 'Event'
+    return Event.where(:user => user)
+  end
+end
 
 end
 

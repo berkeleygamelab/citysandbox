@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
     if(login.strip != login)
       errors.add(:login, "login can't start or end with blank spaces")
     end
+    if(login.split.size != 1)
+      errors.add(:login, "login can't have any spaces in it")
+    end
   end
   #has the given user link to this user
   def follow_this_user(follow_user)
