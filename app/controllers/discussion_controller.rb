@@ -289,7 +289,7 @@ end
 
 def sort_by_timestamp(set, num_days)
   timestamp = Time.now - num_days*60*60*24
-  return set.where("updated_at > ?", timestamp)
+  return set.where("updated_at > '#{timestamp}'")
 end
 
 def follow
