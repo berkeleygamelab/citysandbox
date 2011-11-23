@@ -171,18 +171,18 @@ def filter
   
       if @most_popular != nil
         @flagsorted = true
-        if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+        if(@type_of_stuff != nil and @type_of_stuff.find_index("Challenges") == nil)
           @questions = @questions.order("popularity DESC")
         else
           @questions = []
         end
-         if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+         if(@type_of_stuff != nil or @type_of_stuff.find_index("Challenges") == nil)
            @challenges = @challenges.order("popularity DESC")
          else
            @challenges = []
          end
 
-         if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+         if(@type_of_stuff != nil or @type_of_stuff.find_index("Challenges") == nil)
            @events = @events.order("popularity DESC")
          else
            @events= []
