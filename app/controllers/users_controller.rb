@@ -19,7 +19,6 @@ class UsersController < ApplicationController
       @user.lng = a[1].to_s
     end
     if @user.save
-      upload_image(@user)
       redirect_to new_session_path
     else
       render "new"
@@ -69,7 +68,11 @@ class UsersController < ApplicationController
   def upload_image(img)
     puts img
     puts "attempting to do shit with the image"
-    return Fleakr.upload(img.tempfile)
-
+    if img != nil
+      return Fleakr.upload(img.tempfile)
+    else
+      return [{:url => nil}]
+    end
+    
   end
 end
