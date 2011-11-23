@@ -410,13 +410,13 @@ end
 
 def sort_by_user(set, user)
   if set == "Question"
-    return Question.where(:user => user)
+    return Question.where(:user_id => user)
   end
   if set == "Challenge"
-    return Challenge.where(:user => user)
+    return Challenge.where(:user_id => user)
   end
   if set == 'Event'
-    return Event.where(:user => user)
+    return Event.where(:user_id => user)
   end
 end
 
