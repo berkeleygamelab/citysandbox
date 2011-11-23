@@ -1,3 +1,5 @@
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready( function() {
 	$('#filters').stickySidebar();
@@ -5,7 +7,32 @@ $(document).ready( function() {
 	$('#tabs ul').idTabs();
 	
 	var params = {};
-	ajax_call(params);
+	if ('<%= current_user %>' == '') {
+		html_string = "<div id='summary_city'><input type='text' class='textbox' id='city_input' size='30'></div>";
+		$('#main_content').html(html_string);
+		
+		var defaultBounds = new google.maps.LatLngBounds(
+		  new google.maps.LatLng(-33.8902, 151.1759),
+		  new google.maps.LatLng(-33.8474, 151.2631));
+		var input = document.getElementById('city_input');
+		var options = {
+		  bounds: defaultBounds,
+		  types: ['geocode']
+		};
+
+		autocomplete = new google.maps.places.Autocomplete(input, options);
+		
+		$('#city_input').bind('keypress', function(e) {
+			if (e.keyCode == 13) {
+				loc = $('#city_input').val();
+				$('#summary_city').hide();
+				params['loc'] = loc;
+				ajax_call(params);
+			}
+		});
+	} else {
+		ajax_call(params);	
+	}
 
 	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
