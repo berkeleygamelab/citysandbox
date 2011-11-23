@@ -125,6 +125,8 @@ function formatTitle() {
 	<br>
 	<!--<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
 	<br>-->
+	<b><a href='/messages/send_to/<%=@event.user.id%>' class='black_link'>Send Message</a></b>
+	<br>
 	<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
 	<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 </div>

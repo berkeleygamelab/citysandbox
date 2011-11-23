@@ -38,5 +38,7 @@ class InboxController < ApplicationController
     msg.destroy
   end
   
-  
+  def send_to
+    @to = params[:id]
+  end
 end
