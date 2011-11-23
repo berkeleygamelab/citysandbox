@@ -63,10 +63,11 @@ def filter
   @target_user = params[:by_user]
   distance = 10000
   if(@location_to_grab == nil)
-
-    temp = Geocoder.coordinates(current_user.location)
-    @location_to_grab = temp[0].to_s + " " + temp[1].to_s
+    @location_to_grab = current_user.location
+ 
   end
+  temp = Geocoder.coordinates(@location_to_grab)
+   @location_to_grab = temp[0].to_s + " " + temp[1].to_s
   @keyword = params[:keyword]
 
   if (params[:follow] != nil)
