@@ -192,5 +192,6 @@
         google_fetch = retrieve_google(google_set)
         return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
       end
+      
 end
 

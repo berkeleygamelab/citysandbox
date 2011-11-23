@@ -1,0 +1,59 @@
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Rebuild (20111010231912)
+  [1m[35m (0.3ms)[0m  CREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "question_id" integer, "description" varchar(1600), "created_at" datetime, "updated_at" datetime, "title" varchar(255), "submission_deadline" datetime, "vote_deadline" datetime, "user_id" integer, "location" varchar(255), "categories_id" integer, "popularity" integer DEFAULT 0) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "title" varchar(255), "user_id" integer, "location" varchar(255), "description" varchar(255), "time" datetime, "categories_id" integer, "challenge_id" integer, "popularity" integer DEFAULT 0) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "folders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "parent_id" integer, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "followed_challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "challenge_id" integer NOT NULL, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "followed_events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "event_id" integer NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "followed_questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "question_id" integer NOT NULL, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "followed_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "followed_user_id" integer NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "message_copies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "message_id" integer, "user_id" integer, "folder_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "subject" varchar(255), "body" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "proposals" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "challenge_id" integer NOT NULL, "title" varchar(255) NOT NULL, "description" varchar(1600) NOT NULL, "rating" integer DEFAULT 0 NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "title" varchar(255), "location" varchar(1600), "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0, "description" varchar(255), "categories_id" integer, "popularity" integer DEFAULT 0) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "response_challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "challenge_id" integer NOT NULL, "user_id" integer NOT NULL, "response" varchar(1600) NOT NULL, "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "response_events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "event_id" integer NOT NULL, "user_id" integer NOT NULL, "response" varchar(1600) NOT NULL, "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "response_questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "question_id" integer NOT NULL, "user_id" integer NOT NULL, "response" varchar(1600) NOT NULL, "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(75) NOT NULL, "picture" varchar(255), "created_at" datetime, "updated_at" datetime, "email" varchar(75) DEFAULT ' ' NOT NULL, "password_digest" varchar(255), "location" varchar(255), "lat" varchar(255), "lng" varchar(255)) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "voting_records" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "created_at" datetime, "updated_at" datetime, "proposal_id" integer) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111010231912')[0m
+Migrating to PopulateCategories (20111017000942)
+  [1m[35mSQL (47.6ms)[0m  INSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)  [["category", "Commerce"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["category", "Dignity & Rights"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)  [["category", "Health & Safety"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["category", "History"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)  [["category", "Kids & Education"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["category", "Public Space"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "categories" ("category", "created_at", "updated_at") VALUES (?, ?, ?)  [["category", "Transportation"], ["created_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00], ["updated_at", Wed, 23 Nov 2011 09:43:05 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111017000942')[0m
+Migrating to AddUserLatLng (20111121061511)
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20111121061511')
+Migrating to AdjustQuestions (20111123093546)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "questions" ADD "most_recent" datetime DEFAULT '2011-11-23 09:43:05.844737'[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "challenges" ADD "most_recent" datetime DEFAULT '2011-11-23 09:43:05.845431'
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "events" ADD "most_recent" datetime DEFAULT '2011-11-23 09:43:05.845842'[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20111123093546')
+  [1m[36m (0.4ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("categories")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("challenges")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("events")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("folders")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("followed_challenges")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("followed_events")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("followed_questions")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("followed_users")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("message_copies")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messages")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("proposals")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("questions")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("response_challenges")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("response_events")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("response_questions")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("users")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("voting_records")[0m

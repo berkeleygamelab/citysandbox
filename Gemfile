@@ -9,7 +9,7 @@ gem 'sqlite3'
 
 gem 'fusion_tables'
 
-gem 'pg'
+#gem 'pg'
 gem 'georuby'
 gem 'ap'
 gem 'crack'
