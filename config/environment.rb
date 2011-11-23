@@ -17,10 +17,10 @@ ENV['csb_locations'] = 2036527.to_s
 ENV['response_value'] = 1.to_s
 ENV['followed_value'] = 2.to_s
 
-ENV['flickr_key'] = '1228cbd1e0d67c0e3bf5715d576c0e12'
-ENV['flickr_secret'] = '2b99455c7381e96e'
+ENV['flickr_key'] = '0e12c19d5c18caa1ecd517dfc948cbcb'
+ENV['flickr_secret'] = 'fef74b57f03f9477'
 ENV['token_cache'] = "token_cache.yml"
-ENV['auth_token'] = '72157628078360977-05a6db370fe2959b'
+ENV['auth_token'] = '72157628109269099-93e1d91f41867015'
 
 @why_not_global = 2
 
