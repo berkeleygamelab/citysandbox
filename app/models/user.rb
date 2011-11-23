@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat
+  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :message_copys
   has_many :voting_records
   has_many :proposals
+  before_create :upload_image
  # before_create :build_inbox
 
    # def inbox
@@ -36,6 +37,10 @@ class User < ActiveRecord::Base
   validates :password, :presence => true
   validates :location, :presence => true
   #validate :name_check
+  
+  def upload_image
+  
+  end
   
   def name_check
     if(login.strip != login)

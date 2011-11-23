@@ -16,6 +16,7 @@ class UsersController < ApplicationController
       @user.lng = a[1].to_s
     end
     if @user.save
+      upload_image(@user)
       redirect_to new_session_path
     else
       render "new"
@@ -60,5 +61,11 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
     redirect_to
     respond_with(@user.recent_activity)
+  end
+  
+  def upload_image(user)
+    puts @user.img
+    @user.img
+
   end
 end
