@@ -64,7 +64,7 @@ def filter
   @most_popular = params[:popular]
   @location_to_grab = params[:loc]
   @target_user = params[:by_user]
-  distance = 10000
+  distance = 500000
   
   if(@location_to_grab == nil)
     if !current_user.nil?
