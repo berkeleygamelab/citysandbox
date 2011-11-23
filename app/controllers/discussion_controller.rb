@@ -171,7 +171,7 @@ def filter
   
       if @most_popular != nil
         @flagsorted = true
-        if(@type_of_stuff.find_index("Challenges") != nil)
+        if(@type_of_stuff.find_index("Questions") != nil)
           @questions = @questions.order("popularity DESC")
         else
           @questions = []
@@ -182,7 +182,7 @@ def filter
            @challenges = []
          end
 
-         if(@type_of_stuff.find_index("Challenges") != nil)
+         if(@type_of_stuff.find_index("Events") != nil)
            @events = @events.order("popularity DESC")
          else
            @events= []
