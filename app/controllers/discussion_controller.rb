@@ -8,6 +8,9 @@ end
 respond_to :json
 
 def summary
+  
+  @city = params[:city_input]
+  
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0

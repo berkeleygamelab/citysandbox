@@ -7,7 +7,11 @@ $(document).ready( function() {
 	$('#tabs ul').idTabs();
 	
 	var params = {};
-	if ('<%= current_user %>' == '') {
+	if ('<%= @city %>' != '') {
+		params['loc'] = '<%= @city %>';
+		ajax_call(params);
+	}
+	else if ('<%= current_user %>' == '') {
 		html_string = "<div id='summary_city'><input type='text' class='textbox' id='city_input' size='30'></div>";
 		$('#main_content').html(html_string);
 		

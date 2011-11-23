@@ -46,17 +46,21 @@ $(window).load(function() {
 	autocomplete = new google.maps.places.Autocomplete(input, options);
 	
 	$('#city_input').addClass('formatted_input gray_text');
-	$('.city_submit').css('display', 'none');
+	
+	$('#city_input').bind('keypress', function(e) {
+		if (e.keyCode == 13) {
+			loc = $('#city_input').val();
+			window.location.href = '/summary?city_input=' + loc;
+		}
+	});
  });
 </script>
 <%= image_tag "splash_box.png", :class=>'splash_box' %>
 <%= image_tag "splash_title.png", :class=>'splash_title' %>
 <%= image_tag "logo.png", :class=>'splash_logo' %>
 
-<%= form_tag("/map", :method => "index") do %>
-  <%= text_field_tag(:city_input, '', :size=>'18') %>
-  <%= submit_tag("Search", :class=>'city_submit') %>
-<% end %>
+
+<%= text_field_tag(:city_input, '', :size=>'18') %>
 
 <div id="links">
 	<%=link_to "Register", home_register_path %>
