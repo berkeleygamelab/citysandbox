@@ -171,15 +171,32 @@ def filter
   
       if @most_popular != nil
         @flagsorted = true
-        @questions = @questions.order("popularity DESC")
-        @challenges = @challenges.order("popularity DESC")
-        @events = @events.order("popularity DESC")
+        if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+          @questions = @questions.order("popularity DESC")
+        else
+          @questions = []
+        end
+         if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+           @challenges = @challenges.order("popularity DESC")
+         else
+           @challenges = []
+         end
+         end
+         if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
+           @events = @events.order("popularity DESC")
+         else
+           @events= []
+         end
       end
   
      
       @collection = []
       @questions.each{ |x| 
         entry = {}
+              entry['updated_at'] = x.created_at
+              if x.response_questions != []
+                entry['updated_at'] = x.response_questions.pop.updated_at
+              end
         entry['type'] = 'Question'
         entry['entry'] = x
         entry['created_at'] = x.created_at.strftime("%Y %b %d")
@@ -215,6 +232,10 @@ def filter
       }
       @challenges.each{ |x|
         entry = {}
+              entry['updated_at'] = x.created_at
+              if x.response_challenges != []
+                entry['updated_at'] = x.response_challenges.pop.updated_at
+              end
         entry['type'] = 'Challenge'
         entry['entry'] = x
         entry['login'] = x.user.login     
@@ -245,6 +266,11 @@ def filter
       }
       @events.each{|x|
         entry = {}
+        entry['updated_at'] = x.created_at
+        if x.response_events != []
+          entry['updated_at'] = x.response_events.pop.updated_at
+        end
+        
         entry['type'] = 'Event'
         entry['entry'] = x
         entry['login'] = x.user.login
@@ -270,7 +296,7 @@ def filter
         @collection = @collection + [entry]
       }
       if @most_popular == nil
-        @collection.sort!{|a,b| b['entry'].updated_at <=> a['entry'].updated_at}
+        @collection.sort!{|a,b| b['updated_at'] <=> a['updated_at']}
       end
       if @most_popular != nil
         @collection.sort!{|a,b| b['entry'].popularity <=> a['entry'].popularity}
