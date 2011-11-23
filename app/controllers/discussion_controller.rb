@@ -64,7 +64,6 @@ def filter
   distance = 10000
   if(@location_to_grab == nil)
     @location_to_grab = current_user.location
- 
   end
   temp = Geocoder.coordinates(@location_to_grab)
    @location_to_grab = temp[0].to_s + " " + temp[1].to_s
@@ -182,7 +181,7 @@ def filter
          else
            @challenges = []
          end
-         end
+
          if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
            @events = @events.order("popularity DESC")
          else
