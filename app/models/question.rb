@@ -8,6 +8,7 @@
   belongs_to :categories
   attr_accessor :lat
   attr_accessor :lng
+  attr_accessor :most_recent
   
   validates :user_id, :presence => true
   validates :title, :presence => true
