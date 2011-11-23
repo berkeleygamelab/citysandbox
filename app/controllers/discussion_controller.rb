@@ -62,6 +62,7 @@ def filter
   @location_to_grab = params[:loc]
   @target_user = params[:by_user]
   distance = 10000
+  @target_user = 1
   if(@location_to_grab == nil)
     @location_to_grab = current_user.location
   end
