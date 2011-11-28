@@ -99,7 +99,6 @@ function load_map(loc) {
 					params['id'] = e.row['ID'].value;
 					params['category'] = e.row['Origin'].value;
 					$.get('/map_info', params, function(entry) {
-						console.log($('#loading'));
 						html_string = '';
 						html_string	+= '<div class="entry_author">';
 						if (entry['type'] == 'questions') {
@@ -179,6 +178,7 @@ function load_map(loc) {
 // }
 </script>
 <div id='content'>
+<!--
 <div id='sidebar'>
 <div id='filters_content'>
 	<b>SHOW</b>
@@ -216,6 +216,7 @@ function load_map(loc) {
 	<%= check_box_tag 'uncheck', 'Uncheck All' %> Uncheck All
 </div>
 </div>
+-->
 <div id='mapview_map'></div>
 <div id='city'>
 	<input type='text' class='textbox' id='city_input' size='30'>

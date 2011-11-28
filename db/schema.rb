@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
     t.string   "location"
     t.integer  "categories_id"
     t.integer  "popularity",                          :default => 0
-    t.datetime "most_recent",                         :default => '2011-11-23 10:37:04'
+    t.datetime "most_recent",                         :default => '2011-11-28 00:07:34'
   end
 
   create_table "events", :force => true do |t|
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
     t.integer  "categories_id"
     t.integer  "challenge_id"
     t.integer  "popularity",    :default => 0
-    t.datetime "most_recent",   :default => '2011-11-23 10:37:04'
+    t.datetime "most_recent",   :default => '2011-11-28 00:07:34'
   end
 
   create_table "folders", :force => true do |t|
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
     t.string   "description"
     t.integer  "categories_id"
     t.integer  "popularity",                    :default => 0
-    t.datetime "most_recent",                   :default => '2011-11-23 10:37:04'
+    t.datetime "most_recent",                   :default => '2011-11-28 00:07:34'
   end
 
   create_table "response_challenges", :force => true do |t|
