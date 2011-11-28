@@ -104,11 +104,11 @@ $(document).ready( function() {
 	$('.event_individual hr').last().remove();
 	
 	$('.iframe').fancybox({
-		'width' : 310,
-		'height' : 310,
+		'width' : 320,
+		'height' : 350,
 		'autoscale': false,
 		'autoDimensions': false,
-		'titlePosition': 'over',
+		'titlePosition': 'outside',
 		'titleFormat': formatTitle
 	});
 	$('#fancybox-wrap').click(function () {
@@ -170,7 +170,7 @@ function formatTitle() {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a> 
 		<a href='' class='black_link' id='share'> Share </a> |
-		<%= link_to 'QR', qr_url(question_url(@question)), :class=>'iframe black_link'%>
+		<%= link_to 'QR', qr_url(:format=>question_url(@question), :title=>@question.title), :class=>'iframe black_link'%>
 	</span>
 	<br>
 	<br>

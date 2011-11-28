@@ -13,7 +13,6 @@ class Challenge < ActiveRecord::Base
   
   validates :categories_id, :presence => true
   validates :title, :presence => true
-  validates :description, :presence => true
   validates :submission_deadline, :presence => true
   validates :vote_deadline, :presence => true
   

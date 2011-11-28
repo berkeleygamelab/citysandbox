@@ -36,6 +36,17 @@ $(document).ready( function() {
 	} else {
 		ajax_call(params);	
 	}
+	
+	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
+	var input = document.getElementById('location');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
 
 	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
@@ -74,8 +85,15 @@ $(document).ready( function() {
 		var params = {};
 		ajax_call(params);
 	});
-	$('#keyword_button').click( function() {
+	
+	$('#keyword_search').click( function() {
 		var params = {};
+		ajax_call(params);
+	});
+	
+	$('#change_location').click( function() {
+		var params = {};
+		params['loc'] = $('#location').val();
 		ajax_call(params);
 	});
 	
@@ -139,15 +157,15 @@ function ajax_call(params) {
 	if ($('#date').attr('value') != '') {
 		params['timeBefore'] = $('#date').val();
 	}
-	console.log(params);
+	//console.log(params);
 	$.get('/filter', params, function(data) {
 		populate_content(data);
 		$('.iframe').fancybox({
-			'width' : 310,
-			'height' : 310,
+			'width' : 320,
+			'height' : 350,
 			'autoscale': false,
 			'autoDimensions': false,
-			'titlePosition': 'over',
+			'titlePosition': 'outside',
 			'titleFormat': formatTitle
 		});
 		$('#fancybox-wrap').click(function () {
@@ -228,7 +246,7 @@ function populate_content(content) {
 			} else {
 				html_string += '<a href="mailto:?subject=[City%20Sandbox]%20' + entry['current_user'] + '%20has%20shared%20a%20link%20with%20you!&body=' + entry['url'] + '" class="black_link" id="share"> Share </a> | ';
 			}
-			html_string += '<a href="/qr?format=' + entry['url'] +'" class="iframe black_link">QR</a> | ';
+			html_string += '<a href="/qr?format=' + entry['url'] +'&title=' + entry['entry']['title'] + '" class="iframe black_link">QR</a> | ';
 			if (entry['followed']) {
 				html_string	+= '<a class="black_link unfollow" href="javascript:;" name="' + entry['id'] + '+' + entry['type'] + '">Unfollow</a></div>';	
 			} else {
@@ -310,6 +328,13 @@ function populate_content(content) {
 	<input type='text' class='textbox' id='keyword' size='20'>
 	<br>
 	<button id="keyword_search" type="button">Search</button>
+	<br>
+	<br>
+	<b>LOCATION</b>
+	<br>
+	<input type='text' class='textbox' id='location' size='20'>
+	<br>
+	<button id="change_location" type="button">Change Location</button>
 	<br><br>
 	<b>SHOW ITEMS FROM</b>
 	<select id="date" >

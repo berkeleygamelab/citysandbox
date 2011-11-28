@@ -116,11 +116,11 @@ $(document).ready( function() {
 	get_count();
 	
 	$('.iframe').fancybox({
-		'width' : 310,
-		'height' : 310,
+		'width' : 320,
+		'height' : 350,
 		'autoscale': false,
 		'autoDimensions': false,
-		'titlePosition': 'over',
+		'titlePosition': 'outside',
 		'titleFormat': formatTitle
 	});
 	$('#fancybox-wrap').click(function () {
@@ -240,7 +240,7 @@ function get_count(){
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
 		<a href='' class='black_link' id='share'> Share </a>|
-		<%= link_to 'QR', qr_url(challenge_url(@challenge)), :class=>'iframe black_link'%>
+		<%= link_to 'QR', qr_url(:format=>challenge_url(@challenge), :title=>@challenge.title), :class=>'iframe black_link'%>
 	</span>
 	<br>
 	<div id='form_links'>

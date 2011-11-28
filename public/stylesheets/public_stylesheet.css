@@ -375,8 +375,8 @@ footer a {
 /* MAP */
 #mapview_map {
 	border: 0;
-	height:720px;
-	width:720px;
+	height:960px;
+	width:960px;
 }
 #city {
 	padding: 25px;
@@ -390,7 +390,6 @@ footer a {
 }
 
 #print {
-	margin-left:140px;
 	margin-top:10px;
 }
 

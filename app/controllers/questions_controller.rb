@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
       format.json { render json: @question }
     end
   end
-
+  
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])

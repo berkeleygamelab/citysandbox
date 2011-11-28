@@ -2,7 +2,11 @@ class DiscussionController < ApplicationController
 
 def qr
   @url = params[:format]
-  return(@url)
+  @title = params[:title]
+  @response = {}
+  @response['url'] = @url
+  @response['title'] = @title
+  return(@response)
 end
 
 respond_to :json

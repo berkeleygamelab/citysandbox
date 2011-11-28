@@ -86,11 +86,11 @@ $(document).ready( function() {
 	$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
 	
 	$('.iframe').fancybox({
-		'width' : 310,
-		'height' : 310, 
+		'width' : 320,
+		'height' : 350,
 		'autoscale': false,
 		'autoDimensions': false,
-		'titlePosition': 'over',
+		'titlePosition': 'outside',
 		'titleFormat': formatTitle
 	});	
 	$('#fancybox-wrap').click(function () {
@@ -148,7 +148,7 @@ function formatTitle() {
 		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
 		<a href='javascript:;' id='follow' class='black_link'>Follow | </a>
 		<a class='black_link' id='share'> Share </a>|
-		<%= link_to 'QR', qr_url(event_url(@event)), :class=>'iframe black_link'%>
+		<%= link_to 'QR', qr_url(:format=>event_url(@event), :title=>@event.title), :class=>'iframe black_link'%>
 	</span>
 	<br>
 	<br>
