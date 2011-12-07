@@ -131,7 +131,7 @@ function formatTitle() {
 	<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 </div>
 <div id='main_question_content'>
-<div id='question_main'>
+<div class='event_main'>
 	<span id='question_map'>
 		<div id="map_canvas"></div>
 		<%=h @event.location %>
@@ -160,14 +160,14 @@ function formatTitle() {
 </div>
 <% if @event.description.length > 0 %>
 	<br>
-	<div class='individual'>
+	<div class='event_main'>
 		<span id='question_description'>
 			<%= @event.description %> 
 		</span>
 	</div>
 <% end %>
 <br>
-<div class='entry_main'>
+<div class='question_main' style='min-height:150px; padding: 0'>
 	<div class='entry_author'>
 		<% if @event.challenge.question.anonymous == 1 %>
 			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
@@ -185,13 +185,13 @@ function formatTitle() {
 		<%= @event.challenge.question.created_at.strftime("%Y %b %d") %>
 		<br>
 	</div>
-	<div class='entry_title'>
+	<div class='entry_title' >
 		<b><%= link_to @event.challenge.question.title, @event.challenge.question, :class=>'black_link' %></b>
 	</div>
 	<br>
 </div>
 <br>
-<div class='entry_main'>
+<div class='challenge_main' style='min-height:150px; padding:0'>
 	<div class='entry_author'>
 		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'60x60', :alt => "User avatar" %>
 		<%=h @event.challenge.user.picture %> 

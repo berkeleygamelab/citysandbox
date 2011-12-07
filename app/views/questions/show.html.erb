@@ -149,7 +149,7 @@ function formatTitle() {
 	<% end %>
 </div>
 <div id='main_question_content'>
-<div id='question_main'>
+<div class='question_main'>
 	<span id='question_map'>
 		<div id="map_canvas"></div>
 		<%=h @question.location %>
@@ -183,7 +183,7 @@ function formatTitle() {
 </div>
 <% if @question.description.length > 0 %>
 	<br>
-	<div class='individual'>
+	<div class='question_main'>
 		<span id='question_description'>
 			<%= @question.description %> 
 		</span>

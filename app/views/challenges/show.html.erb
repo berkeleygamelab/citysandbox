@@ -215,7 +215,7 @@ function get_count(){
 	<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
 </div>
 <div id='main_question_content'>
-<div id='question_main'>
+<div class='challenge_main'>
 	<span id='question_map'>
 		<div id="map_canvas"></div>
 		<%=h @challenge.location %>
@@ -255,7 +255,7 @@ function get_count(){
 </div>
 <% if @challenge.description.length > 0 %>
 	<br>
-	<div class='individual'>
+	<div class='challenge_main'>
 		<span id='question_description'>
 			<b>Challenge Description:</b> <%= @challenge.description %> 
 		</span>

@@ -192,10 +192,25 @@ footer a {
 	line-height:2em;
 	padding-bottom:20px;
 }
-#question_main, .individual, .individual_question {
+.individual, .individual_question {
 	padding: 3%;
 	background-color: rgba(255, 255, 255,0.5);
 }
+
+.question_main {
+	padding: 3%;
+	background-color: rgba(48, 125, 126, 0.2);
+}
+
+.challenge_main {
+	padding: 3%;
+	background-color: rgba(114, 143, 206, 0.2);
+}
+.event_main {
+	padding: 3%;
+	background-color: rgba(125, 49, 47, 0.2);
+}
+
 
 .individual_response {
 	padding-top: 2%;
