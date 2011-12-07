@@ -217,7 +217,7 @@ def filter
             (x.response_questions.last.response[0..200]  + '...')
         end
         entry_stats = {}
-        entry_stats['Response'] = x.response_questions.length
+        entry_stats['Response'] = Question.find(x.id).response_questions.length 
         entry_stats['Follower'] = x.followed_questions.length
         entry_stats['Challenge'] = x.challenges.length
         entry['address'] = x.location
@@ -255,7 +255,7 @@ def filter
         entry['vote_deadline'] = x.vote_deadline.strftime("%Y %b %d")
         entry['description'] = (x.description.length > 200) ? x.description[0..200] + '...' : x.description;
         entry_stats = {}
-        entry_stats['Response'] = x.response_challenges.length
+        entry_stats['Response'] = Challenge.find(x.id).response_challenges.length
         entry_stats['Follower'] = x.followed_challenges.length
         entry_stats['Proposal'] = x.proposals.length
         entry_stats['Event'] = x.events.length
@@ -288,7 +288,7 @@ def filter
         entry['created_at'] = x.created_at.strftime("%Y %b %d")
         entry['date'] = x.time.strftime("%Y %b %d")
         entry_stats = {}
-        entry_stats['Response'] = x.response_events.length
+        entry_stats['Response'] = Event.find(x.id).response_events.length
         entry_stats['Follower'] = x.followed_events.length
         entry['stats'] = entry_stats
         entry['id'] = x.id
