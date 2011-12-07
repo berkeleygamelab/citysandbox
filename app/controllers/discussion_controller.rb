@@ -218,6 +218,7 @@ def filter
         end
         entry_stats = {}
         entry_stats['Response'] = x.response_questions.length
+        puts "what is going on HEREEE " + x.response_questions.length
         entry_stats['Follower'] = x.followed_questions.length
         entry_stats['Challenge'] = x.challenges.length
         entry['address'] = x.location
