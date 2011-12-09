@@ -69,7 +69,6 @@ def filter
   @location_to_grab = params[:loc]
   @target_user = params[:by_user]
   distance = 160000
-  puts "IMA DISTTANCE " + distance.to_s
   if(@location_to_grab == nil)
     if !current_user.nil?
       temp = Geocoder.coordinates(current_user.location)
