@@ -7393,3 +7393,1519 @@ Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Ev
   [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
   [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
   [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /jquery.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /tabs.js - 304 Not Modified (14ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_box.png" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /splash_box.png - 304 Not Modified (1ms)
+
+
+Started GET "/assets/splash_title.png" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /splash_title.png - 304 Not Modified (2ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /splash_logo.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:39 -0800
+Served asset /splash_background.png - 304 Not Modified (2ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:45 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2011-12-07 13:25:47 -0800
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."login" = 'stephanie' LIMIT 1[0m
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (12.6ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:25:48 -0800
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1
+  [1m[36mProposal Load (0.1ms)[0m  [1mSELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/questions/1" for 127.0.0.1 at 2011-12-07 13:25:52 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_questions" WHERE "followed_questions"."user_id" = 1 AND "followed_questions"."question_id" = 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1
+  [1m[36mResponseChallenge Load (0.2ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:53 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started POST "/questions/1/response_questions" for 127.0.0.1 at 2011-12-07 13:25:55 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "response_questions" ("anonymous", "created_at", "question_id", "response", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)  [["anonymous", 0], ["created_at", Wed, 07 Dec 2011 21:25:56 UTC +00:00], ["question_id", 1], ["response", "hi"], ["updated_at", Wed, 07 Dec 2011 21:25:56 UTC +00:00], ["user_id", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  UPDATE "questions" SET "updated_at" = '2011-12-07 21:25:56.119070' WHERE "questions"."id" = 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "questions" SET "popularity" = 3, "updated_at" = '2011-12-07 21:25:56.127713' WHERE "questions"."id" = 1[0m
+  [1m[35m (0.0ms)[0m  UPDATE "questions" SET "updated_at" = '2011-12-07 21:25:56.128246' WHERE "questions"."id" = 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "questions" SET "popularity" = 4, "updated_at" = '2011-12-07 21:25:56.128913' WHERE "questions"."id" = 1[0m
+
+
+Started GET "/questions/1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "followed_questions" WHERE "followed_questions"."user_id" = 1 AND "followed_questions"."question_id" = 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1
+  [1m[36mResponseQuestion Load (0.4ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1
+  [1m[36mResponseEvent Load (0.3ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1[0m
+  [1m[35mChallenge Load (0.3ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:56 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.3ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:58 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:59 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:25:59 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:25:59 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:25:59 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:25:59 -0800
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1[0m
+  [1m[35mProposal Load (0.1ms)[0m  SELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/questions/1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_questions" WHERE "followed_questions"."user_id" = 1 AND "followed_questions"."question_id" = 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1[0m
+  [1m[35mResponseChallenge Load (0.2ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:05 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:26:06 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:26:06 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/questions/1" for 127.0.0.1 at 2011-12-07 13:26:53 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_questions" WHERE "followed_questions"."user_id" = 1 AND "followed_questions"."question_id" = 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.2ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.2ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCategories Load (0.2ms)[0m  SELECT "categories".* FROM "categories" 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:26:54 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started POST "/questions/1/response_questions" for 127.0.0.1 at 2011-12-07 13:26:57 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (30.3ms)[0m  [1mINSERT INTO "response_questions" ("anonymous", "created_at", "question_id", "response", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["anonymous", 0], ["created_at", Wed, 07 Dec 2011 21:26:57 UTC +00:00], ["question_id", 1], ["response", "try again"], ["updated_at", Wed, 07 Dec 2011 21:26:57 UTC +00:00], ["user_id", 1]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = 1 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mUPDATE "questions" SET "updated_at" = '2011-12-07 21:26:57.929785' WHERE "questions"."id" = 1[0m
+  [1m[35m (0.1ms)[0m  UPDATE "questions" SET "popularity" = 5, "updated_at" = '2011-12-07 21:26:57.941117' WHERE "questions"."id" = 1
+  [1m[36m (0.2ms)[0m  [1mUPDATE "questions" SET "updated_at" = '2011-12-07 21:26:57.941909' WHERE "questions"."id" = 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE "questions" SET "popularity" = 6, "updated_at" = '2011-12-07 21:26:57.943955' WHERE "questions"."id" = 1
+
+
+Started GET "/questions/1" for 127.0.0.1 at 2011-12-07 13:26:57 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_questions" WHERE "followed_questions"."user_id" = 1 AND "followed_questions"."question_id" = 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.2ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:26:58 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:01 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseEvent Load (0.2ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:02 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1[0m
+  [1m[35mProposal Load (0.3ms)[0m  SELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:04 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:05 -0800
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedQuestion Load (0.2ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1
+  [1m[36mProposal Load (0.2ms)[0m  [1mSELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/events/1" for 127.0.0.1 at 2011-12-07 13:27:09 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_events" WHERE "followed_events"."user_id" = 1 AND "followed_events"."event_id" = 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1
+  [1m[36mResponseChallenge Load (0.2ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:10 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started POST "/events/1/response_events" for 127.0.0.1 at 2011-12-07 13:27:13 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "response_events" ("anonymous", "created_at", "event_id", "response", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)  [["anonymous", 0], ["created_at", Wed, 07 Dec 2011 21:27:14 UTC +00:00], ["event_id", 1], ["response", "hi"], ["updated_at", Wed, 07 Dec 2011 21:27:14 UTC +00:00], ["user_id", 1]]
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  UPDATE "events" SET "updated_at" = '2011-12-07 21:27:14.690849' WHERE "events"."id" = 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "events" SET "popularity" = 1, "updated_at" = '2011-12-07 21:27:14.699981' WHERE "events"."id" = 1[0m
+  [1m[35m (0.0ms)[0m  UPDATE "events" SET "updated_at" = '2011-12-07 21:27:14.700411' WHERE "events"."id" = 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "events" SET "popularity" = 2, "updated_at" = '2011-12-07 21:27:14.700998' WHERE "events"."id" = 1[0m
+
+
+Started GET "/events/1" for 127.0.0.1 at 2011-12-07 13:27:14 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_events" WHERE "followed_events"."user_id" = 1 AND "followed_events"."event_id" = 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" = 1 LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:15 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.2ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:19 -0800
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1[0m
+  [1m[35mProposal Load (0.1ms)[0m  SELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:23 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedQuestion Load (0.2ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)[0m
+  [1m[35mResponseChallenge Load (0.2ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.2ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1
+  [1m[36mProposal Load (0.2ms)[0m  [1mSELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.2ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/events/1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "followed_events" WHERE "followed_events"."user_id" = 1 AND "followed_events"."event_id" = 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "followed_users" WHERE "followed_users"."user_id" = 1 AND "followed_users"."followed_user_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = 1[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."user_id" = 1
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."user_id" = 1[0m
+  [1m[35mResponseEvent Load (0.2ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."user_id" = 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."user_id" = 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" = 1 LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:26 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:42 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:43 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:43 -0800
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedQuestion Load (0.2ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1
+  [1m[36mProposal Load (0.1ms)[0m  [1mSELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:27:49 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseEvent Load (0.2ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:27:50 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)
+  [1m[36mResponseQuestion Load (0.2ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedQuestion Load (0.1ms)[0m  [1mSELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1[0m
+  [1m[35mChallenge Load (0.1ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)
+  [1m[36mResponseChallenge Load (0.3ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1[0m
+  [1m[35mProposal Load (0.1ms)[0m  SELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedChallenge Load (0.1ms)[0m  [1mSELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:28:14 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mEvent Load (0.3ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:31:59 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.3ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.2ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:32:00 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedEvent Load (0.2ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:32:46 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseEvent Load (0.2ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.2ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:32:47 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.2ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedEvent Load (0.2ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:01 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:33:02 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:33:02 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:33:02 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedEvent Load (0.2ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:33:28 -0800
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" LIMIT 15 OFFSET 0
+  [1m[36mChallenge Load (0.2ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5[0m
+  [1m[35mResponseQuestion Load (0.1ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5
+  [1m[36mResponseChallenge Load (0.1ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" [0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:33:29 -0800
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+
+
+Started GET "/summary" for 127.0.0.1 at 2011-12-07 13:33:51 -0800
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT "questions".* FROM "questions" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" LIMIT 15 OFFSET 0
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events" LIMIT 15 OFFSET 0[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1
+  [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1[0m
+  [1m[35mResponseEvent Load (0.1ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1 LIMIT 5
+  [1m[36mResponseQuestion Load (0.1ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1 LIMIT 5[0m
+  [1m[35mResponseChallenge Load (0.1ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1 LIMIT 5
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" 
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/textbox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /textbox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tabs.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /tabs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/stickysidebar.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /stickysidebar.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/fancybox.js?body=1" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /fancybox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_logo.png" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /splash_logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/splash_background.png" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+Served asset /splash_background.png - 304 Not Modified (0ms)
+
+
+Started GET "/filter?types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:33:52 -0800
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)
+  [1m[36mResponseEvent Load (0.1ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1[0m
+  [1m[35mEvent Load (0.1ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mCategories Load (0.1ms)[0m  SELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mFollowedEvent Load (0.1ms)[0m  [1mSELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1[0m
+
+
+Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Events" for 127.0.0.1 at 2011-12-07 13:34:47 -0800
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."id" IN (1, 2, 3, 4, 5, 3, 9)[0m
+  [1m[35mResponseQuestion Load (0.2ms)[0m  SELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "response_questions".* FROM "response_questions" WHERE "response_questions"."question_id" = 1[0m
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."question_id" = 1[0m
+  [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCategories Load (0.1ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mFollowedQuestion Load (0.1ms)[0m  SELECT "followed_questions".* FROM "followed_questions" WHERE "followed_questions"."question_id" = 1 AND "followed_questions"."user_id" = 1 LIMIT 1
+  [1m[36mChallenge Load (0.1ms)[0m  [1mSELECT "challenges".* FROM "challenges" WHERE "challenges"."id" IN (1, 2, 4, 7, 5, 3)[0m
+  [1m[35mResponseChallenge Load (0.3ms)[0m  SELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mChallenge Load (0.2ms)[0m  SELECT "challenges".* FROM "challenges" WHERE "challenges"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "response_challenges".* FROM "response_challenges" WHERE "response_challenges"."challenge_id" = 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1
+  [1m[36mProposal Load (0.1ms)[0m  [1mSELECT "proposals".* FROM "proposals" WHERE "proposals"."challenge_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "events".* FROM "events" WHERE "events"."challenge_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedChallenge Load (0.1ms)[0m  SELECT "followed_challenges".* FROM "followed_challenges" WHERE "followed_challenges"."challenge_id" = 1 AND "followed_challenges"."user_id" = 1 LIMIT 1
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."id" IN (2, 3, 1)[0m
+  [1m[35mResponseEvent Load (0.3ms)[0m  SELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "response_events".* FROM "response_events" WHERE "response_events"."event_id" = 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
+  [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
