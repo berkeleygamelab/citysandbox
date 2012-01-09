@@ -19,9 +19,13 @@ class UsersController < ApplicationController
       @user.lng = a[1].to_s
     end
     if @user.save
-      puts params[:upload]
+      puts params[:upload]['datafile']
+      puts params['upload']
+      Stuff = params[:upload]
+      puts Stuff
       if params[:upload] == nil
         puts "HU HO"
+        
       end
       puts "LE PICTURE"
      # @user.picture = picturePotential[0].url
