@@ -19,6 +19,7 @@ class UsersController < ApplicationController
       @user.lng = a[1].to_s
     end
     if @user.save
+      puts params[:upload]
      # @user.picture = picturePotential[0].url
       #@user.save
       redirect_to new_session_path
