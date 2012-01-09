@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     end
     if @user.save
       puts params[:upload]
+      if params[:upload] == nil
+        puts "HU HO"
+      end
+      puts "LE PICTURE"
      # @user.picture = picturePotential[0].url
       #@user.save
       redirect_to new_session_path
