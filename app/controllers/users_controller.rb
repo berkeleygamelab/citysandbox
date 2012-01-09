@@ -11,16 +11,15 @@ class UsersController < ApplicationController
   def create
     #picturePotential = upload_image(params[:user][:picture])
    # params[:user][:picture] = picturePotential[0].url
-
+    
     @user = User.new(params[:user])
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
       @user.lat = a[0].to_s
       @user.lng = a[1].to_s
     end
+    puts @user.upload
     if @user.save
-      puts params[:upload]['datafile']
-      puts params['upload']
       stuff = params[:upload]
       puts stuff
       if params[:upload] == nil
