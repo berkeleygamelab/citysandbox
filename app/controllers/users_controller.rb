@@ -21,8 +21,8 @@ class UsersController < ApplicationController
     if @user.save
       puts params[:upload]['datafile']
       puts params['upload']
-      Stuff = params[:upload]
-      puts Stuff
+      stuff = params[:upload]
+      puts stuff
       if params[:upload] == nil
         puts "HU HO"
         
