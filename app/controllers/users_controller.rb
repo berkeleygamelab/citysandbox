@@ -82,14 +82,14 @@ class UsersController < ApplicationController
   def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
     name =  uploaded_file.original_filename
-        directory = "public/images/stored"
-        # create the file path
-        #path = File.join(directory, name)
+        directory = "public"
+         create the file path
+        path = File.join(directory, name)
         # write the file
-       # File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
+       File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
         
-      a = 0 / 0
-      item = Fleakr.upload(uploaded_file)
+      #a = 0 / 0
+      item = Fleakr.upload(path)
       user.picture = "DEFAULT"
       if item != nil
         if item.url != nil
