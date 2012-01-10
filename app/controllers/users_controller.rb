@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   
   def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
-    name =  upload['datafile'].original_filename
+    name =  uploaded_file.original_filename
         directory = "public/images/stored"
         # create the file path
         path = File.join(directory, name)
