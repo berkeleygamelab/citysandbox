@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       @user.lat = a[0].to_s
       @user.lng = a[1].to_s
     end
-    puts @user.upload
+    puts params[:user][:upload]
     if @user.save
       stuff = params[:upload]
       puts stuff
