@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     name =  uploaded_file.original_filename
         
          #create the file path
-        path = name
+        path = File.join("tmp", name)
         # write the file
        File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
         
