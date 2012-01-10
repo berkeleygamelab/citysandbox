@@ -18,7 +18,11 @@ class UsersController < ApplicationController
       @user.lat = a[0].to_s
       @user.lng = a[1].to_s
     end
-    puts params[:user][:upload]
+    if params[:user][:upload] != nil
+      upload_image(@user, params[:user][:upload])
+    else
+      @user.picture = "DEFAULT"
+    end
     if @user.save
       stuff = params[:upload]
       puts stuff
@@ -75,14 +79,23 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
-  def upload_image(img)
-    puts img
+  def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
-    if img != nil
-      return Fleakr.upload(img.tempfile)
-    else
-      return [{:url => nil}]
-    end
+    name =  upload['datafile'].original_filename
+        directory = "public/images/stored"
+        # create the file path
+        path = File.join(directory, name)
+        # write the file
+        File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
+        
+    
+      item = Fleakr.upload(img.tempfile)
+      user.picture = "DEFAULT"
+      if item != nil
+        if item.url != nil
+          user.picture = item.url
+        end
+      end
     
   end
 end
