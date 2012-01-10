@@ -86,10 +86,10 @@ class UsersController < ApplicationController
         # create the file path
         path = File.join(directory, name)
         # write the file
-        File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
+       # File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
         
     
-      item = Fleakr.upload(img.tempfile)
+      item = Fleakr.upload(uploaded_file)
       user.picture = "DEFAULT"
       if item != nil
         if item.url != nil
