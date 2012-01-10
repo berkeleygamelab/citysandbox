@@ -92,8 +92,8 @@ class UsersController < ApplicationController
       item = Fleakr.upload(path)
       user.picture = "DEFAULT"
       if item != nil
-        if item.url != nil
-          user.picture = item.url
+        if item[:url] != nil
+          user.picture = item[:url]
         end
       end
     
