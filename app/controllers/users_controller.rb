@@ -82,9 +82,9 @@ class UsersController < ApplicationController
   def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
     name =  uploaded_file.original_filename
-        directory = "public"
+        
          #create the file path
-        path = File.join(directory, name)
+        path = name
         # write the file
        File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
         
