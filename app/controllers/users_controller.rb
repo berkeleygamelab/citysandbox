@@ -86,7 +86,7 @@ class UsersController < ApplicationController
          #create the file path
         path = File.join("tmp", name)
         # write the file
-       File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
+       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
         
       #a = 0 / 0
       item = Fleakr.upload(path)
