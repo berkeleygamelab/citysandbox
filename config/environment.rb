@@ -38,7 +38,7 @@ Fleakr.auth_token = ENV['auth_token']
   #:authentication  => :login
 #}
 
-config.action_mailer.raise_delivery_errors = true
+#config.action_mailer.raise_delivery_errors = true
 
 # Initialize the rails application
 Citysandbox::Application.initialize!
