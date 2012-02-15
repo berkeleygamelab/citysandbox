@@ -91,7 +91,7 @@ footer a {
 	text-align:center;
 }
 #ask_question {
-	margin-left: 710px;
+	margin-left: 740px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
@@ -101,7 +101,7 @@ footer a {
 
 #linkset_1
 {
-	margin-left: 790px;
+	margin-left:820px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
@@ -110,7 +110,7 @@ footer a {
 }
 #linkset_2
 {
-	margin-left: 870px;
+	margin-left: 900px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
