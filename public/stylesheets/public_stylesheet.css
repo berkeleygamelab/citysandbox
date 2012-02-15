@@ -101,7 +101,7 @@ footer a {
 
 #linkset_1
 {
-	margin-left:850px;
+	margin-left:870px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
@@ -110,8 +110,8 @@ footer a {
 }
 #linkset_2
 {
-	margin-left: 950px;
-	margin-bottom:0px;
+	margin-left: 970px;
+	margin-bottom:-22px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
