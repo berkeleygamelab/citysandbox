@@ -85,15 +85,15 @@ footer a {
 #map_view {
 	margin-left: 600px;
 	background: url('../images/header_tab.png');
-	width:120px;
+	width:100px;
 	height:33px;
 	margin-top: -33px;
 	text-align:center;
 }
 #ask_question {
-	margin-left: 680px;
+	margin-left: 710px;
 	background: url('../images/header_tab.png');
-	width:120px;
+	width:100px;
 	height:33px;
 	margin-top: -33px;
 	text-align:center;
@@ -101,18 +101,18 @@ footer a {
 
 #linkset_1
 {
-	margin-left: 760px;
+	margin-left: 790px;
 	background: url('../images/header_tab.png');
-	width:120px;
+	width:100px;
 	height:33px;
 	margin-top: -33px;
 	text-align:center;
 }
 #linkset_2
 {
-	margin-left: 840px;
+	margin-left: 870px;
 	background: url('../images/header_tab.png');
-	width:120px;
+	width:100px;
 	height:33px;
 	margin-top: -33px;
 	text-align:center;
