@@ -87,7 +87,7 @@ footer a {
 	background: url('../images/header_tab.png');
 	width:130px;
 	height:33px;
-	margin-top: 22px;
+	margin-bottom:0px;
 	text-align:center;
 }
 #ask_question {
@@ -95,22 +95,22 @@ footer a {
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
-	margin-top: -22px;
+	margin-bottom:-22px;
 	text-align:center;
 }
 
 #linkset_1
 {
-	margin-left:870px;
+	margin-left:900px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
-	margin-top: -33px;
+	margin-bottom:-22px;
 	text-align:center;
 }
 #linkset_2
 {
-	margin-left: 970px;
+	margin-left: 1000px;
 	margin-bottom:-22px;
 	background: url('../images/header_tab.png');
 	width:100px;
