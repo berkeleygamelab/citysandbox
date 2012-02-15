@@ -78,7 +78,7 @@ footer a {
 	padding: 20px;
 }
 #header_tabs{
-	padding-top: 94px;
+	padding-top: 72px;
 	font-size: 13px;
 	line-height: 2.5em;
 }
@@ -87,7 +87,7 @@ footer a {
 	background: url('../images/header_tab.png');
 	width:130px;
 	height:33px;
-	margin-top: 0px;
+	margin-top: 22px;
 	text-align:center;
 }
 #ask_question {
@@ -95,7 +95,7 @@ footer a {
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
-	margin-top: -33px;
+	margin-top: -22px;
 	text-align:center;
 }
 
@@ -111,6 +111,7 @@ footer a {
 #linkset_2
 {
 	margin-left: 950px;
+	margin-bottom:0px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
