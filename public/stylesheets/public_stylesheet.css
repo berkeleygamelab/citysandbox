@@ -85,7 +85,7 @@ footer a {
 #map_view {
 	margin-left: 600px;
 	background: url('../images/header_tab.png');
-	width:100px;
+	width:120px;
 	height:33px;
 	margin-top: -33px;
 	text-align:center;
@@ -101,7 +101,7 @@ footer a {
 
 #linkset_1
 {
-	margin-left:820px;
+	margin-left:850px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
@@ -110,7 +110,7 @@ footer a {
 }
 #linkset_2
 {
-	margin-left: 930px;
+	margin-left: 950px;
 	background: url('../images/header_tab.png');
 	width:100px;
 	height:33px;
