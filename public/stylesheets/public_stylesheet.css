@@ -85,9 +85,9 @@ footer a {
 #map_view {
 	margin-left: 600px;
 	background: url('../images/header_tab.png');
-	width:120px;
+	width:130px;
 	height:33px;
-	margin-top: -33px;
+	margin-top: 0px;
 	text-align:center;
 }
 #ask_question {
