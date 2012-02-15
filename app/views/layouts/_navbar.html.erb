@@ -32,20 +32,20 @@
 	</div>
 	<% end %> 
 	<% if params[:controller] == "discussion" && params[:action] == "summary"%>
-	<div id='ask_question'>
+	<div id='linkset_1'>
 		<%= link_to 'Whats Hot', summary_path, :class=> 'gray_text' %>
 		</div>
 	<% else %>
-	<div id ='ask_question'>
+	<div id ='linkset_1'>
 	<%= link_to 'Create your View', map_path, :class => 'gray_text' %>
 	</div>
 	<% end%>
 	<% if params[:controller] == "discussion" && params[:action] == "summary"%>
-	<div id='ask_question'>
+	<div id='linkset_2'>
 		<%= link_to 'Followed', summary_path, :class => 'gray_text'%>
 	</div>
 	<% else %>
-	<div id='ask_question'>
+	<div id='linkset_2'>
 		<%= link_to 'Followed', map_path, :class => 'gray_text'%>
 	</div>
 	<% end%>

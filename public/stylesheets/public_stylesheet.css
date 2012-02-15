@@ -99,6 +99,25 @@ footer a {
 	text-align:center;
 }
 
+#linkset_1
+{
+	margin-left: 760px;
+	background: url('../images/header_tab.png');
+	width:120px;
+	height:33px;
+	margin-top: -33px;
+	text-align:center;
+}
+#linkset_2
+{
+	margin-left: 840px;
+	background: url('../images/header_tab.png');
+	width:120px;
+	height:33px;
+	margin-top: -33px;
+	text-align:center;
+}
+
 
 /* SPLASH, REGISTER, LOGIN */
 .labels{
