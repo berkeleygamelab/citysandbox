@@ -18,7 +18,6 @@ gem 'thin'
 gem 'therubyracer'
 gem 'geocoder'
 gem 'fleakr'
-gem 'authlogic'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,8 +30,6 @@ end
 gem 'will_paginate', '~> 3.0.2'
 
 gem 'jquery-rails'
-
-gem 'bulk_api'
 
 # Use unicorn as the web server
 # gem 'unicorn'
