@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
       from       "appcivist "
       subject    "Please activate your new account"
       sent_on    Time.now
-      text       {"check it out! go to this link and yeah you'll be awesome! "}
+      body      "check it out! go to this link and yeah you'll be awesome! "
       #http://citysandbox.heroku.com/validate?token=#{randomValue}&user=#{user.id}
     end
 end
