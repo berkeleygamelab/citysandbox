@@ -28,7 +28,7 @@ Fleakr.api_key = ENV['flickr_key']
 Fleakr.shared_secret = ENV['flickr_secret']
 Fleakr.auth_token = ENV['auth_token']
 
-#config.action_mailer.delivery_method = :smtp
+config.action_mailer.delivery_method = :smtp
 
 #ActionMailer::Base.smtp_settings = {
   #:address  => "smtp.someserver.net",
