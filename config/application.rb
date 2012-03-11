@@ -45,12 +45,12 @@ module Citysandbox
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.action_mailer.delivery_method = :smtp
-    ActionMailer::Base.smtp_settings = {
-      :address  => "smtp.someserver.net",
-      :port  => 25,
-      :user_name  => "someone@someserver.net",
-      :password  => "mypass",
-      :authentication  => :login
-    }
+    #ActionMailer::Base.smtp_settings = {
+    #  :address  => "smtp.someserver.net",
+    #  :port  => 25,
+    #  :user_name  => "someone@someserver.net",
+    #  :password  => "mypass",
+    #  :authentication  => :login
+    #}
   end
 end
