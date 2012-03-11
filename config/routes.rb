@@ -19,7 +19,7 @@ Citysandbox::Application.routes.draw do
   match "/unfollow" => "discussion#unfollow"
   match "/recent" => "users#recent"
   match "/qr" => 'discussion#qr'
-  match "/map_info" => 'users#validate'
+  match "/validate" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
   
   
