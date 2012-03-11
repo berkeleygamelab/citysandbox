@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   validates :location, :presence => true
   #validate :name_check
 
-  before_create :setup_logic
+  after_create :setup_logic
   
   def name_check
     if(login.strip != login)
