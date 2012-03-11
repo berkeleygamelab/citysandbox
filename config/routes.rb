@@ -12,15 +12,16 @@ Citysandbox::Application.routes.draw do
   
   resources :sessions
   
+  match '/users/validate' => 'users#validate'
   match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
   match "/follow" => "discussion#follow"
   match "/unfollow" => "discussion#unfollow"
   match "/recent" => "users#recent"
   match "/qr" => 'discussion#qr'
-  match "/map_info" => 'map#get_info'
+  match "/map_info" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
-  match '/users/validate' => 'users#validate'
+  
   
   resources :questions do
     resources :response_questions, :shallow => true
