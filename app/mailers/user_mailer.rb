@@ -4,6 +4,6 @@ class UserMailer < ActionMailer::Base
       from       "appcivist "
       subject    "Please activate your new account"
       sent_on    Time.now
-      body       { :user => user, :url => activate_url(user.activation_code, :host => user.site.host }
+      body       {"check it out! go to this link and yeah you'll be awesome!"}
     end
 end
