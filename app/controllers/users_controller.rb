@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     val = params[:token]
     @validated = false
     if(val != nil and id != nil)
-      @validated = (User.where(:id => id).first.temp_pw == val)
+      @validated = (User.where(:id => id).first.temp_pwd == val)
     end
   end
   
