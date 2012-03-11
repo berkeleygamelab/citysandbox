@@ -79,6 +79,15 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
+  def validate
+    id = params[:user]
+    val = params[:token]
+    @validated = false
+    if(val != nil and id != nil)
+      @validated = (User.where(:id => id).first.temp_pw == val)
+    end
+  end
+  
   def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
     name =  uploaded_file.original_filename

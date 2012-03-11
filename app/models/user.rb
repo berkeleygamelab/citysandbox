@@ -95,13 +95,15 @@ class User < ActiveRecord::Base
     random_length = 10
     temp = random_string(random_length)
     temp_pw = temp
+    return temp_pw
   end
   
   def setup_logic
-    generate_random_authlogic()
-    mail = UserMailer.signup_notification(self)
+    tmp = generate_random_authlogic()
+    mail = UserMailer.signup_notification(self, tmp)
     mail.deliver
   end
+  
   
   
 end

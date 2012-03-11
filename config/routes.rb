@@ -20,6 +20,7 @@ Citysandbox::Application.routes.draw do
   match "/qr" => 'discussion#qr'
   match "/map_info" => 'map#get_info'
   match "/users/profile/:id" => 'users#profile'
+  match '/users/validate' => 'users#validate'
   
   resources :questions do
     resources :response_questions, :shallow => true
