@@ -92,8 +92,8 @@ class User < ActiveRecord::Base
      return newpass
   end
   def generate_random_authlogic()
-    RANDOM_LENGTH = 10
-    temp = random_string(RANDOM_LENGTH)
+    random_length = 10
+    temp = random_string(random_length)
     temp_pw = temp
   end
   
