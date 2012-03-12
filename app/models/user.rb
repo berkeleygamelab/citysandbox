@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   
   def setup_logic
     temp_pwd = generate_random_authlogic()
-    :temp_pwd = temp_pwd
+    #:temp_pwd = temp_pwd
 
   end
   
