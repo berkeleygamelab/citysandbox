@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
   has_many :tagged_areas, :through => :user_areas
-  has_many :categories, :through => user_category
-  has_many :notifications, :through => user_category
+#  has_many :categories, :through => user_category
+#  has_many :notifications, :through => user_category
   has_many :sent_messages
   has_many :received_messages, :as => :recipient
   has_many :folders
@@ -29,3 +29,5 @@ class User < ActiveRecord::Base
     subscription = FollowedUser.new(:followed_id => id, :user_id => follow_user.id)
     followed.save
   end
+  
+end

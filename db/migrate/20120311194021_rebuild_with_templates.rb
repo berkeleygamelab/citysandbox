@@ -82,7 +82,6 @@ class RebuildWithTemplates < ActiveRecord::Migration
       t.string   "password_digest"
       t.string   "location"
 	  t.string "password"
-	  
 	end
 	
 	create_table "user_areas", :force => true do |t|
@@ -115,14 +114,14 @@ class RebuildWithTemplates < ActiveRecord::Migration
 	
 	create_table "received_messages", :force => true do |t|
 	  t.integer "received_by", :null => false
-	  t.boolean "read?", :default => 0
+	  t.boolean "read?", :default => false
 	  t.integer "folder_id"
 	  t.integer "sent_message_id", :null => false
 	end
 	
 	create_table "notifications", :force => true do |t|
 	  t.integer "user_id"
-	  t.boolean "seen?", :default => 0
+	  t.boolean "seen?", :default => false
 	  t.integer "type"
 	  t.integer "item_id"
 	end

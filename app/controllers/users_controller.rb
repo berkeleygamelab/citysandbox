@@ -1,5 +1,19 @@
 class UsersController < ApplicationController
 
+  def random_string(len)
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+     newpass = ""
+     1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
+     return newpass
+  end
+  
+  def generate_random_authlogic()
+    random_length = 10
+    temp = random_string(random_length)
+    temp_pwd = temp
+    return temp_pwd
+  end
+  
   def new
     @user = User.new
   end
@@ -13,6 +27,7 @@ class UsersController < ApplicationController
    # params[:user][:picture] = picturePotential[0].url
     
     @user = User.new(params[:user])
+    @user.temp_pwd = generate_random_authlogic()
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
       @user.lat = a[0].to_s
@@ -79,4 +94,33 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
+  def validate
+    id = params[:user]
+    val = params[:token]
+    @validated = false
+    if(val != nil and id != nil)
+      @validated = (User.where(:id => id).first.temp_pwd == val)
+    end
+  end
+  
+  def upload_image(user, uploaded_file)
+    puts "attempting to do shit with the image"
+    name =  uploaded_file.original_filename
+        
+         #create the file path
+        path = File.join("tmp", name)
+        # write the file
+       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+        
+      #a = 0 / 0
+      item = Fleakr.upload(path)
+      user.picture = "DEFAULT"
+      if item != nil
+        if item[0] != nil
+          user.picture = item[0].url
+        end
+      end
+    
+  end
+
 end

@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+<<<<<<< HEAD
   attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :picture
+=======
+  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img, :temp_pwd
+>>>>>>> a44d02f2f9e3690b8bc65da491cad0cb22519639
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
@@ -63,6 +67,8 @@ class User < ActiveRecord::Base
   #validate :name_check
 
   
+  after_create :send_confirmation
+  
   def name_check
     if(login.strip != login)
       errors.add(:login, "login can't start or end with blank spaces")
@@ -106,6 +112,15 @@ class User < ActiveRecord::Base
     if followed != nil
       followed.destroy
     end
+  end
+  
+
+  
+  
+  def send_confirmation
+    temp_pwd = :temp_pwd
+    mail = UserMailer.signup_notification(self, self.temp_pwd)
+    mail.deliver
   end
   
   
