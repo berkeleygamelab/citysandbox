@@ -86,18 +86,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def random_string(len)
-    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-     newpass = ""
-     1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
-     return newpass
-  end
-  def generate_random_authlogic()
-    random_length = 10
-    temp = random_string(random_length)
-    temp_pwd = temp
-    return temp_pwd
-  end
+
   
   def setup_logic
     temp_pwd = generate_random_authlogic()
