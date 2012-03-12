@@ -11,14 +11,26 @@ class UsersController < ApplicationController
   def create
     #picturePotential = upload_image(params[:user][:picture])
    # params[:user][:picture] = picturePotential[0].url
-
+    
     @user = User.new(params[:user])
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
       @user.lat = a[0].to_s
       @user.lng = a[1].to_s
     end
+    if params[:user][:upload] != nil
+      upload_image(@user, params[:user][:upload])
+    else
+      @user.picture = "DEFAULT"
+    end
     if @user.save
+      stuff = params[:upload]
+      puts stuff
+      if params[:upload] == nil
+        puts "HU HO"
+        
+      end
+      puts "LE PICTURE"
      # @user.picture = picturePotential[0].url
       #@user.save
       redirect_to new_session_path
@@ -67,14 +79,23 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
-  def upload_image(img)
-    puts img
+  def upload_image(user, uploaded_file)
     puts "attempting to do shit with the image"
-    if img != nil
-      return Fleakr.upload(img.tempfile)
-    else
-      return [{:url => nil}]
-    end
+    name =  uploaded_file.original_filename
+        
+         #create the file path
+        path = File.join("tmp", name)
+        # write the file
+       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+        
+      #a = 0 / 0
+      item = Fleakr.upload(path)
+      user.picture = "DEFAULT"
+      if item != nil
+        if item[0] != nil
+          user.picture = item[0].url
+        end
+      end
     
   end
 end

@@ -83,10 +83,11 @@ footer a {
 	line-height: 2.5em;
 }
 #map_view {
-	margin-left: 550px;
+	margin-left: 600px;
 	background: url('../images/header_tab.png');
 	width:120px;
 	height:33px;
+	margin-top: -33px;
 	text-align:center;
 }
 #ask_question {
