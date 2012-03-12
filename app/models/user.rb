@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img
+  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img, :temp_pwd
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   validates :location, :presence => true
   #validate :name_check
 
-  after_create :setup_logic
+  before_create :setup_logic
+  after_create :send_confirmation
   
   def name_check
     if(login.strip != login)
@@ -100,9 +101,14 @@ class User < ActiveRecord::Base
   
   def setup_logic
     temp_pwd = generate_random_authlogic()
+    :temp_pwd = temp_pwd
+
+  end
+  
+  def send_confirmation
+    temp_pwd = :temp_pwd
     mail = UserMailer.signup_notification(self, temp_pwd)
     mail.deliver
-    save
   end
   
   
