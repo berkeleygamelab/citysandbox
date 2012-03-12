@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   validates :location, :presence => true
   #validate :name_check
 
-  before_create :setup_logic
+  
   after_create :send_confirmation
   
   def name_check
@@ -88,11 +88,6 @@ class User < ActiveRecord::Base
   
 
   
-  def setup_logic
-    temp_pwd = generate_random_authlogic()
-    #:temp_pwd = temp_pwd
-
-  end
   
   def send_confirmation
     temp_pwd = :temp_pwd
