@@ -16,6 +16,7 @@ class Category < ActiveRecord::Base
 		cats.each do |cat| 
 			results += [cat.name]
 		return results
+	end
 	end	
 	
 	def return_cat_id(text)
