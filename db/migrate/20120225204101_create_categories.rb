@@ -7,6 +7,7 @@ class CreateCategories < ActiveRecord::Migration
 	  t.datetime "created_at"
       t.datetime "updated_at"
     end
-
+  end
+	
 	
 end
