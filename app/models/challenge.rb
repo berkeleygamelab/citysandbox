@@ -1,18 +1,20 @@
 class Challenge < ActiveRecord::Base
   has_many :proposals
-  has_many :response_challenges
-  has_many :followed_challenges
+#  has_many :response_challenges
+#  has_many :followed_challenges
   has_many :events
+  has_one :item_template, :as => :item
+	
   attr_accessor :lat
   attr_accessor :lng
   
-  belongs_to :challenge
-  belongs_to :user
-  belongs_to :categories
+#  belongs_to :challenge
+#  belongs_to :user
+#  belongs_to :categories
   belongs_to :question
   
-  validates :categories_id, :presence => true
-  validates :title, :presence => true
+#  validates :categories_id, :presence => true
+#  validates :title, :presence => true
   validates :submission_deadline, :presence => true
   validates :vote_deadline, :presence => true
   
@@ -34,7 +36,7 @@ class Challenge < ActiveRecord::Base
      
      followed.save
    end
-   
+ ##copied to item_template  
    def create_followed(follower)
      followed = FollowedChallenge.new
      followed.user_id = follower.id
@@ -43,7 +45,8 @@ class Challenge < ActiveRecord::Base
        followed.save
      end
    end
-   
+ ##
+ 
    def most_popular(since_last)
      return challenge.where("updated_at > '#{since_last}'").where()
    end

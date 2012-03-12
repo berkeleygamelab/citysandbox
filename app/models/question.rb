@@ -1,19 +1,19 @@
 
  class Question < ActiveRecord::Base
-  belongs_to :user
+#  belongs_to :user
   has_many :challenges
-  has_many :response_questions
-  has_many :events
-  has_many :followed_questions
-  belongs_to :categories
-  attr_accessor :lat
-  attr_accessor :lng
+#  has_many :response_questions
+
+#  has_many :events
+#  has_many :followed_questions
+#  belongs_to :categories
+#  attr_accessor :lat
+#  attr_accessor :lng
   attr_accessor :most_recent
+  has_one :item_template, :as => :item
   
-  validates :user_id, :presence => true
-  validates :title, :presence => true
-  validates :location, :presence => true
-  validates :categories_id, :presence => true
+
+#  validates :categories_id, :presence => true
   
   
   
@@ -67,37 +67,37 @@
       return categories_id
     end
     
-    def create_followed
-      followed = FollowedQuestion.new
-      followed.user_id = current_user.id
-      followed.question_id = id
+ #   def create_followed
+ #     followed = FollowedQuestion.new
+ #     followed.user_id = current_user.id
+ #     followed.question_id = id
       
       
-      followed.save
-    end
+ #     followed.save
+ #   end
     
-    def create_followed(follower)
-      followed = FollowedQuestion.new
-      followed.user_id = follower.id
-      followed.question_id = id
-      if FollowedQuestion.where(:question_id => id).where(:user_id => follower.id) == []
-        followed.save
-      end
-    end
+ #   def create_followed(follower)
+ #     followed = FollowedQuestion.new
+ #     followed.user_id = follower.id
+ #     followed.question_id = id
+ #     if FollowedQuestion.where(:question_id => id).where(:user_id => follower.id) == []
+ #       followed.save
+ #     end
+ #   end
     
    
     
-    def remove_followed
-       followed = followed_questions
-       a= followed.where(:user_id => current_user.id).first
-       return a.destroy
-    end
+ #   def remove_followed
+ #      followed = followed_questions
+ #      a= followed.where(:user_id => current_user.id).first
+ #      return a.destroy
+ #   end
      
-     def remove_followed(follower)
-       followed = followed_questions
-       a = followed.where(:user_id => follower.id).first
-       return a.destroy
-     end
+ #    def remove_followed(follower)
+ #      followed = followed_questions
+ #      a = followed.where(:user_id => follower.id).first
+ #      return a.destroy
+ #    end
   
     def fetch_location
       @questions_table = ENV['csb_locations']

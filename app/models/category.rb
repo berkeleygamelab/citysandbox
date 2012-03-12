@@ -1,9 +1,9 @@
 class Category < ActiveRecord::Base
-	has_many :tags
-	attr_accessor :cat_name
+	has_many :item_templates
+	attr_accessor :name
 	attr_accessor :cat_id
-	validates_uniqueness_of :cat_name
-	has_and_belongs_to_many :users
+	validates_uniqueness_of :name
+	has_many :users, :through => :user_categories
 	
 	def get_n_popular_cats(n)
 		return Category.find(:order => 'popularity', :limit => n)
@@ -11,15 +11,15 @@ class Category < ActiveRecord::Base
 	
 
 	def auto_fill(text)
-		cats = Category.find(:all, :conditions => ['cat_name LIKE ?', text + '%'])
+		cats = Category.find(:all, :conditions => ['name LIKE ?', text + '%'])
 		results = []
 		cats.each |cat| do:
-			results += [cat.cat_name]
+			results += [cat.name]
 		return results
 	end	
 	
 	def return_cat_id(text)
-		cat = Category.where(:cat_name => text)
+		cat = Category.where(:name => text)
 		if cat is nil:
 			return nil
 		return cat.category_id
