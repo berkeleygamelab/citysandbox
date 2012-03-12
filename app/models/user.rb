@@ -5,22 +5,23 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login, :email
  
   
-  belongs_to :followed_question
-  has_many :questions
-  has_many :responses
-  has_many :challenges
-  has_many :events
-  has_many :followed_users
-  has_many :followed_challenges
-  has_many :followed_questions
-  has_many :followed_events
-  has_many :response_challenges
-  has_many :response_events
-  has_many :response_questions
-  has_many :messages
-  has_many :message_copys
-  has_many :voting_records
-  has_many :proposals
+#  belongs_to :followed_question
+
+#  has_many :questions
+#  has_many :responses
+#  has_many :challenges
+#  has_many :events
+#  has_many :followed_users
+#  has_many :followed_challenges
+#  has_many :followed_questions
+#  has_many :followed_events
+#  has_many :response_challenges
+#  has_many :response_events
+#  has_many :response_questions
+#  has_many :messages
+#  has_many :message_copys
+#  has_many :voting_records
+#  has_many :proposals
 
  # before_create :build_inbox
 

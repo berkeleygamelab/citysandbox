@@ -1,16 +1,18 @@
 class Event < ActiveRecord::Base
   belongs_to :challenge
-  belongs_to :question
-  belongs_to :user
-  belongs_to :categories
-  belongs_to :challenge
-  attr_accessor :lat
-  attr_accessor :lng
+  has_one :item_template, :as => :item
   
-  validates :categories_id, :presence => true
+#  belongs_to :question
+#  belongs_to :user
+#  belongs_to :categories
+#  belongs_to :challenge
+#  attr_accessor :lat
+#  attr_accessor :lng
   
-  has_many :response_events
-  has_many :followed_events
+#  validates :categories_id, :presence => true
+  
+#  has_many :response_events
+#  has_many :followed_events
   
   scope :followed, lambda{|key| {:conditions => {:id => key}}}
   

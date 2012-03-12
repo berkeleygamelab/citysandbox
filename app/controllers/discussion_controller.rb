@@ -53,7 +53,7 @@ def filter
   size_limit_discussion = 5
   page_offset = 0
   @collection = []
- 
+ #params: keyword, array of types, time before, time after, subscribing,category
   @flagsorted = false 
   @category_type = params[:category]
   @type_of_stuff = params[:types]

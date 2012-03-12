@@ -1,14 +1,15 @@
 class Proposal < ActiveRecord::Base
   belongs_to :challenge
-  belongs_to :user
-  has_many :voting_records
+#  belongs_to :user
+  has_many :votes
+  has_one :item_template, :as => :item
   
   validates :challenge_id, :presence => true
   validates :title, :presence => true
   validate :prior_deadline
   
   def total
-     return voting_records.size
+     return votes.size
    end
   
   def prior_deadline
