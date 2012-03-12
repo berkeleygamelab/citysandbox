@@ -53,7 +53,7 @@ class RebuildWithTemplates < ActiveRecord::Migration
 	end
 	
 	create_table "coordinates", :force =>true do |t|
-		t.integer "tagged area_id", :null => false
+		t.integer "tagged_area_id", :null => false
 		t.string "location"
 	end
 	

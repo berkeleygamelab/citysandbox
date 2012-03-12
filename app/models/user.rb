@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
 
   #double check return value of open and picture URL
   def render_image(user)
-      return open(user.picture) 	
+      if user.picture != nil || user.picture != "DEFAULT"
+         return Fleakr.resource_from_url(user.picture, 'rb') 	
   end
 
   def upload_image(user, uploaded_file)
@@ -49,10 +50,8 @@ class User < ActiveRecord::Base
         
     item = Fleakr.upload(path)
     user.picture = "DEFAULT"
-    if item != nil
-      if item[0] != nil
+    if item != nil && item[0] != nil
         user.picture = item[0].url
-      end
     end
     
   end

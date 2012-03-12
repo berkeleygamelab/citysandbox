@@ -10,9 +10,28 @@ class MapController < ApplicationController
   
   respond_to :json
   
+  def draw
+      #creating new tagged area
+      name = params["taggedArea"]
+      taggedarea = TaggedArea.new(:title => name)
+      
+      if taggedarea.save
+          #all coordinates associated with this tagged area based on id
+          coordinates = params["coordinates"]
+
+	  #treating coordinates as a LIST OF TUPLES 
+          coordinates.each do |t|
+	      c = t[0] + "," + t[1]
+              newcoord = Coordinate.new(:tagged_area_id => taggedarea.id, :location => c)
+	      newcoord.save
+	  end
+      end
+   end
+          
+      	
   def query_filter
       area = params["taggedArea"]
-      @taggedAreas =  CreateGroupArea.where(:name => area)
+      @taggedAreas =  TaggedArea.where(:name => area)
       return @taggedAreas
   end
 

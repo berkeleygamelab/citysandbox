@@ -79,23 +79,4 @@ class UsersController < ApplicationController
     respond_with(@user.recent_activity)
   end
   
-  def upload_image(user, uploaded_file)
-    puts "attempting to do shit with the image"
-    name =  uploaded_file.original_filename
-        
-         #create the file path
-        path = File.join("tmp", name)
-        # write the file
-       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
-        
-      #a = 0 / 0
-      item = Fleakr.upload(path)
-      user.picture = "DEFAULT"
-      if item != nil
-        if item[0] != nil
-          user.picture = item[0].url
-        end
-      end
-    
-  end
 end
