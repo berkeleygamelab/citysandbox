@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   
   def send_confirmation
     temp_pwd = :temp_pwd
-    mail = UserMailer.signup_notification(self, temp_pwd)
+    mail = UserMailer.signup_notification(self, self.temp_pwd)
     mail.deliver
   end
   
