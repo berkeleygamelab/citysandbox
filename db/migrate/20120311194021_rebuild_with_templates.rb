@@ -82,7 +82,6 @@ class RebuildWithTemplates < ActiveRecord::Migration
       t.string   "password_digest"
       t.string   "location"
 	  t.string "password"
-	  
 	end
 	
 	create_table "user_areas", :force => true do |t|

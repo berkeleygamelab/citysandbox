@@ -34,6 +34,9 @@ GEM
     ap (0.1.1)
       httparty (>= 0.7.7)
     arel (2.2.3)
+    authlogic (3.1.0)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     bcrypt-ruby (3.0.1-x86-mingw32)
     builder (3.0.0)
     coffee-rails (3.1.1)
@@ -142,6 +145,7 @@ PLATFORMS
 
 DEPENDENCIES
   ap
+  authlogic
   coffee-rails (~> 3.1.0)
   crack
   eventmachine (~> 1.0.0.beta.4.1)
