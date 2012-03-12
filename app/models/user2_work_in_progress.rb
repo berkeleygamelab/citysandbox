@@ -29,3 +29,5 @@ class User < ActiveRecord::Base
     subscription = FollowedUser.new(:followed_id => id, :user_id => follow_user.id)
     followed.save
   end
+  
+end
