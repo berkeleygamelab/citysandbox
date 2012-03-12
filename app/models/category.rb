@@ -13,7 +13,7 @@ class Category < ActiveRecord::Base
 	def auto_fill(text)
 		cats = Category.find(:all, :conditions => ['name LIKE ?', text + '%'])
 		results = []
-		cats.each |cat| do:
+		cats.each do |cat| 
 			results += [cat.name]
 		return results
 	end	
