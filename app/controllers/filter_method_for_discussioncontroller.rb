@@ -12,6 +12,7 @@ def filter
 	@types = params[:types] #array of numbers (1-5) that specifies what type of item we're filtering for
 	if @endDate==nil
 		@endDate = Time.now
+	end
 	@events = []
 	@questions = []
 	@challenges = []
@@ -23,4 +24,6 @@ def filter
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
   end
+
+end
 	
