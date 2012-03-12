@@ -20,7 +20,7 @@ class Category < ActiveRecord::Base
 	
 	def return_cat_id(text)
 		cat = Category.where(:name => text)
-		if cat is nil:
+		if cat is nil
 			return nil
 		return cat.category_id
 	end
