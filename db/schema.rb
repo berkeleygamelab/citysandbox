@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111123093546) do
+ActiveRecord::Schema.define(:version => 20120226002026) do
 
   create_table "categories", :force => true do |t|
     t.string   "category"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
     t.integer  "categories_id"
     t.integer  "popularity",                          :default => 0
     t.datetime "most_recent",                         :default => '2011-11-28 00:07:34'
+  end
+
+  create_table "create_group_areas", :force => true do |t|
+    t.string   "name"
+    t.string   "lng"
+    t.string   "lat"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "events", :force => true do |t|
@@ -80,6 +88,13 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
   create_table "followed_users", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "followed_user_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "group_area_lookups", :force => true do |t|
+    t.string   "mapid"
+    t.integer  "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -148,6 +163,13 @@ ActiveRecord::Schema.define(:version => 20111123093546) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "anonymous",                   :default => 0
+  end
+
+  create_table "user_add_areas", :force => true do |t|
+    t.integer  "uid"
+    t.datetime "when"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

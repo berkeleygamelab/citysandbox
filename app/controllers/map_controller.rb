@@ -10,6 +10,12 @@ class MapController < ApplicationController
   
   respond_to :json
   
+  def query_filter
+      area = params["taggedArea"]
+      @taggedAreas =  CreateGroupArea.where(:name => area)
+      return @taggedAreas
+  end
+
   def get_info
     @entry = {}
     if (params[:category] == 'questions') 

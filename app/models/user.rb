@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img
+  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :picture
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
@@ -31,6 +31,30 @@ class User < ActiveRecord::Base
     #def build_inbox
      # folders.build(:name => "Inbox")
   #  end
+
+  #double check return value of open and picture URL
+  def render_image(user)
+      return open(user.picture) 	
+  end
+
+  def upload_image(user, uploaded_file)
+    name =  uploaded_file.original_filename
+        
+    #create the file path
+    path = File.join("tmp", name)
+
+    # write the file
+    File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+        
+    item = Fleakr.upload(path)
+    user.picture = "DEFAULT"
+    if item != nil
+      if item[0] != nil
+        user.picture = item[0].url
+      end
+    end
+    
+  end
 
   validates :login, :presence => true
   validates :email, :presence => true

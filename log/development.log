@@ -8909,3 +8909,40 @@ Started GET "/filter?types%5B%5D=Questions&types%5B%5D=Challenges&types%5B%5D=Ev
   [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT 1[0m
   [1m[35mFollowedEvent Load (0.1ms)[0m  SELECT "followed_events".* FROM "followed_events" WHERE "followed_events"."event_id" = 1 AND "followed_events"."user_id" = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Rebuild (20111010231912)
+Migrating to PopulateCategories (20111017000942)
+Migrating to AddUserLatLng (20111121061511)
+Migrating to AdjustQuestions (20111123093546)
+Migrating to CreateCreateGroupAreas (20120225211423)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "create_group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "lng" varchar(255), "lat" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120225211423')
+Migrating to CreateGroupAreaLookups (20120225223046)
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "group_area_lookups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "mapid" varchar(255), "uid" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120225223046')
+Migrating to CreateUserAddAreas (20120226002026)
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "user_add_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "uid" integer, "when" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120226002026')
+  [1m[36m (1.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("categories")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("challenges")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("create_group_areas")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("events")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("folders")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("followed_challenges")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("followed_events")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("followed_questions")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("followed_users")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("group_area_lookups")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("message_copies")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messages")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("proposals")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("questions")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("response_challenges")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("response_events")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("response_questions")[0m
+  [1m[35m (1.0ms)[0m  PRAGMA index_list("user_add_areas")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("users")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("voting_records")
