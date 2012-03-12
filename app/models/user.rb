@@ -100,8 +100,9 @@ class User < ActiveRecord::Base
   
   def setup_logic
     temp_pwd = generate_random_authlogic()
-    mail = UserMailer.signup_notification(self, temp)
+    mail = UserMailer.signup_notification(self, temp_pwd)
     mail.deliver
+    save
   end
   
   
