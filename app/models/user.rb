@@ -1,9 +1,6 @@
 class User < ActiveRecord::Base
-<<<<<<< HEAD
-  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :picture
-=======
-  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img, :temp_pwd
->>>>>>> a44d02f2f9e3690b8bc65da491cad0cb22519639
+
+  attr_accessible :login, :email, :password, :password_confirmation, :location, :lng, :lat, :img, :temp_pwd, :picture
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
