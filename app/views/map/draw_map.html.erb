@@ -7,29 +7,6 @@ $(document).ready( function() {
 				load_map();
 		
 });
-function load_map() {
-	var lat = 0;
-	var lng = 0;
-	var center;
-	var map;
-	var tableID = 2036527;
-	var geocoder = new google.maps.Geocoder();
-	 var uluru = new google.maps.LatLng(-25.344, 131.036);
-	map = new google.maps.Map(document.getElementById('mapview_map'), {
-	  center: uluru,
-	  zoom: 12,
-	  mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-	
-    poly = new google.maps.Polygon({
-      strokeWeight: 3,
-      fillColor: '#5555FF'
-    });
-    poly.setMap(map);
-    poly.setPaths(new google.maps.MVCArray([path]));
-
-    google.maps.event.addListener(map, 'click', addPoint);		
-}
 
 function addPoint(event) {
   path.insertAt(path.length, event.latLng);
@@ -56,6 +33,30 @@ function addPoint(event) {
     }
   );
 }
+function load_map() {
+	var lat = 0;
+	var lng = 0;
+	var center;
+	var map;
+	var tableID = 2036527;
+	var geocoder = new google.maps.Geocoder();
+	 var uluru = new google.maps.LatLng(-25.344, 131.036);
+	map = new google.maps.Map(document.getElementById('mapview_map'), {
+	  center: uluru,
+	  zoom: 12,
+
+	});
+	
+    poly = new google.maps.Polygon({
+      strokeWeight: 3,
+      fillColor: '#5555FF'
+    });
+    poly.setMap(map);
+    poly.setPaths(new google.maps.MVCArray([path]));
+
+    google.maps.event.addListener(map, 'click', addPoint);		
+}
+
 // function Legend(controlDiv, map) {
 //   // Set CSS styles for the DIV containing the control
 //   // Setting padding to 5 px will offset the control
