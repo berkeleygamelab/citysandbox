@@ -78,8 +78,8 @@ class User < ActiveRecord::Base
     stuff += Item_templates.order("updated_at DESC")
 	return stuff
   end
-  def limited_recent_activity(n):
+  def limited_recent_activity(n)
 	return recent_activity.slice(1,n)
-  
+end
   
 end
