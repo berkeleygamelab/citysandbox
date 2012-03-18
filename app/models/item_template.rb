@@ -47,16 +47,106 @@ class ItemTemplate < ActiveRecord::Base
 			followed.save
 		end
 	end
+<<<<<<< HEAD
+	def most_popular(since_last)
+		return challenge.find(:all, :conditions => ["updated_at > "]).where()
+   end
+
+        def fetch_location
+	    @table = ENV['csb_locations']
+	    return ::FT.execute "SELECT Location FROM #{@table} WHERE ID = #{item_id} AND Type = ItemTemplate.type "
+
+        #takes in a CSV of lat/lng and either quest, chall, or event
+   	def insert_location(location)
+	    @table = ENV['csb_locations']
+	    return ::FT.execute "INSERT INTO #{@table} (ID, Type, Location, Category) VALUES (#{who.id}, #{ItemTemplate.type}, '#{location}', #{ItemTemplate.cat_id} "
+	end
+
+        #takes in a CSV of lat/lng and either quest, chall, or event
+	def update_location(location)
+	    @table = ENV['csb_locations']
+	    @sanity_check = ::FT.execute "SELECT rowid FROM #{@table} WHERE ID = #{who.id} AND Type = #{ItemTemplate.type} "
+	    if @sanity_check[0] == nil
+	        return insert_location(location)
+	    end
+	    @rowid = @sanity_check[0][:rowid]
+
+	    return ::FT.execute "UPDATE #{@table} SET Location = '#{ItemTemplate.location}' WHERE ROWID = '#{@rowid}' AND Type = #{ItemTemplate.type}"
+	end
+
+        #takes in a limit and either quest, chall, or event
+	def grab_nearest(limit)
+	    @table = ENV['csb_locations']
+	    @lat = ItemTemplate.location.split(',')[0].to_f
+	    @lng = ItemTemplate.location.split(',')[1].to_f
+	    return ::FT.execute "Select * FROm #{@table} WHERE Type = ItemTemplate.type ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"
+	end
 	
+	
+	def grab_circle(radius, target_loc, number, who)
+	    @table = ENV['csb_locations']
+	    @lat = target_loc.split[0].to_f
+	    @lng = target_loc.split[1].to_f
+	    reeturn ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}, #{radius})) AND Type = ItemTemplate.type "
+	end
+
+	def sift_circle(radius, target_loc, number, set)
+	    circles = grab_cirle(distance, target_loc, number)
+	    circles = retrieve_google_with_set(set, circles)
+	    return circles
+	end
+
+	def retrieve_google_with_set(set, db_return)
+	    rtn = []
+	    db_return.each do |x|
+	        rtn += [x[:item_id]]
+	    end
+	    return set.followed(rtn)
+	end
+
+	def grab_rectangle(upper_right, lower_left)
+	    @table = ENV['table']
+	    @upper_right_x = upper_right.split[0].to_f
+	    @upper_right_y = upper_right.split[1].to_f
+	    @lower_left_x = lower_left.split[0].to_f
+	    @lower_left_y = lower_left.split[1].to_f
+	    return ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS (Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y}))) AND Type = ItemTemplate.type"
+	    end
+
+	def retrieve_entries(db_return)
+	    rtn = []
+	    db_return.each do |x|
+	        rtn += [x[:item_id]]
+	    end
+	    return ItemTemplate.followed(rtn)
+	end
+
+	def combine_google_filter(db_return, set)
+	    return set.where(:id => db_return)
+	end
+
+	def retrieve_google(db_return)
+	    rtn = []
+	    db_return.each do |x|
+	        rtn += [x[:item_id]]
+	    end
+	    return ItemTemplate.followed(rtn)
+	end
+
+	#temporary most popular
+	def most_popular(since_last, distance, target_location)
+	    set = ItemTemplate.where("updated_at > '#{since_last}'").order("popularity DESC")
+	    google_set = grab_circle(distance, target_location, 25)
+	    google_fetch = retrieve_google(google_set)
+	    return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
+	 end
+	
+
 	def most_popular(since_last, types)
 		return ItemTemplate.find(:all, :conditions => ["updated_at > ? AND type IN (?)", since_last, types]).where()
     end
 
-    def most_popular(since_last, types, distance, target_location)
-       google_set = grab_circle(distance, target_location, 25)
-       google_fetch = retrieve_google(google_set)
-       return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
-    end
+    
 	 
 	def grab_circle(distance, target_loc, number)
      @events_table = ENV['csb_locations']
@@ -71,6 +161,8 @@ class ItemTemplate < ActiveRecord::Base
 	@loc_x = location.split[0].to_f
 	@loc_y = location.split[1].to_f
 	return ::FT.execute "SELECT * FROM #{@item_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
+
 end
+
 
 end
