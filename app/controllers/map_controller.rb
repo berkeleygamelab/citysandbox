@@ -15,6 +15,7 @@ class MapController < ApplicationController
       name = params["taggedArea"]
       taggedarea = TaggedArea.new(:title => name)
       
+      #make sure areas are saving
       if taggedarea.save
           #all coordinates associated with this tagged area based on id
           coordinates = params["coordinates"]
@@ -23,6 +24,7 @@ class MapController < ApplicationController
           coordinates.each do |t|
 	      c = t[0] + "," + t[1]
               newcoord = Coordinate.new(:tagged_area_id => taggedarea.id, :location => c)
+	      #MAKE SURE THAT COORDS ARE SAVING
 	      newcoord.save
 	  end
       end
@@ -33,6 +35,13 @@ class MapController < ApplicationController
       area = params["taggedArea"]
       @taggedAreas =  TaggedArea.where(:name => area)
       return @taggedAreas
+  end
+
+  #NEEDS AN ID, separate function for finding out this id when user selects?
+  def coordinatesForArea
+      areaID = params["areaID"]
+      @coordinates = Coordinate.where(:Area_id => areaID)
+      return @coordinates
   end
 
   def get_info
