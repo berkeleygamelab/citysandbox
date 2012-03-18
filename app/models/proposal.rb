@@ -1,6 +1,5 @@
 class Proposal < ActiveRecord::Base
   belongs_to :challenge
-#  belongs_to :user
   has_many :votes
   has_one :item_template, :as => :item
   

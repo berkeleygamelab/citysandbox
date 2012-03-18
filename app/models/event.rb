@@ -25,6 +25,12 @@ class Event < ActiveRecord::Base
   def category_id
      return categories_id
   end
+  
+  def generate_content
+	@time = time
+	@challenge_id = challenge_id
+	@minimum_to_run = minimum_to_run
+  end
 
    
    
@@ -83,13 +89,6 @@ class Event < ActiveRecord::Base
      return ::FT.execute "INSERT INTO #{@events_table} (Location, ID, Origin, Category) VALUES ('#{loc}', #{id}, 'events', #{categories_id})"
    end
    
-   def grab_circle(distance, target_loc, number)
-     @events_table = ENV['csb_locations']
-     @loc_x = target_loc.split[0].to_f
-     @loc_y = target_loc.split[1].to_f
-
-     return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'events'"
-   end
    
    def grab_nearest(number)
      @events_table = ENV['csb_locations']
