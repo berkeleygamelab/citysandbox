@@ -10,7 +10,7 @@ class RebuildWithTemplates < ActiveRecord::Migration
 		t.datetime "update_time", :default => Time.now
 		t.integer "popularity", :default => 0
 		t.integer "Item_id"
-		t.integer "type"
+		t.string "type"
 	end
 	
 	create_table "questions", :force => true do |t|

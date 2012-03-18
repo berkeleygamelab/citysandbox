@@ -15,7 +15,7 @@ gem 'ap'
 gem 'crack'
 gem 'httparty'
 gem 'thin'
-gem 'therubyracer'
+#gem 'therubyracer'
 gem 'geocoder'
 gem 'fleakr'
 gem 'authlogic'
@@ -32,7 +32,9 @@ gem 'will_paginate', '~> 3.0.2'
 
 gem 'jquery-rails'
 
-gem 'eventmachine'
+gem 'eventmachine', '~> 1.0.0.beta.4.1'
+
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
