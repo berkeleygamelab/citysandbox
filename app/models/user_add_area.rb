@@ -1,5 +1,5 @@
 class UserAddArea < ActiveRecord::Base
     belongs_to :user
-    validate_presence_of :when
-    validate_presence_of :uid
+    validates_presence_of :when
+    validates_presence_of :uid
 end
