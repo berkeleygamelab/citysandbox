@@ -47,6 +47,7 @@ Citysandbox::Application.routes.draw do
   get '/filter' => 'discussion#filter', :as => :filter
   
   match "/map" => 'map#index', :as => :map
+  match "/map/draw" => 'map#draw'
   
   match "messages/sent" => "sent#show"
   match "messages/inbox" => "inbox#show"
@@ -56,7 +57,7 @@ Citysandbox::Application.routes.draw do
   # match "users/inbox/new" => "inbox#new"
   match "messages/reply/:id" => "inbox#respond", :as => :reply
   match "messages/send_to/:id" => "inbox#send_to", :as => :reply
-  
+
   resources :users, :messages,  :inbox
   
   # scope "/users" do

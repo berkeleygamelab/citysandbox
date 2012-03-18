@@ -27,6 +27,10 @@ class MapController < ApplicationController
 	  end
       end
    end
+   
+   def draw_map
+     
+   end
           
       	
   def query_filter
