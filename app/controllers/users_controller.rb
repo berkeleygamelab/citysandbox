@@ -30,8 +30,8 @@ class UsersController < ApplicationController
     @user.temp_pwd = generate_random_authlogic()
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
-      @user.lat = a[0].to_s
-      @user.lng = a[1].to_s
+      #@user.lat = a[0].to_s
+      #@user.lng = a[1].to_s
     end
     if params[:user][:upload] != nil
       upload_image(@user, params[:user][:upload])
