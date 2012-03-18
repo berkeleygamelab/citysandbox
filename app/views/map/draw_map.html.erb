@@ -64,9 +64,9 @@ function addPoint(event) {
 function getParameter()
 {
 	var stuff = [];
-	for(var i = 0, I = markers.length; i < I; ++i);
+	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
-	 stuff.push(markers[i].getPosition());
+	 stuff.push(path.getAt(i).getPosition());
 	}
 	return stuff;
 }
