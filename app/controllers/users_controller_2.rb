@@ -5,3 +5,4 @@ class UsersController < ApplicationController
      1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
      return newpass
   end
+end

@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
   end
   
- # respond_to :json
+  respond_to :json
   
   def recent
     @user = User.find(session[:user_id])
