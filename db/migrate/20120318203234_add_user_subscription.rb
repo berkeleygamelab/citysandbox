@@ -1,4 +1,4 @@
-class AddUserFollowing < ActiveRecord::Migration
+class AddUserSubscription < ActiveRecord::Migration
   def up
     puts "WHUT WHUT"
 	create_table "user_subscriptions", :force => true do |t|
