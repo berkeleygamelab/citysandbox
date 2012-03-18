@@ -8,15 +8,15 @@ $(document).ready( function() {
 		
 });
 
-
+var poly, map;
+var markers = [];
+var path = new google.maps.MVCArray;
 function load_map() {
 	var lat = 0;
 	var lng = 0;
 	var center;
-	var poly;
-	var markers = [];
-  var path = new google.maps.MVCArray;
-	var map;
+
+	
 	var tableID = 2036527;
 	var geocoder = new google.maps.Geocoder();
 	 var uluru = new google.maps.LatLng(-25.344, 131.036);
