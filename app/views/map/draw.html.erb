@@ -1,5 +1,6 @@
 
 
+
 <script type="text/javascript">
   var poly, map;
   var markers = [];
@@ -8,7 +9,7 @@
   function initialize() {
     var uluru = new google.maps.LatLng(-25.344, 131.036);
 
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("mapDrawDawg"), {
       zoom: 14,
       center: uluru,
       mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -49,6 +50,9 @@
       }
     );
   }
+$(document).ready( function() {
+	initialize();
+})
 </script>
 
 
@@ -59,4 +63,6 @@
     <li>Drag a vertex to move it.</li>
   </ul>
   </p>
-  <div id="map" style="width: 480; height: 480;"></div>
+  <div id="mapDrawDawg" style="width: 480; height: 480;"></div>
+
+

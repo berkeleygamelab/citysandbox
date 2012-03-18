@@ -1,20 +1,26 @@
-
-
-
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+      type="text/javascript"></script>
 <script type="text/javascript">
-  var poly, map;
-  var markers = [];
-  var path = new google.maps.MVCArray;
+$(document).ready( function() {
 
-  function initialize() {
-    var uluru = new google.maps.LatLng(-25.344, 131.036);
 
-    map = new google.maps.Map(document.getElementById("mapDrawDawg"), {
-      zoom: 14,
-      center: uluru,
-      mapTypeId: google.maps.MapTypeId.SATELLITE
-    });
-
+				load_map();
+		
+});
+function load_map() {
+	var lat = 0;
+	var lng = 0;
+	var center;
+	var map;
+	var tableID = 2036527;
+	var geocoder = new google.maps.Geocoder();
+	 var uluru = new google.maps.LatLng(-25.344, 131.036);
+	map = new google.maps.Map(document.getElementById('mapview_map'), {
+	  center: uluru,
+	  zoom: 12,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+	
     poly = new google.maps.Polygon({
       strokeWeight: 3,
       fillColor: '#5555FF'
@@ -22,47 +28,69 @@
     poly.setMap(map);
     poly.setPaths(new google.maps.MVCArray([path]));
 
-    google.maps.event.addListener(map, 'click', addPoint);
-  }
+    google.maps.event.addListener(map, 'click', addPoint);		
+}
 
-  function addPoint(event) {
-    path.insertAt(path.length, event.latLng);
+function addPoint(event) {
+  path.insertAt(path.length, event.latLng);
 
-    var marker = new google.maps.Marker({
-      position: event.latLng,
-      map: map,
-      draggable: true
-    });
-    markers.push(marker);
-    marker.setTitle("#" + path.length);
+  var marker = new google.maps.Marker({
+    position: event.latLng,
+    map: map,
+    draggable: true
+  });
+  markers.push(marker);
+  marker.setTitle("#" + path.length);
 
-    google.maps.event.addListener(marker, 'click', function() {
-      marker.setMap(null);
-      for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-      markers.splice(i, 1);
-      path.removeAt(i);
-      }
-    );
+  google.maps.event.addListener(marker, 'click', function() {
+    marker.setMap(null);
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    markers.splice(i, 1);
+    path.removeAt(i);
+    }
+  );
 
-    google.maps.event.addListener(marker, 'dragend', function() {
-      for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-      path.setAt(i, marker.getPosition());
-      }
-    );
-  }
-$(document).ready( function() {
-	initialize();
-})
+  google.maps.event.addListener(marker, 'dragend', function() {
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    path.setAt(i, marker.getPosition());
+    }
+  );
+}
+// function Legend(controlDiv, map) {
+//   // Set CSS styles for the DIV containing the control
+//   // Setting padding to 5 px will offset the control
+//   // from the edge of the map
+//   controlDiv.style.padding = '5px';
+// 
+//   // Set CSS for the control border
+//   var controlUI = document.createElement('DIV');
+//   controlUI.style.backgroundColor = 'white';
+//   controlUI.style.borderStyle = 'solid';
+//   controlUI.style.borderWidth = '1px';
+//   controlUI.title = 'Legend';
+//   controlDiv.appendChild(controlUI);
+// 
+//   // Set CSS for the control text
+//   var controlText = document.createElement('DIV');
+//   controlText.style.fontFamily = 'Arial,sans-serif';
+//   controlText.style.fontSize = '12px';
+//   controlText.style.paddingLeft = '4px';
+//   controlText.style.paddingRight = '4px';
+//   
+//   // Add the text
+//   controlText.innerHTML = '<b>Butterflies*</b><br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png" /> Battus<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/yellow-dot.png" /> Speyeria<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png" /> Papilio<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/blue-dot.png" /> Limenitis<br />' +
+//         '<img src="http://maps.google.com/mapfiles/ms/micons/purple-dot.png" /> Myscelia<br />' +
+//         '<small>*Data is fictional</small>';
+//   controlUI.appendChild(controlText);
+// }
 </script>
-
-
-  <p>Instructions:
-  <ul>
-    <li>Click on the map to insert a vertex.</li>
-    <li>Click on a vertex to remove it.</li>
-    <li>Drag a vertex to move it.</li>
-  </ul>
-  </p>
-  <div id="mapDrawDawg" style="width: 480; height: 480;"></div>
-
-
+<div id='content'>
+<div id='mapview_map'></div>
+<div id='city'>
+	<input type='text' class='textbox' id='city_input' size='30'>
+</div>
+</div>
