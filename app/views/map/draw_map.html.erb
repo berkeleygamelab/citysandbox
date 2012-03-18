@@ -41,6 +41,8 @@ function load_map() {
 	var tableID = 2036527;
 	var geocoder = new google.maps.Geocoder();
 	 var uluru = new google.maps.LatLng(-25.344, 131.036);
+  var markers = [];
+  var path = new google.maps.MVCArray;
 	map = new google.maps.Map(document.getElementById('mapview_map'), {
 	  center: uluru,
 	  zoom: 12,
