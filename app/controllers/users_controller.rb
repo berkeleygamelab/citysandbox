@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       stuff = params[:upload]
-      puts stuff
+      
       if params[:upload] == nil
         puts "HU HO"
         
