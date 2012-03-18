@@ -1,7 +1,7 @@
 class RemoveCoordFromUsers < ActiveRecord::Migration
   def up
-      remove_column :users, :lng
-      remove_column :users, :lat
+      #remove_column :users, :lng
+      #remove_column :users, :lat
   end
 
   def down
