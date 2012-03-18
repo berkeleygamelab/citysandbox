@@ -47,7 +47,7 @@ Citysandbox::Application.routes.draw do
   get '/filter' => 'discussion#filter', :as => :filter
   
   match "/map" => 'map#index', :as => :map
-  match "/map/draw" => 'map#draw'
+  match "/map/draw" => 'map#draw_map'
   
   match "messages/sent" => "sent#show"
   match "messages/inbox" => "inbox#show"
