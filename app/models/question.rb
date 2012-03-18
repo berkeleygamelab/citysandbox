@@ -41,6 +41,10 @@
     def insert_driver
       
     end
+	
+	def generate_content
+		@anonymous? = anonymous?
+	end
     
     
     

@@ -80,6 +80,7 @@ class User < ActiveRecord::Base
   end
   def limited_recent_activity(n):
 	return recent_activity.slice(1,n)
+  end
   
   
 end

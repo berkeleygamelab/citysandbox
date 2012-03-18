@@ -1,4 +1,4 @@
-class AddUserFollowing < ActiveRecord::Migration
+class AddUserSubscription < ActiveRecord::Migration
   def up
 	create_table "user_subscriptions", :force => true do |t|
 		t.integer "follower_id", :null=>false
