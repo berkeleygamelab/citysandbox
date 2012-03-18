@@ -1,20 +1,11 @@
 class Challenge < ActiveRecord::Base
   has_many :proposals
-#  has_many :response_challenges
-#  has_many :followed_challenges
+
   has_many :events
   has_one :item_template, :as => :item
 	
-  attr_accessor :lat
-  attr_accessor :lng
-  
-#  belongs_to :challenge
-#  belongs_to :user
-#  belongs_to :categories
   belongs_to :question
   
-#  validates :categories_id, :presence => true
-#  validates :title, :presence => true
   validates :submission_deadline, :presence => true
   validates :vote_deadline, :presence => true
   
@@ -26,25 +17,26 @@ class Challenge < ActiveRecord::Base
 
 
   def category_id
-     return categories_id
+     return item_template.cat_id
    end
-   def create_followed
-     followed = FollowedChallenge.new
-     followed.user_id = current_user.id
-     followed.challenge_id = id
+    ##copied to item_template  
+
+#   def create_followed
+#     followed = FollowedChallenge.new
+#     followed.user_id = current_user.id
+#     followed.challenge_id = id
      
      
-     followed.save
-   end
- ##copied to item_template  
-   def create_followed(follower)
-     followed = FollowedChallenge.new
-     followed.user_id = follower.id
-     followed.challenge_id = id
-     if FollowedChallenge.where(:challenge_id => id).where(:user_id => follower.id) == []
-       followed.save
-     end
-   end
+#     followed.save
+#   end
+#   def create_followed(follower)
+#     followed = FollowedChallenge.new
+#     followed.user_id = follower.id
+#     followed.challenge_id = id
+#     if FollowedChallenge.where(:challenge_id => id).where(:user_id => follower.id) == []
+#       followed.save
+#     end
+#   end
  ##
  
    def most_popular(since_last)

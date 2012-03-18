@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       stuff = params[:upload]
-      puts stuff
+      
       if params[:upload] == nil
         puts "HU HO"
         
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   
   def profile
     @user = User.find(params[:id])
-    @followed_user = current_user.followed_users.where(:followed_user_id => @user_id).size != 0
+    @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
   end
   
   respond_to :json
@@ -100,6 +100,9 @@ class UsersController < ApplicationController
     @validated = false
     if(val != nil and id != nil)
       @validated = (User.where(:id => id).first.temp_pwd == val)
+      user = User.where(:id => id)
+      user.validated = @validated
+      user.save
     end
   end
   
