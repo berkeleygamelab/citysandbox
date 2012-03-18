@@ -15,23 +15,25 @@ class MapController < ApplicationController
       name = params["taggedArea"]
       puts "DUFF MAN IS IN THE HOOS"
       puts params["coordinates"]
+      puts "check if the name is null"
+      puts "name: " + name
       taggedarea = TaggedArea.new(:title => name)
       
       if taggedarea.save
           #all coordinates associated with this tagged area based on id
           coordinates = params["coordinates"]
-
+        end
 	  #treating coordinates as a LIST OF TUPLES 
           coordinates.each do |t|
 	      c = t[0] + "," + t[1]
               newcoord = Coordinate.new(:tagged_area_id => taggedarea.id, :location => c)
 	      newcoord.save
 	  end
-      end
+      
    end
    
    def draw_map
-     
+     puts "what is going on here"
    end
           
       	

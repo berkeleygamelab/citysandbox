@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login, :email
   
   has_many :tagged_areas, :through => :user_areas
-  has_many :categories, :through => user_categories
+  has_many :categories, :through => :user_categories
   has_many :notifications
   has_many :sent_messages
   has_many :received_messages, :as => :recipient
@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :response_templates, :as => :responder
   has_many :item_templates, :through => :subscriptions
-  has_and_belongs_to_many :followees, 
-						  :class_name=>"user",
-						  :join_table => "user_subscriptions",
-						  :foreign_key => "follower_id",
-						  :association_foreign_key => "followee_id"
+  #has_and_belongs_to_many :followees, 
+	#					  :class_name=>"user",
+	#					  :join_table => "user_subscriptions",
+	#					  :foreign_key => "follower_id",
+	#					  :association_foreign_key => "followee_id"
 
   validates :login, :presence => true
   validates :email, :presence => true
@@ -78,9 +78,8 @@ class User < ActiveRecord::Base
     stuff += Item_templates.order("updated_at DESC")
 	return stuff
   end
-  def limited_recent_activity(n):
+  def limited_recent_activity(n)
 	return recent_activity.slice(1,n)
   end
-  
   
 end
