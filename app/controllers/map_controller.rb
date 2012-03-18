@@ -16,7 +16,7 @@ class MapController < ApplicationController
       puts "DUFF MAN IS IN THE HOOS"
       puts params["coordinates"]
       puts "check if the name is null"
-      puts "name: " name
+      puts "name: " + name
       taggedarea = TaggedArea.new(:title => name)
       
       if taggedarea.save
