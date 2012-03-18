@@ -15,6 +15,8 @@ class MapController < ApplicationController
       name = params["taggedArea"]
       puts "DUFF MAN IS IN THE HOOS"
       puts params["coordinates"]
+      puts "check if the name is null"
+      puts "name: " name
       taggedarea = TaggedArea.new(:title => name)
       
       if taggedarea.save
@@ -31,7 +33,7 @@ class MapController < ApplicationController
    end
    
    def draw_map
-     
+     puts "what is going on here"
    end
           
       	
