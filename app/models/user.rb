@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   def render_image(user)
       if user.picture != nil || user.picture != "DEFAULT"
          return Fleakr.resource_from_url(user.picture, 'rb') 	
+      end
   end
 
   def upload_image(user, uploaded_file)
