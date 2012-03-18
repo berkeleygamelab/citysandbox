@@ -22,14 +22,14 @@ class MapController < ApplicationController
       if taggedarea.save
           #all coordinates associated with this tagged area based on id
           coordinates = params["coordinates"]
-
+        end
 	  #treating coordinates as a LIST OF TUPLES 
           coordinates.each do |t|
 	      c = t[0] + "," + t[1]
               newcoord = Coordinate.new(:tagged_area_id => taggedarea.id, :location => c)
 	      newcoord.save
 	  end
-      end
+      
    end
    
    def draw_map
