@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login, :email
   
   has_many :tagged_areas, :through => :user_areas
-  has_many :categories, :through => user_categories
+  #has_many :categories, :through => user_categories
   has_many :notifications
   has_many :sent_messages
   has_many :received_messages, :as => :recipient
