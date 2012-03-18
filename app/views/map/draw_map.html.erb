@@ -37,12 +37,13 @@ function load_map() {
 	var lat = 0;
 	var lng = 0;
 	var center;
+	var poly;
+	var markers = [];
+  var path = new google.maps.MVCArray;
 	var map;
 	var tableID = 2036527;
 	var geocoder = new google.maps.Geocoder();
 	 var uluru = new google.maps.LatLng(-25.344, 131.036);
-  var markers = [];
-  var path = new google.maps.MVCArray;
 	map = new google.maps.Map(document.getElementById('mapview_map'), {
 	  center: uluru,
 	  zoom: 12,
@@ -56,33 +57,7 @@ function load_map() {
     poly.setMap(map);
     poly.setPaths(new google.maps.MVCArray([path]));
 
-    google.maps.event.addListener(map, 'click', function(e)
-{
-	var event = e
-	path.insertAt(path.length, event.latLng);
-
-	  var marker = new google.maps.Marker({
-	    position: event.latLng,
-	    map: map,
-	    draggable: true
-	  });
-	  markers.push(marker);
-	  marker.setTitle("#" + path.length);
-
-	  google.maps.event.addListener(marker, 'click', function() {
-	    marker.setMap(null);
-	    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-	    markers.splice(i, 1);
-	    path.removeAt(i);
-	    }
-	  );
-
-	  google.maps.event.addListener(marker, 'dragend', function() {
-	    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-	    path.setAt(i, marker.getPosition());
-	    }
-	  );
-});		
+    google.maps.event.addListener(map, 'click', addPoint);		
 }
 
 // function Legend(controlDiv, map) {
