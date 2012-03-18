@@ -100,6 +100,9 @@ class UsersController < ApplicationController
     @validated = false
     if(val != nil and id != nil)
       @validated = (User.where(:id => id).first.temp_pwd == val)
+      user = User.where(:id => id)
+      user.validated = @validated
+      user.save
     end
   end
   
