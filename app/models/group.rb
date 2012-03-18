@@ -4,4 +4,8 @@ class Group < ActiveRecord::Base
 	has_one :item_template, :as => :item
 	has_many :response_templates, :as => :responder
 	has_many :sent_messages, :as => :sender
+	
+	def generate_content
+		@picture = picture
+	end
 end
