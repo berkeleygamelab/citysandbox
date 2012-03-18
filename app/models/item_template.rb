@@ -117,11 +117,6 @@ class ItemTemplate < ActiveRecord::Base
 	    google_fetch = retrieve_google(google_set)
 	    return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
 	 end
-=======
 	
-	def most_popular(since_last, types)
-		return item_template.find(:all, :conditions => ["updated_at > ? AND type IN (?)", since_last, types]).where()
-    end
 
->>>>>>> 9e8924dd1177bcc46410efcc4c0c3e01688d2e84
 end
