@@ -30,6 +30,7 @@ html {
  		<%= render :partial => 'layouts/navbar' %>
 	<% elsif params[:controller] == 'users' && params[:action] == 'profile' %>
 		<%= render :partial => 'layouts/navbar' %>
+	<% elsif params[:controller] == 'map' && params[:action] == 'draw_map' %>		
  	<% end %>
 		
 	<%= yield %>
@@ -37,6 +38,8 @@ html {
 </div>
 <% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' && params[:action] != 'qr' %>
 	<%= render :partial => 'layouts/footer', :class=>'footer' %>
+<% elsif params[:controller] == 'map' && params[:action] == 'draw_map' %>
+		
 <% end %>
  </body>
 </html>

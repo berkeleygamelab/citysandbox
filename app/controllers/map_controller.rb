@@ -13,6 +13,8 @@ class MapController < ApplicationController
   def draw
       #creating new tagged area
       name = params["taggedArea"]
+      puts "DUFF MAN IS IN THE HOOS"
+      puts params["coordinates"]
       taggedarea = TaggedArea.new(:title => name)
       
       if taggedarea.save
@@ -26,6 +28,10 @@ class MapController < ApplicationController
 	      newcoord.save
 	  end
       end
+   end
+   
+   def draw_map
+     
    end
           
       	

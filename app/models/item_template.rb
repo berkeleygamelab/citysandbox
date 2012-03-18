@@ -28,6 +28,5 @@ class ItemTemplate < ActiveRecord::Base
 	def most_popular(since_last, types)
 		return item_template.find(:all, :conditions => ["updated_at > ? AND type IN (?)", since_last, types]).where()
     end
-	
-	
+
 end
