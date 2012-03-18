@@ -36,6 +36,7 @@ class ItemTemplate < ActiveRecord::Base
 				Project.find(item_id).generate_content
 			when "group"
 				Group.find(item_id).generate_content
+			end
 	end
 
 	def create_followed(follower)
@@ -70,6 +71,6 @@ class ItemTemplate < ActiveRecord::Base
 	@loc_x = location.split[0].to_f
 	@loc_y = location.split[1].to_f
 	return ::FT.execute "SELECT * FROM #{@item_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
-	
+end
 
 end
