@@ -9,7 +9,7 @@ def filter
 	@cat_id = params[:category] # it's an integer
 	@startDate = params[:timeBefore]
 	@endDate = params[:timeAfter]
-	@types = params[:types] #array of numbers (1-5) that specifies what type of item we're filtering for
+	@types = params[:types] #array of strings that specifies what type of item we're filtering for; names like question, challenge, event
 	if @endDate==nil
 		@endDate = Time.now
 	end
@@ -24,6 +24,5 @@ def filter
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
   end
-
 end
 	

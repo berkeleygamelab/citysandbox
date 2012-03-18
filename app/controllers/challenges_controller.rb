@@ -14,7 +14,7 @@ class ChallengesController < ApplicationController
       redirect_to home_login_url
     else 
       @challenge = Challenge.find(params[:id])
-      @category = Categories.find(@challenge.categories_id)
+      @category = Category.find(@challenge.item_template.cat_id)
       @vote = vote_permission(current_user)
       @most_popular_proposals = @challenge.most_popular_proposal()
       @can_submit = @challenge.submission_deadline > Time.now
@@ -32,7 +32,7 @@ class ChallengesController < ApplicationController
   def vote_permission(user)
     temp = @challenge.proposals
     temp.each do |x|
-      if VotingRecord.where(:proposal_id => x.id).where(:user_id => user.id).first != nil
+      if Vote.where(:proposal_id => x.id).where(:user_id => user.id).first != nil
         return x.id
       end
     end
