@@ -71,7 +71,15 @@ function getParameter()
 	return stuff;
 }
 
-
+function load()
+{
+	var stuff = getParameter();
+	var words = document.getElementByID('textInfo');
+	$.post("map/draw", { coordinates: stuff, taggedArea: words},
+   function(data) {
+      alert(data);
+   });
+}
 
 // function Legend(controlDiv, map) {
 //   // Set CSS styles for the DIV containing the control
@@ -110,8 +118,8 @@ function getParameter()
 <div id='city'>
 	<input type='text' class='textbox' id='city_input' size='30'>
 </div>
-<textarea id="textIns" name="Area Name"></textarea><br />
-<button id="myButton" name="submit"></button>
+<textarea id="textInfo" name="Area Name"></textarea><br />
+<button id="myButton" name="submit" onclick="load()"></button>
 
 
 </div>
