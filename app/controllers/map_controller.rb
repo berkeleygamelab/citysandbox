@@ -23,7 +23,7 @@ class MapController < ApplicationController
       if taggedarea.save
           #all coordinates associated with this tagged area based on id
           coordinates = params["coordinates"]
-
+        end
 	  #treating coordinates as a LIST OF TUPLES 
           coordinates.each do |t|
 	      c = t[0] + "," + t[1]
@@ -31,7 +31,7 @@ class MapController < ApplicationController
 	      #MAKE SURE THAT COORDS ARE SAVING
 	      newcoord.save
 	  end
-      end
+      
    end
    
    def draw_map
