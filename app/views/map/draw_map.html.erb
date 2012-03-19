@@ -76,7 +76,7 @@ function load()
 {
 	var stuff = getParameter();
 	var words = document.getElementById('myText');
-	$.post("map/draw", { coordinates: stuff, taggedArea: words}
+	$.post("map/draw", { coordinates: stuff, taggedArea: words}),
    function(data) {
       alert(data);
    });

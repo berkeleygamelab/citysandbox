@@ -1,1 +1,7 @@
 <% @collection.each do |item| %>
+	<br>
+	Hey there! We've got
+	<% item.each do |key, value| %>
+	  Key <% key %> giving <% value %> ,
+	<% end %>
+<% end %>	 
