@@ -83,7 +83,7 @@ class ItemTemplate < ActiveRecord::Base
 	    @table = ENV['csb_locations']
 	    @lat = ItemTemplate.location.split(',')[0].to_f
 	    @lng = ItemTemplate.location.split(',')[1].to_f
-	    return ::FT.execute "Select * FROm #{@table} WHERE Type = ItemTemplate.type ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"
+	    return ::FT.execute "Select * FROM #{@table} WHERE Type = ItemTemplate.type ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"
 	end
 	
 	
