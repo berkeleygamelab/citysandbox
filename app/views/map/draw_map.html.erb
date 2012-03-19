@@ -59,6 +59,7 @@ function addPoint(event) {
   google.maps.event.addListener(marker, 'dragend', function() {
     for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
     path.setAt(i, marker.getPosition());
+    dumbo[i] = marker.getPosition();
     }
   );
 }
@@ -67,6 +68,8 @@ function getParameter()
 {
 	var stuff = new Array();
 	document.write(path.getLength());
+	document.write(' the fuck');
+	document.write(dumbo.length);
 	var underlying = path.getArray();
 	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
