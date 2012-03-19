@@ -14,10 +14,13 @@ class MapController < ApplicationController
       #creating new tagged area
       name = params["taggedArea"]
       puts "DUFF MAN IS IN THE HOOS"
-      puts params["coordinates"]
       puts "check if the name is null"
       puts "name: " 
       puts name
+      coordinates = params["coordinates"]
+       coordinates.split(",")
+    	  puts coordinates
+  
       taggedarea = TaggedArea.new(:title => name)
       
       #make sure areas are saving
@@ -26,6 +29,7 @@ class MapController < ApplicationController
           coordinates = params["coordinates"]
         end
 	  #treating coordinates as a LIST OF TUPLES 
+	 
           coordinates.each do |t|
 	      c = t[0] + "," + t[1]
               newcoord = Coordinate.new(:tagged_area_id => taggedarea.id, :location => c)
