@@ -71,6 +71,7 @@ def filterNew
       temp = Geocoder.coordinates(current_user.location)
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
+  
   end
 
 def filterOld  
