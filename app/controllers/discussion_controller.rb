@@ -48,6 +48,7 @@ def summary
   return(@collection)
 end
 
+
 def filterNew
 	size_limit_questions = 15
 	size_limit_discussion = 5
@@ -71,10 +72,10 @@ def filterNew
       temp = Geocoder.coordinates(current_user.location)
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
-  
   end
 
-def filterOld  
+
+def filter  
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0
