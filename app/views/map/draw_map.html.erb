@@ -67,10 +67,11 @@ function addPoint(event) {
 function getParameter()
 {
 	var stuff = new Array();
-	for(var i = 0, I = path.getLength(); i < I; ++i);
+	var I = path.getLength();
+	for(var i = 0; i < I; ++i);
 	{
-	 document.write(path[i]);
-	 stuff.push(path[i]);
+		var temp = path.pop();
+		document.write(temp);
 	}
 	return dumbo.toString();
 }
