@@ -67,19 +67,18 @@ function addPoint(event) {
 function getParameter()
 {
 	var stuff = new Array();
-	document.write(path.getLength());
-	document.write(' the fuck');
-	document.write(dumbo);
-	
-    return dumbo.toString();
+	for(var i = 0, I = path.getLength(); i < I; ++i);
+	{
+	 stuff.push(path.getAt(i));
+	}
+	return dumbo.toString();
 }
 
 function load()
-{	<% puts 'insanity check' %>
+{
 	var words = $('#keyword').attr('value');
 	var stuff = getParameter();
 
-	<% puts 'sanity check' %>
 	$.post("draw", { coordinates: stuff, taggedArea: words},
    function(data) {
       alert(data);

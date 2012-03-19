@@ -18,7 +18,7 @@ class MapController < ApplicationController
       puts "name: " 
       puts name
       coordinates = params["coordinates"]
-       coordinates.split(",")
+      coordinates = coordinates.split(",")
     	  puts coordinates
   
       taggedarea = TaggedArea.new(:title => name)
