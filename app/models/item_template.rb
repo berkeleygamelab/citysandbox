@@ -42,24 +42,40 @@ class ItemTemplate < ActiveRecord::Base
 		return contentHash.merge(hash)
 	end
 
-	def create_followed(follower)
-		followed = subscription.new
-		followed.user_id = follower.id
-		followed.item_template_id = item_template.id
-		if subscription.where(:item_template_id=> id).where(:user_id => follower.id) == []
-			followed.save
+	def create_subscription(subscriber)
+		subscribed = subscription.new
+		subscribed.user_id = subscriber.id
+		subscribed.item_template_id = item_template.id
+		if Subscription.where(:item_template_id=> id).where(:user_id => follower.id) == []
+			subscribed.save
 		end
 	end
+	
+	def create_subscription
+		create_subscription(current_user)
+	end
+	
+	def remove_subscription(subscriber)
+		a = Subscription.where(:user_id=>followed.id).where(:item_template_id => id).first
+		return a.destroy
+	end
+		
+	def remove_subscription
+		remove_subscription(current_user)
+	end
+	
+    def fetch_location
+	    @table = ENV['csb_locations']
+	    return ::FT.execute "SELECT Location FROM #{@table} WHERE ID = #{item_id} AND Type = ItemTemplate.type "
+    end
+	
+	
 
 	def most_popular(since_last)
 		return challenge.find(:all, :conditions => ["updated_at > "]).where()
    end
 
-    def fetch_location
-	    @table = ENV['csb_locations']
-	    return ::FT.execute "SELECT Location FROM #{@table} WHERE ID = #{item_id} AND Type = ItemTemplate.type "
-    end
-        #takes in a CSV of lat/lng and either quest, chall, or event
+        #takes in a CSV of lat/lng
    	def insert_location(location)
 	    @table = ENV['csb_locations']
 	    return ::FT.execute "INSERT INTO #{@table} (ID, Type, Location, Category) VALUES (#{who.id}, #{ItemTemplate.type}, '#{location}', #{ItemTemplate.cat_id} "
@@ -77,20 +93,28 @@ class ItemTemplate < ActiveRecord::Base
 	    return ::FT.execute "UPDATE #{@table} SET Location = '#{ItemTemplate.location}' WHERE ROWID = '#{@rowid}' AND Type = #{ItemTemplate.type}"
 	end
 
-        #takes in a limit and either quest, chall, or event
-	def grab_nearest(limit)
+        #takes in a limit and typearray
+	def grab_nearest(limit,typearray)
 	    @table = ENV['csb_locations']
 	    @lat = ItemTemplate.location.split(',')[0].to_f
 	    @lng = ItemTemplate.location.split(',')[1].to_f
-	    return ::FT.execute "Select * FROm #{@table} WHERE Type = ItemTemplate.type ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"
+		resultHash = {}
+		typearray.each do |type|
+			resultHash.add(type => (::FT.execute "SELECT * FROM #{@table} WHERE Type = #{type} ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"))
+			end
+		return resultHash
 	end
 	
 	
-	def grab_circle(radius, target_loc, number, who)
+	def grab_circle(radius, target_loc, number, who,typearray)
 	    @table = ENV['csb_locations']
 	    @lat = target_loc.split[0].to_f
 	    @lng = target_loc.split[1].to_f
-	    reeturn ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}, #{radius})) AND Type = ItemTemplate.type "
+		resulthash = {}
+		typearray.each do |x|
+			resulthash.add(x=>(::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}, #{radius})) AND Type = #{x} "))
+			end
+		return resulthash
 	end
 
 	def sift_circle(radius, target_loc, number, set)
@@ -103,18 +127,22 @@ class ItemTemplate < ActiveRecord::Base
 	    rtn = []
 	    db_return.each do |x|
 	        rtn += [x[:item_id]]
-	    end
+			end
 	    return set.followed(rtn)
 	end
 
-	def grab_rectangle(upper_right, lower_left)
+	def grab_rectangle(upper_right, lower_left,typearray)
 	    @table = ENV['table']
 	    @upper_right_x = upper_right.split[0].to_f
 	    @upper_right_y = upper_right.split[1].to_f
 	    @lower_left_x = lower_left.split[0].to_f
 	    @lower_left_y = lower_left.split[1].to_f
-	    return ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS (Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y}))) AND Type = ItemTemplate.type"
-	    end
+		resulthash = {}
+		typearray.each do |x|
+			resulthash.add(x => ( ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS (Location, RECTANGLE(LATLNG(#{@upper_right_x}, #{@upper_right_y}), LATLNG(#{@lower_left_x}, #{@lower_left_y}))) AND Type = #{x}"))
+			end
+		return resulthash
+	end
 
 	def retrieve_entries(db_return)
 	    rtn = []
@@ -155,7 +183,6 @@ class ItemTemplate < ActiveRecord::Base
      @events_table = ENV['csb_locations']
      @loc_x = target_loc.split[0].to_f
      @loc_y = target_loc.split[1].to_f
-
      return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'events'"
    end
    
@@ -165,6 +192,26 @@ class ItemTemplate < ActiveRecord::Base
 	@loc_y = location.split[1].to_f
 	return ::FT.execute "SELECT * FROM #{@item_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
   end
+  
+  def sift_keyword_responses(key)
+	sift = ResponseTemplate.where("response LIKE ? OR response LIKE ? OR response LIKE ?", "% " + key + " %", key, key + " %")
+	set = []
+	sift.each do |resp|
+		set += [ItemTemplate.find(resp.item_template_id)]
+		end
+	return set
+  end
+  
+  def sift_keyword_description(key)
+	return ItemTemplate.where("description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %")
+  end
 
-
+  def sift_keyword_title(key)
+	return ItemTemplate.where("title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + key + " %", key, key + " %")
+  end
+  
+  def sift_keyword(key)
+	return sift_keyword_title(key) + sift_keyword_description(key)+sift_keyword_responses(key)
+  end
+  
 end

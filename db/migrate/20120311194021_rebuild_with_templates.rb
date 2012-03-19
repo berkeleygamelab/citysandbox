@@ -64,7 +64,7 @@ class RebuildWithTemplates < ActiveRecord::Migration
 		t.datetime "updated_at"
 		t.boolean "anonymous?"
 		t.integer "type", :null => false
-		t.integer "item_id", :null => false
+		t.integer "item_template_id", :null => false
 		t.boolean "group response?"
 	end
 	
