@@ -12,40 +12,7 @@ end
 respond_to :json
 
 def summary
-  
-  @city = params[:city_input]
-  
-  size_limit_questions = 15
-  size_limit_discussion = 5
-  page_offset = 0
-
-  @collection_full = []
-  @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
-  @challenges = Challenge.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-  @events = Event.find(:all, :offset => page_offset * size_limit_questions, :limit => size_limit_questions)
-
-  @questions.each{|x| 
-    num_events = 0
-    x.challenges.each{|e| num_events += e.events.length }
-    @collection_full = @collection_full +[[x,x.response_questions.limit(size_limit_discussion), num_events]]}
-  @challenges.each{|x| @collection_full = @collection_full + [[x,x.response_challenges.limit(size_limit_discussion)]]}
-  @events.each{|x| @collection_full = @collection_full + [[x, x.response_events.limit(size_limit_discussion)]]}
-
-  @collection_full.sort!{|a,b| b[0].updated_at <=> a[0].updated_at}
-  @collection_full.each{|x| x[1].sort!{|a,b| a.updated_at <=> b.updated_at}}
-  
-  current_page = 1
-  if params[:page] != nil
-    current_page = params[:page].to_i
-  end
-  per_page = 5
-  
-  @collection = WillPaginate::Collection.create(current_page, per_page, @collection_full.length) do |pager|
-    start = (current_page-1)*per_page # assuming current_page is 1 based.
-    pager.replace(@collection_full[start..(start+per_page)])
-  end
-  
-  return(@collection)
+ 
 end
 
 
@@ -67,12 +34,13 @@ def filterNew
 	@challenges = []
 	@location_to_grab = params[:loc]
 	@target_user = params[:by_user]
-	  if(@location_to_grab == nil)
+	if(@location_to_grab == nil)
     if !current_user.nil?
       temp = Geocoder.coordinates(current_user.location)
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
   end
+end
 
 
 def filter  
