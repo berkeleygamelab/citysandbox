@@ -17,7 +17,9 @@ class MapController < ApplicationController
       puts "check if the name is null"
       puts "name: " 
       puts name
+      
       coordinates = params["coordinates"]
+      puts coordinates;
       coordinates = coordinates.split(",")
       #coordinates.gsub(//, " ")
      
