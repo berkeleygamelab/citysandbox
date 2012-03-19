@@ -1,5 +1,4 @@
-<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
-      type="text/javascript"></script>
+
 <script type="text/javascript">
 $(document).ready( function() {
 
@@ -63,7 +62,7 @@ function addPoint(event) {
 
 function getParameter()
 {
-	var stuff = Array.new();
+	var stuff = new Array();
 	document.write(path.getLength());
 	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
