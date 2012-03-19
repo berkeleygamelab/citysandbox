@@ -55,10 +55,10 @@ class ItemTemplate < ActiveRecord::Base
 		return challenge.find(:all, :conditions => ["updated_at > "]).where()
    end
 
-        def fetch_location
+    def fetch_location
 	    @table = ENV['csb_locations']
 	    return ::FT.execute "SELECT Location FROM #{@table} WHERE ID = #{item_id} AND Type = ItemTemplate.type "
-
+    end
         #takes in a CSV of lat/lng and either quest, chall, or event
    	def insert_location(location)
 	    @table = ENV['csb_locations']
@@ -164,8 +164,7 @@ class ItemTemplate < ActiveRecord::Base
 	@loc_x = location.split[0].to_f
 	@loc_y = location.split[1].to_f
 	return ::FT.execute "SELECT * FROM #{@item_table} ORDER BY ST_DISTANCE(Location, LATLNG(#{@loc_x},#{@loc_y})) LIMIT #{number}"
-
-end
+  end
 
 
 end
