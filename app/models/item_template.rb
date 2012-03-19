@@ -39,6 +39,7 @@ class ItemTemplate < ActiveRecord::Base
 				hash = Project.find(item_id).generate_content
 			when "group"
 				hash = Group.find(item_id).generate_content
+			end
 		return contentHash.merge(hash)
 	end
 
@@ -77,6 +78,7 @@ class ItemTemplate < ActiveRecord::Base
 
         #takes in a CSV of lat/lng
    	def insert_location(location)
+
 	    @table = ENV['csb_locations']
 	    return ::FT.execute "INSERT INTO #{@table} (ID, Type, Location, Category) VALUES (#{who.id}, #{ItemTemplate.type}, '#{location}', #{ItemTemplate.cat_id} "
 	end
@@ -170,7 +172,7 @@ class ItemTemplate < ActiveRecord::Base
 	    google_set = grab_circle(distance, target_location, 25)
 	    google_fetch = retrieve_google(google_set)
 	    return google_fetch.where("updated_at > '#{since_last}'").order("popularity DESC")
-	 end
+	end
 	
 
 	def most_popular(since_last, types)
@@ -184,7 +186,7 @@ class ItemTemplate < ActiveRecord::Base
      @loc_x = target_loc.split[0].to_f
      @loc_y = target_loc.split[1].to_f
      return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'events'"
-   end
+  end
    
    def grab_nearest(number)
 	@item_table = ENV['csb_locations']

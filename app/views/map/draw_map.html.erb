@@ -73,54 +73,26 @@ function getParameter()
 }
 
 function load()
-{
-	var stuff = getParameter();
-	var words = document.getElementByID('textInfo');
-	$.post("map/draw", { coordinates: stuff, taggedArea: words},
+{	<% puts 'insanity check' %>
+	//var words = document.getElementById('myText');
+	//var stuff = getParameter();
+
+	<% puts 'sanity check' %>
+	$.post("map/draw", { coordinates: "2.3,-4.5", taggedArea: "Brooklyn"},
    function(data) {
       alert(data);
    });
 }
 
-// function Legend(controlDiv, map) {
-//   // Set CSS styles for the DIV containing the control
-//   // Setting padding to 5 px will offset the control
-//   // from the edge of the map
-//   controlDiv.style.padding = '5px';
-// 
-//   // Set CSS for the control border
-//   var controlUI = document.createElement('DIV');
-//   controlUI.style.backgroundColor = 'white';
-//   controlUI.style.borderStyle = 'solid';
-//   controlUI.style.borderWidth = '1px';
-//   controlUI.title = 'Legend';
-//   controlDiv.appendChild(controlUI);
-// 
-//   // Set CSS for the control text
-//   var controlText = document.createElement('DIV');
-//   controlText.style.fontFamily = 'Arial,sans-serif';
-//   controlText.style.fontSize = '12px';
-//   controlText.style.paddingLeft = '4px';
-//   controlText.style.paddingRight = '4px';
-//   
-//   // Add the text
-//   controlText.innerHTML = '<b>Butterflies*</b><br />' +
-//         '<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png" /> Battus<br />' +
-//         '<img src="http://maps.google.com/mapfiles/ms/micons/yellow-dot.png" /> Speyeria<br />' +
-//         '<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png" /> Papilio<br />' +
-//         '<img src="http://maps.google.com/mapfiles/ms/micons/blue-dot.png" /> Limenitis<br />' +
-//         '<img src="http://maps.google.com/mapfiles/ms/micons/purple-dot.png" /> Myscelia<br />' +
-//         '<small>*Data is fictional</small>';
-//   controlUI.appendChild(controlText);
-// }
+
 </script>
 <div id='content'>
 <div id='mapview_map'></div>
 <div id='city'>
 	<input type='text' class='textbox' id='city_input' size='30'>
 </div>
-<textarea id="textInfo" name="Area Name">Insert Tagged Area Name</textarea><br />
-<button id="myButton" name="submit" onclick="load()">Submit Given Map</button>
+<input type='text' id='myText' name="Area Name"/>Insert Tagged Area Name<br />
+<button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
 
 
 </div>
