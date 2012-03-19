@@ -43,10 +43,10 @@ Citysandbox::Application.routes.draw do
     get '/' => 'discussion#summary', :as => :summary
   end
 
-  get '/filter' => 'filter_method_for_discussioncontroller#filter'
+  get '/filter' => 'filter_method_for_discussion#filter'
 
   get '/summary' => 'discussion#summary', :as => :summary
-  get '/filter' => 'discussion#filter', :as => :filter
+
   
   match "/map" => 'map#index', :as => :map
   match "/map/draw_map" => 'map#draw_map'
