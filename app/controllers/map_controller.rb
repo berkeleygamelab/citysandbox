@@ -19,7 +19,7 @@ class MapController < ApplicationController
       puts name
       coordinates = params["coordinates"]
       coordinates = coordinates.split(",")
-      coordinates.gsub(/)/, " ")
+      #coordinates.gsub(//, " ")
      
     	  puts coordinates
   
