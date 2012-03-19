@@ -63,7 +63,8 @@ function addPoint(event) {
 
 function getParameter()
 {
-	var stuff = [];
+	var stuff = Array.new();
+	document.write(path.getLength());
 	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
 		var um = path.getAt(i);
@@ -91,6 +92,7 @@ function load()
 
 Insert Info <input type='text' class='textbox' id='keyword' size='20'>
 <button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
+
 
 
 </div>
