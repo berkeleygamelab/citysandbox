@@ -74,11 +74,11 @@ function getParameter()
 
 function load()
 {	<% puts 'insanity check' %>
-	var words = document.getElementById('myText');
-	var stuff = getParameter();
+	//var words = document.getElementById('myText');
+	//var stuff = getParameter();
 
 	<% puts 'sanity check' %>
-	$.post("map/draw", { coordinates: stuff, taggedArea: words},
+	$.post("map/draw", { coordinates: "2.3,-4.5", taggedArea: "Brooklyn"},
    function(data) {
       alert(data);
    });
