@@ -17,26 +17,29 @@ class ItemTemplate < ActiveRecord::Base
 	end
 	
 	def generate_content
-	    @title = title
-		@location = location
-		@cat_name = Category.find(cat_id)
-		@description = description
-		@created_at = created_at
-		@updated_at = updated_at
-		@update_time = update_time
-		@popularity = popularity
+		contentHash = {}
+	    contentHash.add("title"=>title)
+		contentHash.add("location"=>location)
+		
+		contentHash.add("description"=>description)
+		contentHash.add("created_at"=>created_at)
+		contentHash.add("updated_at"=>updated_at)
+		contentHash.add("update_time"=>update_time)
+		contentHash.add("popularity"=>popularity)
+		contentHash.add("cat_name"=>Category.find(cat_id))
+		hash = {}
 		case type
 			when "question"
-				Question.find(item_id).generate_content
+				hash =Question.find(item_id).generate_content
 			when "event"
-				Event.find(item_id).generate_content
+				hash = Event.find(item_id).generate_content
 			when "challenge"
-				Challenge.find(item_id).generate_content
+				hash = Challenge.find(item_id).generate_content
 			when "project"
-				Project.find(item_id).generate_content
+				hash = Project.find(item_id).generate_content
 			when "group"
-				Group.find(item_id).generate_content
-			end
+				hash = Group.find(item_id).generate_content
+		return contentHash.merge(hash)
 	end
 
 	def create_followed(follower)

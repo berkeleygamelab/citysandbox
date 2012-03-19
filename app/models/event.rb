@@ -27,13 +27,9 @@ class Event < ActiveRecord::Base
   end
   
   def generate_content
-	@time = time
-	@challenge_id = challenge_id
-	@minimum_to_run = minimum_to_run
+	return {"time"=>time, "challenge_id"=>challenge_id, "minimum_to_run"=>minimum_to_run}
   end
 
-   
-   
   def create_followed
     followed = FollowedEvent.new
     followed.user_id = current_user.id
