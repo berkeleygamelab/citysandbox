@@ -64,10 +64,12 @@ function getParameter()
 {
 	var stuff = new Array();
 	document.write(path.getLength());
+	
 	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
 		var um = path.getAt(i);
 	 stuff.push(path.getAt(i));
+	document.write(path.getAt(i));
 	}
 	return stuff;
 }
