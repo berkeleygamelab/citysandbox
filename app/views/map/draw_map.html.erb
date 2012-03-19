@@ -64,12 +64,12 @@ function getParameter()
 {
 	var stuff = new Array();
 	document.write(path.getLength());
-	
+	var underlying = path.getArray();
 	for(var i = 0, I = path.getLength(); i < I; ++i);
 	{
 		var um = path.getAt(i);
 	 stuff.push(path.getAt(i).toString());
-	document.write(path.getAt(i).toString());
+	document.write(underlying[i].toString());
 	}
 	return stuff;
 }
