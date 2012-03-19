@@ -39,6 +39,7 @@ class ItemTemplate < ActiveRecord::Base
 				hash = Project.find(item_id).generate_content
 			when "group"
 				hash = Group.find(item_id).generate_content
+			end
 		return contentHash.merge(hash)
 	end
 
