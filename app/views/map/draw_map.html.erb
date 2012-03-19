@@ -10,6 +10,7 @@ $(document).ready( function() {
 var poly, map;
 var markers = [];
 var path = new google.maps.MVCArray;
+var dumbo = new Array();
 function load_map() {
 	var lat = 0;
 	var lng = 0;
@@ -43,6 +44,7 @@ function addPoint(event) {
     draggable: true
   });
   markers.push(marker);
+  dumbo.push(event.latLng);
   marker.setTitle("#" + path.length);
 
   google.maps.event.addListener(marker, 'click', function() {
@@ -50,6 +52,7 @@ function addPoint(event) {
     for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
     markers.splice(i, 1);
     path.removeAt(i);
+    dumbo.splice(i, 1);
     }
   );
 
@@ -69,7 +72,7 @@ function getParameter()
 	{
 		var um = path.getAt(i);
 	 stuff.push(path.getAt(i).toString());
-	document.write(underlying[i].toString());
+	document.write(dumbo[i].toString());
 	}
 	return stuff;
 }
