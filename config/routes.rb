@@ -43,6 +43,8 @@ Citysandbox::Application.routes.draw do
     get '/' => 'discussion#summary', :as => :summary
   end
 
+  get '/filter' => 'filter_method_for_discussioncontroller#filter'
+
   get '/summary' => 'discussion#summary', :as => :summary
   get '/filter' => 'discussion#filter', :as => :filter
   
