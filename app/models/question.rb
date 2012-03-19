@@ -43,7 +43,7 @@
     end
 	
 	def generate_content
-		@anonymous? = anonymous?
+		return {"anonymous?"=>anonymous?}
 	end
     
     

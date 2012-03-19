@@ -6,6 +6,6 @@ class Group < ActiveRecord::Base
 	has_many :sent_messages, :as => :sender
 	
 	def generate_content
-		@picture = picture
+		return {"picture" => picture}
 	end
 end

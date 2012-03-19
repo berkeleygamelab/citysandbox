@@ -39,10 +39,7 @@ class Challenge < ActiveRecord::Base
 #   end
  ##
 	def generate_content
-		@question_id = question_id
-		@submission_deadline = submission_deadline
-		@vote_deadline = vote_deadline
-		@minimum_to_run = minimum_to_run
+		return {"question_id"=>question_id, "submission_deadline"=>submission_deadline,"vote_deadline" => vote_deadline, "minimum_to_run" => minimum_to_run}
 	end
  
    def most_popular(since_last)
