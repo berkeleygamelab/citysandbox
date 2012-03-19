@@ -47,7 +47,7 @@ class ItemTemplate < ActiveRecord::Base
 			followed.save
 		end
 	end
-<<<<<<< HEAD
+
 	def most_popular(since_last)
 		return challenge.find(:all, :conditions => ["updated_at > "]).where()
    end
