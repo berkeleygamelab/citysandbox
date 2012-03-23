@@ -72,8 +72,9 @@ function getParameter()
         var stuff = new Array(len);
 	for(var i = 0; i < len; i++)
 	{
-		stuff[i] = path.toString();
+           var temp = path.getArray()[i];
         }
+        stuff = path.getArray().toString();
 	return stuff;
 }
 
