@@ -66,12 +66,13 @@ function addPoint(event) {
 
 function getParameter()
 {
-	var stuff = new String();
-	var I = path.getLength();
-	for(var i = 0; i < I; i++);
+	
+        var points = poly.getPath();
+        var len = points.getLength();
+        var stuff = new Array(len);
+	for(var i = 0; i < len; i++)
 	{
-		stuff=stuff.concat(path.getAt(i).toString());
-	        stuff=stuff.concat(" 1");
+		stuff[i] = points.getAt(i);
         }
 	return stuff;
 }
