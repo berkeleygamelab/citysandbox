@@ -66,11 +66,11 @@ function addPoint(event) {
 
 function getParameter()
 {
-	var stuff = new Array();
+	var stuff = new String();
 	var I = path.getLength();
 	for(var i = 0; i < I; ++i);
 	{
-		stuff.push(path.pop().toString());
+		stuff=string.concat(stuff,path.pop().toString());
 	}
 	return stuff;
 }
