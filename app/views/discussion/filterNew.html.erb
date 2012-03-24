@@ -4,6 +4,23 @@
 <%else %>
 	welcome! you must have logged in at some point
    
+	Insert a Handy Dandy Location! <input type='text' class='textbox' id='location' size='20'>
+	<br>
+	Category 1 <input type='text' class='textbox' id='category1' size='20'>
+	<br>
+	Category 2 <input type='text' class='textbox' id='category2' size='20'>
+	<br>
+	Category 3 <input type='text' class='textbox' id='category3' size='20'>
+	<br>
+	Keyword Search <input type='text' class='textbox' id='keyword' size='20'>
+	<br>
+	Date Before <input type='datetime' id='before' size='20'>
+	<br>
+	Date After <input type='datetime' id='after' size='20'>
+	<br>
+	What is gonna do with this <input type='checkbox' class='textbox' id='keyword' size='20'>
+	<button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
+
 <% end %>
 
 <script type="text/javascript">
@@ -21,13 +38,4 @@ function load()
 
 </script>
 
-
-Insert Text <input type='text' class='textbox' id='category1' size='20'>
-Insert Text <input type='text' class='textbox' id='category2' size='20'>
-Insert Text <input type='text' class='textbox' id='category3' size='20'>
-Keyword Search <input type='text' class='textbox' id='keyword' size='20'>
-Date Before <input type='datetime' id='before' size='20'>
-Date After <input type='datetime' id='after' size='20'>
-What is gonna do with this <input type='checkbox' class='textbox' id='keyword' size='20'>
-<button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
 
