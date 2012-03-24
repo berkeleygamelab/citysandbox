@@ -3,5 +3,10 @@
 
 <%else %>
 	welcome! you must have logged in at some point
+	<% form_tag(:controller => "discussion", :action => "filterNew", :method => "get") do %>
+	  <%= label_tag(:q, "Search for:") %>
+	  <%= text_field_tag(:q) %>
+	  <%= submit_tag("Search") %>
+	</form>
 <% end %>
 
