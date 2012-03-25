@@ -1,5 +1,5 @@
 
-class removeQmark < ActiveRecord::Migration
+class RemoveQmark < ActiveRecord::Migration
   def up
 	remove_column :sent_message, :anonymous?
 	remove_column :response_template, :anonymous?
