@@ -65,7 +65,7 @@ class RebuildWithTemplates < ActiveRecord::Migration
 		t.boolean "anonymous?"
 		t.integer "type", :null => false
 		t.integer "item_template_id", :null => false
-		t.boolean "group response?"
+		t.boolean "group_response?"
 	end
 	
 	create_table "categories", :force => true do |t|
@@ -109,7 +109,7 @@ class RebuildWithTemplates < ActiveRecord::Migration
 	  t.string "body"
 	  t.integer "sent_by"
 	  t.datetime "created_at"
-	  t.boolean "group message?"
+	  t.boolean "group_message?"
 	end
 	
 	create_table "received_messages", :force => true do |t|
