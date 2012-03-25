@@ -8,6 +8,7 @@ class RemoveQmark < ActiveRecord::Migration
 	remove_column :received_messages, :read?
 	remove_column :questions, :anonymous?
 	remove_column :notifications, :seen?
+	remove_column :coordinates, "tagged area_id"
 	
 	add_column :sent_messages, :anonymous
 	add_column :response_templates, :anonymous
@@ -16,6 +17,7 @@ class RemoveQmark < ActiveRecord::Migration
 	add_column :received_messages, :read
 	add_column :questions, :anonymous
 	add_column :notifications, :seen
+	add_column :coordinates, :tagged_area_id
   end
 
   def down
