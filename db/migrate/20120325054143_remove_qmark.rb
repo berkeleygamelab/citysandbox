@@ -21,13 +21,13 @@ class RemoveQmark < ActiveRecord::Migration
   end
 
   def down
-	remove_column :sent_message, :anonymous
-	remove_column :response_template, :anonymous
-	remove_column :response_template, :group_response
-	remove_column :sent_message, :group_message
-	remove_column :received_message, :read
-	remove_column :question, :anonymous
-	remove_column :notification, :seen
+	remove_column :sent_message, :anonymous, :boolean
+	remove_column :response_template, :anonymous, :boolean
+	remove_column :response_template, :group_response, :boolean
+	remove_column :sent_message, :group_message, :boolean
+	remove_column :received_message, :read, :boolean
+	remove_column :question, :anonymous, :boolean
+	remove_column :notification, :seen, :boolean
 	
 	add_column :sent_message, :anonymous?
 	add_column :response_template, :anonymous?
