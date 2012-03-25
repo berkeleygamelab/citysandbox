@@ -30,7 +30,6 @@ class ChallengesController < ApplicationController
   end
 
   def challengeNew
-  def new
     @challenge = Challenge.new
 
     respond_to do |format|
