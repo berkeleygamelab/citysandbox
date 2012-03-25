@@ -28,6 +28,16 @@ class ChallengesController < ApplicationController
       end
     end
   end
+
+  def challengeNew
+  def new
+    @challenge = Challenge.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @challenge }
+    end
+  end
   
   def vote_permission(user)
     temp = @challenge.proposals

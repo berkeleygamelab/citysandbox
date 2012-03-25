@@ -103,6 +103,7 @@ class UsersController < ApplicationController
       user = User.where(:id => id).first
       if @validated
          user.verified = @validated
+         user.password = user.password_digest
          user.save
        end
 
