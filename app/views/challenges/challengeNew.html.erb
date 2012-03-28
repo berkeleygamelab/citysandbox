@@ -1,47 +1,28 @@
-<%= form_for(@challenge) do |f| %>
-  <%= if @challenge.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
-      <ul>
-      <%= @challenge.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <%= end %>
-      </ul>
-    </div>
-  <%= end %>
-	<%= f.hidden_field :question_id %>
-	<p>
-		<%= f.label :title %>
+<%= form_for(@event) do |c| %>
+	  <p>
+	    <%= c.label :title, "Title" %>
 		<br>
-		<%= f.text_area :title, :rows=>3 %>
-	</p>
-	<p>
-		<%= f.label :description %>
+	    <%= c.text_field :title %>
+	  </p>
+	  <p>
+	    <%= c.label :description, "Description" %>
 		<br>
-		<%= f.text_area :description, :rows=>3 %>
-	</p>
-	<p>
-		<%= f.label :location %>
+	    <%= c.text_area :description, :rows=>3 %>
+	  </p>
+	  <p>
+		<%= c.label :location %>
 		<br>
-		<%= f.text_area :location, :rows=>2 %>
-		<br>
-		<div id="map_canvas"></div>
-	</p>
-	<p>
-	    <%= f.label :submission_deadline, "Submission Deadline" %>
-		<br>
-	    <%= f.datetime_select :submission_deadline %>
-	</p>
-	<p>
-    	<%= f.label :vote_deadline , "Vote Deadline" %>
-		<br>
-	    <%= f.datetime_select :vote_deadline %>
-	</p>
-	<p>
-		<%= f.label 'Categories' %>
-		<br>
-	
-	</p>
-
-  <%= f.submit %>
-<%= end %>
+		<%= c.text_area :location, :rows=>2 %>
+	  </p>
+	  <p>
+	    <%= c.label :time, "Time" %><br />
+	    
+	  </p>
+	  <p>
+		<%= c.label 'Categories: ' %>
+		
+	  </p>
+	  <p>
+	    <%= c.submit "Submit" %>
+	  </p>
+<% end %>
