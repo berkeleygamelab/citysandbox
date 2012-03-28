@@ -1,0 +1,28 @@
+<%= form_for(@event) do |c| %>
+	  <p>
+	    <%= c.label :title, "Title" %>
+		<br>
+	    <%= c.text_field :title %>
+	  </p>
+	  <p>
+	    <%= c.label :description, "Description" %>
+		<br>
+	    <%= c.text_area :description, :rows=>3 %>
+	  </p>
+	  <p>
+		<%= c.label :location %>
+		<br>
+		<%= c.text_area :location, :rows=>2 %>
+	  </p>
+	  <p>
+	    <%= c.label :time, "Time" %><br />
+	    <%= c.datetime_select :time %>
+	  </p>
+	  <p>
+		<%= c.label 'Categories: ' %>
+		
+	  </p>
+	  <p>
+	    <%= c.submit "Submit" %>
+	  </p>
+<% end %>

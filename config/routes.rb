@@ -64,7 +64,7 @@ Citysandbox::Application.routes.draw do
   resources :users, :messages,  :inbox
   
   match "questionNew" => "questions#newForm"
-  match "challengeNew" => "challenges#newChallenge"
+  match "challengeNew" => "challenges#challengeNew"
 
   # scope "/users" do
   #   resources :mailbox
