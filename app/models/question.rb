@@ -2,7 +2,7 @@
  class Question < ActiveRecord::Base
   has_many :challenges
 
-  attr_accessor :most_recent
+  attr_accessor :most_recent, :lat, :lng
   has_one :item_template, :as => :item
 
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
