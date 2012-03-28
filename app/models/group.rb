@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Group < ItemTemplate
 	has_many :tagged_areas, :through => :group_areas
 	has_many :users, :through => :memberships
 	has_one :item_template, :as => :item

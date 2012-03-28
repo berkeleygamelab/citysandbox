@@ -37,7 +37,7 @@ class MapController < ApplicationController
           coordinates.each do |set|
 	      t = set.split(",")
               c = t[0] + "," + t[1]
-              newcoord = Coordinate.new("tagged area_id" => taggedarea.id, :location => c)
+              newcoord = Coordinate.new("tagged_area_id" => taggedarea.id, :location => c)
 	      #MAKE SURE THAT COORDS ARE SAVING
 	      newcoord.save
 	  end
