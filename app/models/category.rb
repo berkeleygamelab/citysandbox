@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
 	has_many :item_templates
-	attr_accessor :name
+	validates :name, :presence => true
 	attr_accessor :cat_id
 	validates_uniqueness_of :name
 	has_many :users, :through => :user_categories
