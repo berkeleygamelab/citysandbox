@@ -1,5 +1,5 @@
 <%= form_for(@challenge) do |f| %>
-  <% if @challenge.errors.any? %>
+  <%= if @challenge.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
       <ul>
