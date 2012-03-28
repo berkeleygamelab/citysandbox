@@ -1,5 +1,5 @@
 
- class Question < ActiveRecord::Base
+ class Question < ItemTemplate
   has_many :challenges
 
   attr_accessor :most_recent, :lat, :lng
