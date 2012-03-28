@@ -2,7 +2,7 @@
  class Question < ItemTemplate
   has_many :challenges
 
-  attr_accessor :most_recent, :lat, :lng
+  attr_accessor :most_recent, :lat, :lng, :anonymous
   has_one :item_template, :as => :item
 
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
