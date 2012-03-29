@@ -1,4 +1,4 @@
-class Challenge < ItemTemplate
+class Challenge < ActiveRecord::Base
   has_many :proposals
 
   has_many :events
