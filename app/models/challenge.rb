@@ -17,7 +17,7 @@ class Challenge < ItemTemplate
   scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
 
   def identify_type
-	:type => "Challenge"
+	type = "Challenge"
   end
 
   def category_id
