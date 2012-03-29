@@ -25,4 +25,18 @@
 	  <p>
 	    <%= c.submit "Submit" %>
 	  </p>
+	<p>
+	<br>
+	<%= f.label 'Categories' %>
+	</p>
+	<p>
+		<%= f.text_area :categories, :rows=>3 %>
+	</p>
+	<p>	
+		<%= f.file_field :upload, :id=>'picture', :class=>'formatted_input' %>
+
+	</p>
 <% end %>
+
+
+Challenge(id: integer, title: string, location: string, cat_id: integer, description: string, created_at: datetime, updated_at: datetime, update_time: datetime, popularity: integer, Item_id: integer, type: integer, categories: string, picture: string)
