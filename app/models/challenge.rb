@@ -5,7 +5,8 @@ class Challenge < ItemTemplate
   has_one :item_template, :as => :item
 	
   belongs_to :question
-  
+  before_save :identify_type
+
   validates :submission_deadline, :presence => true
   validates :vote_deadline, :presence => true
   
@@ -15,6 +16,9 @@ class Challenge < ItemTemplate
   scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
   scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
 
+  def identify_type
+	:type => "Challenge"
+  end
 
   def category_id
      return item_template.cat_id

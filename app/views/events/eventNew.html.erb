@@ -25,6 +25,9 @@
 	  <p>
 	    <%= c.submit "Submit" %>
 	  </p>
+	<p>
+	<%= c.file_field :upload, :id=>'picture', :class=>'formatted_input' %>
+	</p>
+	<p> Event Time
+	<%= c.datetime :event_time, :id=>'time' %>
 <% end %>
-
-Event(id: integer, title: string, location: string, cat_id: integer, description: string, created_at: datetime, updated_at: datetime, update_time: datetime, popularity: integer, Item_id: integer, type: integer, categories: string, picture: string)

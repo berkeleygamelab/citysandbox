@@ -36,7 +36,16 @@
 		<%= f.file_field :upload, :id=>'picture', :class=>'formatted_input' %>
 
 	</p>
+	<p>
+	    <%= f.label :submission_deadline, "Submission Deadline" %>
+		<br>
+	    <%= f.datetime_select :submission_deadline %>
+	</p>
+	<p>
+    	<%= f.label :vote_deadline , "Vote Deadline" %>
+		<br>
+	    <%= f.datetime_select :vote_deadline %>
+	</p>
 <% end %>
 
 
-Challenge(id: integer, title: string, location: string, cat_id: integer, description: string, created_at: datetime, updated_at: datetime, update_time: datetime, popularity: integer, Item_id: integer, type: integer, categories: string, picture: string)
