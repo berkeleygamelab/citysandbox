@@ -1,6 +1,6 @@
-class Event < ItemTemplate
+class Event < ActiveRecord::Base
   belongs_to :challenge
-  has_one :item_template, :as => :item
+ 
   
 #  belongs_to :question
 #  belongs_to :user
