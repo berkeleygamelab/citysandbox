@@ -2,16 +2,16 @@ Citysandbox::Application.routes.draw do
 
   root :to => 'home#splash', :as => :home
   root :to => 'home#splash', :as => :root
-  
+
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
     get '/login' => 'sessions#new', :as => :login
     get '/logout' => 'sessions#destroy', :as => :logout
     get '/register' => 'users#new', :as => :register
   end
-  
+
   resources :sessions
-  
+
   match '/users/validate' => 'users#validate'
   match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
@@ -21,14 +21,16 @@ Citysandbox::Application.routes.draw do
   match "/qr" => 'discussion#qr'
   match "/validate" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
-  
-  
+
+
   resources :questions do
     resources :response_questions, :shallow => true
     resources :challenges, :shallow => true
     resources :events, :shallow => true
+    get :autocomplete_brand_name, :on => :collection
+end
   end
-  
+
   resources :events do
     resources :response_events, :shallow => true
   end
@@ -38,7 +40,7 @@ Citysandbox::Application.routes.draw do
     resources :proposals, :shallow => true
     resources :events
   end
-  
+
   resources :discussion do
     get '/' => 'discussion#summary', :as => :summary
   end
@@ -47,22 +49,22 @@ Citysandbox::Application.routes.draw do
 
   get '/summary' => 'discussion#summary', :as => :summary
 
-  
+
   match "/map" => 'map#index', :as => :map
   match "/map/draw_map" => 'map#draw_map'
   match "/map/draw" => "map#draw"
-  
+
   match "messages/sent" => "sent#show"
   match "messages/inbox" => "inbox#show"
   match "messages/new" => 'inbox#new'
   match "messages/create" => "inbox#create"
-  
+
   # match "users/inbox/new" => "inbox#new"
   match "messages/reply/:id" => "inbox#respond", :as => :reply
   match "messages/send_to/:id" => "inbox#send_to", :as => :reply
 
   resources :users, :messages,  :inbox
-  
+
   match "questionNew" => "questions#newForm"
   match "challengeNew" => "challenges#challengeNew"
   match "eventNew" => "events#eventNew"
@@ -71,10 +73,10 @@ Citysandbox::Application.routes.draw do
   #   resources :mailbox
   #   resources :sent
   # end
-  
+
   # resources :inbox do
   #     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
-  # 
+  #
   #     member do
   #       get 'respond'
   #     end

@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-
+  autocomplete :categories, :name
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 1
@@ -13,15 +13,15 @@ class QuestionsController < ApplicationController
     else
       @question = Question.where(:id => params[:id])[0]
       @category = Categories.find(@question.category_id)
-    
+
       @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
       @followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
-  
+
       @num_events = 0
-      @question.challenges.each { |challenge| 
+      @question.challenges.each { |challenge|
         @num_events += challenge.events.length
       }
-    
+
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @question }
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
       format.json { render json: @question }
     end
   end
-  
+
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(params[:question])
     @question.user = current_user
-    
+
     respond_to do |format|
       if @question.save
         @question.insert_location(@question.lat + ', ' + @question.lng)
@@ -107,18 +107,18 @@ class QuestionsController < ApplicationController
     @questions = Question.find(:all, :offset => page_offset * size_limit_questions, :limit =>size_limit_questions)
     @discussion_next = []
     @questions.each {|x|  @discussion_next = @discussion_next + [ResponseQuestion.where(:question_id => x.id).limit(size_limit_discussion)]}
-    
+
   end
-  
+
   def filter_by_category
     @questions = Question.where(:category => category_to_sort).limit(size_limit_questions).offset(size_limit_questions*page_offset)
     @discussion_next = []
-    @questions.each{|x| @discussion_sets = @discussion_sets + ResponseQuestion.where(:question_id => x.id).limit(size_limit_discussion)}    
+    @questions.each{|x| @discussion_sets = @discussion_sets + ResponseQuestion.where(:question_id => x.id).limit(size_limit_discussion)}
   end
-  
-  
+
+
   def filter_by_set_definition
   end
-  
+
 
 end
