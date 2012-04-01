@@ -1,3 +1,19 @@
-   <%= form_tag 'questions/autocomplete' %>
-  <% autocomplete_field_tag 'address', '', categories/autocomplete_brand_name, :size => 75 %>
-   <%  end %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+jQuery.ajaxSetup({
+'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+$("#q").autocomplete( {
+url : '<%= formatted_cities_path(:js) %>',
+mustMatch : false
+}
+);
+$("#q").autocomplete('result', function(event, data, formatted) {
+if (data)
+document.location.href = '/cities/' + data[1];
+});
+});
+</script>
+<% end%>
+

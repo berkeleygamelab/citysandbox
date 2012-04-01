@@ -12,7 +12,7 @@ class ChallengesController < ApplicationController
   def show
     if current_user == nil
       redirect_to home_login_url
-    else 
+    else
       @challenge = Challenge.find(params[:id])
       @category = Category.find(@challenge.item_template.cat_id)
       @vote = vote_permission(current_user)
@@ -37,7 +37,7 @@ class ChallengesController < ApplicationController
       format.json { render json: @challenge }
     end
   end
-  
+
   def vote_permission(user)
     temp = @challenge.proposals
     temp.each do |x|
@@ -51,7 +51,7 @@ class ChallengesController < ApplicationController
     return 0
 
   end
-  
+
 
   # GET /challenges/new
   # GET /challenges/new.json
@@ -107,6 +107,20 @@ class ChallengesController < ApplicationController
       end
     end
   end
+
+  def index
+  if params[:q]
+    @categories = Category.all(:conditions => ["name like ?", params[:q] + '%'])
+  else
+    @categories = Category.all
+  end
+
+  respond_to do |wants|
+    wants.html
+    wants.js
+  end
+
+end
 
   # DELETE /challenges/1
   # DELETE /challenges/1.json

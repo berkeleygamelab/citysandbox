@@ -40,6 +40,18 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def auto
+@categories = Category.find(:all,:conditions => ['name LIKE ?', "#{params[:q]}%"],  :limit => 5, :order => 'name')
+respond_to do |format|
+format.html # auto.html.erb
+format.xml  { render :xml => @cities }
+format.js # auto.js.erb
+format.json { render :json => @cities }
+end
+
+  end
+
+
   def newForm
     @question = Question.new
      respond_to do |format|
@@ -120,5 +132,18 @@ class QuestionsController < ApplicationController
   def filter_by_set_definition
   end
 
+  def auto
+     if params[:q]
+    @categories = Category.all(:conditions => ["name like ?", params[:q] + '%'])
+  else
+    @categories = Category.all
+  end
+
+  respond_to do |wants|
+    wants.html
+    wants.js
+  end
+
+  end
 
 end
