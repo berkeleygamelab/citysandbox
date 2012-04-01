@@ -28,7 +28,6 @@ Citysandbox::Application.routes.draw do
     resources :challenges, :shallow => true
     resources :events, :shallow => true
     get :autocomplete_brand_name, :on => :collection
-end
   end
 
   resources :events do

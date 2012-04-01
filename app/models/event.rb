@@ -1,4 +1,4 @@
-class Event < ItemTemplate
+class Event < ActiveRecord::Base
   belongs_to :challenge
  
   
