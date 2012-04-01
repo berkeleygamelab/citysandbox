@@ -24,6 +24,7 @@ Citysandbox::Application.routes.draw do
 
 
   resources :questions do
+    match "/auto" => "questions#auto"
     resources :response_questions, :shallow => true
     resources :challenges, :shallow => true
     resources :events, :shallow => true
