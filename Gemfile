@@ -6,7 +6,7 @@ gem 'rails', '3.1.0'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'rails3-jquery-autocomplete'
 gem 'fusion_tables'
 #gem 'imgur'
 gem 'pg'
