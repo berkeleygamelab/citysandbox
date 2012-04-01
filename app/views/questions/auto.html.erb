@@ -5,15 +5,19 @@ jQuery.ajaxSetup({
 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 $("#q").autocomplete( {
-url : '<%= formatted_cities_path(:js) %>',
+url : '<%= formatted_categories_path(:js) %>',
 mustMatch : false
 }
 );
 $("#q").autocomplete('result', function(event, data, formatted) {
 if (data)
-document.location.href = '/cities/' + data[1];
+document.location.href = '/categories/' + data[1];
 });
 });
 </script>
 <% end%>
 
+<% form_tag categories_path, :method => 'get' do %>
+<%= text_field_tag :q, params[:q] %>
+<%= submit_tag "Locate category", :name => nil %>
+<% end %>
