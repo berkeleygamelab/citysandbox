@@ -22,7 +22,7 @@ Citysandbox::Application.routes.draw do
   match "/validate" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
 
-
+  match "ugh" => "questions#auto"
   resources :questions do
     match "/auto" => "questions#auto"
     resources :response_questions, :shallow => true
