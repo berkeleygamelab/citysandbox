@@ -17,7 +17,7 @@ document.location.href = '/categories/' + data[1];
 </script>
 
 
-<% form_tag categories_path, :method => 'get' do %>
+<% form_tag "ugh", :method => 'get' do %>
 <%= text_field_tag :q, params[:q] %>
 <%= submit_tag "Locate category", :name => nil %>
 <% end %>
