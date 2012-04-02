@@ -1,7 +1,11 @@
 Citysandbox::Application.routes.draw do
 
   root :to => 'home#splash', :as => :home
-  root :to => 'home#splash', :as => :root
+#  root :to => 'home#splash', :as => :root
+
+  get "welcome/show"
+  root :to => "welcome#show"
+  get 'welcome/autocomplete_category_name'
 
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
