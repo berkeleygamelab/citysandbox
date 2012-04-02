@@ -12,6 +12,8 @@ Citysandbox::Application.routes.draw do
 
   resources :sessions
 
+  resources :categories
+
   match '/users/validate' => 'users#validate'
   match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
