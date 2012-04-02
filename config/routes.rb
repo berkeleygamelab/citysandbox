@@ -30,10 +30,10 @@ Citysandbox::Application.routes.draw do
     resources :response_questions, :shallow => true
     resources :challenges, :shallow => true
     resources :events, :shallow => true
-    get :autocomplete_brand_name, :on => :collection
+    get :auto_complete_for_customer_name, :on => :collection
   end
 
-map.resources :questions, :collection => {:auto_complete_for_customer_name => :get }
+
 
   resources :events do
     resources :response_events, :shallow => true
