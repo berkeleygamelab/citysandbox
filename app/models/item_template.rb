@@ -220,7 +220,7 @@ class ItemTemplate < ActiveRecord::Base
     set = area.coordinates
     lineEquation = []
     set.each do |point|
-      3
+    end
   end
   
 end
