@@ -8,5 +8,5 @@
 
 <%= form_for (@category) do |f| %>
 <% f.label :name, "whutup" %>
-<%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
+<%= f.autocomplete_field :name, "questions/autocomplete_category_name"%>
 <% end%>
