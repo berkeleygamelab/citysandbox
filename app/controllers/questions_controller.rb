@@ -1,10 +1,9 @@
 class QuestionsController < ApplicationController
-  autocomplete :categories, :name
+  autocomplete :category, :name
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 1
 
- auto_complete_for :categories, :name
   # GET /questions/1
   # GET /questions/1.json
   def show
@@ -54,10 +53,8 @@ end
 
   def newForm
     @question = Question.new
-     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @question }
-    end
+    @category = Category.new
+     
   end
 
   # GET /questions/1/edit

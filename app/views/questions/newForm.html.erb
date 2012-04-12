@@ -1,3 +1,5 @@
-<%= javascript_include_tag "jquery.js" %> 
-<%= javascript_include_tag "jquery_ujs.js" %>
- <%= text_field_with_auto_complete :category, :name, {}, {:method => :get} %>
+<%= form_for @category do |f| %>
+<%= f.label :name, “Category:” %>
+<%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
+<%= f.submit “Submit”, :disable_with => ‘Submiting…’ %>
+<% end %>
