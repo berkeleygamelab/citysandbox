@@ -51,7 +51,8 @@ $(document).ready( function() {
 	$('#sort_by li, #sort_by_type li, #categories li').each( function () {
 		$(this).click( function() {
 			var params = {};
-			ajax_call(params);
+			
+			_call(params);
 		});
 	});
 	
