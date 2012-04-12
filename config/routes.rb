@@ -35,6 +35,7 @@ Citysandbox::Application.routes.draw do
     resources :challenges, :shallow => true
     resources :events, :shallow => true
     get :auto_complete_for_category_name, :on => :collection
+    get :auto_complete_category_name, :on => :collection
   end
 
 
