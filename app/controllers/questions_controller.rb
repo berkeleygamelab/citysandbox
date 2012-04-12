@@ -54,7 +54,7 @@ end
   def newForm
     @question = Question.new
     @category = Category.new
-     
+    @categories = Category.all
   end
 
   # GET /questions/1/edit

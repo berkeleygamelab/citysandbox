@@ -1,3 +1,10 @@
+<h1>Categories</h1>
+<ul>
+<% @categories.each do |category| %>
+<li><%=category.name%></li>
+<%end %>
+</ul>
+
 <%= form_for @category do |f| %>
 <%= f.label :name, “Category:” %>
 <%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
