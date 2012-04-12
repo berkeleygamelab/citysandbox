@@ -55,6 +55,7 @@ end
     @question = Question.new
     @category = Category.new
     @categories = Category.all
+    puts "BLEEP BLOOP BLEEP BLEEP"
   end
 
   # GET /questions/1/edit
