@@ -4,9 +4,3 @@
 <li><%=category.name%></li>
 <%end %>
 </ul>
-
-<%= form_for @category do |f| %>
-<%= f.label :name, “Category:” %>
-<%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
-<%= f.submit “Submit”, :disable_with => ‘Submiting…’ %>
-<% end %>
