@@ -51,10 +51,11 @@ function addPoint(event) {
   var pt3 = new google.maps.LatLng(event.latLng.lat() - 0.03*stateSize, event.latLng.lng() -0.03*stateSize);
   var pt4 = new google.maps.LatLng(event.latLng.lat() - 0.03*stateSize, event.latLng.lng() +0.03*stateSize);
   var newPath = new google.maps.MVCArray; 
-  var newPoly = new google.maps.Polygon({
-	strokeWeight: 3
-  fillColor: '#5555FF'
-});
+  var newPoly;
+   newPoly  = new google.maps.Polygon({
+      strokeWeight: 3,
+      fillColor: '#5555FF'
+    });
   newPoly.setMap(map);
   newPoly.setPaths(new google.maps.MVCArray([newPath]));
   polygons.push(newPoly);
