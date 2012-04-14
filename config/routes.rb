@@ -4,9 +4,8 @@ Citysandbox::Application.routes.draw do
 #  root :to => 'home#splash', :as => :root
 
   get "welcome/show"
-  root :to => "welcome#show"
   get 'welcome/autocomplete_category_name'
-
+  match 'ugh' => 'welcome#show'
   scope :as => :home do
     get  '/' => 'home#splash', :as => :splash
     get '/login' => 'sessions#new', :as => :login

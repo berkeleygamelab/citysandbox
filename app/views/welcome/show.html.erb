@@ -1,4 +1,14 @@
-<h1>Welcome!</h1>
-<%= form_tag do %>
-  <%=text_field_tag 'name', '', :autocomplete => welcome_autocomplete_category_name_path %>
+<h1>Categories</h1>
+<ul>
+<% @categories.each do |category| %>
+<li><%=category.name%></li>
+<%end %>
+</ul>
+
+
+
+
+<%= form_for @category do |f| %>
+  <%=f.label :category_name %>
+  <%=f.autocomplete_field :category_name, questions_autocomplete_category_name_path %>
 <% end %>
