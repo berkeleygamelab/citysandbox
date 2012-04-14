@@ -14,6 +14,7 @@ var path = new google.maps.MVCArray;
 var dumbo = new Array();
 var polygons = new Array();
 var paths = new Array();
+var stateCounter = new Array();
 function adjustSize() {
 	
     var mylist=document.getElementById("myList");
@@ -92,6 +93,8 @@ function addPoint(event) {
   markers.push(marker2);
   markers.push(marker3);
   markers.push(marker4);
+  var title = "#" + path.length;
+  stateCounter.push(title);
   marker.setTitle("#" + path.length);
   marker2.setTitle("#" + path.length);
   marker3.setTitle("#" + path.length);
@@ -99,39 +102,79 @@ function addPoint(event) {
 
   google.maps.event.addListener(marker, 'click', function() {
     marker.setMap(null);
-    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-    markers.splice(i, 1);
-    path.removeAt(i);
-    dumbo.splice(i, 1);
+    var tracker = 0;
+    for (var i = 0, I = stateCounter.length; i < I; ++i);
+    { if(stateCounter[i] == marker.getTitle())
+		{
+			tracker = i;
+		}
+     }
+     markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 paths[tracker].splice[0];
+		 paths[tracker].splice[0];
+			 paths[tracker].splice[0];
+				 paths[tracker].splice[0];
+    }
+  );
+google.maps.event.addListener(marker, 'click', function() {
+    marker.setMap(null);
+    var tracker = 0;
+    for (var i = 0, I = stateCounter.length; i < I; ++i);
+    { if(stateCounter[i] == marker.getTitle())
+		{
+			tracker = i;
+		}
+     }
+     markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 paths[tracker].splice[0];
+		 paths[tracker].splice[0];
+			 paths[tracker].splice[0];
+				 paths[tracker].splice[0];
     }
   );
 
-  google.maps.event.addListener(marker2, 'click', function() {
+  google.maps.event.addListener(marker, 'click', function() {
     marker.setMap(null);
-    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-    markers.splice(i, 1);
-    path.removeAt(i);
-    dumbo.splice(i, 1);
+    var tracker = 0;
+    for (var i = 0, I = stateCounter.length; i < I; ++i);
+    { if(stateCounter[i] == marker.getTitle())
+		{
+			tracker = i;
+		}
+     }
+     markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 paths[tracker].splice[0];
+		 paths[tracker].splice[0];
+			 paths[tracker].splice[0];
+				 paths[tracker].splice[0];
     }
   );
-
-
-  google.maps.event.addListener(marker3, 'click', function() {
+ google.maps.event.addListener(marker, 'click', function() {
     marker.setMap(null);
-    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-    markers.splice(i, 1);
-    path.removeAt(i);
-    dumbo.splice(i, 1);
-    }
-  );
-
-
-  google.maps.event.addListener(marker4, 'click', function() {
-    marker.setMap(null);
-    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-    markers.splice(i, 1);
-    path.removeAt(i);
-    dumbo.splice(i, 1);
+    var tracker = 0;
+    for (var i = 0, I = stateCounter.length; i < I; ++i);
+    { if(stateCounter[i] == marker.getTitle())
+		{
+			tracker = i;
+		}
+     }
+     markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 markers.splice(i*4, 1);
+	 paths[tracker].splice[0];
+		 paths[tracker].splice[0];
+			 paths[tracker].splice[0];
+				 paths[tracker].splice[0];
     }
   );
 
