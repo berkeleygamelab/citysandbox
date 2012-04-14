@@ -6,7 +6,4 @@
 </ul>
 
 
-<%= form_for (@category) do |f| %>
-<% f.label :name, "whutup" %>
-<%= f.autocomplete_field :name, "questions/autocomplete_category_name"%>
-<% end%>
+  <%= text_field_with_auto_complete :category, :name %>

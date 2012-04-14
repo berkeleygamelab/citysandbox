@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 1
-
+  auto_complete_for :category, :name
   # GET /questions/1
   # GET /questions/1.json
   def show
