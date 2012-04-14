@@ -32,11 +32,9 @@ module AutoComplete
   module ClassMethods
     def auto_complete_for(object, method, options = {})
       define_method("auto_complete_for_#{object}_#{method}") do
-        table = object.to_s.camelize.constantize.table_name
-        
         find_options = { 
-          :conditions => [ "LOWER(#{table}.#{method}) LIKE (?)", '%' + params[object][method].downcase + '%' ], 
-          :order => "#{table}.#{method} ASC",
+          :conditions => [ "LOWER(#{method}) LIKE ?", '%' + params[object][method].downcase + '%' ], 
+          :order => "#{method} ASC",
           :limit => 10 }.merge!(options)
         
         @items = object.to_s.camelize.constantize.find(:all, find_options)
