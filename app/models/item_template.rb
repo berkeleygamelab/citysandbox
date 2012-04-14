@@ -5,7 +5,7 @@ class ItemTemplate < ActiveRecord::Base
 	has_many :notification
 	has_many :users, :through => :subscriptions	
 	has_many :response_templates
-	validates :user_id, :presence => true
+	#validates :user_id, :presence => true
     validates :title, :presence => true
     validates :location, :presence => true 
 	scope :followed, lambda{|key| {:conditions => {:id => key}}}

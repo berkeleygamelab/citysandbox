@@ -8,9 +8,17 @@ $(document).ready( function() {
 });
 
 var poly, map;
+var stateSize;
 var markers = [];
 var path = new google.maps.MVCArray;
 var dumbo = new Array();
+
+function adjustSize() {
+	
+    var mylist=document.getElementById("myList");
+	stateSize =mylist.options[mylist.selectedIndex];
+}
+
 function load_map() {
 	var lat = 0;
 	var lng = 0;
@@ -36,16 +44,47 @@ function load_map() {
     google.maps.event.addListener(map, 'click', addPoint);		
 }
 function addPoint(event) {
-  path.insertAt(path.length, event.latLng);
 
+  var pt1 = new google.maps.LatLng(event.latLng.lat() + 0.03*stateSize, event.latLng.lng() +0.03*stateSize);
+  var pt2 = new google.maps.LatLng(event.latLng.lat() + 0.03*stateSize, event.latLng.lng() -0.03*stateSize);
+  var pt3 = new google.maps.LatLng(event.latLng.lat() - 0.03*stateSize, event.latLng.lng() -0.03*stateSize);
+  var pt4 = new google.maps.LatLng(event.latLng.lat() - 0.03*stateSize, event.latLng.lng() +0.03*stateSize);
+  path.insertAt(path.length, pt1);
+  path.insertAt(path.length, pt2);
+  path.insertAt(path.length, pt3);
+  path.insertAt(path.length, pt4);
+  
   var marker = new google.maps.Marker({
-    position: event.latLng,
+    position: pt1,
+    map: map,
+    draggable: true
+  });
+
+  var marker2 = new google.maps.Marker({
+    position: pt2,
+    map: map,
+    draggable: true
+  });
+
+  var marker3 = new google.maps.Marker({
+    position: pt3,
+    map: map,
+    draggable: true
+  });
+
+  var marker4 = new google.maps.Marker({
+    position: pt4,
     map: map,
     draggable: true
   });
   markers.push(marker);
-  dumbo.push(event.latLng);
+  markers.push(marker2);
+  markers.push(marker3);
+  markers.push(marker4);
   marker.setTitle("#" + path.length);
+  marker2.setTitle("#" + path.length);
+  marker3.setTitle("#" + path.length);
+  marker4.setTitle("#" + path.length);
 
   google.maps.event.addListener(marker, 'click', function() {
     marker.setMap(null);
@@ -57,6 +96,51 @@ function addPoint(event) {
   );
 
   google.maps.event.addListener(marker, 'dragend', function() {
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    path.setAt(i, marker.getPosition());
+    dumbo[i] = marker.getPosition();
+    }
+  );
+  google.maps.event.addListener(marker2, 'click', function() {
+    marker.setMap(null);
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    markers.splice(i, 1);
+    path.removeAt(i);
+    dumbo.splice(i, 1);
+    }
+  );
+
+  google.maps.event.addListener(marker2, 'dragend', function() {
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    path.setAt(i, marker.getPosition());
+    dumbo[i] = marker.getPosition();
+    }
+  );
+  google.maps.event.addListener(marker3, 'click', function() {
+    marker.setMap(null);
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    markers.splice(i, 1);
+    path.removeAt(i);
+    dumbo.splice(i, 1);
+    }
+  );
+
+  google.maps.event.addListener(marker3, 'dragend', function() {
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    path.setAt(i, marker.getPosition());
+    dumbo[i] = marker.getPosition();
+    }
+  );
+  google.maps.event.addListener(marker4, 'click', function() {
+    marker.setMap(null);
+    for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+    markers.splice(i, 1);
+    path.removeAt(i);
+    dumbo.splice(i, 1);
+    }
+  );
+
+  google.maps.event.addListener(marker4, 'dragend', function() {
     for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
     path.setAt(i, marker.getPosition());
     dumbo[i] = marker.getPosition();
@@ -97,6 +181,14 @@ function load()
 Insert Info <input type='text' class='textbox' id='keyword' size='20'>
 <button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
 
-
+Select Size of Brush
+<select id="myList" onchange="favBrowser()">
+  <option></option>
+  <option>1</option>
+  <option>2</option>  
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
 
 </div>
