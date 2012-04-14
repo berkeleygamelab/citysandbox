@@ -39,8 +39,13 @@ html {
 		<%= render :partial => 'layouts/navbar' %>
 	<% elsif params[:controller] == 'map' && params[:action] == 'draw_map' %>		
  	<% end %>
-		
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
+
 	<%= yield %>
+	
    </div>
 </div>
 <% if params[:controller] != "home"  && params[:controller] != 'users' && params[:controller] != 'sessions' && params[:action] != 'qr' %>
