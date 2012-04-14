@@ -3,7 +3,8 @@
   has_many :challenges
 
   attr_accessor :most_recent, :lat, :lng, :anonymous
-  has_one :item_template, :as => :item
+  acts_as :item_template, :as => :producible
+
 
     scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
     scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}

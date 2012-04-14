@@ -82,4 +82,8 @@ class User < ActiveRecord::Base
 	return recent_activity.slice(1,n)
   end
   
+  def isAuthenticated
+    return :verified
+  end
+  
 end
