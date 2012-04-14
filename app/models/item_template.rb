@@ -81,7 +81,7 @@ class ItemTemplate < ActiveRecord::Base
    	def insert_location(location)
 
 	    @table = ENV['csb_locations']
-	    return ::FT.execute "INSERT INTO #{@table} (ID, Type, Location, Category) VALUES (#{id}, '#{producible_type}', '#{location}', #{cat_id} "
+	    return ::FT.execute "INSERT INTO #{@table} (ID, Type, Location, Category) VALUES (#{id}, '#{producible_type}', '#{location}', '#{cat_id}' "
 	end
 
         #takes in a CSV of lat/lng and either quest, chall, or event
