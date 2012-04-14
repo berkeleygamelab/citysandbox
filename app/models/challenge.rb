@@ -2,7 +2,8 @@ class Challenge < ActiveRecord::Base
   has_many :proposals
 
   has_many :events
-  has_one :item_template, :as => :item
+  acts_as :item_template, :as => :producible
+ 
 	
   belongs_to :question
   before_save :identify_type
@@ -20,9 +21,6 @@ class Challenge < ActiveRecord::Base
 	type = "Challenge"
   end
 
-  def category_id
-     return item_template.cat_id
-   end
     ##copied to item_template  
 
 #   def create_followed
