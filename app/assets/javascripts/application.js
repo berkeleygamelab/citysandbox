@@ -8,5 +8,4 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require autocomplete-rails
-//= require jquery-1.7.1
-//= require jquery-ui-1.8.18
+
