@@ -108,6 +108,10 @@ class ItemTemplate < ActiveRecord::Base
 		return resultHash
 	end
 	
+	def grab_area(points)
+	    @table = ENV['csb_locations']
+	    result = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, points AND TYPE = #{x} "))
+	end
 	
 	def grab_circle(radius, target_loc, number, who,typearray)
 	    @table = ENV['csb_locations']

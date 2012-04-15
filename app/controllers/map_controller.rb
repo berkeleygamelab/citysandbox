@@ -100,4 +100,57 @@ class MapController < ApplicationController
     respond_with(@entry)
   end
 
-end
+    #given an area id it checks if this area has certain overlap with new points
+    #for each individual area...
+    #finds center of the polygon using simple average of x and y coordinates
+    #finds the average distance from center to each point 
+    #compares the distances between the two centers
+    #takes MIN average distance and then does avg_dist/center_dist
+    # if this value has a ratio of 0.8 or better it will return true
+    # this constant value should be adjusted as needed
+
+    def error_estimation(area_id, points)
+    	a_points = Coordinate.find(:id => area_id)
+	centerx1 = 0
+	centery1 = 0
+	for a_points.each do |point|
+	   centerx1 += point.location[0]
+	   centery1 += point.location[1]
+        end
+	centerx1 = centerx1 / a_points.length
+	centery1 = centery1 / a_points.length
+
+        centerx2 = 0
+	centery2 = 0
+	for points.each do |point|
+	    centerx2 += point.location[0]
+	    centery2 += point.location[1]
+	end
+	centerx2 = centerx2 / points.length
+	centery2 = centery2 / points.length
+
+	avg_dist1 = 0
+	for a_points.each do |point|
+	    x = (centerx1 - point.location[0]) ** 2
+	    y = (centery1 - point.location[1]) ** 2
+	    avg_dist1 += Math.sqrt(x + y)
+	end
+	avg_dist1 = avg_dist1 / a_points.length
+
+        avg_dist2 = 0
+	for points.each do |point|
+	    x = (centerx2 - point.location[0]) ** 2
+	    y = (centery2 - point.location[1]) ** 2
+	    avg_dist1 += Math.sqrt(x + y)
+	end
+	avg_dist2 = avg_dist2 / a_points.length
+
+	center_dist_x = (centerx1 - centery1) ** 2
+	center_dist_y = (centerx2 - centery2) ** 2
+	center_dist = Math.sqrt(center_dist_x + center_dist_y)
+
+	if (avg_dist1 > avg_dist2)
+		return avg_dist2/center_dist > 0.8
+	else
+		return avg_dist1/center_dist > 0.8
+    end
