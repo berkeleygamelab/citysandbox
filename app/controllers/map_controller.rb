@@ -101,7 +101,7 @@ class MapController < ApplicationController
   end
   
   def drawMapConfirm
-    
+    @table = ENV['csb_locations']
   end
 
 end

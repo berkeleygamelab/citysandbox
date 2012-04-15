@@ -25,7 +25,7 @@ function load_map() {
 	  zoom: 12,
    mapTypeId: google.maps.MapTypeId.SATELLITE
 	});	
-	var tableID = <% ENV['csb_locations'] %>;
+	var tableID = <% @table %>;
 	var table = 2036527;
 	var tableString = table.toString();
 	var layer = new google.maps.FusionTablesLayer({
