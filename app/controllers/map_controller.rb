@@ -99,6 +99,10 @@ class MapController < ApplicationController
     
     respond_with(@entry)
   end
+  
+  def drawMapConfirm
+    @table = ENV['csb_locations']
+  end
 
     #given an area id it checks if this area has certain overlap with new points
     #for each individual area...
