@@ -8946,3 +8946,148 @@ Migrating to CreateUserAddAreas (20120226002026)
   [1m[35m (1.0ms)[0m  PRAGMA index_list("user_add_areas")
   [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("users")[0m
   [1m[35m (0.0ms)[0m  PRAGMA index_list("voting_records")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Rebuild (20111010231912)
+Migrating to CreateCategories (20120225204101)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.3ms)[0m  [1mDROP TABLE "categories"[0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cat_id" integer, "cat_name" text, "popularity" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120225204101')[0m
+Migrating to CreateCreateGroupAreas (20120225211423)
+Migrating to CreateTags (20120225222518)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cat_id" integer, "type" integer, "question_id" integer, "group_id" integer, "challenge_id" integer, "event_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120225222518')[0m
+Migrating to CreateGroupAreaLookups (20120225223046)
+Migrating to FixCategoriesInOldTables (20120226001604)
+  [1m[35m (0.4ms)[0m  CREATE TEMPORARY TABLE "altered_challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "question_id" integer, "description" varchar(1600), "created_at" datetime, "updated_at" datetime, "title" varchar(255), "submission_deadline" datetime, "vote_deadline" datetime, "user_id" integer, "location" varchar(255), "categories_id" integer, "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.939818') 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("challenges")[0m
+  [1m[35m (0.0ms)[0m  SELECT * FROM "challenges"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "altered_challenges" ("id","question_id","description","created_at","updated_at","title","submission_deadline","vote_deadline","user_id","location","categories_id","popularity","most_recent") VALUES (1, 1, 'sfdgjdh', '2011-11-28 08:07:39.656067', '2011-11-28 08:07:39.656067', 'asdf', '2011-12-05 07:56:00.000000', '2011-12-12 07:56:00.000000', 1, 'Taiwan', 2, 0, '2011-11-28 00:07:34.939818')[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "challenges"
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "question_id" integer, "description" varchar(1600), "created_at" datetime, "updated_at" datetime, "title" varchar(255), "submission_deadline" datetime, "vote_deadline" datetime, "user_id" integer, "location" varchar(255), "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.939818') [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_challenges")
+  [1m[36m (0.2ms)[0m  [1mSELECT * FROM "altered_challenges"[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "challenges" ("id","question_id","description","created_at","updated_at","title","submission_deadline","vote_deadline","user_id","location","popularity","most_recent") VALUES (1, 1, 'sfdgjdh', '2011-11-28 08:07:39.656067', '2011-11-28 08:07:39.656067', 'asdf', '2011-12-05 07:56:00.000000', '2011-12-12 07:56:00.000000', 1, 'Taiwan', 0, '2011-11-28 00:07:34.939818')
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "altered_challenges"[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "challenges" ADD "category_id" integer
+  [1m[36m (0.2ms)[0m  [1mCREATE TEMPORARY TABLE "altered_events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "title" varchar(255), "user_id" integer, "location" varchar(255), "description" varchar(255), "time" datetime, "categories_id" integer, "challenge_id" integer, "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.940322') [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("events")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "events"[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "altered_events" ("id","created_at","updated_at","title","user_id","location","description","time","categories_id","challenge_id","popularity","most_recent") VALUES (1, '2011-11-28 08:13:57.508872', '2011-12-07 21:27:14.700998', 'asdf;ag', 1, 'Taiwan', 'asdga', '2011-12-05 08:11:00.000000', 2, 1, 2, '2011-11-28 00:07:34.940322')
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "events"[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "title" varchar(255), "user_id" integer, "location" varchar(255), "description" varchar(255), "time" datetime, "challenge_id" integer, "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.940322') 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("altered_events")[0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "altered_events"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "events" ("id","created_at","updated_at","title","user_id","location","description","time","challenge_id","popularity","most_recent") VALUES (1, '2011-11-28 08:13:57.508872', '2011-12-07 21:27:14.700998', 'asdf;ag', 1, 'Taiwan', 'asdga', '2011-12-05 08:11:00.000000', 1, 2, '2011-11-28 00:07:34.940322')[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_events"
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "events" ADD "category_id" integer[0m
+  [1m[35m (0.1ms)[0m  CREATE TEMPORARY TABLE "altered_questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "title" varchar(255), "location" varchar(1600), "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0, "description" varchar(255), "categories_id" integer, "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.938968') 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("questions")[0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "questions"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "altered_questions" ("id","user_id","title","location","created_at","updated_at","anonymous","description","categories_id","popularity","most_recent") VALUES (1, 1, 'why am i so awesome ', 'Taiwan', '2011-11-28 06:54:46.061357', '2011-12-07 21:26:57.943955', 0, 'boss', 2, 6, '2011-11-28 00:07:34.938968')[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "questions"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "title" varchar(255), "location" varchar(1600), "created_at" datetime, "updated_at" datetime, "anonymous" integer DEFAULT 0, "description" varchar(255), "popularity" integer DEFAULT 0, "most_recent" datetime DEFAULT '2011-11-28 00:07:34.938968') [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_questions")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "altered_questions"[0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "questions" ("id","user_id","title","location","created_at","updated_at","anonymous","description","popularity","most_recent") VALUES (1, 1, 'why am i so awesome ', 'Taiwan', '2011-11-28 06:54:46.061357', '2011-12-07 21:26:57.943955', 0, 'boss', 6, '2011-11-28 00:07:34.938968')
+  [1m[36m (0.0ms)[0m  [1mDROP TABLE "altered_questions"[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "questions" ADD "category_id" integer
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120226001604')[0m
+Migrating to CreateUserAddAreas (20120226002026)
+Migrating to RebuildWithTemplates (20120311194021)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "item_templates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "location" varchar(255), "cat_id" integer, "description" varchar(1600), "created_at" datetime, "updated_at" datetime, "update_time" datetime DEFAULT '2012-04-14 21:02:43.340567', "popularity" integer DEFAULT 0, "item_id" integer, "type" varchar(255)) 
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "questions"[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "anonymous?" boolean) 
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "challenges"[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "challenges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "question_id" integer, "submission_deadline" datetime, "vote_deadline" datetime, "minimum_to_run" integer) 
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "events"[0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "events" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "time" datetime, "challenge_id" integer NOT NULL, "minimum_to_run" integer) 
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "proposals"[0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "proposals" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar(255), "response" varchar(255), "picture" varchar(255), "challenge_id" integer NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "picture" varchar(255)) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tagged area_id" integer NOT NULL, "group_id" integer NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "tagged_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255) NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tagged_area_id" integer NOT NULL, "location" varchar(255)) 
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "response_templates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "responder_id" integer NOT NULL, "response" varchar(255), "created_at" datetime, "updated_at" datetime, "anonymous?" boolean, "type" integer NOT NULL, "item_template_id" integer NOT NULL, "group_response?" boolean) [0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "categories"
+  [1m[36m (0.0ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) NOT NULL, "cat_popularity" integer DEFAULT 0) [0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "users"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(75) NOT NULL, "picture" varchar(255), "created_at" datetime, "updated_at" datetime, "email" varchar(75) DEFAULT ' ' NOT NULL, "password_digest" varchar(255), "location" varchar(255), "password" varchar(255)) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "user_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "tagged_area_id" integer NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "user_categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cat_id" integer NOT NULL, "user_id" integer NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "folders"
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "folders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255) NOT NULL, "user_id" integer NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "votes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "proposal_id" varchar(255) NOT NULL, "user_id" integer NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "sent_messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar(255), "body" varchar(255), "sent_by" integer, "created_at" datetime, "group_message?" boolean) [0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "received_messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "received_by" integer NOT NULL, "read?" boolean DEFAULT 'f', "folder_id" integer, "sent_message_id" integer NOT NULL) 
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "notifications" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "seen?" boolean DEFAULT 'f', "type" integer, "item_id" integer) [0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "memberships" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer NOT NULL, "user_id" integer NOT NULL) 
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "subscriptions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "item_template_id" integer NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120311194021')
+Migrating to RemoveCoordFromUsers (20120311195633)
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120311195633')[0m
+Migrating to CreateItemTemplates (20120311204125)
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120311204125')
+Migrating to AddTypeForgotPWtoUsers (20120311210112)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "type" varchar(255)[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "users" ADD "temp_pw" integer
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120311210112')[0m
+Migrating to CreateGroupAreas (20120311210354)
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120311210354')
+Migrating to AddVal (20120311231424)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "temp_pwd" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120311231424')
+Migrating to RemoveLangLatFromGroupAreas (20120312000054)
+  [1m[36m (0.2ms)[0m  [1mCREATE TEMPORARY TABLE "altered_create_group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "lng" varchar(255), "lat" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("create_group_areas")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "create_group_areas"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "create_group_areas"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "create_group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "lng" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_create_group_areas")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "altered_create_group_areas"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_create_group_areas"
+  [1m[36m (0.1ms)[0m  [1mCREATE TEMPORARY TABLE "altered_create_group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "lng" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("create_group_areas")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "create_group_areas"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "create_group_areas"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "create_group_areas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_create_group_areas")
+  [1m[36m (0.0ms)[0m  [1mSELECT * FROM "altered_create_group_areas"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_create_group_areas"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120312000054')[0m
+Migrating to Coordinate (20120312000433)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "coordinate" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "lng" varchar(255), "lat" varchar(255), "area_id" integer) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120312000433')[0m
+Migrating to UserAddition (20120318193823)
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD "verified" boolean DEFAULT 'f'
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "coordinates" ADD "order" integer[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120318193823')
+Migrating to AddUserSubscription (20120318203234)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "user_subscriptions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer NOT NULL, "followee_id" integer NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120318203234')
+Migrating to RemoveQmark (20120325054143)
+  [1m[36m (0.8ms)[0m  [1mCREATE TEMPORARY TABLE "altered_response_templates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "responder_id" integer NOT NULL, "response" varchar(255), "created_at" datetime, "updated_at" datetime, "anonymous?" boolean, "type" integer NOT NULL, "item_template_id" integer NOT NULL, "group_response?" boolean) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("response_templates")
+  [1m[36m (0.2ms)[0m  [1mSELECT * FROM "response_templates"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "response_templates"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "response_templates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "responder_id" integer NOT NULL, "response" varchar(255), "created_at" datetime, "updated_at" datetime, "type" integer NOT NULL, "item_template_id" integer NOT NULL, "group_response?" boolean) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_response_templates")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "altered_response_templates"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_response_templates"
+  [1m[36m (0.1ms)[0m  [1mCREATE TEMPORARY TABLE "altered_coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tagged_area_id" integer NOT NULL, "location" varchar(255), "order" integer) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("coordinates")
+  [1m[36m (0.0ms)[0m  [1mSELECT * FROM "coordinates"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "coordinates"
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tagged_area_id" integer NOT NULL, "location" varchar(255), "order" integer) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("altered_coordinates")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "altered_coordinates"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_coordinates"
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "sent_messages" ADD "anonymous" boolean[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "response_templates" ADD "anonymous" boolean
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "response_templates" ADD "group_response" boolean[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "sent_messages" ADD "group_message" boolean
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "received_messages" ADD "read" boolean[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "questions" ADD "anonymous" boolean
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "notifications" ADD "seen" boolean[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "coordinates" ADD "tagged_area_id" boolean
+SQLite3::SQLException: duplicate column name: tagged_area_id: ALTER TABLE "coordinates" ADD "tagged_area_id" boolean
