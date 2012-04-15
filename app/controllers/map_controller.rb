@@ -158,3 +158,4 @@ class MapController < ApplicationController
 	else
 		return avg_dist1/center_dist > 0.8
     end
+  end
