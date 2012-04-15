@@ -1,0 +1,63 @@
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+
+				load_map();
+		
+});
+
+var poly, map;
+var markers = [];
+var path = new google.maps.MVCArray;
+var dumbo = new Array();
+function load_map() {
+	var lat = 0;
+	var lng = 0;
+	var center;
+
+	
+	var tableID = 2036527;
+	var geocoder = new google.maps.Geocoder();
+	 var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
+	map = new google.maps.Map(document.getElementById('mapview_map'), {
+	  center: uluru,
+	  zoom: 12,
+   mapTypeId: google.maps.MapTypeId.SATELLITE
+	});	
+	var tableID = <% ENV['csb_locations'] %>;
+	var table = 2036527;
+	var tableString = table.toString();
+	var layer = new google.maps.FusionTablesLayer({
+	  query: {
+	    select: '*',
+	    from: tableString,
+	    where: 'ST_INTERSECTS(Location, POLYGON(LATLNG (37.863696407009165, -122.25868727111805), LATLNG(37.869286479443595, -122.25233580017078), LATLNG(37.864543414939604, -122.24521185302723), LATLNG(37.85756377921388, -122.2452976837157), LATLNG(37.85769931241367, -122.25881601715076), LATLNG(37.8608503890564, -122.2660257949828)))'
+	  }
+	});
+	layer.setMap(map);
+}
+function addPoint(event) {
+
+}
+
+function getParameter()
+{
+	
+}
+
+function load()
+{
+
+}
+
+
+</script>
+<div id='content'>
+<div id='mapview_map'></div>
+
+
+
+
+
+</div>

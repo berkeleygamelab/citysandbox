@@ -99,5 +99,9 @@ class MapController < ApplicationController
     
     respond_with(@entry)
   end
+  
+  def drawMapConfirm
+    
+  end
 
 end
