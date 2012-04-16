@@ -117,16 +117,16 @@ class MapController < ApplicationController
     	a_points = Coordinate.find(:id => area_id)
 	centerx1 = 0
 	centery1 = 0
-	for a_points.each do |point|
+	 a_points.each do |point|
 	   centerx1 += point.location[0]
 	   centery1 += point.location[1]
-        end
+  end
 	centerx1 = centerx1 / a_points.length
 	centery1 = centery1 / a_points.length
-
+	
         centerx2 = 0
 	centery2 = 0
-	for points.each do |point|
+	 points.each do |point|
 	    centerx2 += point.location[0]
 	    centery2 += point.location[1]
 	end
@@ -134,7 +134,7 @@ class MapController < ApplicationController
 	centery2 = centery2 / points.length
 
 	avg_dist1 = 0
-	for a_points.each do |point|
+	 a_points.each do |point|
 	    x = (centerx1 - point.location[0]) ** 2
 	    y = (centery1 - point.location[1]) ** 2
 	    avg_dist1 += Math.sqrt(x + y)
@@ -142,7 +142,7 @@ class MapController < ApplicationController
 	avg_dist1 = avg_dist1 / a_points.length
 
         avg_dist2 = 0
-	for points.each do |point|
+	 points.each do |point|
 	    x = (centerx2 - point.location[0]) ** 2
 	    y = (centery2 - point.location[1]) ** 2
 	    avg_dist1 += Math.sqrt(x + y)
