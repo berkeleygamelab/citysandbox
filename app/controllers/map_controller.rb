@@ -8,7 +8,7 @@ class MapController < ApplicationController
     end
   end
   
-  respond_to :json
+#  respond_to :json
   
   def draw
       #creating new tagged area
@@ -153,9 +153,9 @@ class MapController < ApplicationController
 	center_dist_y = (centerx2 - centery2) ** 2
 	center_dist = Math.sqrt(center_dist_x + center_dist_y)
 
-	if (avg_dist1 > avg_dist2)
+	    if (avg_dist1 > avg_dist2)
 		return avg_dist2/center_dist > 0.8
-	else
+    	else
 		return avg_dist1/center_dist > 0.8
-    end
+      end
   end
