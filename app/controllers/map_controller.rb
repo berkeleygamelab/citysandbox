@@ -40,7 +40,7 @@ class MapController < ApplicationController
               newcoord = Coordinate.new("tagged_area_id" => taggedarea.id, :location => c)
 	      #MAKE SURE THAT COORDS ARE SAVING
 	      newcoord.save
-	  end
+	        end
        end
    end
    
