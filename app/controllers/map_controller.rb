@@ -48,6 +48,10 @@ class MapController < ApplicationController
      puts "what is going on here"
    end
           
+          
+    def drawMapBoxies
+      
+    end
       	
   def query_filter
       area = params["taggedArea"]
