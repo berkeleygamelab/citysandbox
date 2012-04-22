@@ -47,6 +47,7 @@ class MapController < ApplicationController
    
    def draw_map
      puts "what is going on here"
+     @awkward = "awkward"
    end
           
           
