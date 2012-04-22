@@ -31,8 +31,8 @@ function load_map() {
 	<% @areas.each do |coordinate_list| %>
 		var newPath = new google.maps.MVCArray;
 		<% coordinate_list.each do |item| %>
-		var lat = <% item.split(", ")[0] %>
-		var lng =<% item.split(", ")[1] %>
+		var lat = <% puts item.split(", ")[0] %>
+		var lng =<% puts item.split(", ")[1] %>
 			newPath.insertAt(newPath.length, new google.maps.LatLng(lat,lng));
 		<% end %>
 		var newPoly = new new google.maps.Polygon({
