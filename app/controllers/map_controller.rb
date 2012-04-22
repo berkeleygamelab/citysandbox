@@ -108,9 +108,13 @@ class MapController < ApplicationController
   def drawMapConfirm
     @table = ENV['csb_locations']
     @areas = []
+    i = 0
     TaggedArea.all.each do |set|
       @areas.push(set.coordinates.map(&:location))
+      puts @areas[i]
+      i = i+ 1 
     end
+    
   end
 
     #given an area id it checks if this area has certain overlap with new points
