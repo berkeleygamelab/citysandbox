@@ -37,6 +37,7 @@ class MapController < ApplicationController
           coordinates.each do |set|
 	      t = set.split(",")
               c = t[0] + "," + t[1]
+              c = c[1..c.length-2]
               newcoord = Coordinate.new("tagged_area_id" => taggedarea.id, :location => c)
 	      #MAKE SURE THAT COORDS ARE SAVING
 	      newcoord.save
@@ -106,6 +107,10 @@ class MapController < ApplicationController
   
   def drawMapConfirm
     @table = ENV['csb_locations']
+    @areas = []
+    TaggedArea.all.each do |set|
+      @areas.push(set.coordinates.map(&:location))
+    end
   end
 
     #given an area id it checks if this area has certain overlap with new points

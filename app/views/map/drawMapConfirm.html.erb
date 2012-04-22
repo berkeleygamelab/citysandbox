@@ -10,7 +10,9 @@ $(document).ready( function() {
 var poly, map;
 var markers = [];
 var path = new google.maps.MVCArray;
+var polygons = new Array();
 var dumbo = new Array();
+var paths = new Array();
 function load_map() {
 	var lat = 0;
 	var lng = 0;
@@ -22,20 +24,24 @@ function load_map() {
 	 var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
 	map = new google.maps.Map(document.getElementById('mapview_map'), {
 	  center: uluru,
-	  zoom: 12,
+	  zoom: 10,
    mapTypeId: google.maps.MapTypeId.SATELLITE
 	});	
-	var tableID = <% @table %>;
-	var table = 2036527;
-	var tableString = table.toString();
-	var layer = new google.maps.FusionTablesLayer({
-	  query: {
-	    select: '*',
-	    from: tableString,
-	    where: 'ST_INTERSECTS(Location, POLYGON(LATLNG (37.863696407009165, -122.25868727111805), LATLNG(37.869286479443595, -122.25233580017078), LATLNG(37.864543414939604, -122.24521185302723), LATLNG(37.85756377921388, -122.2452976837157), LATLNG(37.85769931241367, -122.25881601715076), LATLNG(37.8608503890564, -122.2660257949828)))'
-	  }
-	});
-	layer.setMap(map);
+	var i = 0;
+	<% @areas.each do |coordinate_list| %>
+		var newPath = new google.maps.MVCArray;
+		<% coordinate_list.each do |item| %>
+			newPath.insertAt(newPath.length, new google.maps.LatLng(<% item.split[" "][0] %>, <% item.split[" "][1] %>));
+		<% end %>
+		var newPoly = new new google.maps.Polygon({
+	      strokeWeight: 3,
+	      fillColor: '#5555FF'
+	    });
+	    polygons.push(newPoly);
+	    newPoly.setMap(map);
+	    newPoly.setPaths(new google.maps.MVCArray([newPath]));
+	<% %>
+
 }
 function addPoint(event) {
 
