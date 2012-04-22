@@ -1,55 +1,40 @@
-<div id='header'>
-<div id='icon_title'>
-<%= link_to image_tag("/assets/splash_logo.png", :class=>'navbar_title',:size=>'90x90', :alt => "City Sandbox"), summary_path %>
-<%= link_to image_tag("../images/title.png", :class=>'navbar_title', :size=>'265x75', :alt => "City Sandbox"), summary_path %>
-</div>
+<div class="row" id="navbar">
+			<div class="span3">
+				<img src="assets/img/logo.png"  />
+			</div>
+			<div class="span9">
+				<div class="row">
+					<div class="span3 offset7">
+						<a href="#">Register</a>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="#">Login</a>
+						</div>
+				</div>
+				<div class="row">
+					<div class="span3 offset1">
+						<h2>Now exploring: </h2>
+					</div>
+					<div class="span3">
+						<form class="navbar-form pull-left navform">
+					  		<input type="text" class="span3" value="Berkeley, CA">
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="navbar">
+					  <div class="navbar-inner">
 
-<span id="user_nav">
-  <% if !current_user.nil? %>
-  	<a href="/logout" class="link_logout gray_text">Log Out</a>
-	<br>
-	<a href="/edit_profile" class="link_logout gray_text">Edit Profile</a>
-	<% if params[:controller] != "inbox" && params[:controller] != "sent" %>
-		<br>
-		<a href="/messages/inbox" class="link_logout gray_text">Inbox</a >
-	<% end %>
-  <% else %>
-  	<a href="/login" class="link_login gray_text">Log In</a>
-  <% end %>
-</span>
+							<ul class="nav">
+							  <li><a href="#">Ask Questions</a></li>
+							  <li><a href="#">Connect to Others</a></li>
+							  <li><a href="#">Post Challenges</a></li>
+							  <li><a href="#">Organize Events</a></li>
+							  <li><a href="#">Projects</a></li>
+							</ul>
 
-<div id='header_tabs'>
-	<div id='map_view'>
-	<% if params[:controller] == "discussion" && params[:action] == "summary" %>
-		<%= link_to 'Map View', map_path, :class=>'gray_text' %>
-	<% else %>
-		<%= link_to 'Summary View', summary_path, :class=>'gray_text' %>
- 	<% end %>
-	</div>
-<% if params[:controller] != "questions" || (params[:action] != 'new') %>
-	<div id='ask_question'>
-		<%= link_to 'Ask a question!', new_question_path, :class=>'gray_text' %>
-	</div>
-	<% end %> 
-	<% if params[:controller] == "discussion" && params[:action] == "summary"%>
-	<div id='linkset_1'>
-		<%= link_to 'Whats Hot', summary_path, :class=> 'gray_text' %>
+					  </div>
+					</div>
+				</div>
+			</div>
 		</div>
-	<% else %>
-	<div id ='linkset_1'>
-	<%= link_to 'Create your View', map_path, :class => 'gray_text' %>
-	</div>
-	<% end%>
-	<% if params[:controller] == "discussion" && params[:action] == "summary"%>
-	<div id='linkset_2'>
-		<%= link_to 'Followed', summary_path, :class => 'gray_text'%>
-	</div>
-	<% else %>
-	<div id='linkset_2'>
-		<%= link_to 'Followed', map_path, :class => 'gray_text'%>
-	</div>
-	<% end%>
-	
-</div>
-</div>
 
