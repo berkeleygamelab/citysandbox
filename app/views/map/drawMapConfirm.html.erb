@@ -28,6 +28,7 @@ function load_map() {
    mapTypeId: google.maps.MapTypeId.SATELLITE
 	});	
 	var i = 0;
+	     var s = <%= h(@s.to_json) %>;
 	<% @areas.each do |coordinate_list| %>
 		var newPath = new google.maps.MVCArray;
 		<% coordinate_list.each do |item| %>

@@ -118,7 +118,7 @@ class MapController < ApplicationController
       i = i+ 1
       puts i 
     end
-    
+    @dummy = "mary had a little lamb"
   end
 
     #given an area id it checks if this area has certain overlap with new points
