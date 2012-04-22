@@ -13,6 +13,16 @@ var path = new google.maps.MVCArray;
 var polygons = new Array();
 var dumbo = new Array();
 var paths = new Array();
+
+var colorDumpList = new Array();
+colorDumpList.push("#1501033");
+colorDumpList.push("#47291e");
+colorDumpList.push("#9ef0b2");
+colorDumpList.push("#2d5f60");
+colorDumpList.push("#9a9d18");
+colorDumpList.push("#2ba038");
+colorDumpList.push("##5555FF");
+
 function load_map() {
 	var lat = 0;
 	var lng = 0;
@@ -27,8 +37,7 @@ function load_map() {
 	  zoom: 4,
    mapTypeId: google.maps.MapTypeId.SATELLITE
 	});	
-
-	 s = document.getElementById('s').innerHTML;
+	var i = 0;
 	<% @areas.each do |coordinate_list| %>
 		var newPath = new google.maps.MVCArray;
 		<% coordinate_list.each do |item| %>
@@ -38,11 +47,12 @@ function load_map() {
 		<% end %>
 	  poly = new google.maps.Polygon({
 	      strokeWeight: 3,
-	      fillColor: '#5555FF'
+	      fillColor: colorDumpList[i]
 	    });
 	    polygons.push(poly);
 	    poly.setMap(map);
 	    poly.setPaths(new google.maps.MVCArray([newPath]));
+	    i = i + 1;
 	<% end %>
 
 }
