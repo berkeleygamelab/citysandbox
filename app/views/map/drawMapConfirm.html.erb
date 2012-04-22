@@ -36,11 +36,11 @@ function load_map() {
 		var lng =<%= h(item[1]) %>
 			newPath.insertAt(newPath.length, new google.maps.LatLng(lat,lng));
 		<% end %>
-		poly = new new google.maps.Polygon({
+	  poly = new google.maps.Polygon({
 	      strokeWeight: 3,
 	      fillColor: '#5555FF'
 	    });
-	    polygons.push(newPoly);
+	    polygons.push(poly);
 	    newPoly.setMap(map);
 	    newPoly.setPaths(new google.maps.MVCArray([newPath]));
 	<% end %>
