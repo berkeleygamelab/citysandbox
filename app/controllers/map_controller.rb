@@ -111,7 +111,7 @@ class MapController < ApplicationController
     @areas = []
     i = 0
     TaggedArea.all.each do |set|
-      @areas.push(set.coordinates.map(&:location))
+      @areas.push(set.coordinates.map(&:location).map{|item| item.split(", ")})
       puts @areas[i]
       puts @areas[i].class
       puts @areas[i][0].class
