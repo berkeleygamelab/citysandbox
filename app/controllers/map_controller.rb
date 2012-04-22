@@ -112,7 +112,8 @@ class MapController < ApplicationController
     TaggedArea.all.each do |set|
       @areas.push(set.coordinates.map(&:location))
       puts @areas[i]
-      i = i+ 1 
+      i = i+ 1
+      puts i 
     end
     
   end
