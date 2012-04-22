@@ -114,6 +114,7 @@ class MapController < ApplicationController
       @areas.push(set.coordinates.map(&:location))
       puts @areas[i]
       puts @areas[i].class
+      puts @areas[i][0].class
       i = i+ 1
       puts i 
     end
