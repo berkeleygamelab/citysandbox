@@ -17,7 +17,7 @@ function load_map() {
 	var lat = 0;
 	var lng = 0;
 	var center;
-
+   
 	
 	var tableID = 2036527;
 	var geocoder = new google.maps.Geocoder();
@@ -29,6 +29,7 @@ function load_map() {
 	});	
 	var i = 0;
 	     var s = <%= h(@s.to_json) %>;
+	 s = document.getElementById('s').innerHTML
 	<% @areas.each do |coordinate_list| %>
 		var newPath = new google.maps.MVCArray;
 		<% coordinate_list.each do |item| %>
@@ -78,6 +79,6 @@ onClick="checkAll(document.myform.list)">
 <input type="button" name="UnCheckAll" value="Uncheck All"
 onClick="uncheckAll(document.myform.list)">
 <br>
-
+<div id='s'><%=h my_string%></div>
 
 </div>
