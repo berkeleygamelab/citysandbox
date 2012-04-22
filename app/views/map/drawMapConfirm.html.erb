@@ -41,8 +41,8 @@ function load_map() {
 	      fillColor: '#5555FF'
 	    });
 	    polygons.push(poly);
-	    newPoly.setMap(map);
-	    newPoly.setPaths(new google.maps.MVCArray([newPath]));
+	    poly.setMap(map);
+	    poly.setPaths(new google.maps.MVCArray([newPath]));
 	<% end %>
 
 }
