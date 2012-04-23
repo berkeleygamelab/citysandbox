@@ -1,3 +1,18 @@
+<script type="text/javascript">
+
+ var myBoxValue = "Berkeley, CA";
+ var boxes = new Array();
+ boxes.push(document.getElementById("mainBox"));
+ function setBoxes(newVal)
+{
+ for(var i=0; i<boxes.length; i++);
+   {
+    boxes[i].value = newVal;
+    }
+}
+
+ </script>
+
 <div class="row" id="navbar">
       <div class="span3">
         <img src="/assets/images/logo.png"  />
@@ -16,7 +31,7 @@
           </div>
           <div class="span3">
             <form class="navbar-form pull-left navform">
-                <input type="text" class="span3" value="Berkeley, CA">
+                <input type="text" class="span3" name="mainBox" value="Berkeley, CA" onchange="setBoxes(this.value)">
             </form>
           </div>
         </div>

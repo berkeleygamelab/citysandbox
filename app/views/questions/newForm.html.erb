@@ -1,6 +1,8 @@
 <script type="text/javascript">
 $(document).ready( function() {
   var map;
+  boxes.push(document.getElementById("box1"));
+
     var myOptions = {
       zoom: 8,
       center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
@@ -30,6 +32,10 @@ $(document).ready( function() {
 
 });
 
+function adjust_location(box)
+{
+
+}
 
 function center_map(map) {
   var geocoder = new google.maps.Geocoder();
@@ -107,7 +113,7 @@ function center_map(map) {
         <% end %>
         </div>
         <div class="span5">
-            <h3> Sample questions asked in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+            <h3> Sample questions asked in <input name="box2" type="text" class="span2" onchange="setBoxes(this.value)" placeholder="Berkeley, CA"/> </h3>
           <ul class="related_list unstyled">
             <li class="row">
               <a href="#" >
