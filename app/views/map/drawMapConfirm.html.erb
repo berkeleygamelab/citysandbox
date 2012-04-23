@@ -34,7 +34,7 @@ function load_map() {
 	 var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
 	map = new google.maps.Map(document.getElementById('mapview_map'), {
 	  center: uluru,
-	  zoom: 4,
+	  zoom: 14,
    mapTypeId: google.maps.MapTypeId.SATELLITE
 	});	
 	var i = 0;
@@ -72,7 +72,7 @@ function load()
 
 function toggle(boxName)
 {
-	if(boxName.checked == false)
+	if(boxName.checked == true)
 	{
 		polygons[boxName.value].setMap(map);
 	}
