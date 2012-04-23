@@ -5,6 +5,6 @@
 <%end %>
 </ul>
 WHAT IS GOING ON BRO
-  <% form_for @category do |f| %>
-  <%  f.autocomplete_field :name, welcome_autocomplete_category_name_path %>
-  <% end %>
+  <%= form_for @category do |f| %>
+  <%=  f.autocomplete_field :name, welcome_autocomplete_category_name_path %>
+  <%= end %>

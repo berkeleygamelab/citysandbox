@@ -12,7 +12,7 @@ $(document).ready( function() {
     new google.maps.LatLng(-33.8902, 151.1759),
     new google.maps.LatLng(-33.8474, 151.2631));
 
-  var input = document.getElementById('question_location');
+  var input = document.getElementById('#question_location');
   var options = {
     bounds: defaultBounds,
     types: ['geocode']
@@ -98,8 +98,8 @@ function center_map(map) {
           <p>
             <%= f.label 'Categories' %>
             <br>
-            <% form_for @category do |f| %>
-            <%  f.autocomplete_field :name, questions_autocomplete_category_name_path %>
+            <%= form_for @category do |f| %>
+            <%=  f.autocomplete_field :name, questions_autocomplete_category_name_path %>
             <% end %>
           </p>
 
