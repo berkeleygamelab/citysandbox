@@ -2,7 +2,7 @@ class ItemTemplate < ActiveRecord::Base
   acts_as_superclass
   attr_accessible :lat, :lng
 	belongs_to :item, :polymorphic => true
-	has_many :categories
+	has_many :categories, :through => :categoryholders
 	has_many :notification
 	has_many :users, :through => :subscriptions	
 	has_many :response_templates
