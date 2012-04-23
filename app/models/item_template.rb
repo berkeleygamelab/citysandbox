@@ -1,5 +1,6 @@
 class ItemTemplate < ActiveRecord::Base
   acts_as_superclass
+  attr_accessible :lat, :lng
 	belongs_to :item, :polymorphic => true
 	belongs_to :category, :foreign_key => "cat_id"
 	has_many :notification
