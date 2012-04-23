@@ -1,6 +1,17 @@
 <script type="text/javascript">
 $(document).ready( function() {
   var map;
+
+ var myBoxValue = "Berkeley, CA";
+ var boxes = new Array();
+ boxes.push(document.getElementById("mainBox"));
+ function setBoxes(newVal)
+{
+ for(var i=0; i<boxes.length; i++);
+   {
+    boxes[i].value = newVal;
+    }
+}
   boxes.push(document.getElementById("box1"));
 
     var myOptions = {
