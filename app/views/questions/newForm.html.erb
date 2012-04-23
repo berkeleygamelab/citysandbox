@@ -94,7 +94,7 @@ function center_map(map) {
 					<p>
 						<%= f.label 'Categories' %>
 						<br>
-						<% form_for @product do |f| %>
+						<% form_for @category do |f| %>
 						<%  f.autocomplete_field :category_name, autocomplete_category_name_questions_path %>
 						<% end %>
 					</p>
