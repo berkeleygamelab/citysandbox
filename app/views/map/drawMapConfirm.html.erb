@@ -4,7 +4,7 @@ $(document).ready( function() {
 
 
 				load_map();
-		
+		load();
 });
 
 var poly, map;
@@ -16,12 +16,12 @@ var paths = new Array();
 
 var colorDumpList = new Array();
 colorDumpList.push("#FFD24D");
-colorDumpList.push("#D2FF4D");
-colorDumpList.push("#79FF4D");
-colorDumpList.push("#4DFF79");
-colorDumpList.push("#FF794D");
-colorDumpList.push("#FFC30F");
-colorDumpList.push("#D19D00");
+colorDumpList.push("#DDFF00");
+colorDumpList.push("#00FFDD");
+colorDumpList.push("#FF00DD");
+colorDumpList.push("#FFDDAA");
+colorDumpList.push("#AADDFF");
+colorDumpList.push("#00DDFF");
 
 function load_map() {
 	var lat = 0;
@@ -67,17 +67,18 @@ function getParameter()
 
 function load()
 {
+	
 }
 
 function toggle(boxName)
 {
-	if(boxName.checked == true)
+	if(boxName.checked == false)
 	{
-		polygons[boxName.value].setMap(null);
+		polygons[boxName.value].setMap(map);
 	}
 	else
 	{
-		polygons[boxName.value].setMap(map);
+		polygons[boxName.value].setMap(null);
 	}
 }
 
@@ -88,7 +89,7 @@ function toggle(boxName)
 
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
-<input type="checkbox" name="list" onClick="toggle(this)" value=<%=h index %>> <%=h map.title %> <br>
+<input type="checkbox" name="list" onClick="toggle(this)" value=<%=h index %> checked /> <%=h map.title %> <br>
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
 onClick="checkAll(document.myform.list)">
