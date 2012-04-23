@@ -1,4 +1,35 @@
+<script type="text/javascript">
+$(document).ready( function() {
+	var map;
+    var myOptions = {
+    	zoom: 8,
+    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+   	map = new google.maps.Map(document.getElementById('form_map_canvas'), myOptions);
 
+	var defaultBounds = new google.maps.LatLngBounds(
+	  new google.maps.LatLng(-33.8902, 151.1759),
+	  new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('question_location');
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['geocode']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+	
+	if ($('#question_location').val() != '') {
+		center_map(map);
+	}
+
+	$('#question_location').blur( function() {
+		center_map(map);
+	});	
+	
+});
+</script>
 	<div id="container">
 		<div class="row" id="navbar">
 			<div class="span3">
