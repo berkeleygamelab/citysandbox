@@ -42,13 +42,13 @@ $(document).ready( function() {
 
  function setBoxes(newVal)
 {
-
+   var temp = new Array();
 
   for(var i=0; i<2; i++);
    {
     var a = boxes.pop();
-    document.write(a);
-    document.getElementById(boxes[i]).value = newVal;
+    temp.push(a);
+    document.getElementById(a).value = newVal;
     }
 }
 
