@@ -5,13 +5,7 @@ $(document).ready( function() {
  var myBoxValue = "Berkeley, CA";
  var boxes = new Array();
  boxes.push(document.getElementById("mainBox"));
- function setBoxes(newVal)
-{
- for(var i=0; i<boxes.length; i++);
-   {
-    boxes[i].value = newVal;
-    }
-}
+
   boxes.push(document.getElementById("box1"));
   document.getElementById("mainBox").onchange = "setBoxes(this.value)";
 
@@ -33,6 +27,7 @@ $(document).ready( function() {
   };
 
   autocomplete = new google.maps.places.Autocomplete(input, options);
+  autocomplete.bindTo('bounds', map);
 
   if ($('#question_location').val() != '') {
     center_map(map);
@@ -43,6 +38,14 @@ $(document).ready( function() {
   });
 
 });
+
+ function setBoxes(newVal)
+{
+ for(var i=0; i<boxes.length; i++);
+   {
+    boxes[i].value = newVal;
+    }
+}
 
 function adjust_location(box)
 {
