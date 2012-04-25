@@ -42,6 +42,7 @@ $(document).ready( function() {
  function setBoxes(newVal)
 {
    document.getElementById('mainBox').value = newVal;
+  document.getElementById('box1').value = newVal;
  for(var i=0; i<boxes.length; i++);
    {
     boxes[i].value = newVal;
@@ -101,6 +102,8 @@ function center_map(map) {
             <%= f.label :location %> <font size='1px'>(Character Limit: 100)</font>
             <br>
             <%= f.text_area :location, :rows=>1, :placeholder=>"" %>
+            <br>
+            <br>
             <br>
             <div id="form_map_canvas"></div>
           </p>
