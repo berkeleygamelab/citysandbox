@@ -2,13 +2,13 @@
   var map;
   var autocomplete;
  var myBoxValue = "Berkeley, CA";
- var boxes = new Array();
+ var boxes;
+$(document).ready( function() {
+ boxes = new Array();
 
  boxes.push('mainBox');
 
   boxes.push('box1');
-$(document).ready( function() {
-
   document.getElementById('mainBox').onchange = "setBoxes(this.value)";
 
     var myOptions = {
