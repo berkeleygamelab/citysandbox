@@ -4,9 +4,9 @@
  var myBoxValue = "Berkeley, CA";
  var boxes = new Array();
 
- boxes.push(document.getElementById('mainBox'));
+ boxes.push('mainBox');
 
-  boxes.push(document.getElementById('box1'));
+  boxes.push('box1');
 $(document).ready( function() {
 
   document.getElementById('mainBox').onchange = "setBoxes(this.value)";
@@ -42,11 +42,10 @@ $(document).ready( function() {
 
  function setBoxes(newVal)
 {
-   document.getElementById('mainBox').value = newVal;
-  document.getElementById('box1').value = newVal;
+
  for(var i=0; i<boxes.length; i++);
    {
-    boxes[i].value = newVal;
+    document.getElementById(boxes[i]).value = newVal;
     }
 }
 
