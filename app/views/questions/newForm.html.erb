@@ -43,11 +43,12 @@ $(document).ready( function() {
  function setBoxes(newVal)
 {
 
- for(var i=0; i<boxes.length; i++);
+
+   document.write(boxes.toString());
+  for(var i=0; i<boxes.length; i++);
    {
     document.getElementById(boxes[i].toString()).value = newVal;
     }
-   document.write(boxes.toString());
 }
 
 function adjust_location(box)
