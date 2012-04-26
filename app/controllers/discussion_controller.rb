@@ -34,15 +34,57 @@ def filterNew
 	@challenges = []
 	@location_to_grab = params[:loc]
 	@target_user = params[:by_user]
+	@radius = params[:radius]
+	@following = params[:following]
+	@popular = params[:popular]
 	if(@location_to_grab == nil)
-    if !current_user.nil?
-      temp = Geocoder.coordinates(current_user.location)
-      @location_to_grab = temp[0].to_s + " " + temp[1].to_s
-    end
-    if current_user.nil?
-      @error = "ERROR"
-    end
-  end
+		if !current_user.nil?
+			temp = Geocoder.coordinates(current_user.location)
+			@location_to_grab = temp[0].to_s + " " + temp[1].to_s
+		end
+		if current_user.nil?
+			@error = "ERROR"
+		end
+	end
+	temp = Geocoder.coordinates(@location_to_grab)
+	@location_to_grab = temp[0].to_s + " " + temp[1].to_s
+	@keyword = params[:keyword]
+	@items = ItemTemplate.grab_circle(@radius, @location_to_grab)
+	@collection = []
+	@items.each do |hash|
+		if !@types.include?(hash['Type'])
+			@items.delete(hash)
+			next
+			end
+		if !@cat_id.nil? and !(hash['Category']==@cat_id)
+			@items.delete(hash)
+			next
+		end
+		currentItem = ItemTemplate.find_by_id(hash['Id'])
+		currentContentHash = currentItem.generate_content
+		if !(currentContentHash["created_at"]>@startDate and currentContentHash["crated_at"]<@endDate)
+			@items.delete(hash)
+			next
+			end
+		if !(currentContentHash["popularity"]>@popular)
+			@items.delete(hash)
+			next
+			end
+		if !(currentContentHash["title"].include? @keyword or currentContentHash["description"].include? @keyword)
+			@items.delete(hash)
+			next
+			end
+		@collection = @collection + [currentContentHash]
+		end
+	return @collection
+	end
+		
+		
+		
+		
+		
+	
+	
 end
 
 

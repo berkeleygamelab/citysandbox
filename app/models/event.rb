@@ -34,8 +34,6 @@ class Event < ActiveRecord::Base
     followed = FollowedEvent.new
     followed.user_id = current_user.id
     followed.event_id = id
-    
-    
     followed.save
   end
   

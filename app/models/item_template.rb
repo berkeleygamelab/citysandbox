@@ -21,13 +21,13 @@ class ItemTemplate < ActiveRecord::Base
 		contentHash = {}
 	    contentHash.add("title"=>title)
 		contentHash.add("location"=>location)
-		
 		contentHash.add("description"=>description)
 		contentHash.add("created_at"=>created_at)
 		contentHash.add("updated_at"=>updated_at)
 		contentHash.add("update_time"=>update_time)
 		contentHash.add("popularity"=>popularity)
 		contentHash.add("cat_name"=>Category.find(cat_id))
+		contentHash.add("type"=>type)
 		hash = {}
 		case type
 			when "question"
@@ -70,12 +70,6 @@ class ItemTemplate < ActiveRecord::Base
 	    @table = ENV['csb_locations']
 	    return ::FT.execute "SELECT Location FROM #{@table} WHERE ID = #{item_id} AND Type = ItemTemplate.type "
     end
-	
-	
-
-	def most_popular(since_last)
-		return challenge.find(:all, :conditions => ["updated_at > "]).where()
-   end
 
         #takes in a CSV of lat/lng
    	def insert_location(location)
@@ -113,7 +107,7 @@ class ItemTemplate < ActiveRecord::Base
 	    result = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, #{points})) AND TYPE = #{x}"
 	end
 	
-	def grab_circle(radius, target_loc, number, who,typearray)
+	def grab_circle(radius, target_loc,typearray)
 	    @table = ENV['csb_locations']
 	    @lat = target_loc.split[0].to_f
 	    @lng = target_loc.split[1].to_f
@@ -124,8 +118,8 @@ class ItemTemplate < ActiveRecord::Base
 		return resulthash
 	end
 
-	def sift_circle(radius, target_loc, number, set)
-	    circles = grab_cirle(distance, target_loc, number)
+	def sift_circle(radius, target_loc, set)
+	    circles = grab_circle(distance, target_loc)
 	    circles = retrieve_google_with_set(set, circles)
 	    return circles
 	end
@@ -186,12 +180,12 @@ class ItemTemplate < ActiveRecord::Base
 
     
 	 
-	def grab_circle(distance, target_loc, number)
+	def grab_circle(distance, target_loc)
      @events_table = ENV['csb_locations']
      @loc_x = target_loc.split[0].to_f
      @loc_y = target_loc.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance})) AND Origin = 'events'"
-  end
+     return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
+	end
    
    def grab_nearest(number)
 	@item_table = ENV['csb_locations']
