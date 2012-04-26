@@ -4,11 +4,7 @@
 <li><%=category.name%></li>
 <%end %>
 </ul>
-
-
-
-
-
-<%= form_tag do %>
-  <%=text_field_tag 'name', '', :autocomplete => welcome_autocomplete_category_name_path %>
-<% end %>
+WHAT IS GOING ON BRO
+  <%= form_for @category do |f| %>
+  <%=  f.autocomplete_field :name, welcome_autocomplete_category_name_path %>
+  <% end %>

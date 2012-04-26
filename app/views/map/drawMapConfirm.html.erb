@@ -3,8 +3,8 @@
 $(document).ready( function() {
 
 
-				load_map();
-		
+        load_map();
+    load();
 });
 
 var poly, map;
@@ -13,34 +13,47 @@ var path = new google.maps.MVCArray;
 var polygons = new Array();
 var dumbo = new Array();
 var paths = new Array();
-function load_map() {
-	var lat = 0;
-	var lng = 0;
-	var center;
 
-	
-	var tableID = 2036527;
-	var geocoder = new google.maps.Geocoder();
-	 var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
-	map = new google.maps.Map(document.getElementById('mapview_map'), {
-	  center: uluru,
-	  zoom: 10,
+var colorDumpList = new Array();
+colorDumpList.push("#FFD24D");
+colorDumpList.push("#DDFF00");
+colorDumpList.push("#00FFDD");
+colorDumpList.push("#FF00DD");
+colorDumpList.push("#FFDDAA");
+colorDumpList.push("#AADDFF");
+colorDumpList.push("#00DDFF");
+
+function load_map() {
+  var lat = 0;
+  var lng = 0;
+  var center;
+
+
+  var tableID = 2036527;
+  var geocoder = new google.maps.Geocoder();
+   var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
+  map = new google.maps.Map(document.getElementById('mapview_map'), {
+    center: uluru,
+    zoom: 14,
    mapTypeId: google.maps.MapTypeId.SATELLITE
-	});	
-	var i = 0;
-	<% @areas.each do |coordinate_list| %>
-		var newPath = new google.maps.MVCArray;
-		<% coordinate_list.each do |item| %>
-			newPath.insertAt(newPath.length, new google.maps.LatLng(<% item.split[", "][0] %>, <% item.split[", "][1] %>));
-		<% end %>
-		var newPoly = new new google.maps.Polygon({
-	      strokeWeight: 3,
-	      fillColor: '#5555FF'
-	    });
-	    polygons.push(newPoly);
-	    newPoly.setMap(map);
-	    newPoly.setPaths(new google.maps.MVCArray([newPath]));
-	<% end %>
+  });
+  var i = 0;
+  <% @areas.each do |coordinate_list| %>
+    var newPath = new google.maps.MVCArray;
+    <% coordinate_list.each do |item| %>
+    var lat = <%= h(item[0]) %>
+    var lng =<%= h(item[1]) %>
+      newPath.insertAt(newPath.length, new google.maps.LatLng(lat,lng));
+    <% end %>
+    poly = new google.maps.Polygon({
+        strokeWeight: 3,
+        fillColor: colorDumpList[i]
+      });
+      polygons.push(poly);
+      poly.setMap(map);
+      poly.setPaths(new google.maps.MVCArray([newPath]));
+      i = i + 1;
+  <% end %>
 
 }
 function addPoint(event) {
@@ -49,7 +62,7 @@ function addPoint(event) {
 
 function getParameter()
 {
-	
+
 }
 
 function load()
@@ -57,6 +70,28 @@ function load()
 
 }
 
+function toggle(boxName)
+{
+  if(boxName.checked == true)
+  {
+    polygons[boxName.value].setMap(map);
+  }
+  else
+  {
+    polygons[boxName.value].setMap(null);
+  }
+}
+
+  function unloadAll(field){
+    for (i = 0; i < field.length; i++);
+  field[i].checked = false ;
+
+  }
+  function loadAll(field){
+
+    for (i = 0; i < field.length; i++);
+      field[i].checked = true ;
+  }
 
 </script>
 <div id='content'>
@@ -64,17 +99,14 @@ function load()
 
 
 <b>Your List of Available Similar Maps</b><br>
-<input type="checkbox" name="list" value="1">Your Map<br>
-<input type="checkbox" name="list" value="2">Map 1<br>
-<input type="checkbox" name="list" value="3">Map 2<br>
-<input type="checkbox" name="list" value="4">Map 3<br>
-<input type="checkbox" name="list" value="5">Map 4 and <% @table %><br>
-
+<% TaggedArea.all.each_with_index do |map, index| %>
+<input type="checkbox" name="list" onClick="toggle(this)" value=<%=h index %> checked /> <%=h map.title %> <br>
+<% end %>
 <input type="button" name="CheckAll" value="Check All"
-onClick="checkAll(document.myform.list)">
+onClick="loadAll(document.myform.list)">
 <input type="button" name="UnCheckAll" value="Uncheck All"
-onClick="uncheckAll(document.myform.list)">
+onClick="unloadAll(document.myform.list)">
 <br>
-
+<div id='s'><%=h @s %></div>
 
 </div>
