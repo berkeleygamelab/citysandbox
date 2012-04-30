@@ -1,68 +1,65 @@
-<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
-      type="text/javascript"></script>
-<script type="text/javascript">
-$.fn.center = function (top_offset) {
-	window_width =  $(window).width() > 500 ? $(window).width() : 500;
-    this.css("position","absolute");
-	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
-    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
-    return this;
-}
+<div id="container">
+		<div class="row" id="navbar">
+			<div class="span3">
+				<img src="assets/img/logo.png"  />
+			</div>
+			<div class="span9">
+				<div class="row">
+					<div class="span3 offset7">
+						<a href="#">Register</a>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="#">Login</a>
+						</div>
+				</div>
+				<div class="row">
+					<div class="span3 offset1">
+						<h2>Now exploring: </h2>
+					</div>
+					<div class="span3">
+						<form class="navbar-form pull-left navform">
+					  		<input type="text" class="span3" value="Berkeley, CA">
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="navbar">
+					  <div class="navbar-inner">
 
-function center_elements() {
-	window_height =  $(window).height() > 700 ? $(window).height() : 700;
-	$('.splash_box').center(0);
-   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
-	$('.splash_title').center(20);
-	$('.splash_logo').center(200);
-	$('#links').center(550);
-	$('#city_input').css('position', 'absolute');
-	$('#city_input').css('left', $('.splash_title').position().left + 85 + 'px');
-	$('#city_input').css('top', $('.splash_logo').position().top + 280 + 'px');
-}
+							<ul class="nav">
+							  <li><a href="#">Ask Questions</a></li>
+							  <li><a href="#">Connect to Others</a></li>
+							  <li><a href="#">Post Challenges</a></li>
+							  <li><a href="#">Organize Events</a></li>
+							  <li><a href="#">Projects</a></li>
+							</ul>
 
-$(window).load(function() {
-	center_elements();
-	
-	$(window).resize(function() {
-		center_elements();
-	});
-	
-	$('#city_input').tbHinter({
-		text: '  Enter a city...',
-		class: 'gray_text'
-	});	
-	
-	var defaultBounds = new google.maps.LatLngBounds(
-	  new google.maps.LatLng(-33.8902, 151.1759),
-	  new google.maps.LatLng(-33.8474, 151.2631));
-
-	var input = document.getElementById('city_input');
-	var options = {
-	  bounds: defaultBounds,
-	  types: ['geocode']
-	};
-
-	autocomplete = new google.maps.places.Autocomplete(input, options);
-	
-	$('#city_input').addClass('formatted_input gray_text');
-	
-	$('#city_input').bind('keypress', function(e) {
-		if (e.keyCode == 13) {
-			loc = $('#city_input').val();
-			window.location.href = '/summary?city_input=' + loc;
-		}
-	});
- });
-</script>
-<%= image_tag "splash_box.png", :class=>'splash_box' %>
-<%= image_tag "splash_title.png", :class=>'splash_title' %>
-<%= image_tag "splash_logo.png", :class=>'splash_logo', :size=>'250x250' %>
-
-
-<%= text_field_tag(:city_input, '', :size=>'18') %>
-
-<div id="links">
-	<%=link_to "Register", home_register_path %>
-	<%=link_to "Log In", home_login_path %>
-</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div class="row" id="carousel">
+			<div class="span6"><img src="assets/img/dummy_carousel.png" /></div>
+			<div class="span5">
+				<h1>Welcome to AppCivist!</h1>
+			<br />
+			<p id="carousel_desc_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas, tortor et imperdiet aliquam, ante magna eleifend lectus, ut scelerisque tortor sapien eget quam. Nullam vel metus nec mauris molestie aliquam vel pharetra eros. Suspendisse quis lacus eu nulla molestie suscipit. lacus eu nulla molestie.</p> </div>
+		</div>
+			<div class="row" id="featured">
+		    <div class="span4 featuredbox">
+		        <h1>Column #1</h1>
+		        <p>Content for column #1.</p>
+		    </div>
+		    <div class="span4 featuredbox">
+		        <h1>Column #2</h1>
+		        <p>Content for column #2.</p>
+		    </div>
+		    <div class="span4 featuredbox">
+		        <h1>Column #3</h1>
+		        <p>Content for column #3.</p>
+		    </div>
+		</div>
+		</div>
+	</div>
+	</body>
