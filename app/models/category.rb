@@ -8,15 +8,15 @@ class Category < ActiveRecord::Base
   def get_n_popular_cats(n,distance,radius)
 	items = ItemTemplate.grab_circle(distance, radius)
 	catHash = {}
-	items.each do |item|
-		if catHash[item[cat_id]] == nil
-			catHash[item[cat_id]] = 1
-			
-		else
-			catHash[item[cat_id]] = catHash[item[cat_id]]+1
-			
-		end
-	end
+  	items.each do |item|
+  		if catHash[item[cat_id]] == nil
+  			catHash[item[cat_id]] = 1
+		
+  		else
+  			catHash[item[cat_id]] = catHash[item[cat_id]]+1
+		
+  		end
+  	end
 	catArray = []
 	n.each do |x|
 		catArray +=catHash.max_by{|k,v| v}[0]

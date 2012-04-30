@@ -91,7 +91,7 @@ function toggle(boxName)
   function loadAll(field){
 
     for (i = 0; i < field.length; i++);
-      field[i].attr('checked') = true ;
+      field[i].value= true ;
   }
 
 </script>
@@ -101,7 +101,7 @@ function toggle(boxName)
 
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
-<input type="checkbox" name="list" id="list" onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
+<input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
 onClick="loadAll(document.getElementsByName('list'))">
