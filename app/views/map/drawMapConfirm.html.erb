@@ -103,9 +103,9 @@ function toggle(boxName)
 <input type="checkbox" name="list" id="list" onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
-onClick="loadAll(document.getElementById('list'))">
+onClick="loadAll(document.getElementsByName('list'))">
 <input type="button" name="UnCheckAll" value="Uncheck All"
-onClick="unloadAll(document.getElementById('list'))">
+onClick="unloadAll(document.getElementsByName('list'))">
 <br>
 <div id='s'><%=h @s %></div>
 
