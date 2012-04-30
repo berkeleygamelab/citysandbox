@@ -27,6 +27,17 @@ class Category < ActiveRecord::Base
 		return cat.category_id
 	end
 	
+	def get_default_cats
+		return Category.find(:all, :default_cat => true)
+	end
 	
+	def get_my_categories
+		User_Categories = UserCategory.find(:all, :user_id => current_user.id)
+		result = []
+		for User_Categories.each do |cat|
+			result += Category.find_by_id(cat.cat_id)
+			end
+		return result
+	end
 	
 end
