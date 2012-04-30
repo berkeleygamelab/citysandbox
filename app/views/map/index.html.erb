@@ -205,7 +205,7 @@ function load_map(loc) {
 	<br><br>
 	<b>VIEW CATEGORIES</b>
 	<ul id='categories'>
-	<% for category in Categories.find(:all) %>
+	<% for category in Category.find(:all) %>
 	<li>
 	  <%= check_box_tag 'category', category.id %>
 	  <%= category.category %>
