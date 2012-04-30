@@ -10,7 +10,7 @@ $(document).ready( function() {
 			});
 		});
 	});
-	var loc = '<% if User.exists? and current_user %> <%= current_user.location %> <% else %><%= @location %><% end %>';
+	var loc = '<% if @location != "" %> <%= @location %> <% else %> <% if current_user.nil? %> <%= @location %> <% else %> <%= current_user.location %> <% end %> <% end %>';
 	if (loc == '') {
 		$('#mapview_map').hide();
 		var defaultBounds = new google.maps.LatLngBounds(
@@ -205,7 +205,7 @@ function load_map(loc) {
 	<br><br>
 	<b>VIEW CATEGORIES</b>
 	<ul id='categories'>
-	<% for category in Categories.find(:all) %>
+	<% for category in Category.find(:all) %>
 	<li>
 	  <%= check_box_tag 'category', category.id %>
 	  <%= category.category %>
