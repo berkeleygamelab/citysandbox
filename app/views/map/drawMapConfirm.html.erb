@@ -83,10 +83,10 @@ function toggle(boxName)
 }
 
   function unloadAll(len){
-    document.write(field[0].attr('checked'));
+  
     for (i = 0; i < len; i++); 
 {
-  var dummy = document.getElementById("list" + len.toString());
+  var dummy = document.getElementById("list" + i.toString());
   dummy.checked = false;
 }
   }
@@ -94,7 +94,7 @@ function toggle(boxName)
 
     for (i = 0; i < len; i++);
 {
-     var dummy = document.getElementById("list" + len.toString());
+     var dummy = document.getElementById("list" + i.toString());
 	  dummy.checked = true;
 }
   }
@@ -107,6 +107,7 @@ function toggle(boxName)
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
 <input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
+<input type="button" name="pick me!" value="pick me" id="pick<%=h index %>">
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
 onClick="loadAll(<%=h TaggedArea.all.size %>)">
