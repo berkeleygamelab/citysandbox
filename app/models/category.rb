@@ -15,13 +15,12 @@ class Category < ActiveRecord::Base
 		else
 			catHash[item[cat_id]] = catHash[item[cat_id]]+1
 			end
-		end
 	catArray = []
 	n.each do |x|
 		catArray +=catHash.max_by{|k,v| v}[0]
 		hash[key] = 0
 		end
-    return Category.find(:all, :conditions => ["cat_id IN (?), catArray"])
+    return Category.find(:all, :conditions => ["cat_id IN (?)", catArray])
   end
 
 
