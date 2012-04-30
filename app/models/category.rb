@@ -32,9 +32,9 @@ class Category < ActiveRecord::Base
   end
 
   def get_my_categories
-    User_Categories = UserCategory.where(:user_id => self.current_user_id)
+    userCats = UserCategory.where(:user_id => self.current_user_id)
     result = []
-    for User_Categories.each do |cat|
+    userCats.each do |cat|
       result += Category.find_by_id(cat.cat_id)
       end
     return result
