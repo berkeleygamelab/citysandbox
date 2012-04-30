@@ -1,4 +1,6 @@
 class Category < ActiveRecord::Base
+  has_many :categoryholders
+  has_many :user_categories
   has_many :item_templates, :through =>:categoryholders
   validates :name, :presence => true
   attr_accessor :cat_id

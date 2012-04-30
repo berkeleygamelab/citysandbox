@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :login, :email
-  
+  has_many :user_areas
+  has_many :user_categories
   has_many :tagged_areas, :through => :user_areas
   has_many :categories, :through => :user_categories
   has_many :notifications
