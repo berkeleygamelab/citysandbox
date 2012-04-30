@@ -10,7 +10,7 @@ $(document).ready( function() {
  boxes.push('mainBox');
 
   boxes.push('box1');
-  document.getElementById('mainBox').onchange = "setBoxes(this.value)";
+  $('mainBox').bind('onchange', setBoxes($('mainBox').value));
 
     var myOptions = {
       zoom: 8,
