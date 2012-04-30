@@ -45,6 +45,7 @@ def filterNew
     end
     if current_user.nil?
       @error = "ERROR"
+      
       return nil
     end
   end
