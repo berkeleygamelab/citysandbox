@@ -82,16 +82,21 @@ function toggle(boxName)
   }
 }
 
-  function unloadAll(field){
+  function unloadAll(len){
     document.write(field[0].attr('checked'));
-    for (i = 0; i < field.length; i++);
-  field[i].attr('checked') = false ;
-
+    for (i = 0; i < len; i++); 
+{
+  var dummy = document.getElementById("list" + len.toString());
+  dummy.checked = false;
+}
   }
-  function loadAll(field){
+  function loadAll(len){
 
-    for (i = 0; i < field.length; i++);
-      field[i].value= true ;
+    for (i = 0; i < len; i++);
+{
+     var dummy = document.getElementById("list" + len.toString());
+	  dummy.checked = true;
+}
   }
 
 </script>
@@ -104,9 +109,9 @@ function toggle(boxName)
 <input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
-onClick="loadAll(document.getElementsByName('list'))">
+onClick="loadAll(<%=h TaggedArea.all.size %>)">
 <input type="button" name="UnCheckAll" value="Uncheck All"
-onClick="unloadAll(document.getElementsByName('list'))">
+onClick="unloadAll(<%=h TaggedArea.all.size %>)">
 <br>
 <div id='s'><%=h @s %></div>
 
