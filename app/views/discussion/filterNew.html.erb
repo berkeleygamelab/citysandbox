@@ -1,41 +1,164 @@
-<%if @error %>
-	ERROR DONT HAVE A LOCATION
 
-<%else %>
-	welcome! you must have logged in at some point
-   
-	Insert a Handy Dandy Location! <input type='text' class='textbox' id='location' size='20'>
-	<br>
-	Category 1 <input type='text' class='textbox' id='category1' size='20'>
-	<br>
-	Category 2 <input type='text' class='textbox' id='category2' size='20'>
-	<br>
-	Category 3 <input type='text' class='textbox' id='category3' size='20'>
-	<br>
-	Keyword Search <input type='text' class='textbox' id='keyword' size='20'>
-	<br>
-	Date Before <input type='datetime' id='before' size='20'>
-	<br>
-	Date After <input type='datetime' id='after' size='20'>
-	<br>
-	What is gonna do with this <input type='checkbox' class='textbox' id='keyword' size='20'>
-	<button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
+	<script language="javascript">
 
-<% end %>
+ function toggleDiv(divid){
+    if(document.getElementById(divid).style.display == 'none'){
+      document.getElementById(divid).style.display = 'block';
+    }else{
+      document.getElementById(divid).style.display = 'none';
+    }
+  }
+function toggle_visibility(id) {
 
-<script type="text/javascript">
-function load()
-{
-	var words = $('#myButton').attr('value');
-	var stuff = getParameter();
-
-	$.post("draw", { coordinates: stuff, taggedArea: words},
-   function(data) {
-      alert(data);
-   });
-}
+    if(document.getElementById(id).style.display == 'block') {
+       document.getElementById(id).style.display = 'none';
+     } else {
+       document.getElementById(id).style.display = 'block';
+     }
+  }
 
 
 </script>
 
+	<div id="container">
+		<div class="row" id="navbar">
+			<div class="span3">
+				<img src="assets/img/logo.png"  />
+			</div>
+			<div class="span9">
+				<div class="row">
+					<div class="span3 offset7">
+						<a href="#">Register</a>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="#">Login</a>
+						</div>
+				</div>
+				<div class="row">
+					<div class="span3 offset1">
+						<h2>Now exploring: </h2>
+					</div>
+					<div class="span3">
+						<form class="navbar-form pull-left navform">
+					  		<input type="text" class="span3" value="Berkeley, CA">
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="navbar">
+					  <div class="navbar-inner">
+
+							<ul class="nav">
+							  <li><a href="#">Ask Questions</a></li>
+							  <li><a href="#">Connect to Others</a></li>
+							  <li><a href="#">Post Challenges</a></li>
+							  <li><a href="#">Organize Events</a></li>
+							  <li><a href="#">Projects</a></li>
+							</ul>
+
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<h5>Showing 1-10 of 100 results</h5>
+			<ol id="list_results" class="span8">
+					<br>
+					<li>
+						single result
+					</li>
+					<li>
+						single result
+					</li>
+					<li>
+						single result
+					</li>
+					<li>
+						single result
+					</li>
+					<br>
+					<img src="../oldfrontend/dummy_searchnav.png">
+			</ol>
+			
+			<div class="span3 list_panel_right">
+					<img src="../oldfrontend/dummy_listmapswitch.png">
+					<br><br>
+					<img src="../oldfrontend/dummy_listmap.png">
+					<br><br>
+					
+					
+					<ul id="filter_menus">				
+						<li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
+							<ul class="filter_elements" style="display:block;"  id="fe1">
+								<li>
+								Questions
+								</li><li>
+								Challenges
+								</li><li>
+								Events
+								</li>
+							</ul>			
+						</li>
+						
+						<li>
+							<a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
+							<ul class="filter_elements" style="display:block;" id="fe2">						
+								<li class="checkbox">  
+								<input type="checkbox"> Dignity and Rights 
+								</li>
+								<li class="checkbox">  
+								<input type="checkbox"> Education 
+								</li>  
+								<li class="checkbox">  
+								<input type="checkbox"> Health & Safety
+								</li>  
+								<li class="checkbox">  
+								<input type="checkbox"> Public Space
+								</li>  
+								<li class="checkbox">  
+								<input type="checkbox"> Transportation
+								</li>  					
+							</ul>
+						</li>	
+						<li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
+							<ul class="filter_elements" style="display:none;"  id="fe3">
+								<li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li>
+							</ul>			
+						</li>
+						<li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
+							<ul class="filter_elements" style="display:none;"  id="fe4">
+								<li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li>
+							</ul>			
+						</li>
+						<li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
+							<ul class="filter_elements" style="display:none;"  id="fe5">
+								<li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li><li>
+								Placeholder
+								</li>
+							</ul>			
+						</li>
+					</ul>
+				</div>		
+			
+		</div>
+		<br><br><br>
+	</div>
+
+</body>
 

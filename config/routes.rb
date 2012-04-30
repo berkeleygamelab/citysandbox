@@ -55,7 +55,7 @@ Citysandbox::Application.routes.draw do
     get '/' => 'discussion#summary', :as => :summary
   end
 
-  get '/filter' => 'discussion#filterNew'
+  match 'filter' => 'discussion#filterNew'
 
   get '/summary' => 'discussion#summary', :as => :summary
 
