@@ -70,6 +70,12 @@ function load()
 
 }
 
+function select(input)
+{
+	$.post("submit", {taggedArea: input.value})
+	
+}
+
 function toggle(boxName)
 {
   if(boxName.checked == true)
@@ -106,9 +112,10 @@ function toggle(boxName)
 
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
-<input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
-<input type="button" name="pick me!" value="pick me" id="pick<%=h index %>">
+<input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> 
+<input type="button" name="pick me!" value="<%=h map.id %>" id="pick<%=h index %>" onClick="select(this)">
 <% end %>
+<br>
 <input type="button" name="CheckAll" value="Check All"
 onClick="loadAll(<%=h TaggedArea.all.size %>)">
 <input type="button" name="UnCheckAll" value="Uncheck All"
