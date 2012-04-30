@@ -5,8 +5,23 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :name
   has_many :users, :through => :user_categories
 
-  def get_n_popular_cats(n)
-    return Category.where(:order => 'popularity').limit(n)
+  def get_n_popular_cats(n,distance,radius)
+	items = ItemTemplate.grab_circle(distance, radius)
+	catHash = {}
+	items.each do |item|
+		if catHash[item[cat_id]] == nil
+			catHash[item[cat_id]] = 1
+			end
+		else
+			catHash[item[cat_id]] = catHash[item[cat_id]]+1
+			end
+		end
+	catArray = []
+	n.each do |x|
+		catArray +=catHash.max_by{|k,v| v}[0]
+		hash[key] = 0
+		end
+    return Category.find(:all, :conditions => ["cat_id IN (?), catArray"])
   end
 
 
