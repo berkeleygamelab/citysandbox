@@ -1,9 +1,8 @@
-<script type="text/javascript">
+-<script type="text/javascript">
   var map;
   var autocomplete;
  var myBoxValue = "Berkeley, CA";
  var boxes;
-var autocomplete2;
 $(document).ready( function() {
  boxes = new Array();
 
@@ -30,8 +29,7 @@ $(document).ready( function() {
   };
   autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-  var addAuto = new google.maps.places.Autocomplete(document.getElementById('mainBox'));
-  var auto2 = new google.maps.places.Autocomplete(document.getElementById('box1'));
+
   if ($('#question_location').val() != '') {
     center_map(map);
   }

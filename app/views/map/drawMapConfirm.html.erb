@@ -100,12 +100,12 @@ function toggle(boxName)
 
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
-<input type="checkbox" name="list" onClick="toggle(this)" value=<%=h index %> checked /> <%=h map.title %> <br>
+<input type="checkbox" name="list" onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
 <% end %>
 <input type="button" name="CheckAll" value="Check All"
-onClick="loadAll(document.myform.list)">
+onClick="loadAll(document.getElementByName('list')">
 <input type="button" name="UnCheckAll" value="Uncheck All"
-onClick="unloadAll(document.myform.list)">
+onClick="unloadAll(document.getElementByName('list'))">
 <br>
 <div id='s'><%=h @s %></div>
 
