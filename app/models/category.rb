@@ -11,10 +11,10 @@ class Category < ActiveRecord::Base
 	items.each do |item|
 		if catHash[item[cat_id]] == nil
 			catHash[item[cat_id]] = 1
-			end
+			
 		else
 			catHash[item[cat_id]] = catHash[item[cat_id]]+1
-			end
+		end
 	catArray = []
 	n.each do |x|
 		catArray +=catHash.max_by{|k,v| v}[0]
@@ -30,7 +30,7 @@ class Category < ActiveRecord::Base
     cats.each do |cat|
       results += [cat.name]
     return results
-  end
+    end
   end
 
   def return_cat_id(text)
