@@ -12,348 +12,78 @@ end
 respond_to :json
 
 def summary
- 
+
 end
 
 
 def filterNew
-	size_limit_questions = 15
-	size_limit_discussion = 5
-	page_offset = 0
-	@collection = []
-	@flagsort = false
-	@cat_id = params[:category] # it's an integer
-	@startDate = params[:timeBefore]
-	@endDate = params[:timeAfter]
-	@types = params[:types] #array of strings that specifies what type of item we're filtering for; names like question, challenge, event
-	if @endDate==nil
-		@endDate = Time.now
-	end
-	@events = []
-	@questions = []
-	@challenges = []
-	@location_to_grab = params[:loc]
-	@target_user = params[:by_user]
-	@radius = params[:radius]
-	@following = params[:following]
-	@popular = params[:popular]
-	if(@location_to_grab == nil)
-		if !current_user.nil?
-			temp = Geocoder.coordinates(current_user.location)
-			@location_to_grab = temp[0].to_s + " " + temp[1].to_s
-		end
-		if current_user.nil?
-			@error = "ERROR"
-		end
-	end
-	temp = Geocoder.coordinates(@location_to_grab)
-	@location_to_grab = temp[0].to_s + " " + temp[1].to_s
-	@keyword = params[:keyword]
-	@items = ItemTemplate.grab_circle(@radius, @location_to_grab)
-	@collection = []
-	@items.each do |hash|
-		if !@types.include?(hash['Type'])
-			@items.delete(hash)
-			next
-			end
-		if !@cat_id.nil? and !(hash['Category']==@cat_id)
-			@items.delete(hash)
-			next
-		end
-		currentItem = ItemTemplate.find_by_id(hash['Id'])
-		currentContentHash = currentItem.generate_content
-		if !(currentContentHash["created_at"]>@startDate and currentContentHash["crated_at"]<@endDate)
-			@items.delete(hash)
-			next
-			end
-		if !(currentContentHash["popularity"]>@popular)
-			@items.delete(hash)
-			next
-			end
-		if !(currentContentHash["title"].include? @keyword or currentContentHash["description"].include? @keyword)
-			@items.delete(hash)
-			next
-			end
-		@collection = @collection + [currentContentHash]
-		end
-	return @collection
-	end
-		
-		
-		
-		
-		
-	
-	
-end
 
-
-def filter  
-  size_limit_questions = 15
+ size_limit_questions = 15
   size_limit_discussion = 5
   page_offset = 0
   @collection = []
- #params: keyword, array of types, time before, time after, subscribing,category
-  @flagsorted = false 
-  @category_type = params[:category]
-  @type_of_stuff = params[:types]
-  @title = params[:title]
-  @months = params[:timeBefore]
-    
+  @flagsort = false
+  @cat_id = params[:category] # it's an integer
+  @startDate = params[:timeBefore]
+  @endDate = params[:timeAfter]
+  @types = params[:types] #array of strings that specifies what type of item we're filtering for; names like question, challenge, event
+  if @endDate==nil
+    @endDate = Time.now
+  end
   @events = []
   @questions = []
   @challenges = []
-  @followed = params[:following]
-  @followed_type = params[:followed_type]  
-  @most_popular = params[:popular]
   @location_to_grab = params[:loc]
   @target_user = params[:by_user]
-  distance = 160000
+  @radius = params[:radius]
+  @following = params[:following]
+  @popular = params[:popular]
   if(@location_to_grab == nil)
     if !current_user.nil?
       temp = Geocoder.coordinates(current_user.location)
       @location_to_grab = temp[0].to_s + " " + temp[1].to_s
     end
+    if current_user.nil?
+      @error = "ERROR"
+    end
   end
   temp = Geocoder.coordinates(@location_to_grab)
-   @location_to_grab = temp[0].to_s + " " + temp[1].to_s
+  @location_to_grab = temp[0].to_s + " " + temp[1].to_s
   @keyword = params[:keyword]
-
-  if (params[:follow] != nil)
-      add_follower(params[:follow], params[:itemz])
-  elsif (params[:unfollow] != nil) 
-      remove_follower(params[:unfollow], params[:itemz])
-  end
-
-    if (@type_of_stuff == nil or @type_of_stuff.find_index("Questions") != nil)
-      @questions = Question
-      @questions = sort_by_location(distance, @location_to_grab, "Question", @questions)
-   
-      
-      if @followed != nil
-        @questions = display_following(@questions, "Question")
-        @flagsorted = true
+  @items = ItemTemplate.grab_circle(@radius, @location_to_grab)
+  @collection = []
+  @items.each do |hash|
+    if !@types.include?(hash['Type'])
+      @items.delete(hash)
+      next
       end
-      if @title != nil
-        @questions = sort_by_title(@questions, @title)
-        @flagsorted = true
-      end
-      if @category_type != nil
-        @questions = sort_by_category(@questions, @category_type)
-        @flagsorted = true
-      end
-      if @months != nil
-        @questions = sort_by_timestamp(@questions, @months.to_i)
-        @flagsorted = true
-      end
-      if @keyword != nil
-        @questions = sort_by_keyword(@questions, @keyword)
-        @flagsorted = true
-      end
-      if @target_user != nil
-        @questions = sort_by_user(@questions, @target_user)
-        @flagsorted = true
-      end
+    if !@cat_id.nil? and !(hash['Category']==@cat_id)
+      @items.delete(hash)
+      next
     end
-    
-    if (@type_of_stuff == nil or @type_of_stuff.find_index("Events") != nil)
-      @events = Event
-
-        @events = sort_by_location(distance, @location_to_grab, "Event", @events)
-
-
-      if @followed != nil
-         @events = display_following(@events, "Event")
-         @flagsorted = true
-      end 
-       if @title != nil
-         @events = sort_by_title(@events, @title)
-         @flagsorted = true
-       end
-       if @category_type != nil
-         @events = sort_by_category(@events, @category_type)
-         @flagsorted = true
-       end
-       if @months != nil
-         @events = sort_by_timestamp(@events, @months.to_i)
-         @flagsorted = true
-       end
-       if @keyword != nil
-          @events = sort_by_keyword(@events, @keyword)
-          @flagsorted = true
-        end
-        if @target_user != nil
-          @events = sort_by_user(@events, @target_user)
-          @flagsorted = true
-        end
-     end
-     
-     if(@type_of_stuff == nil or @type_of_stuff.find_index("Challenges") != nil)
-        @challenges = Challenge
-           @challenges = sort_by_location(distance, @location_to_grab, "Challenge", @challenges)
-          
-         
-         if @followed != nil
-            @challenges = display_following(@challenges, "Challenge")
-            @flagsorted = true
-         end
-        if @title != nil
-          @challenges = sort_by_title(@challenges, @title)
-          @flagsorted = true
-        end
-        if @category_type != nil
-          @challenges = sort_by_category(@challenges, @category_type)
-          @flagsorted = true
-        end
-        if @months != nil
-          @challenges = sort_by_timestamp(@challenges, @months.to_i)
-          @flagsorted = true
-        end
-        if @keyword != nil
-           @challenges = sort_by_keyword(@challenges, @keyword)
-           @flagsorted = true
-         end
-         if @target_user != nil
-           @challenges = sort_by_user(@challenges, @target_user)
-           @flagsorted = true
-         end
+    currentItem = ItemTemplate.find_by_id(hash['Id'])
+    currentContentHash = currentItem.generate_content
+    if !(currentContentHash["created_at"]>@startDate and currentContentHash["crated_at"]<@endDate)
+      @items.delete(hash)
+      next
       end
-  
-      if @most_popular != nil
-        @flagsorted = true
-        if(@type_of_stuff.find_index("Questions") != nil)
-          @questions = @questions.order("popularity DESC")
-        else
-          @questions = []
-        end
-         if(@type_of_stuff.find_index("Challenges") != nil)
-           @challenges = @challenges.order("popularity DESC")
-         else
-           @challenges = []
-         end
-
-         if(@type_of_stuff.find_index("Events") != nil)
-           @events = @events.order("popularity DESC")
-         else
-           @events= []
-         end
+    if !(currentContentHash["popularity"]>@popular)
+      @items.delete(hash)
+      next
       end
-  
-     
-      @collection = []
-      @questions.each{ |x| 
-        entry = {}
-              entry['updated_at'] = x.created_at
-              if x.response_questions != []
-                entry['updated_at'] = x.response_questions.pop.updated_at
-              end
-        entry['type'] = 'Question'
-        entry['entry'] = x
-        entry['created_at'] = x.created_at.strftime("%Y %b %d")
-        entry['login'] = (x.anonymous == 1) ? nil : x.user.login
-        if (x.response_questions.length > 0)
-           entry['latest_response'] = (x.response_questions.last.response.length < 200) ? x.response_questions.last.response :
-            (x.response_questions.last.response[0..200]  + '...')
-        end
-        entry_stats = {}
-
-        entry_stats['Response'] = Question.find(x.id).response_questions.length 
-
-        entry_stats['Follower'] = x.followed_questions.length
-        entry_stats['Challenge'] = x.challenges.length
-        entry['address'] = x.location
-        num_events = 0
-        x.challenges.each { |challenge| 
-          num_events += challenge.events.length
-        }
-        entry_stats['Event'] = num_events
-        entry['stats'] = entry_stats
-        entry['id'] = x.id
-        entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = question_url(x)
-        entry['popularity'] = x.popularity
-        if current_user != nil 
-          entry['current_user'] = current_user.login
-          if x.followed_questions.find_by_user_id(current_user.id) != nil 
-            entry['followed'] = true
-          else
-            entry['followed'] = false
-          end
-        end
-        @collection = @collection + [entry]
-      }
-      @challenges.each{ |x|
-        entry = {}
-              entry['updated_at'] = x.created_at
-              if x.response_challenges != []
-                entry['updated_at'] = x.response_challenges.pop.updated_at
-              end
-        entry['type'] = 'Challenge'
-        entry['entry'] = x
-        entry['login'] = x.user.login     
-        entry['created_at'] = x.created_at.strftime("%Y %b %d")
-        entry['submission_deadline'] = x.submission_deadline.strftime("%Y %b %d")
-        entry['vote_deadline'] = x.vote_deadline.strftime("%Y %b %d")
-        entry['description'] = (x.description.length > 200) ? x.description[0..200] + '...' : x.description;
-        entry_stats = {}
-        entry_stats['Response'] = Challenge.find(x.id).response_challenges.length
-        entry_stats['Follower'] = x.followed_challenges.length
-        entry_stats['Proposal'] = x.proposals.length
-        entry_stats['Event'] = x.events.length
-        entry['stats'] = entry_stats
-        entry['id'] = x.id
-        entry['address'] = x.location
-        entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = challenge_url(x)
-        entry['popularity'] = x.popularity
-        if current_user != nil 
-          entry['current_user'] = current_user.login
-          if x.followed_challenges.find_by_user_id(current_user.id) != nil 
-            entry['followed'] = true
-          else
-            entry['followed'] = false
-          end
-        end
-        @collection = @collection + [entry]
-      }
-      @events.each{|x|
-        entry = {}
-        entry['updated_at'] = x.created_at
-        if x.response_events != []
-          entry['updated_at'] = x.response_events.pop.updated_at
-        end
-        
-        entry['type'] = 'Event'
-        entry['entry'] = x
-        entry['login'] = x.user.login
-        entry['created_at'] = x.created_at.strftime("%Y %b %d")
-        entry['date'] = x.time.strftime("%Y %b %d")
-        entry_stats = {}
-        entry_stats['Response'] = Event.find(x.id).response_events.length
-        entry_stats['Follower'] = x.followed_events.length
-        entry['stats'] = entry_stats
-        entry['id'] = x.id
-        entry['address'] = x.location
-        entry['category'] = Categories.find(x.categories_id).category
-        entry['url'] = event_url(x)
-        entry['popularity'] = x.popularity
-        if current_user != nil 
-          entry['current_user'] = current_user.login
-          if x.followed_events.find_by_user_id(current_user.id) != nil 
-            entry['followed'] = true
-          else
-            entry['followed'] = false
-          end
-        end
-        @collection = @collection + [entry]
-      }
-      if @most_popular == nil
-        @collection.sort!{|a,b| b['updated_at'] <=> a['updated_at']}
+    if !(currentContentHash["title"].include? @keyword or currentContentHash["description"].include? @keyword)
+      @items.delete(hash)
+      next
       end
-      if @most_popular != nil
-        @collection.sort!{|a,b| b['entry'].popularity <=> a['entry'].popularity}
-      end
-      respond_with(@collection)
+    @collection = @collection + [currentContentHash]
+ end
+  return @collection
+
+end
+
+
+def filter
+
 end
 
 def sort_by_title(set, title)
@@ -361,7 +91,7 @@ def sort_by_title(set, title)
 end
 
 def sort_by_category(set, categoryList)
-  
+
   return set.has_category(categoryList)
 end
 
@@ -387,7 +117,7 @@ end
 def sort_by_keyword(set, keyword)
   new_set = []
   keys = keyword.split
-  keys.each do |wd| 
+  keys.each do |wd|
     new_set = new_set | set.keyword(wd)
   end
   new_keys = []
@@ -435,7 +165,7 @@ end
 
 def display_following(set, type)
   followed_set_ids = []
-  
+
   if type == "Question"
     followed_set = FollowedQuestion.where(:user_id => current_user.id)
   end
@@ -448,13 +178,13 @@ def display_following(set, type)
   followed_set.each do |value|
     followed_set_ids += [value.followed_id]
   end
-  
+
   return set.followed(followed_set_ids)
-    
+
 end
 
 def sort_by_popularity(type, time, location)
-  
+
   if type == "Question"
     dummy = Question.first
     popular_set = dummy.most_popular(time, 10000, location)
@@ -480,7 +210,7 @@ def sort_by_location(distance, location, type, set)
   end
   if type == "Event"
     dummy = Event.new
-   
+
   end
   max_to_grab = 1000
   return dummy.sift_circle(distance, location, max_to_grab, set)
