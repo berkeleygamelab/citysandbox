@@ -94,6 +94,7 @@ function toggle(boxName)
 {
   var dummy = document.getElementById("list" + i.toString());
   dummy.checked = false;
+  toggle(dummy);
 }
   }
   function loadAll(len){
@@ -102,6 +103,7 @@ function toggle(boxName)
 {
      var dummy = document.getElementById("list" + i.toString());
 	  dummy.checked = true;
+	 toggle(dummy);
 }
   }
 
