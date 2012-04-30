@@ -83,13 +83,13 @@ function toggle(boxName)
 }
 
   function unloadAll(field){
-    document.write(field.pop());
+    document.write(field[0]);
     for (i = 0; i < field.length; i++);
   field[i].checked = false ;
 
   }
   function loadAll(field){
-   document.write(field.length);
+
     for (i = 0; i < field.length; i++);
       field[i].checked = true ;
   }
