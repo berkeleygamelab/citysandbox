@@ -17,67 +17,7 @@ end
 
 
 def filterNew
-  size_limit_questions = 15
-  size_limit_discussion = 5
-  page_offset = 0
-  @collection = []
-  @flagsort = false
-  @cat_id = params[:category] # it's an integer
-  @startDate = params[:timeBefore]
-  @endDate = params[:timeAfter]
-  @types = params[:types] #array of strings that specifies what type of item we're filtering for; names like question, challenge, event
-  if @endDate==nil
-    @endDate = Time.now
-  end
-  @events = []
-  @questions = []
-  @challenges = []
-  @location_to_grab = params[:loc]
-  @target_user = params[:by_user]
-  @radius = params[:radius]
-  @following = params[:following]
-  @popular = params[:popular]
-  if(@location_to_grab == nil)
-    if !current_user.nil?
-      temp = Geocoder.coordinates(current_user.location)
-      @location_to_grab = temp[0].to_s + " " + temp[1].to_s
-    end
-    if current_user.nil?
-      @error = "ERROR"
-    end
-  end
-  temp = Geocoder.coordinates(@location_to_grab)
-  @location_to_grab = temp[0].to_s + " " + temp[1].to_s
-  @keyword = params[:keyword]
-  @items = ItemTemplate.grab_circle(@radius, @location_to_grab)
-  @collection = []
-  @items.each do |hash|
-    if !@types.include?(hash['Type'])
-      @items.delete(hash)
-      next
-      end
-    if !@cat_id.nil? and !(hash['Category']==@cat_id)
-      @items.delete(hash)
-      next
-    end
-    currentItem = ItemTemplate.find_by_id(hash['Id'])
-    currentContentHash = currentItem.generate_content
-    if !(currentContentHash["created_at"]>@startDate and currentContentHash["crated_at"]<@endDate)
-      @items.delete(hash)
-      next
-      end
-    if !(currentContentHash["popularity"]>@popular)
-      @items.delete(hash)
-      next
-      end
-    if !(currentContentHash["title"].include? @keyword or currentContentHash["description"].include? @keyword)
-      @items.delete(hash)
-      next
-      end
-    @collection = @collection + [currentContentHash]
-    end
-  return @collection
-  end
+
 end
 
 
