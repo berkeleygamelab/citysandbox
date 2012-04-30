@@ -16,6 +16,7 @@ class Category < ActiveRecord::Base
 			catHash[item[cat_id]] = catHash[item[cat_id]]+1
 			
 		end
+	end
 	catArray = []
 	n.each do |x|
 		catArray +=catHash.max_by{|k,v| v}[0]
@@ -30,7 +31,7 @@ class Category < ActiveRecord::Base
     results = []
     cats.each do |cat|
       results += [cat.name]
-    return results
+      return results
     end
   end
 
