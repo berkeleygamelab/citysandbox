@@ -10,8 +10,9 @@
         <div class="row">
           <div class="span3 offset7">
             <%= link_to "Register", :action => :new, :controller => :users %>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-           <%= link_to "Login", :action => : %>
+           <br>
+
+           <%= link_to "Login", :action => :new, :controller => :sessions %>
             </div>
         </div>
         <div class="row">
@@ -29,10 +30,10 @@
             <div class="navbar-inner">
 
               <ul class="nav">
-                <li><%= link_to "Ask Questions", questions_new_path %></li>
-                <li><%= link_to "Connect to Others", groups_path %>Connect to Others</a></li>
-                <li><%= link_to "Post Challenges", new_challenges_path %>Post Challenges</a></li>
-                <li><%= link_to "Organize Events", new_events_path %>Organize Events</a></li>
+                <li><%= link_to "Ask Questions", :controller => :questions, :action => :new %></li>
+                <li><%= link_to "Connect to Others", :controller => :groups, :action => :index %>Connect to Others</a></li>
+                <li><%= link_to "Post Challenges", :controller => :challenges,:action => :new %>Post Challenges</a></li>
+                <li><%= link_to "Organize Events", :controller => :events, :action => :new %>Organize Events</a></li>
                 <li><a href="projects">Projects</a></li>
               </ul>
 

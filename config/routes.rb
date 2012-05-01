@@ -19,6 +19,8 @@ Citysandbox::Application.routes.draw do
 
   resources :categories
 
+  resources :groups
+
   match '/users/validate' => 'users#validate'
   match "/vote" => "proposals#vote"
   match "/edit_profile" => "users#edit"
@@ -84,7 +86,7 @@ Citysandbox::Application.routes.draw do
   #   resources :mailbox
   #   resources :sent
   # end
-  
+
 
   # resources :inbox do
   #     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
