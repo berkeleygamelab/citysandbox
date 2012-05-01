@@ -1,10 +1,12 @@
 <%= form_tag sessions_path do %>
-    <%= text_field_tag :login, params[:login], :size => 18, :id=>'username', :class=>'formatted_input gray_text' %>
-    <%= password_field_tag :password, nil, :size => 18, :id=>'password_password', :class=>'formatted_input' %>
-	<div id="links">
-		<%=link_to "Cancel", home_splash_path %>
-		<span class="formatted_button">
-			<%= submit_tag "Log in" %>
-		</span>
-	</div>
+    <label>Your login</label>
+    <%= text_field_tag :login, params[:login], :size => 18, :id=>'username', :class=>'span3' %>
+    <label>Your password</label>
+    <%= password_field_tag :password, nil, :size => 18, :id=>'password_password', :class=>'span3' %>
+  <div id="links">
+    <%=link_to "Cancel", home_splash_path %>
+    <span class="formatted_button">
+      <%= submit_tag "Log in" %>
+    </span>
+  </div>
 <% end %>
