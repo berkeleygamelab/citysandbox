@@ -15,38 +15,11 @@ function register(){
       <div class="row">
         <div class="span4 offset1 register">
           <h3>Please sign in:</h3><br>
-          <form>
-            <label>Your email</label>
-            <input type="text" class="span3" placeholder="Email">
-            <br>
-            <label>Your password</label>
-            <input type="text" class="span3" placeholder="Password">
-            <br>
-            <label class="checkbox">
-            <input type="checkbox"> Remember me
-            </label>
-            <button type="submit" class="btn" id="sign" onClick="sign()">Sign In</button>
-          </form>
+          <%= render 'form' %>
         </div>
         <div class="span5 register">
           <h3>Please register:</h3><br>
-          <form>
-            <label>Your desired username</label>
-            <input type="text" class="span3" placeholder="Email">
-            <br>
-            <label>Your email address</label>
-            <input type="text" class="span3" placeholder="Password">
-            <br>
-            <label>Your password</label>
-            <input type="text" class="span3" placeholder="Password">
-            <br>
-            <label>Confirm password</label>
-            <input type="text" class="span3" placeholder="Email">
-            <br>
-            <label>Default location</label>
-            <input type="text" class="span3" placeholder="Email">
-            <br>
-            <button type="submit" class="btn" onclick="register">Register</button>
+         <%= render 'register' %>
           </form>
         </div>
 
