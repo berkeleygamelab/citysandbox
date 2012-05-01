@@ -1,5 +1,5 @@
 
-	<script language="javascript">
+  <script language="javascript">
 
  function toggleDiv(divid){
     if(document.getElementById(divid).style.display == 'none'){
@@ -20,107 +20,95 @@ function toggle_visibility(id) {
 
 </script>
 
-	<div id="container">
-		
-		<div id="content">
-			<h5>Showing 1-10 of 100 results</h5>
-			<ol id="list_results" class="span8">
-					<br>
-					<li>
-						single result
-					</li>
-					<li>
-						single result
-					</li>
-					<li>
-						single result
-					</li>
-					<li>
-						single result
-					</li>
-					<br>
-					<img src="../oldfrontend/dummy_searchnav.png">
-			</ol>
-			
-			<div class="span3 list_panel_right">
-					<img src="../oldfrontend/dummy_listmapswitch.png">
-					<br><br>
-					<img src="../oldfrontend/dummy_listmap.png">
-					<br><br>
-					
-					
-					<ul id="filter_menus">				
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe1">
-								<li>
-								Questions
-								</li><li>
-								Challenges
-								</li><li>
-								Events
-								</li>
-							</ul>			
-						</li>
-						
-						<li>
-							<a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
-							<ul class="filter_elements" style="display:block;" id="fe2">						
-								<li class="checkbox">  
-								<input type="checkbox"> Dignity and Rights 
-								</li>
-								<li class="checkbox">  
-								<input type="checkbox"> Education 
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Health & Safety
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Public Space
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Transportation
-								</li>  					
-							</ul>
-						</li>	
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
-							<ul class="filter_elements" style="display:none;"  id="fe3">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
-							<ul class="filter_elements" style="display:none;"  id="fe4">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
-							<ul class="filter_elements" style="display:none;"  id="fe5">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-					</ul>
-				</div>		
-			
-		</div>
-		<br><br><br>
-	</div>
+  <div id="container">
+
+    <div id="content">
+      <h5>Showing 1-10 of 100 results</h5>
+      <ol id="list_results" class="span8">
+          <br>
+          <li>
+            single result
+          </li>
+          <li>
+            single result
+          </li>
+          <li>
+            single result
+          </li>
+          <li>
+            single result
+          </li>
+          <br>
+          <img src="../oldfrontend/dummy_searchnav.png">
+      </ol>
+
+      <div class="span3 list_panel_right">
+          <img src="../oldfrontend/dummy_listmapswitch.png">
+          <br><br>
+          <img src="../oldfrontend/dummy_listmap.png">
+          <br><br>
+
+
+          <ul id="filter_menus">
+            <li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
+              <ul class="filter_elements" style="display:block;"  id="fe1">
+                <li>
+                Questions
+                </li><li>
+                Challenges
+                </li><li>
+                Events
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
+              <ul class="filter_elements" style="display:block;" id="fe2">
+              <% default_categories.each do |cat| %>
+                <li>
+                   <input type="checkbox" value="<%= cat.name %>">
+                </li>
+              <% end %>
+              </ul>
+            </li>
+            <li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
+              <ul class="filter_elements" style="display:none;"  id="fe3">
+               <% my_categories.each do |cat| %>
+                <li>
+                 <input type="checkbox" value="<%= cat.name %>">
+                </li>
+               <% end %>
+              </ul>
+            </li>
+            <li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
+              <ul class="filter_elements" style="display:none;"  id="fe4">
+                <li>
+                Placeholder
+                </li><li>
+                Placeholder
+                </li><li>
+                Placeholder
+                </li>
+              </ul>
+            </li>
+            <li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
+              <ul class="filter_elements" style="display:none;"  id="fe5">
+                <li>
+                Placeholder
+                </li><li>
+                Placeholder
+                </li><li>
+                Placeholder
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+    <br><br><br>
+  </div>
 
 </body>
 
