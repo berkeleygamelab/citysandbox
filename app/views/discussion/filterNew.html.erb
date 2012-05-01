@@ -65,7 +65,7 @@ function toggle_visibility(id) {
             <li>
               <a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
               <ul class="filter_elements" style="display:block;" id="fe2">
-              <% default_categories.each do |cat| %>
+              <% @default_categories.each do |cat| %>
                 <li>
                    <input type="checkbox" value="<%= cat.name %>">
                 </li>
@@ -74,7 +74,7 @@ function toggle_visibility(id) {
             </li>
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
               <ul class="filter_elements" style="display:none;"  id="fe3">
-               <% my_categories.each do |cat| %>
+               <% @my_categories.each do |cat| %>
                 <li>
                  <input type="checkbox" value="<%= cat.name %>">
                 </li>
