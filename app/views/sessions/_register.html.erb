@@ -1,5 +1,5 @@
 
-<%= form_for @user do |f| %>
+<%= form_for @user, :action => :create, :controller => :users do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
       <h2>Form is invalid</h2>
@@ -26,7 +26,7 @@
 
 
 <br>
-      <%= submit_tag 'register', :class='btn' %>
+      <%= submit_tag 'register' %>
 
 
 <% end %>
