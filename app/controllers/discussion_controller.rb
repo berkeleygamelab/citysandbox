@@ -31,7 +31,7 @@ def filterNew
     @endDate = Time.now
   end
   @events = []
-  @default_categories = Category.where(:default_category => true)
+  @default_categories = Category.where(:default_cat => true)
   @questions = []
   @challenges = []
   @location_to_grab = params[:loc]
