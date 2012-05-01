@@ -3,10 +3,9 @@
     <%= text_field_tag :login, params[:login], :size => 18, :id=>'username', :class=>'span3' %>
     <label>Your password</label>
     <%= password_field_tag :password, nil, :size => 18, :id=>'password_password', :class=>'span3' %>
-  <div id="links">
-    <%=link_to "Cancel", home_splash_path %>
-    <span class="formatted_button">
+
+    <span class="btn">
       <%= submit_tag "Log in" %>
     </span>
-  </div>
+
 <% end %>
