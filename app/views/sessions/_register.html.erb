@@ -1,4 +1,11 @@
 
+<script type="text/javascript">
+$(document).ready( function() {
+var input = document.getElementById('location_input')
+var autocomplete = new google.maps.places.Autocomplete(input, options);
+}
+</script>
+
 <%= form_for @user, :action => :create, :controller => :users do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
@@ -23,7 +30,8 @@
    <%= f.text_field :location, :size => 18, :id=>'location_input', :class=>'span3', :placeholder=>'enter location' %>
 <label>Profile Picture</label>
    <%= f.file_field :upload, :id=> 'upload_input', :class=>'span3', :placeholder=>'' %>
-
+<br>
+<br>
 
 <br>
       <%= submit_tag 'register' %>
