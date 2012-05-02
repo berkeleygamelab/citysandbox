@@ -26,19 +26,14 @@ function toggle_visibility(id) {
       <h5>Showing 1-10 of 100 results</h5>
       <ol id="list_results" class="span8">
           <br>
+		  <% @collection.each do |item| %>
           <li>
-            single result
-          </li>
-          <li>
-            single result
-          </li>
-          <li>
-            single result
-          </li>
-          <li>
-            single result
+            single result 
+			name: <%= item["title"] %>
+			description: <%= item["description"] %>
           </li>
           <br>
+		<% end %>
           <img src="../oldfrontend/dummy_searchnav.png">
       </ol>
 
