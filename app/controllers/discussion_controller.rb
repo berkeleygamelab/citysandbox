@@ -31,8 +31,7 @@ def filterNew
     @endDate = Time.now
   end
   @events = []
-  @default_categories = Category.where(:default_cat => true)
-  @my_categories = []
+
   @questions = []
   @challenges = []
   @location_to_grab = params[:loc]
@@ -40,6 +39,14 @@ def filterNew
   @radius = params[:radius]
   @following = params[:following]
   @popular = params[:popular]
+  
+  
+  @default_categories = Category.where(:default_cat => true)
+  @my_categories = []
+  @popular_categories = []
+  @my_areas = []
+  
+  
   if(@location_to_grab == nil)
     if !current_user.nil?
 

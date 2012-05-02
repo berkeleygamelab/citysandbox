@@ -67,40 +67,36 @@ function toggle_visibility(id) {
               <ul class="filter_elements" style="display:block;" id="fe2">
               <% @default_categories.each do |cat| %>
                 <li>
-                   <input type="checkbox" value="<%= cat.name %>">
+                   <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
                 </li>
               <% end %>
               </ul>
             </li>
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
               <ul class="filter_elements" style="display:none;"  id="fe3">
-               <% @my_categories.each do |cat| %>
-                <li>
-                 <input type="checkbox" value="<%= cat.name %>">
-                </li>
-               <% end %>
+				 <% @popular_categories.each do |cat| %>
+	                <li>
+	                 <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
+	                </li>
+	               <% end %>
               </ul>
             </li>
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
               <ul class="filter_elements" style="display:none;"  id="fe4">
-                <li>
-                Placeholder
-                </li><li>
-                Placeholder
-                </li><li>
-                Placeholder
-                </li>
+        		  <% @my_categories.each do |cat| %>
+	                <li>
+	                 <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
+	                </li>
+	               <% end %>
               </ul>
             </li>
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
               <ul class="filter_elements" style="display:none;"  id="fe5">
-                <li>
-                Placeholder
-                </li><li>
-                Placeholder
-                </li><li>
-                Placeholder
-                </li>
+             	   <% @my_areas.each do |area| %>
+	                <li>
+	                 <input type="checkbox" value="<%= area.name %>"> <%= area.name %>
+	                </li>
+	               <% end %>
               </ul>
             </li>
           </ul>

@@ -11,8 +11,11 @@
           <div class="span3 offset7">
             <%= link_to "Register", :action => :new, :controller => :users %>
            <br>
-
+ 			<% if current_user.nil? %>
            <%= link_to "Login", :action => :new, :controller => :sessions %>
+			<% else %>
+		   <%= link_to "Logout", :action => :destroy, :controller => :sessions %>
+			<% end %>
             </div>
         </div>
         <div class="row">
