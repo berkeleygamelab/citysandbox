@@ -21,17 +21,15 @@
   <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+ <%= render :partial => 'layouts/navbar' %>
 </head>
 
 <body class="<%= params[:controller] %>">
-<div id='wrap'>
-   <div id="container">
 
-    <%= render :partial => 'layouts/navbar' %>
+
   <%= yield %>
 
-   </div>
-</div>
+
   <%= render :partial => 'layouts/footer', :class=>'footer' %>
  </body>
 </html>
