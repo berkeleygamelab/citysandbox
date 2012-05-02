@@ -58,7 +58,7 @@ def filterNew
 
       return nil
     else
-      @location_to_grab = user.location
+      @location_to_grab = current_user.location
     end
   end
   temp = Geocoder.coordinates(@location_to_grab)

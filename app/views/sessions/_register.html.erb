@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 $(document).ready( function() {
-var input = document.getElementById('location_input')
+var input = document.getElementsByName('user[location]')[0];
 var autocomplete = new google.maps.places.Autocomplete(input, options);
 }
 </script>

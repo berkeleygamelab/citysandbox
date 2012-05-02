@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       puts "LE PICTURE"
      # @user.picture = picturePotential[0].url
       #@user.save
-      redirect_to "filter"
+      redirect_to summary_path
     else
       render "new"
     end
