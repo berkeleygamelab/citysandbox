@@ -67,7 +67,8 @@ def filterNew
   if @types == nil
     @types = ["Question","Challenge","Event"]
   end 
-  @items = ItemTemplate.grab_circle(@radius, @location_to_grab, @types)
+  @dummy = ItemTemplate.new
+  @items = @dummy.grab_circle(@radius, @location_to_grab, @types)
   @collection = []
   @items.each do |hash|
     if !@types.include?(hash['Type'])
