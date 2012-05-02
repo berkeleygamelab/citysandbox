@@ -2,7 +2,7 @@ class Challenge < ActiveRecord::Base
   has_many :proposals
 
   has_many :events
-  #acts_as :item_template, :as => :producible
+  acts_as :item_template, :as => :producible
 
 
   belongs_to :question

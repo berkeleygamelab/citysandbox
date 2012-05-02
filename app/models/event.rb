@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :challenge
-  #acts_as :item_template, :as => :producible
+  acts_as :item_template, :as => :producible
 
 #  belongs_to :question
 #  belongs_to :user

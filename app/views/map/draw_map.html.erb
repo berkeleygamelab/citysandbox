@@ -3,8 +3,8 @@
 $(document).ready( function() {
 
 
-				load_map();
-		
+        load_map();
+
 });
 
 var poly, map;
@@ -12,20 +12,20 @@ var markers = [];
 var path = new google.maps.MVCArray;
 var dumbo = new Array();
 function load_map() {
-	var lat = 0;
-	var lng = 0;
-	var center;
+  var lat = 0;
+  var lng = 0;
+  var center;
 
-	
-	var tableID = 2036527;
-	var geocoder = new google.maps.Geocoder();
-	 var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
-	map = new google.maps.Map(document.getElementById('mapview_map'), {
-	  center: uluru,
-	  zoom: 12,
-   mapTypeId: google.maps.MapTypeId.SATELLITE
-	});
-	
+
+  var tableID = 2036527;
+  var geocoder = new google.maps.Geocoder();
+   var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
+  map = new google.maps.Map(document.getElementById('mapview_map'), {
+    center: uluru,
+    zoom: 12,
+   mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
     poly = new google.maps.Polygon({
       strokeWeight: 3,
       fillColor: '#5555FF'
@@ -33,7 +33,7 @@ function load_map() {
     poly.setMap(map);
     poly.setPaths(new google.maps.MVCArray([path]));
 
-    google.maps.event.addListener(map, 'click', addPoint);		
+    google.maps.event.addListener(map, 'click', addPoint);
 }
 function addPoint(event) {
   path.insertAt(path.length, event.latLng);
@@ -66,24 +66,24 @@ function addPoint(event) {
 
 function getParameter()
 {
-	
+
         var points = poly.getPath();
         var len = points.getLength();
         var stuff = new Array(len);
-	for(var i = 0; i < len; i++)
-	{
+  for(var i = 0; i < len; i++)
+  {
            stuff[i] = path.getArray()[i].toString();
         }
-        
-	return stuff;
+
+  return stuff;
 }
 
 function load()
 {
-	var words = $('#keyword').attr('value');
-	var stuff = getParameter();
+  var words = $('#keyword').attr('value');
+  var stuff = getParameter();
 
-	$.post("draw", { coordinates: stuff, taggedArea: words},
+  $.post("draw", { coordinates: stuff, taggedArea: words},
    function(data) {
       alert(data);
    });
@@ -91,12 +91,10 @@ function load()
 
 
 </script>
-<div id='content'>
+
 <div id='mapview_map'></div>
 
 Insert Info <% @awkward %> <input type='text' class='textbox' id='keyword' size='20'>
 <button id='myButton' name="submit" onclick="load()">Submit Given Map</button>
 
 
-
-</div>
