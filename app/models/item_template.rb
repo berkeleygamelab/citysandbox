@@ -181,12 +181,12 @@ class ItemTemplate < ActiveRecord::Base
 
     
 	 
-	def grab_circle(distance, target_loc)
-     @events_table = ENV['csb_locations']
-     @loc_x = target_loc.split[0].to_f
-     @loc_y = target_loc.split[1].to_f
-     return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
-	end
+	#def grab_circle(distance, target_loc)
+   #  @events_table = ENV['csb_locations']
+    # @loc_x = target_loc.split[0].to_f
+     #@loc_y = target_loc.split[1].to_f
+     #return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
+	#end
    
    def grab_nearest(number)
 	@item_table = ENV['csb_locations']
