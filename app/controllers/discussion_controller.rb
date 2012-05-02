@@ -64,7 +64,10 @@ def filterNew
   temp = Geocoder.coordinates(@location_to_grab)
   @location_to_grab = temp[0].to_s + " " + temp[1].to_s
   @keyword = params[:keyword]
-  @items = ItemTemplate.grab_circle(@radius, @location_to_grab)
+  if @types == nil
+    @types = ["Question","Challenge","Event"]
+  end 
+  @items = ItemTemplate.grab_circle(@radius, @location_to_grab, @types)
   @collection = []
   @items.each do |hash|
     if !@types.include?(hash['Type'])
