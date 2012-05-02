@@ -98,7 +98,7 @@ class ItemTemplate < ActiveRecord::Base
       @lng = ItemTemplate.location.split(',')[1].to_f
     resultHash = {}
     typearray.each do |type|
-      resultHash.add(type => (::FT.execute "SELECT * FROM #{@table} WHERE Type = #{type} ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"))
+      resultHash[type] = (::FT.execute "SELECT * FROM #{@table} WHERE Type = #{type} ORDER BY ST_DISTANCE(Location, LATLNG(#{@lat},#{@lng})) LIMIT #{limit}"))
       end
     return resultHash
   end
@@ -114,7 +114,7 @@ class ItemTemplate < ActiveRecord::Base
       @lng = target_loc.split[1].to_f
     resulthash = {}
     typearray.each do |x|
-      resulthash += (x=>(::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "))
+      resulthash[x] = (::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "))
       end
     return resulthash
   end
