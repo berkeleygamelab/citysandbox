@@ -1,7 +1,4 @@
 
-
-
-
 <div class="row" id="navbar">
       <div class="span3">
         <%= image_tag("logo.png") %>
@@ -9,9 +6,13 @@
       <div class="span9">
         <div class="row">
           <div class="span3 offset7">
-            <a href="#">Register</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="#">Login</a>
+            <%= link_to "Register", :action => :new, :controller => :users %>
+           <
+      <% if current_user.nil? %>
+           <%= link_to "Login", :action => :new, :controller => :sessions %>
+      <% else %>
+       <%= link_to "Logout", :action => :destroy, :controller => :sessions %>
+      <% end %>
             </div>
         </div>
         <div class="row">
@@ -29,11 +30,11 @@
             <div class="navbar-inner">
 
               <ul class="nav">
-                <li><a href="#">Ask Questions</a></li>
-                <li><a href="#">Connect to Others</a></li>
-                <li><a href="#">Post Challenges</a></li>
-                <li><a href="#">Organize Events</a></li>
-                <li><a href="#">Projects</a></li>
+                <li> <%= link_to "Ask Questions", :controller => :questions, :action => :new %> </li>
+                <li> <%= link_to "Connect to Others", :controller => :groups, :action => :index %>Connect to Others %> </li>
+                <li> <%= link_to "Post Challenges", :controller => :challenges,:action => :new %> </li>
+                <li> <%= link_to "Organize Events", :controller => :events, :action => :new %> </li>
+                <li><a href="projects">Projects</a></li>
               </ul>
 
             </div>

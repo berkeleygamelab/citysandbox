@@ -1,79 +1,30 @@
 <script type="text/javascript">
-$.fn.center = function (top_offset) {
-	window_width =  $(window).width() > 500 ? $(window).width() : 500;
-    this.css("position","absolute");
-	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
-    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
-    return this;
+  function sign(){
 }
-$(window).load(function() {
-	center_elements();
-	
-	$(window).resize(function() {
-		center_elements();
-	});
-	
-	function center_elements() {
-		window_height =  $(window).height() > 700 ? $(window).height() : 700;
-		$('.splash_box').center(10);
-	   	$('.splash_box').css("top", ((window_height - $('.splash_box').outerHeight()) / 2) + "px");
-		$('.splash_title').center(20);
-		$('.splash_logo').center(200);
-		$('#links').center(570);
-		$('#username').center(420 + $('#username').outerHeight());
-		$('#password_clear').center(400 + $('#username').outerHeight() * 2 + 40);
-		$('#password_password').center(400 + $('#username').outerHeight() * 2 + 40);
-	}
-	
-	$('#username').tbHinter({
-		text: '  User ID',
-		class: 'gray_text'
-	});
-	$('#username').keydown(function(event) {
-		if (event.keyCode == '9') {
-			event.preventDefault();
-		    $('#password_clear').hide();
-		    $('#password_password').show();
-		    $('#password_password').focus();
-		}
-	});
-	$('#password_clear').tbHinter({
-		text: '  Password',
-		class: 'gray_text'
-	});
-	
-	$('#password_clear').show();
-	$('#password_password').hide();
-	
-	$('#password_password').keydown(function(event) {
-		if (event.keyCode == '9') {
-			event.preventDefault();
-		    if($('#password_password').val() == '') {
-		        $('#password_clear').show();
-		        $('#password_password').hide();
-		    }
-			$('#username').focus();
-		}
-	});
 
-	$('#password_clear').focus(function() {
-	    $('#password_clear').hide();
-	    $('#password_password').show();
-	    $('#password_password').focus();
-	});
-	$('#password_password').blur(function() {
-	    if($('#password_password').val() == '') {
-	        $('#password_clear').show();
-	        $('#password_password').hide();
-	    }
-	});
-
- });
+function register(){
+}
 </script>
-<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
-<%= image_tag "../images/splash_title.png", :class=>'splash_title' %>
-<%= image_tag "splash_logo.png", :class=>'splash_logo', :size=>'250x250' %>
 
-<input id="password_clear" type="text" size="18" class='formatted_input gray_text'/>
+<div id="container">
 
-<%= render 'form' %>
+    <div id="content">
+      <br>
+      <h1>Sign in or Register</h1>
+      <br><br>
+      <div class="row">
+        <div class="span4 offset1 register">
+          <h3>Please sign in:</h3><br>
+          <%= render 'form' %>
+        </div>
+        <div class="span5 register">
+          <h3>Please register:</h3><br>
+         <%= render 'register' %>
+          </form>
+        </div>
+
+      </div>
+    </div>
+    <br><BR><BR>
+  </div>
+</body>

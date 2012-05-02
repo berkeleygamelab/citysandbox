@@ -70,6 +70,12 @@ function load()
 
 }
 
+function select(input)
+{
+	$.post("submit", {taggedArea: input.name})
+	
+}
+
 function toggle(boxName)
 {
   if(boxName.checked == true)
@@ -82,16 +88,23 @@ function toggle(boxName)
   }
 }
 
-  function unloadAll(field){
-    document.write(field[0].attr('checked'));
-    for (i = 0; i < field.length; i++);
-  field[i].attr('checked') = false ;
-
+  function unloadAll(len){
+  
+    for (i = 0; i < len; i++) 
+{
+  var dummy = document.getElementById("list" + i.toString());
+  dummy.checked = false;
+  toggle(dummy);
+}
   }
-  function loadAll(field){
+  function loadAll(len){
 
-    for (i = 0; i < field.length; i++);
-      field[i].attr('checked') = true ;
+    for (i = 0; i < len; i++)
+{
+     var dummy = document.getElementById("list" + i.toString());
+	  dummy.checked = true;
+	 toggle(dummy);
+}
   }
 
 </script>
@@ -101,13 +114,15 @@ function toggle(boxName)
 
 <b>Your List of Available Similar Maps</b><br>
 <% TaggedArea.all.each_with_index do |map, index| %>
-<input type="checkbox" name="list" id="list" onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> <br>
-<% end %>
-<input type="button" name="CheckAll" value="Check All"
-onClick="loadAll(document.getElementsByName('list'))">
-<input type="button" name="UnCheckAll" value="Uncheck All"
-onClick="unloadAll(document.getElementsByName('list'))">
+<input type="checkbox" name="list" id='list<%=h index %>' onClick="toggle(this)" value="<%=h index %>" checked /> <%=h map.title %> 
+<input type="button" value="pick me!" name="<%=h map.id %>" id="pick<%=h index %>" onClick="select(this)">
 <br>
-<div id='s'><%=h @s %></div>
+<% end %>
+<br>
+<input type="button" name="CheckAll" value="Check All"
+onClick="loadAll(<%=h TaggedArea.all.size %>)">
+<input type="button" name="UnCheckAll" value="Uncheck All"
+onClick="unloadAll(<%=h TaggedArea.all.size %>)">
+<br>
 
 </div>

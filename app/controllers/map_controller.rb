@@ -10,6 +10,13 @@ class MapController < ApplicationController
   
 #  respond_to :json
   
+  def submit
+    taggedAreaId = params[:taggedArea].to_i
+    taggedArea = TaggedArea.where(:id => taggedAreaId)
+    area = UserArea.create("tagged_area_id" => taggedAreaId, :user_id => current_user.id)
+    redirect_to :controller => map, :action => index
+  end
+  
   def draw
       #creating new tagged area
       name = params["taggedArea"]

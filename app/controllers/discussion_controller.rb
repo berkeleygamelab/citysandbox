@@ -31,6 +31,7 @@ def filterNew
     @endDate = Time.now
   end
   @events = []
+
   @questions = []
   @challenges = []
   @location_to_grab = params[:loc]
@@ -38,21 +39,39 @@ def filterNew
   @radius = params[:radius]
   @following = params[:following]
   @popular = params[:popular]
+  
+  
+  @default_categories = Category.where(:default_cat => true)
+  @my_categories = []
+  @popular_categories = []
+  @my_areas = []
+  
+  
   if(@location_to_grab == nil)
     if !current_user.nil?
-      temp = Geocoder.coordinates(current_user.location)
-      @location_to_grab = temp[0].to_s + " " + temp[1].to_s
+
+      @location_to_grab = params[:location]
+      @my_categories = current_user.categories
     end
     if current_user.nil?
       @error = "ERROR"
-      
+
       return nil
+    else
+      @location_to_grab = current_user.location
     end
   end
   temp = Geocoder.coordinates(@location_to_grab)
   @location_to_grab = temp[0].to_s + " " + temp[1].to_s
   @keyword = params[:keyword]
-  @items = ItemTemplate.grab_circle(@radius, @location_to_grab)
+  if @types == nil
+    @types = ["Question","Challenge","Event"]
+  end 
+  @dummy = ItemTemplate.new
+  if @radius == nil
+    @radius = 25000
+  end
+  @items = @dummy.grab_circle(@radius, @location_to_grab, @types)
   @collection = []
   @items.each do |hash|
     if !@types.include?(hash['Type'])

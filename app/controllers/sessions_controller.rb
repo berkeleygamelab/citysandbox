@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def create
+    @user = User.new
     user = User.find_by_login(params[:login])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
@@ -13,5 +14,9 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to root_url
+  end
+
+  def new
+  @user = User.new
   end
 end

@@ -208,7 +208,7 @@ function load_map(loc) {
 	<% for category in Category.find(:all) %>
 	<li>
 	  <%= check_box_tag 'category', category.id %>
-	  <%= category.category %>
+	  <%= category.name %>
 	</li>
 	<% end %>
 	</ul>
