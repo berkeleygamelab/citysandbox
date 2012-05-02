@@ -114,7 +114,7 @@ class ItemTemplate < ActiveRecord::Base
 	    @lng = target_loc.split[1].to_f
 		resulthash = {}
 		typearray.each do |x|
-			resulthash.add(x=>(::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}, #{radius})) AND Type = #{x} "))
+			resulthash.add(x=>(::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = #{x} "))
 			end
 		return resulthash
 	end
