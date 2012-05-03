@@ -20,6 +20,10 @@ class ItemTemplate < ActiveRecord::Base
       return cat_id
   end
 
+  def responses
+    return self.response_templates
+  end
+
   def generate_content
     contentHash = {}
       contentHash.add("title"=>title)
