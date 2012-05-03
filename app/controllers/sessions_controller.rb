@@ -5,10 +5,11 @@ class SessionsController < ApplicationController
     user = User.find_by_login(params[:login])
     if !user.nil?
       user.password = user.password_digest
+      puts params[:password]
     end
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to "filter"
+      redirect_to "/filter"
     else
       redirect_to "fail"
     end
