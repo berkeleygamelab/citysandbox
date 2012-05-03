@@ -235,5 +235,12 @@ class ItemTemplate < ActiveRecord::Base
   end
 
 
+  def notify(msg_id, s_id, r_id)
+     @title = params[:title]
+     @body =  params[:message]
+     sent_mail = sent_message.new(:subject => @title, :body => @body, :sender_id => s_id, created_at => nil)
+     received_mail = received_mail.new(:recipient_id => r_id, :folder_id => params[:folderID], :sent_message_id => sent_mail.id)
+     return received_mail
+   end
 
 end

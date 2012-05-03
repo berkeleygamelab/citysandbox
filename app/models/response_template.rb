@@ -16,4 +16,12 @@ class ResponseTemplate < ActiveRecord::Base
     @replies = ResponseTemplate.where("item_id = ? AND type = ? AND lft > ? AND rgt < ?", :item_id, :type, :lft, :rgt)
   end
 
+  #Notification message that tells a user he has a received a reply from another user
+  #returns a string with the message with the sender and body of the message
+  def notifyUser(message_id)
+     @sent_id = receveid_messages.find(:id => message_id).sent_message_id
+     @sender = User.find(:id => sent_id.sender_id).login
+     @body = sent_id.body
+     return "Your answer has been responded by " + @sender + ": " + @body
+  end
 end
