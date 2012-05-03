@@ -3,6 +3,9 @@ class SessionsController < ApplicationController
   def create
     @user = User.new
     user = User.find_by_login(params[:login])
+    if !user.nil?
+      user.password = user.password_digest
+    end
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to "filter"
