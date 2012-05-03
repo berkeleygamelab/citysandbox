@@ -46,7 +46,7 @@ function toggle_submit()
           </li>
           <br>
 		<% end %>
-		<br> <%= will_paginate @posts %>
+		<br> <%= will_paginate @item_templates %> SIGH
           <img src="assets/dummy_searchnav.png">
       </ol>
 
@@ -118,9 +118,4 @@ function toggle_submit()
 
 </body>
 
-<% form_tag items_path, :method => 'get' do %>
-  <p>
-   WHAT UP HOMIE
-  </p>
-<% end %>
 
