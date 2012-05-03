@@ -124,7 +124,7 @@ class ItemTemplate < ActiveRecord::Base
       	result = []
       	puts hashArray.size
     		hashArray.each do |val|
-    			resultSet += [val["id"].to_i]
+    			resultSet += [val[:id].to_i]
     			end 
       end
       puts resultSet
