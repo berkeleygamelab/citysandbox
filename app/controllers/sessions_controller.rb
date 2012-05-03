@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
     user = User.find_by_login(params[:login])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to summary_path
+      redirect_to "filter"
     else
-      redirect_to home_login_path
+      redirect_to "fail"
     end
   end
 
