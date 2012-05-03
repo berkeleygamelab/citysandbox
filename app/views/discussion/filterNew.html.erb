@@ -46,6 +46,7 @@ function toggle_submit()
           </li>
           <br>
 		<% end %>
+		<br> <%= will_paginate(@items) %>
           <img src="assets/dummy_searchnav.png">
       </ol>
 
@@ -67,7 +68,7 @@ function toggle_submit()
                 Events
                 </li>
               </ul>	
-			<br> <%= will_paginate(@items) %>
+			<br> 
             </li>
 
             <li>
