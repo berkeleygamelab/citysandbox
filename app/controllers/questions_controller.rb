@@ -74,7 +74,9 @@ end
   def create
     @question = Question.new(params[:question])
     @question.user = current_user
-
+    geocode = Geocoder.coordinates(@question.location)
+    @question.lat = geocode[0].to_s
+    @question.lng = geocode[1].to_s
     respond_to do |format|
       if @question.save
         @question.insert_location(@question.lat + ', ' + @question.lng)
