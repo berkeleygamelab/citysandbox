@@ -9,6 +9,7 @@ class TaggedArea < ActiveRecord::Base
 	def grab_items(type)
      set = self.coordinates
      @table = ENV['csb_locations']
+     puts "WHUTUP"
      lineEquation = ""
      set.each do |point|
        lat = point.lat
@@ -18,7 +19,7 @@ class TaggedArea < ActiveRecord::Base
      lineEquation = lineEquation[0..lineEquation.length-2]
         arrayOfIds = []
      type.each do |x|
-       puts "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation}) AND Type = '#{x}' "
+      puts "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation}) AND Type = '#{x}' "
      hashSet = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation}) AND Type = '#{x}' "
        hashSet.each do |set|
           arrayOfIds += set["ID"]
