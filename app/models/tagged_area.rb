@@ -18,10 +18,10 @@ class TaggedArea < ActiveRecord::Base
      lineEquation = lineEquation[0..lineEquation.length-2]
         arrayOfIds = []
      type.each do |x|
-     return "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation})) AND Type = '#{x}' "
+    
      hashSet = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation})) AND Type = '#{x}' "
        hashSet.each do |set|
-          arrayOfIds += set["ID"]
+          arrayOfIds += set[:id].to_i
         end
      end
      return ItemTemplate.where(:id => arrayOfIds)
