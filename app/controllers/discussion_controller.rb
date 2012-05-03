@@ -59,6 +59,7 @@ def filterNew
     if !current_user.nil?
       @location_to_grab = current_user.lat.to_s + " " + current_user.lng.to_s
       @my_categories = current_user.categories
+      @my_areas = current_user.tagged_areas
     end
     if current_user.nil?
       @error = "ERROR"
