@@ -104,7 +104,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe5">
              	   <% @my_areas.each do |area| %>
 	                <li>
-	                 <input type="checkbox" value="<%= area.name %>"> <%= area.name %>
+	                 <input type="checkbox" value="<%= area.title %>"> <%= area.name %>
 	                </li>
 	               <% end %>
               </ul>
