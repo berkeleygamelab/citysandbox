@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     puts "WHAT"
     puts params[:login]
     puts params[:password]
-    user = User.find_by_login(params[:login])
+    user = User.where(:login => params[:login]).first
     puts user
     if !user.nil?
       user.password = user.password_digest
