@@ -127,6 +127,8 @@ class ItemTemplate < ActiveRecord::Base
     			resultSet += [val["id"].to_i]
     			end 
       end
+      puts resultSet
+      puts "IMA FIRING LAZER BEAMS"
     return ItemTemplate.where(:id => resultSet)
   end
   def sift_circle(radius, target_loc, set)
