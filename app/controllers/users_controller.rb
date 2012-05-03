@@ -50,6 +50,7 @@ class UsersController < ApplicationController
       #@user.save
       redirect_to summary_path
     else
+      puts "AHAH"
       render "new"
     end
   end
