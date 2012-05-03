@@ -1,6 +1,8 @@
 class ItemTemplate < ActiveRecord::Base
   acts_as_superclass
   attr_accessible :lat, :lng
+  has_many :subscriptions
+  has_many :categoryholders
   belongs_to :item, :polymorphic => true
   has_many :categories, :through => :categoryholders
   has_many :notification
@@ -108,15 +110,19 @@ class ItemTemplate < ActiveRecord::Base
       result = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, #{points})) AND TYPE = #{x}"
   end
 
-  def grab_circle(radius, target_loc,typearray)
+  def grab_circle_type(radius, target_loc,typearray)
       @table = ENV['csb_locations']
       @lat = target_loc.split[0].to_f
       @lng = target_loc.split[1].to_f
-    resulthash = {}
+    resultSet = []
     typearray.each do |x|
-      resulthash[x] = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
+      hashArray= ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
+      	result = []
+    		hashArray.each do |x|
+    			resultSet += x["ID"]
+    			end 
       end
-    return resulthash
+    return resultSet
   end
   def sift_circle(radius, target_loc, set)
       circles = grab_circle(distance, target_loc)
