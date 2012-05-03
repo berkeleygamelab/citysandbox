@@ -122,6 +122,7 @@ class ItemTemplate < ActiveRecord::Base
     typearray.each do |x|
       hashArray= ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
       	result = []
+      	puts hashArray.size
     		hashArray.each do |val|
     			resultSet += [val["id"].to_i]
     			end 

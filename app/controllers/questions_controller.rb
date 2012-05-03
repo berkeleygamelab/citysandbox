@@ -20,9 +20,13 @@ class QuestionsController < ApplicationController
     #  @question.challenges.each { |challenge|
      #   @num_events += challenge.events.length
      # }
-     @resp_id = @question.responses.first.id
+     @q = @question.responses.first
+     if @q.nil?
+       @resp_id = nil
+     else
+     @resp_id = @q.id
      @responses = ResponseTemplate.find_by_id(@resp_id).self_and_descendants
-
+     end
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @question }
