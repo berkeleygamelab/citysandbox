@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.new
+    puts "WHAT"
+    puts params[:login]
     user = User.find_by_login(params[:login])
     if !user.nil?
       user.password = user.password_digest
