@@ -118,8 +118,8 @@ class ItemTemplate < ActiveRecord::Base
     typearray.each do |x|
       hashArray= ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
       	result = []
-    		hashArray.each do |x|
-    			resultSet += x["ID"]
+    		hashArray.each do |val|
+    			resultSet += val["ID"]
     			end 
       end
     return resultSet
@@ -227,12 +227,6 @@ class ItemTemplate < ActiveRecord::Base
   return sift_keyword_title(key) + sift_keyword_description(key)+sift_keyword_responses(key)
   end
 
-  def sift_location(area)
-    set = area.coordinates
-    lineEquation = []
-    set.each do |point|
-
-    end
-  end
+ 
 
 end

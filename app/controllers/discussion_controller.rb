@@ -23,10 +23,13 @@ def filterNew
   page_offset = 0
   @collection = []
   @flagsort = false
-  @cat_id = params[:category] # it's an integer
+  @cat_ids = params[:category] # it's an array of integers
   @startDate = params[:timeBefore]
   @endDate = params[:timeAfter]
   @types = params[:types] #array of strings that specifies what type of item we're filtering for; names like question, challenge, event
+
+  @area_to_filter = params[:area_id]
+
   if @endDate==nil
     @endDate = Time.now
   end
@@ -79,6 +82,15 @@ def filterNew
   
   @items = @dummy.grab_circle_type(@radius, @location_to_grab, @types)
   @collection = []
+
+  if !@startDate.nil? and !@endDate.nil?
+    @between = @startDate..@endDate
+    @items = @items.where(:updated_at => @between)
+  end
+  
+  if @cat_ids
+    @items = @items.joins(:categoryholders).where("categoryholders.category_id" => @cat_ids).uniq
+  end
 
   return @collection
 
