@@ -39,7 +39,12 @@ function toggle_submit()
       <ol id="list_results" class="span8">
           <br>
 		  <% @items.each do |item| %>
-          <% render 'items' %>
+        <li>
+		    single result 
+			name: <%= item["title"] %>
+			description: <%= item["description"] %>
+		  </li>
+		  <br>
 		<% end %>
 		<br> <%= will_paginate @items %> SIGH
           <img src="assets/dummy_searchnav.png">
