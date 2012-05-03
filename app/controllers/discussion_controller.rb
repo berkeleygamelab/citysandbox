@@ -90,7 +90,7 @@ def filterNew
     @items = @dummy.grab_circle_type(@radius, @location_to_grab, @types)
   end
   
-  @collection = []
+ 
 
   if !@startDate.nil? and !@endDate.nil?
     @between = @startDate..@endDate
@@ -101,8 +101,7 @@ def filterNew
     @items = @items.joins(:categoryholders).where("categoryholders.category_id" => @cat_ids).uniq
   end
   
-
-  return @collection
+ @collection = @items
 
 end
 
