@@ -8,6 +8,7 @@ class TaggedArea < ActiveRecord::Base
 	
 	def grab_items(type)
      set = self.coordinates
+     @table = ENV['csb_locations']
      lineEquation = ""
      set.each do |point|
        lat = point.lat
