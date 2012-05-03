@@ -87,4 +87,8 @@ class User < ActiveRecord::Base
     return :verified
   end
   
+  def cheatAuth(pass)
+    return self.temp_pw == pass
+  end
+  
 end

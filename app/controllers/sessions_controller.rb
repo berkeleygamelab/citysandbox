@@ -7,13 +7,8 @@ class SessionsController < ApplicationController
     puts params[:password]
     user = User.where(:login => params[:login]).first
     puts user
-    if !user.nil?
-      user.password = user.password_digest
-      puts "I LIKE TO HERP IT HERP IT"
-      puts params[:password]
-      puts "DERP IT "
-    end
-    if user && user.authenticate(params[:password])
+
+    if user && user.cheatAuth(params[:password])
       session[:user_id] = user.id
       redirect_to "/filter"
     else
