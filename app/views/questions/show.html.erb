@@ -1,349 +1,152 @@
-<script type="text/javascript">
-$(document).ready( function() {
-	$('#related_content').stickySidebar();
-	
-	$('#tabs ul').idTabs();
-	
-	
-	var map;
-    var myOptions = {
-    	zoom: 14,
-    	center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
-    	mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-   	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
-    var geocoder = new google.maps.Geocoder();
-	var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, " "));
-	    geocoder.geocode( { 'address': address}, function(results, status) {
-	      if (status == google.maps.GeocoderStatus.OK) {
-	        map.setCenter(results[0].geometry.location);
-	        var marker = new google.maps.Marker({
-	            map: map,
-	            position: results[0].geometry.location,
-				icon: '../images/question_map_icon.png'
-	        });
-	      }
-	});
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
 
-	$('#challenge_location').blur( function() {
-		var challenge_geocoder = new google.maps.Geocoder();
-		var challenge_address = $.trim(challenge_address = $('#challenge_location').val().replace(/[\t\n\r]/gi, ""));
-		    geocoder.geocode( { 'address': challenge_address}, function(results, status) {
-		      if (status == google.maps.GeocoderStatus.OK) {		      
-				$('#challenge_lat').attr('value', results[0].geometry.location.lat());
-				$('#challenge_lng').attr('value', results[0].geometry.location.lng());
-		      }	
-		});
-	});	
-	
-	$('#challenge_categories_id').attr('value', '<%= @question.categories_id %>');
-	$('#challenge_location').attr('value', address);
-	
-	$('#share').attr('href', 'mailto:?subject=[City%20Sandbox]%20<% current_user.login%>%20has%20shared%20a%20link%20with%20you!&body=<%=question_url(@question)%>');
-	
-	$('#unfollow_user').click(function(){
-		var params = {};
-		params['item_to_follow'] = '<%= @question.user.id %>';
-		params['type'] = 'User';
-		$.get('/unfollow', params);
-		$('#unfollow_user').hide();
-		$('#follow_user').show();
-	});
-	
-	$('#follow_user').click(function(){
-		var params = {};
-		params['item_to_follow'] = '<%= @question.user.id %>';
-		params['type'] = 'User';
-		$.get('/follow', params);
-		$('#follow_user').hide();
-		$('#unfollow_user').show();
-	});
-	
-	$('#unfollow').click(function(){
-		var params = {};
-		params['item_to_follow'] = '<%= @question.id %>';
-		params['type'] = 'Question';
-		$.get('/unfollow', params);
-		$('#unfollow').hide();
-		$('#follow').show();
-	});
-	
-	$('#follow').click(function(){
-		var params = {};
-		params['item_to_follow'] = '<%= @question.id %>';
-		params['type'] = 'Question';
-		$.get('/follow', params);
-		$('#follow').hide();
-		$('#unfollow').show();
-	});
-	
-	if ('<%= @followed %>' == 'true') {
-		$('#follow').hide();
-	} else {
-		$('#unfollow').hide();
-	}
-	if ('<%= @followed_user %>' == 'true') {
-		$('#follow_user').hide();
-	} else {
-		$('#unfollow_user').hide();
-	}
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>AppCivist Home</title>
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 
-	$(window).resize(function() {
-		$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
-		$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
-		$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
-		$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
-	});
-	$('#content').css('margin-left', ($(window).width()-960)/2 + 'px');
-	$('#icon_title').css('margin-left', ($(window).width()-960)/2 + 'px');
-	$('.user_avatar').css('vertical-align', 'middle');
-	$('#user_nav').css('margin-right', ($(window).width()-960)/2 + 'px');
-	$('#header_tabs').css('margin-left', ($(window).width()-960)/4 + 'px');
-	
-	$('.event_individual hr').last().remove();
-	
-	$('.iframe').fancybox({
-		'width' : 320,
-		'height' : 350,
-		'autoscale': false,
-		'autoDimensions': false,
-		'titlePosition': 'outside',
-		'titleFormat': formatTitle
-	});
-	$('#fancybox-wrap').click(function () {
-		printIframe('fancybox-frame');
-	});
-});
-function printIframe(id)
-{
-    frames[0].print();
-}
-function formatTitle() {
-    return '<div id="print"><a href="javascript:;"><img src="../images/print.png" title="Print QR Code."></a></div>';
-}
-</script>
-<div id='content'>
-<div id='user_sidebar'>
-	<% if @question.anonymous != 1 %>
-		<b>About <a href='/users/profile/<%= @question.user.id %>' class='black_link'><%= @question.user.login %></a> </b>
-		<br>
-		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'100x100', :alt => "User avatar" %>
-		<%= @question.user.picture %> 
-		<br>
-		<b>Joined:</b> <%= @question.user.created_at.strftime("%Y %b %d")%>
-		<br>
-		<b>Questions:</b> <%= @question.user.questions.length %>
-		<br>
-		<b>Responses:</b> <%= @question.user.response_questions.length + @question.user.response_challenges.length + @question.user.response_events.length %>
-		<br>
-		<b>Challenges:</b> <%= @question.user.challenges.length %>
-		<br>
-		<br>
-		<!--<b><%= link_to 'Recent Activity', summary_path, :class=>'black_link' %></b>
-		<br>-->
-		<b><a href='/messages/send_to/<%=@question.user.id%>' class='black_link'>Send Message</a></b>
-		<br>
-		<b><a href='javascript:;' id='unfollow_user' class='black_link'>Unfollow</a></b>
-		<b><a href='javascript:;' id='follow_user' class='black_link'>Follow</a></b>
-	<% end %>
-</div>
-<div id='main_question_content'>
-<div class='question_main'>
-	<span id='question_map'>
-		<div id="map_canvas"></div>
-		<%=h @question.location %>
-		<%= hidden_field(:question, :location) %>
-	</span>
-	<span id='question_title_display'>
-		<b><%= @question.title %></b>
-	</span>
-	<br><br>
-	<span id='question_author'>
-		<% if @question.anonymous != 1 %>
-		<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-		<%=h @question.user.picture %> by <%= @question.user.login %> |
-		<% else %>
-		Anonymous | 
-		<% end %>
-		<%= @question.created_at.strftime("%Y %b %d") %> | <%= @category.category %> |
-		<a href='javascript:;' id='unfollow' class='black_link'>Unfollow | </a> 
-		<a href='javascript:;' id='follow' class='black_link'>Follow | </a> 
-		<a href='' class='black_link' id='share'> Share </a> |
-		<%= link_to 'QR', qr_url(:format=>question_url(@question), :title=>@question.title), :class=>'iframe black_link'%>
-	</span>
-	<br>
-	<br>
-	<div id='form_links'>
-	<ul>
-	<li><a href="#response_form" class="black_link" onclick='$("#responses_tab").click();'>Add Response</a></li>
-	<li><a href="#challenge_form" class="black_link" onclick='$("#challenges_tab").click();'>Add Challenge</a></li>
-	</ul>
-	</div>
-</div>
-<% if @question.description.length > 0 %>
-	<br>
-	<div class='question_main'>
-		<span id='question_description'>
-			<%= @question.description %> 
-		</span>
-	</div>
-<% end %>
-<div id='tabs'>
-<br>
-<div id='tabs_menu'>	
-<ul>
-	<li><b><a href="#responses" id='responses_tab'>Responses</a></b></li>
-	<li><b><a href="#challenges" id='challenges_tab'>Challenges</a></b></li>
-	<li><b><a href="#events">Events</a></b></li>
-</ul>
-</div>
-<div id='responses'>
-<div class='tab_body'>
-	<% @question.response_questions.reverse_each do |r| %>
-	<div class='individual response_individual'>
-			<% if r.anonymous == 1 %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-				<%=h r.user.picture %> 
-				Anonymous | 
-			<% else %>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-				<%=h r.user.picture %> 
-				<%=h r.user.login %> |
-			<% end %>
-			<%= time_ago_in_words(r.created_at) %> ago 
-			<div class='latest_response'>
-			    <%=h r.response %>
+	<script src="assets/js/less-1.3.0.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="content">
+			<div class="row">
+				<div class="span7" id="contentView_leftPane">
+					<h1>< Content View Title > </h1>
+					<ul class ="nav nav-pills">
+						<li><a href="#">Subscribe</a></li>
+						<li><a href="#">Generate QR Code</a></li>
+						<li><a href="#">Email</a></li>
+					</ul>
+					<img src="../oldfrontend/dummy_carousel.png" width="190" height="126" align="left" style="margin:0px 10px" />
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. Nulla cursus tempus odio et ornare. Fusce posuere, lorem sed vulputate gravida, odio purus tincidunt velit, eleifend laoreet erat quam nec risus. Fusce mauris enim, ultricies a mattis in, consectetur a purus. Nullam lacinia lectus vitae mauris interdum non convallis mi mattis. Vestibulum felis quam, viverra sit amet fermentum eu, tristique et neque. Quisque at vestibulum mauris. Morbi id nibh nisi, et consectetur urna. Etiam non mauris augue. Phasellus ullamcorper gravida justo, ut elementum lorem faucibus ac. Donec libero erat, porta at porta in, dignissim ut enim.
+					<div id="contentView_responses">
+						<h2>Responses</h2>
+						<div class="response_sorter">
+							<a href="#">hot</a> &nbsp;|&nbsp;
+							<a href="#">new</a> &nbsp;|&nbsp;
+							<a href="#">controversial</a> &nbsp;&nbsp;
+						</div>
+						<dl class="response_list">
+							<dt> 
+								<img src="../oldfrontend/upboat.png" align="left"/>
+								< USERNAME > 
+							</dt>
+								<dd> 
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
+									<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
+								</dd>
+							<dt> 
+								<img src="../oldfrontend/upboat.png" align="left"/>
+								< USERNAME > 
+							</dt>
+								<dd> 
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
+									<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
+								</dd>
+							
+							
+						</dl>
+						<div class="span6 response_form">
+						<h3>Start a New Response Thread</h3><br>
+						<form>  
+							<label>RICH TEXT FIELD</label>
+							<input type="text" class="span3" placeholder="Email"> 
+							<br>
+							<label class="checkbox">
+								<input type="checkbox"/> Post Anonymously
+							</label>
+							<button type="submit" class="btn">Submit</button>  
+						</form>  
+						</div>
+					</div>
+				</div>
+				<div class="span5" id="contentView_rightPane">
+					<div id="contentView_op">
+						<h3> < Content > By: </h3>
+						<div class="row">
+							<img src="http://placehold.it/56x50/" class="span1 thumbnail"/>
+							<!-- thumbnail, username, send PM link -->
+							<dl class="span3">
+								<dt>< Username ></dt>
+								<dd>
+									<a href="#">Send private message</a>
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<h3> Related < Content > in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+					<ul class="related_list unstyled">
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+					</ul>
+					<h3> Related < Other > in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+					<ul class="related_list unstyled">
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+						<li class="row">
+							<a href="#" >
+							<img src="http://placehold.it/98x50" class="span2" align="left" />		
+							</a>
+							<div class="span3">
+							<h4>Question Title</h4>							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+							</div>
+						</li>
+					</ul>
+
+				</div>
 			</div>
-		<br>
-		<hr>
+			
+		</div>		
 	</div>
-	<% end %>
-	<br>
-	<div id='response_form'>
-		Add Response
-		<br>
-		<%= form_for([@question, ResponseQuestion.new]) do |r| %>
-		    <%= r.text_area :response, :rows => 3 %>
-			<br>
-			<%= r.check_box :anonymous %>
-			<%= r.label 'Post anonymously' %>
-			<br>
-		    <%= r.submit "Submit" %>
-		<% end %>
-	</div>
-</div>
-</div>
-
-
-<div id='challenges'>
-<div class='tab_body'>
-	<% @question.challenges.each do |e| %>
-	<div class='individual challenge_individual'>
-			<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-			<%=h e.user.picture %> 
-			<%=h e.user.login %> | 
-			<%= time_ago_in_words(e.created_at) %> ago 
-		<div class='entry_title'>
-			<b><%= link_to e.title, e, :class=>'black_link' %></b>
-		</div>
-		<div id='ind_challenge_dates'>
-			<ul>
-				<li><b> Submission Deadline: </b> <%= e.submission_deadline.strftime("%Y %b %d") %> </li>
-				<li><b> Vote Deadline: </b> <%= e.vote_deadline.strftime("%Y %b %d") %> </li>
-			</ul>			</ul>
-		</div>
-		<div class='latest_response'>
-		    <%=h e.description %>
-		</div>
-		<br>
-		<hr>
-	</div>
-	<br>
-	<% end %>
-
-	<div id='challenge_form'>
-		Add Challenge
-		<br>
-		<%= form_for [@challenge, Challenge.new] do |c| %>
-		  <%= c.hidden_field :lat %>
-		  <%= c.hidden_field :lng %>
-		  <p>
-		    <%= c.label :title, "Title" %>
-			<br>
-		    <%= c.text_field :title %>
-		  </p>
-			<%= c.hidden_field :question_id, :value => @question.id %>
-		  <p>
-		    <%= c.label :description, "Description" %>
-			<br>
-		    <%= c.text_area :description, :rows=>3 %>
-		  </p>
-		  <p>
-			<%= c.label :location %>
-			<br>
-			<%= c.text_area :location, :rows=>2 %>
-		  </p>
-		  <p>
-		    <%= c.label :submission_deadline, "Proposal Deadline" %><br />
-		    <%= c.datetime_select :submission_deadline, :default=> 7.days.from_now %>
-		  </p>
-		  <p>
-		    <%= c.label :vote_deadline , "Vote Deadline" %><br />
-		    <%= c.datetime_select :vote_deadline, :default=> 14.days.from_now %>
-		  </p>
-		  <p>
-			<%= c.label 'Categories: ' %>
-			<br>
-			<%= c.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
-			<br>
-		  </p>
-		  <p>
-		    <%= c.submit "Submit" %>
-		  </p>
-		<% end %>
-</div>
-</div>
-</div>
-<div id='events'>
-<div class='tab_body'>
-<% if @num_events == 0 %>
-	<div class='individual event_individual'>
-		There are no events for this question.
-		<br>
-		<br>
-	</div>
-<% else %>	
-	<% @question.challenges.each do |challenge| %>
-		<% challenge.events.each do |e| %>
-		<div class='individual event_individual'>
-				<%= image_tag "../images/default_avatar.png", :class=>'user_avatar', :size=>'30x30', :alt => "User avatar" %>
-				<%=h e.user.picture %> 
-				<%=h e.user.login %> | 
-				<%= e.created_at.strftime("%Y %b %d") %>
-			<div class='entry_title'>
-				<b><%= link_to e.title, e, :class=>'black_link' %></b>
-			</div>
-			<div class='event_date'>
-			<b> Date: </b> <%= e.time.strftime("%Y %b %d") %> </li>
-			</div>
-			<div class='latest_response'>
-			    <%=h e.description %>
-			</div>
-			<br>
-			<hr>
-		</div>
-		<% end %>
-	<% end %>
-<% end %>
-</div>
-</div>
-</div>
-<br>
-<% if @question.user == current_user %>
-	<%= link_to 'Edit', edit_question_path(@question), :class=>'black_link' %> |
-<% end %>
-<%= link_to 'Back To Summary', summary_path, :class=>'black_link' %>
-</div>
-</div>
-</div>
+</body>
+</html>

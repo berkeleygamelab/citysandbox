@@ -13,12 +13,12 @@ class TaggedArea < ActiveRecord::Base
      set.each do |point|
        lat = point.lat
        lng = point.lng
-       lineEquation += "LATLNG('#{lat}', '#{lng}'),"
+       lineEquation += "LATLNG(#{lat}, #{lng}),"
      end
      lineEquation = lineEquation[0..lineEquation.length-2]
         arrayOfIds = []
      type.each do |x|
-     return "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation})) AND Type = '#{x}' "
+    # return "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation})) AND Type = '#{x}' "
      hashSet = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, POLYGON(#{lineEquation})) AND Type = '#{x}' "
        hashSet.each do |set|
           arrayOfIds += set["ID"]
