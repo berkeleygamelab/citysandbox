@@ -97,7 +97,7 @@ def filterNew
     @items = @items.where(:updated_at => @between)
   end
   
-  if @cat_ids
+  if !@cat_ids.nil?
     @items = @items.joins(:categoryholders).where("categoryholders.category_id" => @cat_ids).uniq
   end
   
