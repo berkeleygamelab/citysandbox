@@ -119,10 +119,10 @@ class ItemTemplate < ActiveRecord::Base
       hashArray= ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
       	result = []
     		hashArray.each do |val|
-    			resultSet += val["id"]
+    			resultSet += [val["id"].to_i]
     			end 
       end
-    return resultSet
+    return ItemTemplate.where(:id => resultSet)
   end
   def sift_circle(radius, target_loc, set)
       circles = grab_circle(distance, target_loc)
@@ -193,7 +193,7 @@ class ItemTemplate < ActiveRecord::Base
 		hashArray = ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
 		result = []
 		hashArray.each do |x|
-			result += x[:id].to_i
+			result += [x[:id].to_i]
 			end
 		return result
 	end
