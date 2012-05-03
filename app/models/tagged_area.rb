@@ -22,7 +22,7 @@ class TaggedArea < ActiveRecord::Base
           arrayOfIds += set["ID"]
         end
      end
-     return arrayOfIds
+     return ItemTemplate.where(:id => arrayOfIds)
    end
   
 end
