@@ -13,7 +13,7 @@ class TaggedArea < ActiveRecord::Base
      set.each do |point|
        lat = point.lat
        lng = point.lng
-       lineEquation += "LATLNG('#{@lat}', '#{@lng}'),"
+       lineEquation += "LATLNG('#{lat}', '#{lng}'),"
      end
      lineEquation = lineEquation[0..lineEquation.length-2]
         arrayOfIds = []
