@@ -78,6 +78,7 @@ function toggle_submit()
                 </li>
               <% end %>
               </ul>
+			<%= will_paginate(@items) %>
             </li>
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
               <ul class="filter_elements" style="display:none;"  id="fe3">
