@@ -40,7 +40,7 @@ class MapController < ApplicationController
           
         
 	  #treating coordinates as a LIST OF TUPLES 
-	     
+	      a = UserArea.create(:user_id => current_user.id, :tagged_area_id => taggedarea.id) 
           coordinates.each do |set|
 	      t = set.split(",")
               c = t[0] + "," + t[1]
