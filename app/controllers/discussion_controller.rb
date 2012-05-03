@@ -80,7 +80,13 @@ def filterNew
     @radius = 25000
   end
   
-  @items = @dummy.grab_circle_type(@radius, @location_to_grab, @types)
+  
+  if !@area_to_filter.nil?
+    @items = @area_to_filter.grab_items(@types)
+  else
+    @items = @dummy.grab_circle_type(@radius, @location_to_grab, @types)
+  end
+  
   @collection = []
 
   if !@startDate.nil? and !@endDate.nil?
@@ -91,6 +97,7 @@ def filterNew
   if @cat_ids
     @items = @items.joins(:categoryholders).where("categoryholders.category_id" => @cat_ids).uniq
   end
+  
 
   return @collection
 
