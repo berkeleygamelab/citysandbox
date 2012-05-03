@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     puts params[:login]
     puts params[:password]
     user = User.find_by_login(params[:login])
+    puts user
     if !user.nil?
       user.password = user.password_digest
       puts "I LIKE TO HERP IT HERP IT"
