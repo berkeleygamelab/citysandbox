@@ -102,7 +102,7 @@ def filterNew
   end
   
  @collection = @items
- @items =  @items.paginate(:page => params[:page])
+ @items =  @items.paginate(:page => params[:page], :per_page => 5)
  @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
 end
 

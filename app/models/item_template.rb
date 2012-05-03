@@ -234,6 +234,6 @@ class ItemTemplate < ActiveRecord::Base
   return sift_keyword_title(key) + sift_keyword_description(key)+sift_keyword_responses(key)
   end
 
- 
+
 
 end

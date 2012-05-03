@@ -38,7 +38,7 @@ function toggle_submit()
       <h5>Showing 1-10 of 100 results</h5>
       <ol id="list_results" class="span8">
           <br>
-		  <% @collection.each do |item| %>
+		  <% @items.each do |item| %>
           <li>
             single result 
 			name: <%= item["title"] %>
@@ -46,7 +46,7 @@ function toggle_submit()
           </li>
           <br>
 		<% end %>
-		<br> <%= will_paginate @item_templates %> SIGH
+		<br> <%= will_paginate @items %> SIGH
           <img src="assets/dummy_searchnav.png">
       </ol>
 
