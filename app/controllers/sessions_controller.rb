@@ -5,7 +5,9 @@ class SessionsController < ApplicationController
     user = User.find_by_login(params[:login])
     if !user.nil?
       user.password = user.password_digest
+      puts "I LIKE TO HERP IT HERP IT"
       puts params[:password]
+      puts "DERP IT "
     end
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
