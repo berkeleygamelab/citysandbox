@@ -58,7 +58,7 @@
 						<h3>Start a New Response Thread</h3><br>
 						<form>  
 							<label>RICH TEXT FIELD</label>
-							<%= select_tag 'parent_id', options_for_select(nested_set_options(ResponseTemplate) {|i| "#{'-' * i.level} #{i.name}" } ) %>
+							<% render 'response_tree' %>
 							<input type="text" class="span3" placeholder="Email"> 
 							<br>
 							<label class="checkbox">

@@ -20,6 +20,8 @@ class QuestionsController < ApplicationController
     #  @question.challenges.each { |challenge|
      #   @num_events += challenge.events.length
      # }
+     @resp_id = @question.responses.first.id
+     @responses = ResponseTemplate.find_by_id(@resp_id).self_and_descendants
 
       respond_to do |format|
         format.html # show.html.erb
