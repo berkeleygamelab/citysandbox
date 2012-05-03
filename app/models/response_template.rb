@@ -1,6 +1,6 @@
 class ResponseTemplate < ActiveRecord::Base
   acts_as_nested_set
-  attr
+  
   belongs_to :item_template, :foreign_key => :item_id
   attr_accessible :response, :parent_id
 
