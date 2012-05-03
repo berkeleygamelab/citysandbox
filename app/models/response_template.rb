@@ -1,7 +1,8 @@
 class ResponseTemplate < ActiveRecord::Base
   acts_as_nested_set
+  attr
   belongs_to :item_template
-  belongs_to :responder, :polymorphic => true
+  attr_accessible :response, :parent_id
 
   def upvote
     self.score = self.score + 1
