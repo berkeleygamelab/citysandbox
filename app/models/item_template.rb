@@ -7,7 +7,7 @@ class ItemTemplate < ActiveRecord::Base
   has_many :categories, :through => :categoryholders
   has_many :notification
   has_many :users, :through => :subscriptions
-  has_many :response_templates
+  has_many :response_templates, :foreign_key => :item_id
   #validates :user_id, :presence => true
     validates :title, :presence => true
     validates :location, :presence => true
