@@ -35,6 +35,7 @@ function toggle_submit()
 	// figure out the page we're on
 	
 	var check;
+	var params = {};
 	params['category'] = [];
 	<% @my_areas.each do |area| %>
 	  check = $('#area<%= area.id %>')[0].checked;
