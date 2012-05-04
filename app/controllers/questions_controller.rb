@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
     #  @question.challenges.each { |challenge|
      #   @num_events += challenge.events.length
      # }
+     puts 'do we play by the same rules brah?'
      @q = @question
      if @q.nil?
        @resp_id = nil
