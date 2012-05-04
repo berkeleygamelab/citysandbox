@@ -107,4 +107,9 @@ class User < ActiveRecord::Base
   def events
      return ItemTemplate.where(:user_id => self.id).where(:producible_type => 'Event')
   end
+  
+  def responses
+    return ResponseTemplate.where(:user_id => self.id)
+  end
+  
 end
