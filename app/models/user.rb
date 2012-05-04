@@ -54,10 +54,10 @@ class User < ActiveRecord::Base
   end
   
   def name_check
-    if(login.strip != login)
+    if(self.login.strip != login)
       errors.add(:login, "login can't start or end with blank spaces")
     end
-    if(login.split.size != 1)
+    if(self.login.split.size != 1)
       errors.add(:login, "login can't have any spaces in it")
     end
   end
