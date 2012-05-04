@@ -12,7 +12,7 @@ end
 respond_to :json
 
 def summary
-
+   filterNew
 end
 
 
