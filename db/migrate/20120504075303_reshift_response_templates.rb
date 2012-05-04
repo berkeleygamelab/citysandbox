@@ -3,12 +3,12 @@ class ReshiftResponseTemplates < ActiveRecord::Migration
     drop_table :response_templates
     create_table :response_templates do |t|
       t.string :response
-      t.depth :integer
-      t.score :integer
-      t.parent_id :integer
-      t.user_id :integer
-      t.anonymous :boolean
-      t.group_response :boolean
+      t.integer :depth
+      t.integer :score
+      t.integer :parent_id
+      t.integer :user_id
+      t.boolean :anonymous
+      t.boolean :group_response
       t.timestamps
       end
   end
