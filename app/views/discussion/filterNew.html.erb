@@ -14,7 +14,7 @@ $(document).ready( function() {
 	$('#mainBox')[0].onpropertychange = 'toggle_submit';
 	$('#mainBox')[0].onchange = 'toggle_submit';
 	var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
-  map = new google.maps.Map(document.getElementById('list_map'), {
+  map = new google.maps.Map(document.getElementById('form_map_canvas'), {
     center: uluru,
     zoom: 12,
    mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -150,7 +150,7 @@ function toggle_submit()
 		      </ol>
 		  </div>
       <div class="span3 list_panel_right">
-          <div id ="list_map" >	</div>
+          <div id="form_map_canvas"></div>
           <br><br>
          
 
