@@ -30,7 +30,7 @@ Citysandbox::Application.routes.draw do
   match "/qr" => 'discussion#qr'
   match "/validate" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
-
+  match "fetch" => "discussion#filter"
   match "ugh" => "questions#auto"
   resources :questions do
     match "/auto" => "questions#auto"
