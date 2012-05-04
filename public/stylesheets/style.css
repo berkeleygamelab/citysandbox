@@ -47,7 +47,7 @@ body > #container { height: auto; min-height: 100%; }
 }
 
 #group_results
-{}
+{list-style-type: upper-alpha;}
 	
 #group_results li {
 	border-style:solid;
