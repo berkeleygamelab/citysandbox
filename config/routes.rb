@@ -48,6 +48,9 @@ Citysandbox::Application.routes.draw do
   post "questions/auto_complete_for_category_name" => "questions#auto_complete_for_category_name"
   post "challenges/auto_complete_for_category_name" => "challenges#auto_complete_for_category_name"
   post "events/auto_complete_for_category_name" => "events#auto_complete_for_category_name"
+  get "questions/autocomplete_category_name"
+  get "events/autocomplete_category_name"
+  get "challenges/autocomplete_category_name"
 
   resources :events do
     resources :response_events, :shallow => true
