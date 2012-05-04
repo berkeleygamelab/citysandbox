@@ -93,11 +93,8 @@ footer a {
 #list_map
 {
 	
-	background: url('../images/header_tab.png');
-	width:130px;
-	height:33px;
-	margin-bottom:0px;
-	text-align:center;
+	height:200px;
+	width:200px;
 }
 #ask_question {
 	margin-left: 725px;
