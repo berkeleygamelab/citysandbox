@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
       redirect_to home_login_url
     else
       @question = Question.where(:id => params[:id])[0]
+      @user = User.where(:id => @question.user_id)
       @categories = @question.categories
 
   #    @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
