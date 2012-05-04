@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
   validate :name_check
   after_create :send_confirmation
   
+  has_many :questions
+  has_many :events
+  has_many :challenges
+  
   def render_image(user)
     if user.picture != nil || user.picture != "DEFAULT"
       return Fleakr.resource_from_url(user.picture, 'rb') 	
