@@ -1,7 +1,7 @@
 
  class Question < ActiveRecord::Base
   has_many :challenges
-  belongs_to :user
+  belongs_to :user, :through => :item_template
   attr_accessor :most_recent, :lat, :lng, :anonymous
   acts_as :item_template, :as => :producible
 
