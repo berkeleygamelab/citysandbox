@@ -43,7 +43,7 @@ function toggle_submit()
 	
 	if($('#mainBox')[0].value != undefined )
 	{
-		params['loc'] = #('#mainBox')[0].value
+		params['loc'] = $('#mainBox')[0].value
 	}
 	<% @my_areas.each do |area| %>
 	  check = $('#area<%= area.id %>')[0].checked;
