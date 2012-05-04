@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
-
+    @category = Category.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @question }
