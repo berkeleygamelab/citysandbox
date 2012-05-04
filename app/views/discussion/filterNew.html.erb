@@ -79,22 +79,17 @@ function toggle_submit()
 	}
 	$.get('fetch', params, function(data) 
 	{
-		var html_string = " ";
+		var html_string = '<ol id="list_results" class="span8"> <br> ';
 
 			$.each(data, function (index, entry)
-			  {for(var k in entry)
-				{
-					alert(k);
-					alert("BREAK");
-					alert(entry[k]);
-				}
-				for(var i in index)
-				{
-					alert("BREAK2");
-					alert(i);
-				}
+			  { html_string += '<li>';
+				html_string += "title ";
+				html_string += entry['title'];
+				html_string += " description";
+				html_string += entry['description'];
+				html_string += '</li> <br>';
 				});
-				alert(html_string);
+			$('#radical').html(html_string);
 	});
 }
 
@@ -103,21 +98,21 @@ function toggle_submit()
   <div id="container">
     <div id="content">
       <h5>Showing 1-10 of 100 results</h5>
-
-     	 <ol id="list_results" class="span8">
-	          <br>
-			  <% @items.each do |item| %>
-	        <li>
-			    single result 
-				name: <%= item["title"] %>
-				description: <%= item["description"] %>
-			  </li>
-			  <br>
-			<% end %>
-			<br> <%= will_paginate @items %> SIGH
-	          <img src="assets/dummy_searchnav.png">
-	      </ol>
-		
+	 	<div id='radical'>
+	     	 <ol id="list_results" class="span8">
+		          <br>
+				  <% @items.each do |item| %>
+		        <li>
+				    single result 
+					name: <%= item["title"] %>
+					description: <%= item["description"] %>
+				  </li>
+				  <br>
+				<% end %>
+				<br> <%= will_paginate @items %> SIGH
+		          <img src="assets/dummy_searchnav.png">
+		      </ol>
+		  </div>
       <div class="span3 list_panel_right">
           <img src="assets/dummy_listmapswitch.png">
           <br><br>
