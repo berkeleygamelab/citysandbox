@@ -24,4 +24,14 @@ class ResponseTemplate < ActiveRecord::Base
      @body = sent_id.body
      return "Your answer has been responded by " + @sender + ": " + @body
   end
+  
+  def get_subtree()
+    tree = []
+    sub_tree = ResponseTemplate.where(:parent_id => self.id)
+    tree+= sub_tree
+    sub_tree.each do |sub|
+      tree+= sub.get_subtree()
+    end
+    return tree
+  end
 end
