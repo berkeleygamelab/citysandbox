@@ -3,6 +3,7 @@ class ResponseTemplate < ActiveRecord::Base
   
   belongs_to :item_template, :foreign_key => :item_id
   attr_accessible :response, :parent_id
+  belongs_to :user
 
   def upvote
     self.score = self.score + 1
