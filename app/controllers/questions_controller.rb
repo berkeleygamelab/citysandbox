@@ -55,7 +55,7 @@ format.js # auto.js.erb
 format.json { render :json => @cities }
 end
 
-
+end
 
   def newForm
     @question = Question.new
