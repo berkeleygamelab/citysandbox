@@ -45,12 +45,16 @@ Citysandbox::Application.routes.draw do
 
   resources :events do
     resources :response_events, :shallow => true
+    get :auto_complete_for_category_name, :on => :collection
+    get :auto_complete_category_name, :on => :collection
   end
 
   resources :challenges do
     resources :response_challenges, :shallow => true
     resources :proposals, :shallow => true
     resources :events
+    get :auto_complete_for_category_name, :on => :collection
+    get :auto_complete_category_name, :on => :collection
   end
 
   resources :discussion do
