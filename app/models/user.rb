@@ -97,14 +97,14 @@ class User < ActiveRecord::Base
   end
   
   def questions
-    return Question.where(:user_id => self.id)
+    return ItemTemplate.where(:user_id => self.id).where(:producible_type => 'Question')
   end
   
   def challenges
-     return Challenge.where(:user_id => self.id)
+     return ItemTemplate.where(:user_id => self.id).where(:producible_type => 'Challenge')
   end
   
   def events
-     return Event.where(:user_id => self.id)
+     return ItemTemplate.where(:user_id => self.id).where(:producible_type => 'Event')
   end
 end
