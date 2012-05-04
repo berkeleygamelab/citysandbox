@@ -85,6 +85,15 @@ footer a {
 #map_view {
 	margin-left: 600px;
 	background: url('../images/header_tab.png');
+	width:194px;
+	height:204px;
+	margin-bottom:0px;
+	text-align:center;
+}
+#list_map
+{
+	
+	background: url('../images/header_tab.png');
 	width:130px;
 	height:33px;
 	margin-bottom:0px;

@@ -1,3 +1,9 @@
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0 }
+  #map_canvas { height: 100% }
+</style>
+
 <script type="text/javascript">
 var poly, map;
  var markers = [];
@@ -7,7 +13,12 @@ $(document).ready( function() {
 	
 	$('#mainBox')[0].onpropertychange = 'toggle_submit';
 	$('#mainBox')[0].onchange = 'toggle_submit';
-	
+	var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
+  map = new google.maps.Map(document.getElementById('list_map'), {
+    center: uluru,
+    zoom: 12,
+   mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
 });
 function populate_content(data)
 {
@@ -139,7 +150,7 @@ function toggle_submit()
 		      </ol>
 		  </div>
       <div class="span3 list_panel_right">
-          <img src="assets/dummy_listmapswitch.png">
+          <div id ="list_map" >	</div>
           <br><br>
           <img src="assets/dummy_listmap.png">
           <br><br>
