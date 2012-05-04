@@ -41,14 +41,14 @@ class UsersController < ApplicationController
     end
     puts "WHY DONT U LOVE ME"
     puts params[:user][:picture]
-    if upload != nil
-      picture_image(@user, upload)
-    else
-      @user.picture = "DEFAULT"
-    end
+    
+   
     if @user.save
-      stuff = params[:picture]
-      
+       if upload != nil
+          picture_image(@user, upload)
+        else
+          @user.picture = "DEFAULT"
+        end
       if params[:picture] == nil
         puts "HU HO"
         
