@@ -76,7 +76,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:block;" id="fe2">
               <% @default_categories.each do |cat| %>
                 <li>
-                   <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
+                   <input type="checkbox" value="<%= cat.name %>" id="default<%= cat.id %>"> <%= cat.name %>
                 </li>
               <% end %>
               </ul>
@@ -86,7 +86,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe3">
 				 <% @popular_categories.each do |cat| %>
 	                <li>
-	                 <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
+	                 <input type="checkbox" value="<%= cat.name %>" id="popular<%= cat.id %>"> <%= cat.name %>
 	                </li>
 	               <% end %>
               </ul>
@@ -95,7 +95,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe4">
         		  <% @my_categories.each do |cat| %>
 	                <li>
-	                 <input type="checkbox" value="<%= cat.name %>"> <%= cat.name %>
+	                 <input type="checkbox" value="<%= cat.name %>" id="popular<%= cat.id %>"> <%= cat.name %>
 	                </li>
 	               <% end %>
               </ul>
@@ -104,7 +104,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe5">
              	   <% @my_areas.each do |area| %>
 	                <li>
-	                 <input type="checkbox" value="<%= area.title %>"> <%= area.title %>
+	                 <input type="checkbox" value="<%= area.title %>" id="area<%= area.id %>"> <%= area.title %>
 	                </li>
 	               <% end %>
               </ul>
