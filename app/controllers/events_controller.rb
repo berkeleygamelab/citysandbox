@@ -33,6 +33,9 @@ class EventsController < ApplicationController
 
   def eventNew
   @event = Event.new 
+  @category = Category.new
+  @sample = Question.all.pop
+  @samples = @sample.kludgy_related_similar()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
