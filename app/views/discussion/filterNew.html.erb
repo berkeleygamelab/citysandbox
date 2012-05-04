@@ -77,7 +77,7 @@ function toggle_submit()
 	if($('#EventCheck')[0].checked)
 	{	params['types'].push('Event');
 	}
-	$.get('filter', params, function(data) 
+	$.get('fetch', params, function(data) 
 	{
 		alert(data);
 	});
