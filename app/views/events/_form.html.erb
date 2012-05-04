@@ -49,8 +49,8 @@ function center_map(map) {
 }
 </script>
 <%= form_for(@event) do |c| %>
-<%= f.hidden_field :lat %>
-<%= f.hidden_field :lng %>
+<%= c.hidden_field :lat %>
+<%= c.hidden_field :lng %>
 	  <p>
 	    <%= c.label :title, "Title" %>
 		<br>
