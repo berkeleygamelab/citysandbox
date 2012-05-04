@@ -2,6 +2,9 @@
 $(document).ready( function() {
 	var curiosity;
 	var params = {};
+	$('#mainBox')[0].onpropertychange = 'toggle_submit()';
+	$('#mainBox')[0].onchange = 'toggle_submit()';
+	
 });
 function populate_content(data)
 {
@@ -37,6 +40,11 @@ function toggle_submit()
 	var check;
 	var params = {};
 	params['category'] = [];
+	
+	if($('#mainBox')[0].value != undefined )
+	{
+		params['loc'] = #('#mainBox')[0].value
+	}
 	<% @my_areas.each do |area| %>
 	  check = $('#area<%= area.id %>')[0].checked;
 	if(check)
