@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   end
   
   def message_copys
-    return ReceivedMessage.where(:user_id => self.id)
+    return self.received_messages
   end
   
 end
