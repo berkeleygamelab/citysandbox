@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :user_categories
   has_many :notifications
   has_many :sent_messages
-  has_many :received_messages, :as => :recipient
+  has_many :received_messages, :foreign_key => :received_by
   has_many :folders
   has_many :groups, :through => :memberships
   has_many :response_templates, :as => :responder
