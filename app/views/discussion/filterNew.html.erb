@@ -79,8 +79,12 @@ function toggle_submit()
 	}
 	$.get('fetch', params, function(data) 
 	{
-		
-		alert(data);
+		var html_string = " ";
+
+			$.each(data, function (index, entry)
+			  {html_string += entry['lame'];
+				});
+				alert(html_string);
 	});
 }
 
