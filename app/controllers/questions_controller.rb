@@ -73,7 +73,7 @@ end
   # POST /questions.json
   def create
     @question = Question.new(params[:question])
-    @question.user = current_user
+    @question.user_id = current_user.id
     geocode = Geocoder.coordinates(@question.location)
     @question.lat = geocode[0].to_s
     @question.lng = geocode[1].to_s
