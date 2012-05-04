@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true
   validates :password, :presence => true
   validates :location, :presence => true
-  validate :name_check
+  #validate :name_check
   after_create :send_confirmation
   attr_accessible :upload
   
