@@ -99,6 +99,8 @@ function toggle_submit()
 		});
 	
 	}
+	
+	params['loc'] = '37.8715926 -122.27274699999998'
 	<% @my_areas.each do |area| %>
 	  check = $('#area<%= area.id %>')[0].checked;
 	if(check)

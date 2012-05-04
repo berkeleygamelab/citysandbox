@@ -17,7 +17,7 @@
 		<div id="content">
 			<div class="row">
 				<div class="span7" id="contentView_leftPane">
-					<h1>< Content View Title > </h1>
+					<h1><%= @question.title %> </h1>
 					<ul class ="nav nav-pills">
 						<li><a href="#">Subscribe</a></li>
 						<li><a href="#">Generate QR Code</a></li>
@@ -56,19 +56,19 @@
 				</div>
 				<div class="span5" id="contentView_rightPane">
 					<div id="contentView_op">
-						<h3> < Content > By: </h3>
+						<h3> Question By: </h3>
 						<div class="row">
 							<img src="http://placehold.it/56x50/" class="span1 thumbnail"/>
 							<!-- thumbnail, username, send PM link -->
 							<dl class="span3">
-								<dt>< Username ></dt>
+								<dt><%= @question.user.login %></dt>
 								<dd>
 									<a href="#">Send private message</a>
 								</dd>
 							</dl>
 						</div>
 					</div>
-					<h3> Related < Content > in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+					<h3> Related Questions in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
 					<ul class="related_list unstyled">
 						<li class="row">
 							<a href="#" >
@@ -98,7 +98,7 @@
 							</div>
 						</li>
 					</ul>
-					<h3> Related < Other > in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+					<h3> Related Challenges, Events in <input type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
 					<ul class="related_list unstyled">
 						<li class="row">
 							<a href="#" >
