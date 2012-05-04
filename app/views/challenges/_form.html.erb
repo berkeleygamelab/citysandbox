@@ -80,7 +80,9 @@ function center_map(map) {
 	<p>
 		<%= f.label 'Categories' %>
 		<br>
-		<%= f.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+		  <%= form_for @category do |f| %>
+	        <%=  f.autocomplete_field :name, questions_autocomplete_category_name_path %>
+	        <% end %>
 	</p>
 	<p>
     	<%= f.label :threshold , "Threshold" %>
