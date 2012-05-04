@@ -202,7 +202,7 @@ def filter
   @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
   @collection = {}
   @collection['lame'] = 'very'
-  @items = [@collection]
+  #@items = [@collection]
  respond_with(@items)
 end
 
