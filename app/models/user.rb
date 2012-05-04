@@ -91,4 +91,8 @@ class User < ActiveRecord::Base
     return self.temp_pw == pass
   end
   
+  def message_copys
+    return ReceivedMessage.where(:user_id => self.id)
+  end
+  
 end
