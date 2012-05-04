@@ -106,6 +106,7 @@ def filterNew
  @items =  @items.paginate(:page => params[:page], :per_page => 5)
  puts @items
  @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
+ respond_with(@items)
 end
 
 

@@ -1,6 +1,9 @@
 
   <script language="javascript">
-
+$(document).ready( function() {
+var params = {};
+var curiosity;
+}
  function toggleDiv(divid){
     if(document.getElementById(divid).style.display == 'none'){
       document.getElementById(divid).style.display = 'block';
@@ -28,28 +31,79 @@ function toggle_submit()
 	//check box for What's Happenign
 	// figure out the page we're on
 	
+	var check;
+	params['category'] = [];
+	<% @my_areas.each do |area| %>
+	  check = $('#area<%= area.id %>')[0].checked;
+	if(check)
+	{
+		params['area_id'] = <%= area.id %>;
+	}
+	<% end %>
+	<% @default_categories.each do |cat| %>
+	   check = $('#default<%= cat.id %>')[0].checked;
+	if(check)
+	{
+		params['category'].push(<%= cat.id %>);
+	}
+	<% end %>
+	<% @popular_categories.each do |cat| %>
+	  check = $('#popular<%= cat.id %>')[0].checked;
+	if(check)
+	{
+			params['category'].push(<%= cat.id %>);
+	}
+	<% end %>
+	<% @my_categories.each do |cat| %>
+	  check = $('#my_categories<%= cat.id %>')[0].checked;
+	if(check)
+	{
+			params['category'].push(<%= cat.id %>);
+	}
+	<% end %>
+	
+	var set = [];
+	params['types'] = [];
+	if($('#QuestionCheck')[0].checked)
+	{	params['types'].push('Question');
+	}
+	if($('#ChallengeCheck')[0].checked)
+	{	params['types'].push('Challenge');
+	}
+	if($('#EventCheck')[0].checked)
+	{	params['types'].push('Event');
+	}
+	$.get('filter', params, function(data) 
+	{
+		populate_content(data);
+	})
 }
 
+function populate_content(data)
+{
+	curiosity = data;
+}
 
 </script>
 
   <div id="container">
     <div id="content">
       <h5>Showing 1-10 of 100 results</h5>
-      <ol id="list_results" class="span8">
-          <br>
-		  <% @items.each do |item| %>
-        <li>
-		    single result 
-			name: <%= item["title"] %>
-			description: <%= item["description"] %>
-		  </li>
-		  <br>
-		<% end %>
-		<br> <%= will_paginate @items %> SIGH
-          <img src="assets/dummy_searchnav.png">
-      </ol>
-
+	  <div id="item_results">
+     	 <ol id="list_results" class="span8">
+	          <br>
+			  <% @items.each do |item| %>
+	        <li>
+			    single result 
+				name: <%= item["title"] %>
+				description: <%= item["description"] %>
+			  </li>
+			  <br>
+			<% end %>
+			<br> <%= will_paginate @items %> SIGH
+	          <img src="assets/dummy_searchnav.png">
+	      </ol>
+		</div>
       <div class="span3 list_panel_right">
           <img src="assets/dummy_listmapswitch.png">
           <br><br>
@@ -61,11 +115,11 @@ function toggle_submit()
             <li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
               <ul class="filter_elements" style="display:block;"  id="fe1">
                 <li>
-                Questions
+                   <input type="checkbox" value="Question" id="QuestionCheck"> Questions
                 </li><li>
-                Challenges
+                    <input type="checkbox" value="Challenge" id="ChallengesCheck"> Challenges
                 </li><li>
-                Events
+                   <input type="checkbox" value="Event" id="EventsCheck"> Events
                 </li>
               </ul>	
 			<br> 
@@ -95,7 +149,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe4">
         		  <% @my_categories.each do |cat| %>
 	                <li>
-	                 <input type="checkbox" value="<%= cat.name %>" id="popular<%= cat.id %>"> <%= cat.name %>
+	                 <input type="checkbox" value="<%= cat.name %>" id="my_categories<%= cat.id %>"> <%= cat.name %>
 	                </li>
 	               <% end %>
               </ul>
@@ -104,7 +158,7 @@ function toggle_submit()
               <ul class="filter_elements" style="display:none;"  id="fe5">
              	   <% @my_areas.each do |area| %>
 	                <li>
-	                 <input type="checkbox" value="<%= area.title %>" id="area"> <%= area.title %>
+	                 <input type="checkbox" value="<%= area.title %>" id="area<%= area.id %>"> <%= area.title %>
 	                </li>
 	               <% end %>
               </ul>
