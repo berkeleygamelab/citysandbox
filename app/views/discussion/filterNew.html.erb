@@ -178,7 +178,8 @@ function toggle_submit()
 		      </ol>
 		  </div>
       <div class="span3 list_panel_right">
-		  <li> <input type="button" type="submit" class="btn">Map&nbsp;&nbsp;<input type="button" type="submit" class="btn">List</li>
+		  <li> <input type="button" type="submit" class="btn" value="Map">Map&nbsp;&nbsp;<input type="button" type="submit" class="btn" value="List">List</li>
+		<%= button_to "Map", :action => :index, :controller => :map, :method => "get" %> <%= button_to "List", :action => :filterNew, :controller => :discussion, :method => "get" %>
           <div id="form_map_canvas"></div>
           <br><br>
          
