@@ -82,7 +82,10 @@ function toggle_submit()
 		var html_string = " ";
 
 			$.each(data, function (index, entry)
-			  {html_string += entry['lame'];
+			  {for(var k in entry)
+				{
+					alert(k)
+				}
 				});
 				alert(html_string);
 	});
