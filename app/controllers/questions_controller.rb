@@ -63,6 +63,8 @@ end
     @question = Question.new
     @category = Category.new
     @categories = Category.all
+     @sample = Question.all.pop
+      @samples = @sample.kludgy_related_similar()
     puts "BLEEP BLOOP BLEEP BLEEP"
   end
 

@@ -49,15 +49,6 @@ Citysandbox::Application.routes.draw do
     get :auto_complete_category_name, :on => :collection
   end
 
-  resources :challenges do
-    resources :response_challenges, :shallow => true
-    resources :proposals, :shallow => true
-    resources :events
-    match "new" => "challenge#new"
-    get :auto_complete_for_category_name, :on => :collection
-    get :auto_complete_category_name, :on => :collection
-  end
-
   resources :discussion do
     get '/' => 'discussion#summary', :as => :summary
   end
