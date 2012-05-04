@@ -99,4 +99,15 @@ class User < ActiveRecord::Base
     return self.received_messages
   end
   
+  def questions
+    return Question.where(:user_id => self.id)
+  end
+  
+  def challenges
+     return Challenge.where(:user_id => self.id)
+  end
+  
+  def events
+     return Event.where(:user_id => self.id)
+  end
 end
