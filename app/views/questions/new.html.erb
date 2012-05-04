@@ -1,26 +1,135 @@
 <script type="text/javascript">
-$.fn.center = function (top_offset) {
-	window_width =  $(window).width() > 500 ? $(window).width() : 500;
-    this.css("position","absolute");
-	this.css("top", ($('.splash_box').position().top + top_offset)  + 'px');
-    this.css("left", ((window_width - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
-    return this;
-}
-$(window).load(function() {
-	$(window).resize(function() {
-		$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
-		$('.form').center(0);
-	});
-	$('#content').css('margin-top', '10px');
-	$('#content').css('margin-left', ($(window).width()-$('#content .splash_box').width())/2 + 'px');
-	$('.form').center(0);
-});
-</script>
-<div id='content'>
-<%= image_tag "../images/splash_box.png", :class=>'splash_box' %>
-<div class='form'>
-<h3>Ask a question!</h3> 
+  var map;
+  var autocomplete;
+ var myBoxValue = "Berkeley, CA";
+ var boxes;
+var autocomplete2;
+$(document).ready( function() {
+ boxes = new Array();
 
-<%= render 'form' %>
-</div>
-</div>
+ boxes.push('mainBox');
+
+  boxes.push('box1');
+  $('mainBox').bind('onchange', setBoxes(document.getElementById('mainBox').value));
+  $('box1').bind('onchange', setBoxes(document.getElementById('box1').value));
+  $('mainBox').bind('onpropertychange', setBoxes(document.getElementById('mainBox').value));
+  $('box1').bind('onpropertychange', setBoxes(document.getElementById('box1').value));
+
+    var myOptions = {
+      zoom: 8,
+      center: new google.maps.LatLng(37.87159260,-122.2727470), // Berkeley, CA
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+    map = new google.maps.Map(document.getElementById('form_map_canvas'), myOptions);
+
+  var defaultBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(-33.8902, 151.1759),
+    new google.maps.LatLng(-33.8474, 151.2631));
+
+  var input = document.getElementById('question_location');
+  var options = {
+    bounds: defaultBounds,
+    types: ['geocode']
+  };
+  autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+  var addAuto = new google.maps.places.Autocomplete(document.getElementById('mainBox'));
+  var auto2 = new google.maps.places.Autocomplete(document.getElementById('box1'));
+  if ($('#question_location').val() != '') {
+    center_map(map);
+  }
+
+  $('#question_location').blur( function() {
+    center_map(map);
+  });
+
+});
+
+ function setBoxes(newVal)
+{
+   var temp = new Array();
+
+  for(var i=0; i<2; i++);
+   {
+    var a = boxes.pop();
+    temp.push(a);
+    document.getElementById(a).value = newVal;
+    }
+
+ for(var k=0; k<2; k++);
+   {
+    var a = temp.pop();
+    boxes.push(a);
+    }
+
+}
+
+function adjust_location(box)
+{
+
+}
+
+function center_map(map) {
+  var geocoder = new google.maps.Geocoder();
+  var address = $.trim(address = $('#question_location').val().replace(/[\t\n\r]/gi, ""));
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+          });
+      $('#question_lat').attr('value', results[0].geometry.location.lat());
+      $('#question_lng').attr('value', results[0].geometry.location.lng());
+        }
+  });
+}
+
+</script>
+  <div id="container">
+
+    <div id="content">
+      <br>
+      <h1>Ask a Question</h1>
+      <br><br>
+        <div class="row span6 question_form">
+            <h3>I want to ask about...</h3><br>
+
+    		<%= render 'newRegister' %>
+        </div>
+        <div class="span5">
+            <h3> Sample questions asked in <input name="box1" id="box1" type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
+          <ul class="related_list unstyled">
+            <li class="row">
+              <a href="#" >
+              <img src="http://placehold.it/98x50" class="span2" align="left" />
+              </a>
+              <div class="span3">
+              <h4>Question Title</h4>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+              </div>
+            </li>
+            <li class="row">
+              <a href="#" >
+              <img src="http://placehold.it/98x50" class="span2" align="left" />
+              </a>
+              <div class="span3">
+              <h4>Question Title</h4>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+              </div>
+            </li>
+            <li class="row">
+              <a href="#" >
+              <img src="http://placehold.it/98x50" class="span2" align="left" />
+              </a>
+              <div class="span3">
+              <h4>Question Title</h4>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+  </div>
+
