@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
        @resp_id = nil
      else
      @resp_id = @q.id
-     @responses = ResponseTemplate.find_by_id(@resp_id).self_and_descendants
+     @responses = ResponseTemplate.where(:item_id => @q.producible_id).where(:parent_id => nil)
      end
       respond_to do |format|
         format.html # show.html.erb

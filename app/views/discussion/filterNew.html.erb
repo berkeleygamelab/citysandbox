@@ -4,9 +4,10 @@ var poly, map;
 $(document).ready( function() {
 	var curiosity;
 	var params = {};
+	
 	$('#mainBox')[0].onpropertychange = 'toggle_submit()';
 	$('#mainBox')[0].onchange = 'toggle_submit()';
-	map = 
+	
 });
 function populate_content(data)
 {
@@ -45,7 +46,21 @@ function toggle_submit()
 	
 	if($('#mainBox')[0].value != undefined )
 	{
-		params['loc'] = $('#mainBox')[0].value
+		  var geocoder = new google.maps.Geocoder();
+		var temp= $('#mainBox')[0].value
+
+		geocoder.geocode( { 'address': temp}, function(results, status) { 
+		if (status == google.maps.GeocoderStatus.OK) {
+			
+				params['loc'] = results[0].geometry.location.toString();
+				alert(params['loc']);
+		}
+		else{
+			alert("Geocoder was not successful. Going to use default user location instead!")
+		
+		}
+		});
+	
 	}
 	<% @my_areas.each do |area| %>
 	  check = $('#area<%= area.id %>')[0].checked;

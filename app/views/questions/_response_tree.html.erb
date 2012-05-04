@@ -1,4 +1,23 @@
-
-<ul>
- <%= select_tag 'parent_id', options_for_select(nested_set_options(ResponseTemplate, @responses) {|i| "#{'-' * i.level} #{i.name}" } ) %>
-</ul>
+	<dl class="response_list">
+		<% @responses.each do |response| %>
+		<dt> 
+			<img src="../oldfrontend/upboat.png" align="left"/>
+			< USERNAME > 
+		</dt>
+			<dd> 
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
+				<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
+			</dd>
+		<dt> 
+			<img src="../oldfrontend/upboat.png" align="left"/>
+			< USERNAME > 
+		</dt>
+			<dd> 
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
+				<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
+			</dd>
+		 <% end %>
+		
+	</dl>
