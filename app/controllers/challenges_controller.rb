@@ -31,7 +31,8 @@ class ChallengesController < ApplicationController
 
   def challengeNew
     @challenge = Challenge.new
-
+    @sample = Question.all.pop
+    @samples = @sample.kludgy_related_similar()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @challenge }
