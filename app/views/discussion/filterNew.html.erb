@@ -7,6 +7,22 @@ function populate_content(data)
 {
 	curiosity = data;
 }
+ function toggleDiv(divid){
+    if(document.getElementById(divid).style.display == 'none'){
+      document.getElementById(divid).style.display = 'block';
+    }else{
+      document.getElementById(divid).style.display = 'none';
+    }
+  }
+function toggle_visibility(id) {
+
+    if(document.getElementById(id).style.display == 'block') {
+       document.getElementById(id).style.display = 'none';
+     } else {
+       document.getElementById(id).style.display = 'block';
+     }
+  }
+
 function toggle_submit()
 {
 	// deal with checkboxes for categories
