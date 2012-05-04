@@ -10,6 +10,12 @@ class ChallengesController < ApplicationController
   # GET /challenges/1
   # GET /challenges/1.json
   def show
+    
+    puts params[:action]
+    if params[:action] => "new"
+      return
+    end
+    
     if current_user == nil
       redirect_to home_login_url
     else
