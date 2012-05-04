@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     puts item
     if item != nil && item[0] != nil
         user.picture = item[0].url
+        user.save
     end
   end
   
