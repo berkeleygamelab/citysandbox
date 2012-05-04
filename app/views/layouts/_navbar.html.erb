@@ -26,7 +26,7 @@ $(document).ready( function() {
 	  <br>
 	  <%= link_to "My inbox", :action => :show, :controller => :inbox %> 
 	&nbsp;|&nbsp; 
-		  <%= link_to "Profile", :controller => :users, :action => :profile, :user => current_user %> 
+		  <%= link_to "Profile", :controller => :users, :action => :profile, :id => current_user.id %> 
             </div>
         </div>
         <div class="row">
