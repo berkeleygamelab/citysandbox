@@ -243,4 +243,13 @@ class ItemTemplate < ActiveRecord::Base
      return received_mail
    end
 
+  
+  def kludgy_related_similar()
+    return ItemTemplate.where("producible_id != ?", self.producible_id).where(:producible_type => self.producible_type).limit(3)
+  end
+
+  def kludgy_related_other
+    return ItemTemplate.where("producible_id != ?", self.producible_type).limit(3)
+  end
+  
 end
