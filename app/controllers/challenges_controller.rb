@@ -34,6 +34,9 @@ class ChallengesController < ApplicationController
   def challengeNew
     @challenge = Challenge.new
     @category =  Category.new
+    @sample = Question.all.pop
+    @samples = @sample.kludgy_related_similar()
+    
     puts "eh"
     respond_to do |format|
       format.html # new.html.erb
