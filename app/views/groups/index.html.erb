@@ -163,10 +163,10 @@ function toggle_submit()
     <div id="content">
       <h5>Showing 1-10 of 100 results</h5>
 	 	<div id='radical'>
-	     	 <ol id="group_results" class="span8">
+	     	 <ol id="list_results" class="span8">
 		          <br>
 				  <% @items.each do |item| %>
-		        <li>
+		        <li height=240px>
 				    single result 
 					name: <%= item["title"] %>
 					description: <%= item["description"] %>
