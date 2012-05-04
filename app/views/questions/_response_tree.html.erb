@@ -1,19 +1,4 @@
-<% active_parents = [] %>
+
 <ul>
-  <% @responses.each do |response| %>
-    <% active_parents.each do |p| %>
-      <% if !response.is_descendant_of(p) %>
-        <% active_parents.delete(p) %>
-        <%= '</ul></li>' %>
-      <% end %>
-    <% end %>
-  <li>
-    <%= response.name %>
-    <% if response.leaf? %>
-      </li>
-    <% else %>
-      <% active_parents << response.id %>
-      <%= '<ul>' %>
-    <% end %>
-  <% end %>
+ <%= select_tag 'parent_id', options_for_select(nested_set_options(ResponseTemplate, @responses) {|i| "#{'-' * i.level} #{i.name}" } ) %>
 </ul>
