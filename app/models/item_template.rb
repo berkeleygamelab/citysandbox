@@ -34,9 +34,9 @@ class ItemTemplate < ActiveRecord::Base
     contentHash.add("update_time"=>update_time)
     contentHash.add("popularity"=>popularity)
     contentHash.add("cat_name"=>Category.find(cat_id))
-    contentHash.add("type"=>type)
+    contentHash.add("type"=>producible_type)
     hash = {}
-    case type
+    case producible_type
       when "question"
         hash =Question.find(item_id).generate_content
       when "event"

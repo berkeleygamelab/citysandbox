@@ -84,7 +84,14 @@ function toggle_submit()
 			$.each(data, function (index, entry)
 			  {for(var k in entry)
 				{
-					alert(k)
+					alert(k);
+					alert("BREAK");
+					alert(entry[k]);
+				}
+				for(var i in index)
+				{
+					alert("BREAK2");
+					alert(i);
 				}
 				});
 				alert(html_string);
