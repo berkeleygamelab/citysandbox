@@ -137,7 +137,7 @@ class UsersController < ApplicationController
           user.picture = item[0].url
         end
       end
-    
+     user.save
   end
 
 end
