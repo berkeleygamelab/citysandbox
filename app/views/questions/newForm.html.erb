@@ -100,33 +100,17 @@ function center_map(map) {
         <div class="span5">
             <h3> Sample questions asked in <input name="box1" id="box1" type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
           <ul class="related_list unstyled">
+			<% @samples.each do |sample| %>
             <li class="row">
               <a href="#" >
               <img src="http://placehold.it/98x50" class="span2" align="left" />
               </a>
               <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+              <h4><%= sample.title %></h4>
+             Description: <%= sample.description %>
               </div>
             </li>
-            <li class="row">
-              <a href="#" >
-              <img src="http://placehold.it/98x50" class="span2" align="left" />
-              </a>
-              <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
-              </div>
-            </li>
-            <li class="row">
-              <a href="#" >
-              <img src="http://placehold.it/98x50" class="span2" align="left" />
-              </a>
-              <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
-              </div>
-            </li>
+			<% end %>
           </ul>
         </div>
 
