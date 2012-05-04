@@ -90,7 +90,7 @@ function toggle_submit()
 		if (status == google.maps.GeocoderStatus.OK) {
 			
 				params['loc'] = results[0].geometry.location.toString();
-				alert(results[0].geometry.location.toString());
+			
 		}
 		else{
 			alert("Geocoder was not successful. Going to use default user location instead!")
