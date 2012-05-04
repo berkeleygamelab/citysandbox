@@ -19,7 +19,33 @@ $(document).ready( function() {
     zoom: 12,
    mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+
+  populate_markers();
+
 });
+
+function populate_markers()
+{	var uluru;
+	var marker;
+	var letter = 0;
+	<% @items.each do |item| %>
+	    uluru = new google.maps.LatLng(<%= item.lat %>, <%= item.lng %>);
+	 	 marker = new google.maps.Marker({
+	    position: uluru,
+	    map: map,
+	    draggable: false,
+		title: letter
+	  });
+	markers.push(marker);
+	letter += 1;
+	<% end %>
+}
+
+function populate_marker(entry)
+{
+	
+}
+
 function populate_content(data)
 {
 	curiosity = data;
