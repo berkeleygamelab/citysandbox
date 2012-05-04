@@ -130,7 +130,7 @@ class UsersController < ApplicationController
        File.open(path, "wb") { |f| f.write(pictureed_file.read) }
         
       #a = 0 / 0
-      item = Fleakr.picture(path)
+      item = Fleakr.upload(path)
       user.picture = "DEFAULT"
       if item != nil
         if item[0] != nil
