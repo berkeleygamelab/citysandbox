@@ -25,7 +25,8 @@ class UsersController < ApplicationController
   def create
     #picturePotential = picture_image(params[:user][:picture])
    # params[:user][:picture] = picturePotential[0].url
-    
+    puts "why dont u love me"
+    puts params[:user][:picture]
     @user = User.new(params[:user])
     @user.temp_pw = @user.password
     @user.temp_pwd = generate_random_authlogic()
