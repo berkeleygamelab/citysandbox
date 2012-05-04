@@ -34,6 +34,8 @@ class UsersController < ApplicationController
       @user.lat = a[0].to_s
       @user.lng = a[1].to_s
     end
+    puts "WHY DONT U LOVE ME"
+    puts params[:user][:picture]
     if params[:user][:picture] != nil
       picture_image(@user, params[:user][:picture])
     else
