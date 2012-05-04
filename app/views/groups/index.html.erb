@@ -163,7 +163,7 @@ function toggle_submit()
     <div id="content">
       <h5>Showing 1-10 of 100 results</h5>
 	 	<div id='radical'>
-	     	 <ol id="list_results" class="span8">
+	     	 <ol id="group_results" class="span8">
 		          <br>
 				  <% @items.each do |item| %>
 		        <li>
@@ -179,7 +179,7 @@ function toggle_submit()
 		  </div>
       <div class="span3 list_panel_right">
 		  <li> <input type="button" type="submit" class="btn" value="Map">Map&nbsp;&nbsp;<input type="button" type="submit" class="btn" value="List">List</li>
-		<%= button_to "Map", :action => :index, :controller => :map, :method => "get" %> <%= button_to "List", :action => :filterNew, :controller => :discussion, :method => "get" %>
+		<%= button_to "Map", :action => :index, :controller => :map, :method => "get" %> <%= button_to "List", :class => 'btn', :action => :filterNew, :controller => :discussion, :method => "get" %>
           <div id="form_map_canvas"></div>
           <br><br>
          
