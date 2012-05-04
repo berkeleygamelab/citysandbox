@@ -63,7 +63,7 @@ def filterNew
     end
     if current_user.nil?
       @error = "ERROR"
-      @items = []
+      @items = ItemTemplate.paginate(:page => params[:page]).where(:id => nil)
       return nil
     end
   else
