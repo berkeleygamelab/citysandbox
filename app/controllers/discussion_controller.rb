@@ -158,6 +158,7 @@ def filter
      end
      if current_user.nil?
        @error = "ERROR"
+       puts @error
        return nil
      end
    else
