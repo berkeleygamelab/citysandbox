@@ -6,7 +6,7 @@
     return Question.followed(rtn)
   end
 class ChallengesController < ApplicationController
-
+ autocomplete :category, :name
   # GET /challenges/1
   # GET /challenges/1.json
   def show

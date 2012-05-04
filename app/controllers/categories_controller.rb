@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  
 def index
 @categories = Category.find(:all,:conditions => ['name LIKE ?', "#{params[:q]}%"],  :limit => 5, :order => 'name')
 respond_to do |format|

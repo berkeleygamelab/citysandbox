@@ -40,7 +40,10 @@ Citysandbox::Application.routes.draw do
     get :auto_complete_for_category_name, :on => :collection
     get :auto_complete_category_name, :on => :collection
   end
-  resources :challenges
+  resources :challenges do
+      get :auto_complete_for_category_name, :on => :collection
+      get :auto_complete_category_name, :on => :collection
+  end
   
   post "questions/auto_complete_for_category_name" => "questions#auto_complete_for_category_name"
 

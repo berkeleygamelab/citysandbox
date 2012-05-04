@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
+   autocomplete :category, :name
   def show
     if current_user == nil
       redirect_to home_login_url
