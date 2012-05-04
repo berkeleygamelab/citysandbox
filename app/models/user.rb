@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :received_messages, :foreign_key => :received_by
   has_many :folders
   has_many :groups, :through => :memberships
-  has_many :response_templates, :as => :responder
+  has_many :response_templates
   has_many :item_templates, :through => :subscriptions
   #has_and_belongs_to_many :followees, 
 	#					  :class_name=>"user",
