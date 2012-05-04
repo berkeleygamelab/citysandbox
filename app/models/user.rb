@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   validates :location, :presence => true
   validate :name_check
   after_create :send_confirmation
-  
+  attr_accessible :upload
   
   def render_image(user)
     if user.picture != nil || user.picture != "DEFAULT"
