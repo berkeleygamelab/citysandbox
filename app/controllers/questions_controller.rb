@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
     #  @question.challenges.each { |challenge|
      #   @num_events += challenge.events.length
      # }
-     @q = @question.responses.first
+     @q = @question
      if @q.nil?
        @resp_id = nil
      else

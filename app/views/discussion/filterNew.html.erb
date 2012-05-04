@@ -5,8 +5,8 @@ $(document).ready( function() {
 	var curiosity;
 	var params = {};
 	
-	$('#mainBox')[0].onpropertychange = 'toggle_submit()';
-	$('#mainBox')[0].onchange = 'toggle_submit()';
+	$('#mainBox')[0].onpropertychange = 'toggle_submit';
+	$('#mainBox')[0].onchange = 'toggle_submit';
 	
 });
 function populate_content(data)
@@ -53,7 +53,7 @@ function toggle_submit()
 		if (status == google.maps.GeocoderStatus.OK) {
 			
 				params['loc'] = results[0].geometry.location.toString();
-				alert(params['loc']);
+			
 		}
 		else{
 			alert("Geocoder was not successful. Going to use default user location instead!")
