@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
         
     item = Fleakr.upload(path)
     user.picture = "DEFAULT"
+    puts item
     if item != nil && item[0] != nil
         user.picture = item[0].url
     end
