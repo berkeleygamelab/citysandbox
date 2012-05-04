@@ -26,7 +26,11 @@ $(document).ready( function() {
 	  <br>
 	  <%= link_to "My inbox", :action => :show, :controller => :inbox %> 
 	&nbsp;|&nbsp; 
+		<% if current_user.nil? %>
+			<%= link_to "Profile", :controller => :users, :action => :profile, :id => nil %> 
+			<% else %>
 		  <%= link_to "Profile", :controller => :users, :action => :profile, :id => current_user.id %> 
+		<% end %>
             </div>
         </div>
         <div class="row">
