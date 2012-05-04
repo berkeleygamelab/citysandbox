@@ -1,4 +1,14 @@
 
+<script type='text/javascript'>
+ var autocomplete;
+var input;
+$(document).ready( function() {
+	input = $('#mainBox')[0];
+	autocomplete = new google.maps.places.Autocomplete(input);
+});
+</script>
+
+
 <div class="row" id="navbar">
       <div class="span3">
         <%= image_tag("logo.png") %>
