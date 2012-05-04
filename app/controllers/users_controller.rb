@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   def profile
     @user = User.find(params[:id])
    # @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
-    @items = ItemTemplate.where(:user_id +> params[:id])
+    @items = ItemTemplate.where(:user_id => params[:id])
   end
   
   respond_to :json
