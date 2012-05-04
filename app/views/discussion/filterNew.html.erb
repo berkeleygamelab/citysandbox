@@ -76,7 +76,7 @@ function toggle_submit()
 	$.get('filter', params, function(data) 
 	{
 		populate_content(data);
-	})
+	});
 }
 
 function populate_content(data)
