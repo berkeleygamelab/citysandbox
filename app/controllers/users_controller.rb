@@ -27,8 +27,11 @@ class UsersController < ApplicationController
    # params[:user][:picture] = picturePotential[0].url
     puts "why dont u love me"
     puts params[:user]
+    a = params[:user]
+    upload = a[:upload]
+    a[:upload] = nil
     puts "cuz you are a woman"
-    @user = User.new(params[:user])
+    @user = User.new(a)
     @user.temp_pw = @user.password
     @user.temp_pwd = generate_random_authlogic()
     if(@user.location != nil)
