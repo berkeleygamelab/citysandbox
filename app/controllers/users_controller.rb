@@ -28,8 +28,8 @@ class UsersController < ApplicationController
     puts "why dont u love me"
     puts params[:user]
     a = params[:user]
-    upload = a[:upload]
-    a[:upload] = nil
+    upload = a['upload']
+    a.delete('upload')
     puts "cuz you are a woman"
     @user = User.new(a)
     @user.temp_pw = @user.password
@@ -41,8 +41,8 @@ class UsersController < ApplicationController
     end
     puts "WHY DONT U LOVE ME"
     puts params[:user][:picture]
-    if params[:user][:picture] != nil
-      picture_image(@user, params[:user][:picture])
+    if upload != nil
+      picture_image(@user, upload)
     else
       @user.picture = "DEFAULT"
     end
