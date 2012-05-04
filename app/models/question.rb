@@ -30,7 +30,7 @@
 	end
 	
 	def user
-	  
+	  ItemTemplate.where(:user_id => self.user_id).where(:producible_id => self.id)
   end
       
 end
