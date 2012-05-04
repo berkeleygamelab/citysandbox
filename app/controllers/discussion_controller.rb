@@ -160,7 +160,8 @@ def filter
        return nil
      end
    else
-     @location_to_grab = params[:location]
+     @location_to_grab = params[:loc]
+     puts @location_to_grab
      loc = Geocoder.coordinates(@location_to_grab)
      @location_to_grab = loc[0].to_s + " " + loc[1].to_s
      if !current_user.nil?
