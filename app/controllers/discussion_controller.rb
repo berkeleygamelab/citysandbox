@@ -164,7 +164,11 @@ def filter
      puts @location_to_grab
      loc = Geocoder.coordinates(@location_to_grab)
      puts loc
-     @location_to_grab = loc[0].to_s + " " + loc[1].to_s
+     if loc != nil
+       @location_to_grab = loc[0].to_s + " " + loc[1].to_s
+     else
+       @location_to_grab = current_user.lat.to_s + " " + current_user.lng.to_s
+     end
      if !current_user.nil?
        @my_categories -= current_user.categories
      end
