@@ -35,22 +35,7 @@
 						<dl class="response_list">
 							<dt> 
 								<img src="../oldfrontend/upboat.png" align="left"/>
-								< USERNAME > 
-							</dt>
-								<dd> 
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
-									<br>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
-								</dd>
-							<dt> 
-								<img src="../oldfrontend/upboat.png" align="left"/>
-								< USERNAME > 
-							</dt>
-								<dd> 
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. 
-									<br>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Permalink</a>&nbsp;&nbsp;<a href="#">Reply</a>
-								</dd>
+									<% render 'response_tree' %>
 							
 							
 						</dl>
@@ -58,7 +43,7 @@
 						<h3>Start a New Response Thread</h3><br>
 						<form>  
 							<label>RICH TEXT FIELD</label>
-							<% render 'response_tree' %>
+					
 							<input type="text" class="span3" placeholder="Email"> 
 							<br>
 							<label class="checkbox">

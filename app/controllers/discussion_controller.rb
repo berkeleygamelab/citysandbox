@@ -63,6 +63,7 @@ def filterNew
     end
     if current_user.nil?
       @error = "ERROR"
+      @items = []
       return nil
     end
   else
