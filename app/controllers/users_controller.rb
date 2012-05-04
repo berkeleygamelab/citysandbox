@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    #picturePotential = upload_image(params[:user][:picture])
+    #picturePotential = picture_image(params[:user][:picture])
    # params[:user][:picture] = picturePotential[0].url
     
     @user = User.new(params[:user])
@@ -32,17 +32,17 @@ class UsersController < ApplicationController
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
       @user.lat = a[0].to_s
-      @user.lng = a[1].to_s4
+      @user.lng = a[1].to_s
     end
-    if params[:user][:upload] != nil
-      upload_image(@user, params[:user][:upload])
+    if params[:user][:picture] != nil
+      picture_image(@user, params[:user][:picture])
     else
       @user.picture = "DEFAULT"
     end
     if @user.save
-      stuff = params[:upload]
+      stuff = params[:picture]
       
-      if params[:upload] == nil
+      if params[:picture] == nil
         puts "HU HO"
         
       end
@@ -113,17 +113,17 @@ class UsersController < ApplicationController
     end
   end
   
-  def upload_image(user, uploaded_file)
+  def picture_image(user, pictureed_file)
     puts "attempting to do shit with the image"
-    name =  uploaded_file.original_filename
+    name =  pictureed_file.original_filename
         
          #create the file path
         path = File.join("tmp", name)
         # write the file
-       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+       File.open(path, "wb") { |f| f.write(pictureed_file.read) }
         
       #a = 0 / 0
-      item = Fleakr.upload(path)
+      item = Fleakr.picture(path)
       user.picture = "DEFAULT"
       if item != nil
         if item[0] != nil
