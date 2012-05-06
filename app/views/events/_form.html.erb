@@ -71,6 +71,11 @@ function center_map(map) {
 	    <%= c.label :time, "Time" %><br />
 	    <%= c.datetime_select :time %>
 	  </p>
+	<p>
+    	<%= c.label :threshold , "Threshold" %>
+		<br>
+	    <%= c.text_area :minimum_to_run, :rows => 1 %>
+	</p>
 	  <p>
 		<%= c.label 'Categories: ' %>
 		<br>
@@ -80,11 +85,7 @@ function center_map(map) {
 			<% end %>
 		<br>
 	  </p>
-	<p>
-    	<%= c.label :threshold , "Threshold" %>
-		<br>
-	    <%= c.text_area :minimum_to_run, :rows => 1 %>
-	</p>
+
 	  <p>
 	 
 	  </p>

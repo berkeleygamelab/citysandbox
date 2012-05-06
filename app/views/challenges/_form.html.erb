@@ -68,6 +68,11 @@ function center_map(map) {
 		<div id="map_canvas"></div>
 	</p>
 	<p>
+    	<%= f.label :threshold , "Threshold" %>
+		<br>
+	    <%= f.text_area :minimum_to_run , :rows => 1%>
+	</p>
+	<p>
 	    <%= f.label :submission_deadline, "Submission Deadline" %>
 		<br>
 	    <%= f.datetime_select :submission_deadline %>
@@ -84,11 +89,7 @@ function center_map(map) {
 		 <% autocomplete_field_tag 'category', '', challenges_autocomplete_category_name_path, :size => 75 %>
 			<% end %>
 	</p>
-	<p>
-    	<%= f.label :threshold , "Threshold" %>
-		<br>
-	    <%= f.text_area :minimum_to_run %>
-	</p>
+
 	<%= submit_tag 'Create Your Challenge', :class => 'btn' %>
 </div>
 <% end %>
