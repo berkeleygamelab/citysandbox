@@ -77,6 +77,7 @@ end
   # POST /questions
   # POST /questions.json
   def create
+    puts "WORK IT GURL"
     @question = Question.new(params[:question])
     @question.user_id = current_user.id
     geocode = Geocoder.coordinates(@question.location)
