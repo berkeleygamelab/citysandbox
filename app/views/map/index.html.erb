@@ -1,29 +1,19 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
 
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>AppCivist Home</title>
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="assets/js/less-1.3.0.min.js"></script>
-		<script language="javascript">
-function getElementsByClassName(node,classname) {
-  if (node.getElementsByClassName) { // use native implementation if available
-    return node.getElementsByClassName(classname);
-  } else {
-    return (function getElementsByClass(searchClass,node) {
-        if ( node == null )
-          node = document;
-        var classElements = [],
-            els = node.getElementsByTagName("*"),
-            elsLen = els.length,
-            pattern = new RegExp("(^|\\s)"+searchClass+"(\\s|$)"), i, j;
+	<script language="javascript">
 
-        for (i = 0, j = 0; i < elsLen; i++) {
-          if ( pattern.test(els[i].className) ) {
-              classElements[j] = els[i];
-              j++;
-          }
-        }
-        return classElements;
-    })(classname, node);
-  }
-}
  function toggleDiv(divid){
     if(document.getElementById(divid).style.display == 'none'){
       document.getElementById(divid).style.display = 'block';
@@ -44,102 +34,107 @@ function toggle_visibility(id) {
 </script>
 </head>
 <body>
-
+	<div id="container">
+		
 		<div id="content">
-		<br>
-		<img src="../oldfrontend/dummy_listmapswitch.png" align="right" />
-		<br><br>
+			<div class="row">		
+				<div id="list_banner">	
+				<div class="span10">	
+					
+					<h1> Activity Feed </h1>
+				</div>
+				</div>
+			</div>
+			<br>			
+			<div class="row">							
+				<div class="span8">											
+						<ul class="map_view1">				
+							<li>List By<br>
+								<ul class="filter_elements">
+									<li>
+									Questions
+									</li><li>
+									Challenges
+									</li><li>
+									Events
+									</li>
+								</ul>			
+							</li>
+							
+							<li>Categories<br>
+								<ul class="filter_elements">						
+									<li class="checkbox">  
+									<input type="checkbox"> Dignity & Rights 
+									</li>
+									<li class="checkbox">  
+									<input type="checkbox"> Education 
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Health & Safety
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Public Space
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Transportation
+									</li>  					
+								</ul>
+							</li>	
+							<li>Popular<br>
+								<ul class="filter_elements">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+							<li>Personal<br>
+								<ul class="filter_elements">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+							<li>Tagged Areas<br>
+								<ul class="filter_elements">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+						</ul>
+				</div>	
+				<div class="span2">
+						<img src="../oldfrontend/dummy_listmapswitch.png">
+						<br>						
+						<b><a href="#">What's Happening</a><br>
+							<a href="#">Subscriptions</a>
+						</b>
+				</div>
+				<br><br><br>
+			</div>
+			<hr class="separator"/>
 			<div class="row">
 				<div class="span2">
-					<p>
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe1">
-								<li>
-								Questions
-								</li><li>
-								Challenges
-								</li><li>
-								Events
-								</li>
-							</ul>			
-						</li>
-						
-					</p>
-					<ul id="filter_menus">				
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe1">
-								<li>
-								Questions
-								</li><li>
-								Challenges
-								</li><li>
-								Events
-								</li>
-							</ul>			
-						</li>
-						
-						<li>
-							<a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
-							<ul class="filter_elements" style="display:block;" id="fe2">						
-								<li class="checkbox">  
-								<input type="checkbox"> Dignity and Rights 
-								</li>
-								<li class="checkbox">  
-								<input type="checkbox"> Education 
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Health & Safety
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Public Space
-								</li>  
-								<li class="checkbox">  
-								<input type="checkbox"> Transportation
-								</li>  					
-							</ul>
-						</li>	
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe3">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe4">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-						<li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
-							<ul class="filter_elements" style="display:block;"  id="fe5">
-								<li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li><li>
-								Placeholder
-								</li>
-							</ul>			
-						</li>
-					</ul>
+				a
 				</div>
-				<img src="http://placehold.it/828x635" class="span10"/>
-			
-			</div>
+				<div class="map_view1_map">
+					<img src="http://placehold.it/735x570"/>
+				</div>
+		</div>
 		
-	
-				
 	</div>
-	
-</body>
 
+</body>
+</html>
