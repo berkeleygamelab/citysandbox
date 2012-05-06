@@ -34,9 +34,7 @@
     <%= f.label 'Post anonymously' %>
   </p>
   <p>
-    <%= f.label 'Categories' %>
-    <br>
-    <%= f.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+   
   </p>
 
     <%= f.submit %>
