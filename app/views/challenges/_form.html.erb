@@ -80,9 +80,9 @@ function center_map(map) {
 	<p>
 		<%= f.label 'Categories' %>
 		<br>
-		  <%= form_for @category do |f| %>
-	        <%=  f.autocomplete_field :name, challenges_autocomplete_category_name_path %>
-	        <% end %>
+			<%= form_tag("/categories", :method => 'post') do %>
+		 <% autocomplete_field_tag 'category', '', challenges_autocomplete_category_name_path, :size => 75 %>
+			<% end %>
 	</p>
 	<p>
     	<%= f.label :threshold , "Threshold" %>
