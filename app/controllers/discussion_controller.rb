@@ -104,7 +104,7 @@ def filterNew
   end
   
  @collection = @items
- @items =  @items.paginate(:page => params[:page], :per_page => 1, :class => 'flickr_pagination')
+ @items =  @items.paginate(:page => params[:page], :per_page => 1)
  #uts @items
  @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
  
