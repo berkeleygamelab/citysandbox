@@ -74,9 +74,9 @@ function center_map(map) {
 	  <p>
 		<%= c.label 'Categories: ' %>
 		<br>
-		  <%= form_for @category do |f| %>
-	        <%=  f.autocomplete_field :name, events_autocomplete_category_name_path %>
-	        <% end %>
+		  	<%= form_tag("/categories", :method => 'post') do %>
+		 <% autocomplete_field_tag 'category', '', events_autocomplete_category_name_path, :size => 75 %>
+			<% end %>
 		<br>
 	  </p>
 	<p>
