@@ -51,6 +51,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    puts "GET IT SON"
     @event = Event.new(params[:event])
     @event.challenge_id = params[:challenge_id]
     @event.user_id = current_user.id
