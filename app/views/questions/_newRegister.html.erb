@@ -42,9 +42,7 @@
        <%= f.label 'Categories' %>
        <br>
 	
-		<%= form_tag("/categories", :method => 'post') do %>
-	 <% autocomplete_field_tag 'category', '', questions_autocomplete_category_name_path, :size => 75 %>
-		<% end %>
+
      </p>
 	<%= submit_tag 'Create Your Question', :class => 'btn' %>
 <br>  <br>  <br>  <br>  <br>
