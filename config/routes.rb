@@ -100,7 +100,9 @@ Citysandbox::Application.routes.draw do
   #   resources :mailbox
   #   resources :sent
   # end
-
+ 
+ match BADROUTE 
+ #remove this when ready to launch
 
   # resources :inbox do
   #     get '/index' => 'inbox#index', :controller => "inbox", :action => "index"
