@@ -142,7 +142,7 @@ function toggle_submit()
       $.each(data, function (index, entry)
         { html_string += '<li class="row color_question">';
         html_string += "<div class='span1' >";
-		html_string += '<img src="assets/listballoon.png" class="result_balloon"/> <div class="result_ordering">';
+		html_string += '<img src="/assets/listballoon.png" class="result_balloon"/> <div class="result_ordering">';
 		html_string += index.toString() + " ";
 		html_string += '         </div>';
 		html_string += '<img src="http://placehold.it/56x56/" class="result_img';
@@ -212,14 +212,14 @@ function toggle_submit()
             <%= will_paginate(@items) %>
 
             <br>
-            <img src="assets/dummy_searchnav.png">
+            <img src="/assets/dummy_searchnav.png">
           </ul>
 
 
           <div class="span3 list_panel_right">
-            <img src="assets/dummy_listmapswitch.png">
+            <img src="/assets/dummy_listmapswitch.png">
             <br><br>
-            <img src="assets/dummy_listmap.png">
+            <img src="/assets/dummy_listmap.png">
             <br><br>
 
 
@@ -228,7 +228,7 @@ function toggle_submit()
                 <ul class="filter_elements" style="display:block;"  id="fe1">
                   <li>
                  <input type="checkbox" value="Question" id="QuestionCheck" onClick="toggle_submit()">  Questions
-                  </li><li>
+                  </li>af<li>
                  <input type="checkbox" value="Challenge" id="ChallengeCheck" onClick="toggle_submit()">  Challenges
                   </li><li>
                   <input type="checkbox" value="Event" id="EventCheck" onClick="toggle_submit()"> Events
