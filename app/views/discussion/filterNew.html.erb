@@ -142,11 +142,10 @@ function toggle_submit()
       $.each(data, function (index, entry)
         { html_string += '<li class="row color_question">';
         html_string += "<div class='span1' >";
-		html_string += '<img src="assets/listballoon.png" class="result_balloon"/>
-          <div class="result_ordering">';
+		html_string += '<img src="assets/listballoon.png" class="result_balloon"/> <div class="result_ordering">';
 		html_string += index.toString() + " ";
 		html_string += '         </div>';
-		hml_string += '<img src="http://placehold.it/56x56/" class="result_img';
+		html_string += '<img src="http://placehold.it/56x56/" class="result_img';
 	    html_string += '	 </div> <div class="span6">  <div class="result_title"> &nbsp;';
         html_string += entry['title'];
 		html_string += " -- ";
