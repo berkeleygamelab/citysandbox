@@ -137,14 +137,30 @@ function toggle_submit()
   }
   $.get('fetch', params, function(data)
   {
-    var html_string = '<ol id="list_results" class="span8"> <br> ';
+    var html_string = ' ';
 
       $.each(data, function (index, entry)
-        { html_string += '<li>';
-        html_string += "title ";
+        { html_string += '<li class="row color_question">';
+        html_string += "<div class='span1' >";
+		html_string += '<img src="assets/listballoon.png" class="result_balloon"/>
+          <div class="result_ordering">';
+		html_string += index.toString() + " ";
+		html_string += '         </div>
+                  <img src="http://placehold.it/56x56/" class="result_img';
+	    html_string += '		 </div>
+	                <div class="span6">
+	                  <div class="result_title">
+	                  &nbsp;';
         html_string += entry['title'];
+		html_string += " -- ";
+		html_string += entry['producible_type'];
         html_string += " description";
-        html_string += entry['description'];
+		html_string += '</div>
+          <div class="result_content">';
+		html_string += "<a href = 'citysandbox.heroku.com >See More </a>";
+		html_string += "Description:";
+		html_string += entry['description'];
+        html_string += ' </div> </div>'
         html_string += '</li> <br>';
         });
       $('#radical').html(html_string);
@@ -171,6 +187,7 @@ function toggle_submit()
       </div>
       <div class="row">
           <ul id="list_results" class="span8">
+			<div id= 'radical'>
             <% @items.each_with_index do |item, index| %>
             <br>
             <li class="row color_<%= item.producible_type %>">
@@ -196,6 +213,7 @@ function toggle_submit()
 
             </li>
             <% end %>
+			</div>
             <%= will_paginate(@items) %>
             <li class="row color_event">
 
