@@ -1,4 +1,160 @@
-  <div id="container">
+<script type="text/javascript">
+var poly, map;
+ var markers = [];
+$(document).ready( function() {
+  var curiosity;
+  var params = {};
+
+  $('#mainBox')[0].onpropertychange = 'toggle_submit';
+  $('#mainBox')[0].onchange = 'toggle_submit';
+  var uluru = new google.maps.LatLng(37.8667186, -122.2533931);
+  map = new google.maps.Map(document.getElementById('form_map_canvas'), {
+    center: uluru,
+    zoom: 12,
+   mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  populate_markers();
+
+});
+
+function populate_markers()
+{ var uluru;
+  var marker;
+  var letter = 0;
+  <% @items.each do |item| %>
+      uluru = new google.maps.LatLng(<%= item.lat %>, <%= item.lng %>);
+     marker = new google.maps.Marker({
+      position: uluru,
+      map: map,
+      draggable: false,
+    title: "look at me now!"
+    });
+  markers.push(marker);
+  letter += 1;
+  <% end %>
+}
+
+function populate_marker(entry)
+{
+
+}
+
+function populate_content(data)
+{
+  curiosity = data;
+}
+ function toggleDiv(divid){
+    if(document.getElementById(divid).style.display == 'none'){
+      document.getElementById(divid).style.display = 'block';
+    }else{
+      document.getElementById(divid).style.display = 'none';
+    }
+  }
+function toggle_visibility(id) {
+
+    if(document.getElementById(id).style.display == 'block') {
+       document.getElementById(id).style.display = 'none';
+     } else {
+       document.getElementById(id).style.display = 'block';
+     }
+  }
+
+function toggle_submit()
+{
+  // deal with checkboxes for categories
+  /// for popular and my and default
+
+  // check the search box
+  /// am i doing tagged areas?
+  // check box for subscriptions
+  //check box for What's Happenign
+  // figure out the page we're on
+
+  var check;
+  var params = {};
+  params['category'] = [];
+
+  if($('#mainBox')[0].value != undefined )
+  {
+      var geocoder = new google.maps.Geocoder();
+    var temp= $('#mainBox')[0].value
+
+    geocoder.geocode( { 'address': temp}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+
+        params['loc'] = results[0].geometry.location.toString();
+
+    }
+    else{
+      alert("Geocoder was not successful. Going to use default user location instead!")
+
+    }
+    });
+
+  }
+
+  params['loc'] = '37.8715926 -122.27274699999998'
+  <% @my_areas.each do |area| %>
+    check = $('#area<%= area.id %>')[0].checked;
+  if(check)
+  {
+    params['area_id'] = <%= area.id %>;
+  }
+  <% end %>
+  <% @default_categories.each do |cat| %>
+     check = $('#default<%= cat.id %>')[0].checked;
+  if(check)
+  {
+    params['category'].push(<%= cat.id %>);
+  }
+  <% end %>
+  <% @popular_categories.each do |cat| %>
+    check = $('#popular<%= cat.id %>')[0].checked;
+  if(check)
+  {
+      params['category'].push(<%= cat.id %>);
+  }
+  <% end %>
+  <% @my_categories.each do |cat| %>
+    check = $('#my_categories<%= cat.id %>')[0].checked;
+  if(check)
+  {
+      params['category'].push(<%= cat.id %>);
+  }
+  <% end %>
+
+  var set = [];
+  params['types'] = [];
+  if($('#QuestionCheck')[0].checked)
+  { params['types'].push('Question');
+  }
+  if($('#ChallengeCheck')[0].checked)
+  { params['types'].push('Challenge');
+  }
+  if($('#EventCheck')[0].checked)
+  { params['types'].push('Event');
+  }
+  $.get('fetch', params, function(data)
+  {
+    var html_string = '<ol id="list_results" class="span8"> <br> ';
+
+      $.each(data, function (index, entry)
+        { html_string += '<li>';
+        html_string += "title ";
+        html_string += entry['title'];
+        html_string += " description";
+        html_string += entry['description'];
+        html_string += '</li> <br>';
+        });
+      $('#radical').html(html_string);
+  });
+}
+
+</script>
+
+
+<div id="container">
 
     <div id="content">
       <div class="row">
@@ -11,116 +167,36 @@
       </div>
       <br>
       <div class="row">
-        <div class="span4"><h5>Showing 1-10 of 100 results</h5></div>
+        <div class="span4"><h5>Showing results</h5></div>
       </div>
       <div class="row">
           <ul id="list_results" class="span8">
+            <% @items.each_with_index do |item, index| %>
             <br>
-            <li class="row color_question">
-
-                <div class="span1" >
-                  <img src="assets/img/listballoon.png" class="result_balloon"/>
-                  <div class="result_ordering">
-
-                    A
-                  </div>
-                  <img src="http://placehold.it/56x56/" class="result_img"/>
-                </div>
-                <div class="span6">
-                  <div class="result_title">
-                  &nbsp;
-                  TITLE -- Question
-                  </div>
-                  <div class="result_content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                  </div>
-                </div>
-
-            </li>
-            <li class="row color_event">
+            <li class="row color_<%= item.producible_type %>">
 
                 <div class="span1" >
                   <img src="assets/listballoon.png" class="result_balloon"/>
                   <div class="result_ordering">
 
-                    B
+                    <%= index %>
                   </div>
                   <img src="http://placehold.it/56x56/" class="result_img"/>
                 </div>
                 <div class="span6">
                   <div class="result_title">
                   &nbsp;
-                  TITLE -- Event
+                  <%= item.title %> -- <%= item.producible_type %>
                   </div>
                   <div class="result_content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+                  Description: <%= item.description %>
+                  <%= link_to "See More", :controller => item.producible_type.downcase + 's', :action => 'index', :id => index %>
                   </div>
                 </div>
 
             </li>
-            <li class="row color_question">
-
-                <div class="span1" >
-                  <img src="assets/img/listballoon.png" class="result_balloon"/>
-                  <div class="result_ordering">
-
-                    C
-                  </div>
-                  <img src="http://placehold.it/56x56/" class="result_img"/>
-                </div>
-                <div class="span6">
-                  <div class="result_title">
-                  &nbsp;
-                  TITLE -- Question
-                  </div>
-                  <div class="result_content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                  </div>
-                </div>
-
-            </li>
-            <li class="row color_challenge">
-
-                <div class="span1" >
-                  <img src="assets/img/listballoon.png" class="result_balloon"/>
-                  <div class="result_ordering">
-
-                    D
-                  </div>
-                  <img src="http://placehold.it/56x56/" class="result_img"/>
-                </div>
-                <div class="span6">
-                  <div class="result_title">
-                  &nbsp;
-                  TITLE -- Challenge
-                  </div>
-                  <div class="result_content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                  </div>
-                </div>
-
-            </li>
-            <li class="row color_challenge">
-
-                <div class="span1" >
-                  <img src="assets/img/listballoon.png" class="result_balloon"/>
-                  <div class="result_ordering">
-
-                    E
-                  </div>
-                  <img src="http://placehold.it/56x56/" class="result_img"/>
-                </div>
-                <div class="span6">
-                  <div class="result_title">
-                  &nbsp;
-                  TITLE -- Challenge
-                  </div>
-                  <div class="result_content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                  </div>
-                </div>
-
-            </li>
+            <% end %>
+            <%= will_paginate(@items) %>
             <li class="row color_event">
 
                 <div class="span1" >
@@ -159,11 +235,11 @@
               <li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
                 <ul class="filter_elements" style="display:block;"  id="fe1">
                   <li>
-                  Questions
+                 <input type="checkbox" value="Question" id="QuestionCheck" onClick="toggle_submit()">  Questions
                   </li><li>
-                  Challenges
+                 <input type="checkbox" value="Challenge" id="ChallengeCheck" onClick="toggle_submit()">  Challenges
                   </li><li>
-                  Events
+                  <input type="checkbox" value="Event" id="EventCheck" onClick="toggle_submit()"> Events
                   </li>
                 </ul>
               </li>
@@ -171,54 +247,40 @@
               <li>
                 <a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
                 <ul class="filter_elements" style="display:block;" id="fe2">
-                  <li class="checkbox">
-                  <input type="checkbox"> Dignity & Rights
-                  </li>
-                  <li class="checkbox">
-                  <input type="checkbox"> Education
-                  </li>
-                  <li class="checkbox">
-                  <input type="checkbox"> Health & Safety
-                  </li>
-                  <li class="checkbox">
-                  <input type="checkbox"> Public Space
-                  </li>
-                  <li class="checkbox">
-                  <input type="checkbox"> Transportation
-                  </li>
+                 <% @default_categories.each do |cat| %>
+                <li>
+                   <input type="checkbox" value="<%= cat.name %>" id="default<%= cat.id %>"onClick="toggle_submit()" > <%= cat.name %>
+                </li>
+                 <% end %>
                 </ul>
               </li>
               <li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
                 <ul class="filter_elements" style="display:none;"  id="fe3">
+                 <% @popular_categories.each do |cat| %>
                   <li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
+                   <input type="checkbox" value="<%= cat.name %>" id="popular<%= cat.id %>" onClick="toggle_submit()"> <%= cat.name %>
                   </li>
+                 <% end %>
                 </ul>
               </li>
               <li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
                 <ul class="filter_elements" style="display:none;"  id="fe4">
+                   <% @my_categories.each do |cat| %>
                   <li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
+                   <input type="checkbox" value="<%= cat.name %>" id="my_categories<%= cat.id %>" onClick="toggle_submit()"> <%= cat.name %>
                   </li>
+                 <% end %>
+
                 </ul>
               </li>
               <li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
                 <ul class="filter_elements" style="display:none;"  id="fe5">
+                    <% @my_areas.each do |area| %>
                   <li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
-                  </li><li>
-                  Placeholder
+                   <input type="checkbox" value="<%= area.title %>" id="area<%= area.id %>" onClick="toggle_submit()"> <%= area.title %>
                   </li>
+                 <% end %>
+
                 </ul>
               </li>
             </ul>
