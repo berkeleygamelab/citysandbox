@@ -1,144 +1,103 @@
+<div id="container">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    <div id="content">
+      <div class="row">
+        <div id="list_banner">
+        <div class="span10">
 
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>AppCivist Home</title>
+          <h1> Activity Feed </h1>
+        </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="span8">
+            <ul class="map_view1">
+              <li>List By<br>
+                <ul class="filter_elements">
+                  <li>
+                  Questions
+                  </li><li>
+                  Challenges
+                  </li><li>
+                  Events
+                  </li>
+                </ul>
+              </li>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="assets/js/less-1.3.0.min.js"></script>
-	<script language="javascript">
+              <li>Categories<br>
+                <ul class="filter_elements">
+                  <li class="checkbox">
+                  <input type="checkbox"> Dignity & Rights
+                  </li>
+                  <li class="checkbox">
+                  <input type="checkbox"> Education
+                  </li>
+                  <li class="checkbox">
+                  <input type="checkbox"> Health & Safety
+                  </li>
+                  <li class="checkbox">
+                  <input type="checkbox"> Public Space
+                  </li>
+                  <li class="checkbox">
+                  <input type="checkbox"> Transportation
+                  </li>
+                </ul>
+              </li>
+              <li>Popular<br>
+                <ul class="filter_elements">
+                  <li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li>
+                </ul>
+              </li>
+              <li>Personal<br>
+                <ul class="filter_elements">
+                  <li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li>
+                </ul>
+              </li>
+              <li>Tagged Areas<br>
+                <ul class="filter_elements">
+                  <li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li><li>
+                  Placeholder
+                  </li>
+                </ul>
+              </li>
+            </ul>
+        </div>
+        <div class="span2">
+            <img src="../oldfrontend/dummy_listmapswitch.png">
+            <br>
+            <b><a href="#">What's Happening</a><br>
+              <a href="#">Subscriptions</a>
+            </b>
+        </div>
+        <br><br><br>
+      </div>
+      <hr class="separator"/>
+      <div class="row">
+        <div class="span2">
+        a
+        </div>
+        <div class="map_view1_map">
+          <img src="http://placehold.it/735x570"/>
+        </div>
+    </div>
 
- function toggleDiv(divid){
-    if(document.getElementById(divid).style.display == 'none'){
-      document.getElementById(divid).style.display = 'block';
-    }else{
-      document.getElementById(divid).style.display = 'none';
-    }
-  }
-function toggle_visibility(id) {
-
-    if(document.getElementById(id).style.display == 'block') {
-       document.getElementById(id).style.display = 'none';
-     } else {
-       document.getElementById(id).style.display = 'block';
-     }
-  }
-
-
-</script>
-</head>
-<body>
-	<div id="container">
-
-		<div id="content">
-			<div class="row">		
-				<div id="list_banner">	
-				<div class="span10">	
-					
-					<h1> Activity Feed </h1>
-				</div>
-				</div>
-			</div>
-			<br>			
-			<div class="row">							
-				<div class="span8">											
-						<ul class="map_view1">				
-							<li>List By<br>
-								<ul class="filter_elements">
-									<li>
-									Questions
-									</li><li>
-									Challenges
-									</li><li>
-									Events
-									</li>
-								</ul>			
-							</li>
-							</ul>
-								<ul class="map_view1">
-							<li>Categories<br>
-								<ul class="filter_elements">						
-									<li class="checkbox">  
-									<input type="checkbox"> Dignity & Rights 
-									</li>
-									<li class="checkbox">  
-									<input type="checkbox"> Education 
-									</li>  
-									<li class="checkbox">  
-									<input type="checkbox"> Health & Safety
-									</li>  
-									<li class="checkbox">  
-									<input type="checkbox"> Public Space
-									</li>  
-									<li class="checkbox">  
-									<input type="checkbox"> Transportation
-									</li>  					
-								</ul>
-							</li>	
-							</ul>
-								<ul class="map_view1">
-							<li>Popular<br>
-								<ul class="filter_elements">
-									<li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li>
-								</ul>			
-							</li>
-							</ul
-								<ul class="map_view1">>
-							<li>Personal<br>
-								<ul class="filter_elements">
-									<li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li>
-								</ul>			
-							</li>
-							</ul>
-								<ul class="map_view1">
-							<li>Tagged Areas<br>
-								<ul class="filter_elements">
-									<li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li><li>
-									Placeholder
-									</li>
-								</ul>			
-							</li>
-						</ul>
-				</div>	
-				<div class="span2">
-						<img src="assets/dummy_listmapswitch.png">
-						<br>						
-						<b><a href="#">What's Happening</a><br>
-							<a href="#">Subscriptions</a>
-						</b>
-				</div>
-				<br><br><br>
-			</div>
-			<hr class="separator"/>
-			<div class="row">
-				<div class="span2">
-				a
-				</div>
-				<div class="map_view1_map">
-					<img src="http://placehold.it/735x570"/>
-				</div>
-		</div>
-		
-	</div>
+  </div>
 
 </body>
-</html>
