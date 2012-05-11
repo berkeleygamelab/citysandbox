@@ -1,123 +1,253 @@
+
+<script language="javascript">
+
+ function toggleDiv(divid){
+    if(document.getElementById(divid).style.display == 'none'){
+      document.getElementById(divid).style.display = 'block';
+    }else{
+      document.getElementById(divid).style.display = 'none';
+    }
+  }
+function toggle_visibility(id) {
+
+    if(document.getElementById(id).style.display == 'block') {
+       document.getElementById(id).style.display = 'none';
+     } else {
+       document.getElementById(id).style.display = 'block';
+     }
+  }
+
+
+</script>
 <div id="container">
+		
+		<div id="content">
+			<div class="row">		
+				<div id="list_banner">	
+				<div class="span10">	
+					
+					<h1> Activity Feed </h1>
+				</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="span4"><h5>Showing 1-10 of 100 results</h5></div>
+			</div>
+			<div class="row">
+					<ul id="list_results" class="span8">
+						<br>
+						<li class="row color_question">
 
-    <div id="content">
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										A							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Question
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						<li class="row color_event">
 
-      <div class="row">
-        <div id="group_profile_banner">
-        <div class="span10">
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										B							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Event
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						<li class="row color_question">
 
-          <h1> <%= @group.title %>'s Profile </h1>
-        </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="span6">
-          <ul class="unstyled list-inline">
-            <li><a href="#">Send a Message</a>
-            </li><li><a href="#">See Active Projects</a>
-            </li><li><a href="#">Subscribe</a>
-            </li><li><a href="#">Members</a></li>
-          </ul>
-        </div>
-        <div class="span4 offset1">
-          <ul class="unstyled list-inline">
-            <li><a href="#">Edit</a>
-            </li><li><a href="#">Create New Project</a>
-            </li><li><a href="#">Login as Group</a></li>
-          </ul>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="span2">
-          <img src="http://placehold.it/120x120"/>
-        </div>
-        <div class="span9">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio. Nulla cursus tempus odio et ornare. Fusce posuere, lorem sed vulputate gravida, odio purus tincidunt velit, eleifend laoreet erat quam nec risus. Fusce mauris enim, ultricies a mattis in, consectetur a purus. Nullam lacinia lectus vitae mauris interdum non convallis mi mattis. Vestibulum felis quam, viverra sit amet fermentum eu, tristique et neque. Quisque at vestibulum mauris. Morbi id nibh nisi, et consectetur urna. Etiam non mauris augue. Phasellus ullamcorper gravida justo, ut elementum lorem faucibus ac. Donec libero erat, porta at porta in, dignissim ut enim.
-        </div>
-      </div>
-      <br><br>
-      <div class="row">
-        <div class="span10"><h2> Recent Activity </h2></div>
-      </div>
-      <div class="row">
-          <ul id="user_activity">
-            <li class="row color_event">
-              <div class="span2">
-                <img src="http://placehold.it/110x60/"/>
-              </div>
-              <div class="span9">
-                <div class="user_activity_content">
-                <b>TITLE -- Event</b>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                </div>
-              </div>
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										C							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Question
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						<li class="row color_challenge">
 
-            </li>
-            <li class="row color_question">
-              <div class="span2">
-                <img src="http://placehold.it/110x60/"/>
-              </div>
-              <div class="span9">
-                <div class="user_activity_content">
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										D							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Challenge
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						<li class="row color_challenge">
 
-                <b>TITLE -- Question</b>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                </div>
-              </div>
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										E							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Challenge
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						<li class="row color_event">
 
-            </li>
-            <li class="row color_challenge">
-              <div class="span2">
-                <img src="http://placehold.it/110x60/"/>
-              </div>
-              <div class="span9">
-                <div class="user_activity_content">
-                <b>TITLE -- Challenge</b>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                </div>
-              </div>
+								<div class="span1" >
+									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<div class="result_ordering">				
+																
+										F							
+									</div>
+									<img src="http://placehold.it/56x56/" class="result_img"/>
+								</div>
+								<div class="span6">
+									<div class="result_title">
+									&nbsp;	
+									TITLE -- Event
+									</div>
+									<div class="result_content">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									</div>
+								</div>
+							
+						</li>
+						
+						<br>
+						<img src="../oldfrontend/dummy_searchnav.png">
+					</ul>
+			
+			
+					<div class="span3 list_panel_right">
+						<img src="../oldfrontend/dummy_listmapswitch.png">
+						<br><br>
+						<img src="../oldfrontend/dummy_listmap.png">
+						<br><br>
+						
+						
+						<ul id="filter_menus">				
+							<li><a href="javascript:;" onmousedown="toggle_visibility('fe1');">List By</a><br>
+								<ul class="filter_elements" style="display:block;"  id="fe1">
+									<li>
+									Questions
+									</li><li>
+									Challenges
+									</li><li>
+									Events
+									</li>
+								</ul>			
+							</li>
+							
+							<li>
+								<a href="javascript:;" onmousedown="toggle_visibility('fe2');">Categories</a><br>
+								<ul class="filter_elements" style="display:block;" id="fe2">						
+									<li class="checkbox">  
+									<input type="checkbox"> Dignity & Rights 
+									</li>
+									<li class="checkbox">  
+									<input type="checkbox"> Education 
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Health & Safety
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Public Space
+									</li>  
+									<li class="checkbox">  
+									<input type="checkbox"> Transportation
+									</li>  					
+								</ul>
+							</li>	
+							<li><a href="javascript:;" onmousedown="toggle_visibility('fe3');">Popular</a><br>
+								<ul class="filter_elements" style="display:none;"  id="fe3">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+							<li><a href="javascript:;" onmousedown="toggle_visibility('fe4');">Personal</a><br>
+								<ul class="filter_elements" style="display:none;"  id="fe4">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+							<li><a href="javascript:;" onmousedown="toggle_visibility('fe5');">Tagged Areas</a><br>
+								<ul class="filter_elements" style="display:none;"  id="fe5">
+									<li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li><li>
+									Placeholder
+									</li>
+								</ul>			
+							</li>
+						</ul>
+					</div>		
+				<br><br><br>
+			</div>
+		</div>
+		
+	</div>
 
-            </li>
-            <li class="row color_event">
-              <div class="span2">
-                <img src="http://placehold.it/110x60/"/>
-              </div>
-              <div class="span9">
-                <div class="user_activity_content">
-                <b>TITLE -- Event</b>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                </div>
-              </div>
-
-            </li>
-            <li class="row color_question">
-              <div class="span2">
-                <img src="http://placehold.it/110x60/"/>
-              </div>
-              <div class="span9">
-                <div class="user_activity_content">
-
-                <b>TITLE -- Question</b>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
-                </div>
-              </div>
-
-            </li>
-          </ul>
-      </div>
-
-
-
-
-
-
-    </div>
-  </div>
 </body>
