@@ -1,4 +1,4 @@
-class DiscussionController < ApplicationController
+cs appclass DiscussionController < ApplicationController
 
 def qr
   @url = params[:format]
