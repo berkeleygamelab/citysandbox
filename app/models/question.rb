@@ -1,7 +1,7 @@
 
  class Question < ActiveRecord::Base
   has_many :challenges
-
+  belongs_to :user
   attr_accessor :most_recent, :lat, :lng, :anonymous
   acts_as :item_template, :as => :producible
 
@@ -28,6 +28,10 @@
 	def generate_content
 		return {"anonymous?"=>anonymous?}
 	end
+	
+	def user
+	  ItemTemplate.where(:user_id => self.user_id).where(:producible_id => self.id)
+  end
       
 end
 

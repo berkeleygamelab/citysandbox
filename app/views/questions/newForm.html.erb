@@ -95,87 +95,22 @@ function center_map(map) {
         <div class="row span6 question_form">
             <h3>I want to ask about...</h3><br>
 
-            <%= form_for(@question) do |f| %>
-          <% if @question.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-              <ul>
-              <% @question.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <p>
-            <%= f.hidden_field :lat %>
-            <%= f.hidden_field :lng %>
-            <%= f.label :title %> <font size='1px'>(Character Limit: 255)</font>
-            <br>
-            <%= f.text_area :title, :rows=>2 %>
-          </p>
-          <p>
-            <%= f.label :location %> <font size='1px'>(Character Limit: 100)</font>
-            <br>
-            <%= f.text_area :location, :rows=>1, :placeholder=>"" %>
-            <br>
-            <br>
-            <br>
-            <div id="form_map_canvas"></div>
-          </p>
-          <p>
-            <%= f.label :description %> <font size='1px'>(Character Limit: 800)</font>
-            <br>
-            <%= f.text_area :description, :rows=>3 %>
-          </p>
-          <p>
-            <%= f.label "Upload a picture:" %>
-            <%= f.file_field :picture %>
-          </p>
-          <p>
-            <%= f.check_box :anonymous %>
-            <%= f.label 'Post anonymously' %>
-          </p>
-          <p>
-            <%= f.label 'Categories' %>
-            <br>
-            <%= form_for @category do |f| %>
-            <%=  f.autocomplete_field :name, questions_autocomplete_category_name_path %>
-            <% end %>
-          </p>
-
-            <%= f.submit %>
-        <% end %>
+    		<%= render 'newRegister' %>
         </div>
         <div class="span5">
             <h3> Sample questions asked in <input name="box1" id="box1" type="text" class="span2" placeholder="Berkeley, CA"/> </h3>
           <ul class="related_list unstyled">
+			<% @samples.each do |sample| %>
             <li class="row">
               <a href="#" >
               <img src="http://placehold.it/98x50" class="span2" align="left" />
               </a>
               <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
+              <h4><%= sample.title %></h4>
+             Description: <%= sample.description %>
               </div>
             </li>
-            <li class="row">
-              <a href="#" >
-              <img src="http://placehold.it/98x50" class="span2" align="left" />
-              </a>
-              <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
-              </div>
-            </li>
-            <li class="row">
-              <a href="#" >
-              <img src="http://placehold.it/98x50" class="span2" align="left" />
-              </a>
-              <div class="span3">
-              <h4>Question Title</h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum.
-              </div>
-            </li>
+			<% end %>
           </ul>
         </div>
 

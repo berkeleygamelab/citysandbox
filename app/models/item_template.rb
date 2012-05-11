@@ -1,11 +1,13 @@
 class ItemTemplate < ActiveRecord::Base
   acts_as_superclass
   attr_accessible :lat, :lng
+  has_many :subscriptions
+  has_many :categoryholders
   belongs_to :item, :polymorphic => true
   has_many :categories, :through => :categoryholders
   has_many :notification
   has_many :users, :through => :subscriptions
-  has_many :response_templates
+  has_many :response_templates, :foreign_key => :item_id
   #validates :user_id, :presence => true
     validates :title, :presence => true
     validates :location, :presence => true
@@ -13,9 +15,13 @@ class ItemTemplate < ActiveRecord::Base
   scope :has_category,       lambda{ |n| { :conditions => { :categories_id => n}}}
   scope :has_title, lambda{|name| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ?", "% " + name + " %", name, name + " %"]}}
   scope :keyword, lambda{|key| {:conditions => ["title LIKE ? OR title LIKE ? OR title LIKE ? OR description LIKE ? OR description LIKE ? OR description LIKE ?", "% " + key + " %", key, key + " %", "% " + key + " %", key, key + " %" ]}}
-
+  belongs_to :user
   def category_id
       return cat_id
+  end
+
+  def responses
+    return self.response_templates
   end
 
   def generate_content
@@ -28,9 +34,9 @@ class ItemTemplate < ActiveRecord::Base
     contentHash.add("update_time"=>update_time)
     contentHash.add("popularity"=>popularity)
     contentHash.add("cat_name"=>Category.find(cat_id))
-    contentHash.add("type"=>type)
+    contentHash.add("type"=>producible_type)
     hash = {}
-    case type
+    case producible_type
       when "question"
         hash =Question.find(item_id).generate_content
       when "event"
@@ -108,15 +114,22 @@ class ItemTemplate < ActiveRecord::Base
       result = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, #{points})) AND TYPE = #{x}"
   end
 
-  def grab_circle(radius, target_loc,typearray)
+  def grab_circle_type(radius, target_loc,typearray)
       @table = ENV['csb_locations']
       @lat = target_loc.split[0].to_f
       @lng = target_loc.split[1].to_f
-    resulthash = {}
+    resultSet = []
     typearray.each do |x|
-      resulthash[x] = ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
+      hashArray= ::FT.execute "SELECT * FROM #{@table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@lat}, #{@lng}), #{radius})) AND Type = '#{x}' "
+      	result = []
+      	puts hashArray.size
+    		hashArray.each do |val|
+    			resultSet += [val[:id].to_i]
+    			end 
       end
-    return resulthash
+      puts resultSet
+      puts "IMA FIRING LAZER BEAMS"
+    return ItemTemplate.where(:id => resultSet)
   end
   def sift_circle(radius, target_loc, set)
       circles = grab_circle(distance, target_loc)
@@ -178,14 +191,20 @@ class ItemTemplate < ActiveRecord::Base
     return ItemTemplate.find(:all, :conditions => ["updated_at > ? AND type IN (?)", since_last, types]).where()
     end
 
-
-
-  #def grab_circle(distance, target_loc)
-   #  @events_table = ENV['csb_locations']
-    # @loc_x = target_loc.split[0].to_f
-     # @loc_y = target_loc.split[1].to_f
-     #return ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
-  #end
+    
+	 
+	def grab_circle(distance, target_loc)
+		@events_table = ENV['csb_locations']
+		@loc_x = target_loc.split[0].to_f
+		@loc_y = target_loc.split[1].to_f
+		hashArray = ::FT.execute "SELECT * FROM #{@events_table} WHERE ST_INTERSECTS(Location, CIRCLE(LATLNG(#{@loc_x}, #{@loc_y}), #{distance}))"
+		result = []
+		hashArray.each do |x|
+			result += [x[:id].to_i]
+			end
+		return result
+	end
+   
 
    def grab_nearest(number)
   @item_table = ENV['csb_locations']
@@ -212,15 +231,25 @@ class ItemTemplate < ActiveRecord::Base
   end
 
   def sift_keyword(key)
-  return sift_keyword_title(key) + sift_keyword_description(key)+sift_keyword_responses(key)
+  return sift_keywor3d_title(key) + sift_keyword_description(key)+sift_keyword_responses(key)
   end
 
-  def sift_location(area)
-    set = area.coordinates
-    lineEquation = []
-    set.each do |point|
 
-    end
+  def notify(msg_id, s_id, r_id)
+     @title = params[:title]
+     @body =  params[:message]
+     sent_mail = sent_message.new(:subject => @title, :body => @body, :sender_id => s_id, created_at => nil)
+     received_mail = received_mail.new(:recipient_id => r_id, :folder_id => params[:folderID], :sent_message_id => sent_mail.id)
+     return received_mail
+   end
+
+  
+  def kludgy_related_similar()
+    return ItemTemplate.where("producible_id != ?", self.producible_id).where(:producible_type => self.producible_type).limit(3)
   end
 
+  def kludgy_related_other
+    return ItemTemplate.where("producible_id != ?", self.producible_type).limit(3)
+  end
+  
 end

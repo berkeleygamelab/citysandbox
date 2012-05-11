@@ -85,10 +85,16 @@ footer a {
 #map_view {
 	margin-left: 600px;
 	background: url('../images/header_tab.png');
-	width:130px;
-	height:33px;
+	width:194px;
+	height:204px;
 	margin-bottom:0px;
 	text-align:center;
+}
+#list_map
+{
+	
+	height:200px;
+	width:200px;
 }
 #ask_question {
 	margin-left: 725px;

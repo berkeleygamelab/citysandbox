@@ -30,7 +30,7 @@ Citysandbox::Application.routes.draw do
   match "/qr" => 'discussion#qr'
   match "/validate" => 'users#validate'
   match "/users/profile/:id" => 'users#profile'
-
+  match "fetch" => "discussion#filter"
   match "ugh" => "questions#auto"
   resources :questions do
     match "/auto" => "questions#auto"
@@ -40,17 +40,22 @@ Citysandbox::Application.routes.draw do
     get :auto_complete_for_category_name, :on => :collection
     get :auto_complete_category_name, :on => :collection
   end
-
+  resources :challenges do
+      get :auto_complete_for_category_name, :on => :collection
+      get :auto_complete_category_name, :on => :collection
+  end
+  
   post "questions/auto_complete_for_category_name" => "questions#auto_complete_for_category_name"
+  post "challenges/auto_complete_for_category_name" => "challenges#auto_complete_for_category_name"
+  post "events/auto_complete_for_category_name" => "events#auto_complete_for_category_name"
+  get "questions/autocomplete_category_name"
+  get "events/autocomplete_category_name"
+  get "challenges/autocomplete_category_name"
 
   resources :events do
     resources :response_events, :shallow => true
-  end
-
-  resources :challenges do
-    resources :response_challenges, :shallow => true
-    resources :proposals, :shallow => true
-    resources :events
+    get :auto_complete_for_category_name, :on => :collection
+    get :auto_complete_category_name, :on => :collection
   end
 
   resources :discussion do

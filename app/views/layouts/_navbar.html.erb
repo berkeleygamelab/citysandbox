@@ -1,4 +1,14 @@
 
+<script type='text/javascript'>
+ var autocomplete;
+var input;
+$(document).ready( function() {
+	input = $('#mainBox')[0];
+	autocomplete = new google.maps.places.Autocomplete(input);
+});
+</script>
+
+
 <div class="row" id="navbar">
       <div class="span3">
         <%= image_tag("logo.png") %>
@@ -7,12 +17,20 @@
         <div class="row">
           <div class="span3 offset7">
             <%= link_to "Register", :action => :new, :controller => :users %>
-           <
+           &nbsp;|&nbsp; 
       <% if current_user.nil? %>
            <%= link_to "Login", :action => :new, :controller => :sessions %>
       <% else %>
        <%= link_to "Logout", :action => :destroy, :controller => :sessions %>
       <% end %>
+	  <br>
+	  <%= link_to "My inbox", :action => :show, :controller => :inbox %> 
+	&nbsp;|&nbsp; 
+		<% if current_user.nil? %>
+			<%= link_to "Profile", :controller => :users, :action => :profile, :id => 1 %> 
+			<% else %>
+		  <%= link_to "Profile", :controller => :users, :action => :profile, :id => current_user.id %> 
+		<% end %>
             </div>
         </div>
         <div class="row">
@@ -21,7 +39,7 @@
           </div>
           <div class="span3">
             <form class="navbar-form pull-left navform">
-                <input type="text" class="span3" name="mainBox" id="mainBox" value="Berkeley, CA" onchange="setBoxes(this.value)">
+                <input type="text" class="span3" name="mainBox" id="mainBox" value="Berkeley, CA">
             </form>
           </div>
         </div>
@@ -32,8 +50,8 @@
               <ul class="nav">
                 <li> <%= link_to "Ask Questions", :controller => :questions, :action => :new %> </li>
                 <li> <%= link_to "Connect to Others", :controller => :groups, :action => :index %>Connect to Others %> </li>
-                <li> <%= link_to "Post Challenges", :controller => :challenges,:action => :new %> </li>
-                <li> <%= link_to "Organize Events", :controller => :events, :action => :new %> </li>
+                <li> <%= link_to "Post Challenges", :controller => :challenges,:action => :challengeNew %> </li>
+                <li> <%= link_to "Organize Events", :controller => :events, :action => :eventNew %> </li>
                 <li><a href="projects">Projects</a></li>
               </ul>
 

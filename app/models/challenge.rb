@@ -1,6 +1,5 @@
 class Challenge < ActiveRecord::Base
   has_many :proposals
-
   has_many :events
   acts_as :item_template, :as => :producible
 
@@ -144,6 +143,8 @@ class Challenge < ActiveRecord::Base
          end
          return set.followed(rtn)
        end
-
+     	def user
+     	  ItemTemplate.where(:user_id => self.user_id).where(:producible_id => self.id)
+       end
 
 end

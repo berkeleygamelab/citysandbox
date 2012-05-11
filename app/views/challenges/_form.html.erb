@@ -48,6 +48,8 @@ function center_map(map) {
     </div>
   <% end %>
 	<%= f.hidden_field :question_id %>
+	<%= f.hidden_field :lat %>
+    <%= f.hidden_field :lng %>
 	<p>
 		<%= f.label :title %>
 		<br>
@@ -66,21 +68,28 @@ function center_map(map) {
 		<div id="map_canvas"></div>
 	</p>
 	<p>
+    	<%= f.label :threshold , "Threshold" %>
+		<br>
+	    <%= f.text_area :minimum_to_run , :rows => 1%>
+	</p>
+	<p>
 	    <%= f.label :submission_deadline, "Submission Deadline" %>
 		<br>
 	    <%= f.datetime_select :submission_deadline %>
 	</p>
 	<p>
-    	<%= f.label :vote_deadline , "Vote Deadline" %>
+    	<%= f.label :voting_deadline , "Vote Deadline" %>
 		<br>
-	    <%= f.datetime_select :vote_deadline %>
+	    <%= f.datetime_select :voting_deadline %>
 	</p>
 	<p>
 		<%= f.label 'Categories' %>
 		<br>
-		<%= f.select(:categories_id, Categories.all.collect {|c| [ c.category, c.id] }, {:include_blank => 'Other'})%>
+			<%= form_tag("/categories", :method => 'post') do %>
+		 <% autocomplete_field_tag 'category', '', challenges_autocomplete_category_name_path, :size => 75 %>
+			<% end %>
 	</p>
-<div class="actions">
-  <%= f.submit %>
+
+	<%= submit_tag 'Create Your Challenge', :class => 'btn' %>
 </div>
 <% end %>

@@ -23,25 +23,33 @@ class UsersController < ApplicationController
   end
 
   def create
-    #picturePotential = upload_image(params[:user][:picture])
+    #picturePotential = picture_image(params[:user][:picture])
    # params[:user][:picture] = picturePotential[0].url
-    
-    @user = User.new(params[:user])
+    puts "why dont u love me"
+    puts params[:user]
+    a = params[:user]
+    upload = a['upload']
+    a.delete('upload')
+    puts "cuz you are a woman"
+    @user = User.new(a)
+    @user.temp_pw = @user.password
     @user.temp_pwd = generate_random_authlogic()
     if(@user.location != nil)
       a = Geocoder.coordinates(@user.location)
-      #@user.lat = a[0].to_s
-      #@user.lng = a[1].to_s
+      @user.lat = a[0].to_s
+      @user.lng = a[1].to_s
     end
-    if params[:user][:upload] != nil
-      upload_image(@user, params[:user][:upload])
-    else
-      @user.picture = "DEFAULT"
-    end
+    puts "WHY DONT U LOVE ME"
+    puts params[:user][:picture]
+    
+   
     if @user.save
-      stuff = params[:upload]
-      
-      if params[:upload] == nil
+       if upload != nil
+          picture_image(@user, upload)
+        else
+          @user.picture = "DEFAULT"
+        end
+      if params[:picture] == nil
         puts "HU HO"
         
       end
@@ -50,6 +58,7 @@ class UsersController < ApplicationController
       #@user.save
       redirect_to summary_path
     else
+      puts "AHAH"
       render "new"
     end
   end
@@ -83,7 +92,8 @@ class UsersController < ApplicationController
   
   def profile
     @user = User.find(params[:id])
-    @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
+   # @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
+    @items = ItemTemplate.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 15)
   end
   
   respond_to :json
@@ -110,14 +120,14 @@ class UsersController < ApplicationController
     end
   end
   
-  def upload_image(user, uploaded_file)
+  def picture_image(user, pictureed_file)
     puts "attempting to do shit with the image"
-    name =  uploaded_file.original_filename
+    name =  pictureed_file.original_filename
         
          #create the file path
         path = File.join("tmp", name)
         # write the file
-       File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+       File.open(path, "wb") { |f| f.write(pictureed_file.read) }
         
       #a = 0 / 0
       item = Fleakr.upload(path)
@@ -127,7 +137,7 @@ class UsersController < ApplicationController
           user.picture = item[0].url
         end
       end
-    
+     user.save
   end
 
 end

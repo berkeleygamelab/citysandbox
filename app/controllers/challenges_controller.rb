@@ -6,10 +6,12 @@
     return Question.followed(rtn)
   end
 class ChallengesController < ApplicationController
-
+ autocomplete :category, :name
   # GET /challenges/1
   # GET /challenges/1.json
   def show
+    
+   
     if current_user == nil
       redirect_to home_login_url
     else
@@ -31,7 +33,11 @@ class ChallengesController < ApplicationController
 
   def challengeNew
     @challenge = Challenge.new
-
+    @category =  Category.new
+    @sample = Question.all.pop
+    @samples = @sample.kludgy_related_similar()
+    
+    puts "eh"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @challenge }
@@ -133,4 +139,7 @@ end
       format.json { head :ok }
     end
   end
+  
+
+  
 end

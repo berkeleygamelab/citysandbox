@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
+   autocomplete :category, :name
   def show
     if current_user == nil
       redirect_to home_login_url
@@ -22,7 +23,9 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
-
+@category = Category.new
+@sample = Question.all.pop
+@samples = @sample.kludgy_related_similar()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
@@ -31,6 +34,9 @@ class EventsController < ApplicationController
 
   def eventNew
   @event = Event.new 
+  @category = Category.new
+  @sample = Question.all.pop
+  @samples = @sample.kludgy_related_similar()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
@@ -45,6 +51,11 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    puts "GET IT SON"
+    puts params
+    puts "YOU AND ME AGAINST THE WORLD"
+    puts params[:category]
+    puts "CATEGRY"
     @event = Event.new(params[:event])
     @event.challenge_id = params[:challenge_id]
     @event.user_id = current_user.id

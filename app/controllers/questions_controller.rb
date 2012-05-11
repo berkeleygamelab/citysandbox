@@ -11,16 +11,24 @@ class QuestionsController < ApplicationController
       redirect_to home_login_url
     else
       @question = Question.where(:id => params[:id])[0]
-      @category = Categories.find(@question.category_id)
+      @user = User.where(:id => @question.user_id).first
+      @categories = @question.categories
 
-      @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
-      @followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
+  #    @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
+      #@followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0
 
-      @num_events = 0
-      @question.challenges.each { |challenge|
-        @num_events += challenge.events.length
-      }
-
+     # @num_events = 0
+    #  @question.challenges.each { |challenge|
+     #   @num_events += challenge.events.length
+     # }
+     puts 'do we play by the same rules brah?'
+     @q = @question
+     if @q.nil?
+       @resp_id = nil
+     else
+     @resp_id = @q.id
+     @responses = ResponseTemplate.where(:item_id => @q.producible_id).where(:parent_id => nil)
+     end
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @question }
@@ -32,7 +40,9 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
-
+    @category = Category.new
+    @sample = Question.all.pop
+    @samples = @sample.kludgy_related_similar()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @question }
@@ -48,13 +58,14 @@ format.js # auto.js.erb
 format.json { render :json => @cities }
 end
 
-  end
-
+end
 
   def newForm
     @question = Question.new
     @category = Category.new
     @categories = Category.all
+     @sample = Question.all.pop
+      @samples = @sample.kludgy_related_similar()
     puts "BLEEP BLOOP BLEEP BLEEP"
   end
 
@@ -66,9 +77,12 @@ end
   # POST /questions
   # POST /questions.json
   def create
+    puts "WORK IT GURL"
     @question = Question.new(params[:question])
-    @question.user = current_user
-
+    @question.user_id = current_user.id
+    geocode = Geocoder.coordinates(@question.location)
+    @question.lat = geocode[0].to_s
+    @question.lng = geocode[1].to_s
     respond_to do |format|
       if @question.save
         @question.insert_location(@question.lat + ', ' + @question.lng)

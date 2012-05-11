@@ -2,18 +2,23 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.new
-    user = User.find_by_login(params[:login])
-    if user && user.authenticate(params[:password])
+    puts "WHAT"
+    puts params[:login]
+    puts params[:password]
+    user = User.where(:login => params[:login]).first
+    puts user
+
+    if user && user.cheatAuth(params[:password])
       session[:user_id] = user.id
-      redirect_to summary_path
+      redirect_to "/filter"
     else
-      redirect_to home_login_path
+      redirect_to "fail"
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url
+    redirect_to :controller => :home, :action => :splash
   end
 
   def new
