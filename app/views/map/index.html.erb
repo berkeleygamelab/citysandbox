@@ -234,7 +234,16 @@ function toggle_submit()
       <hr class="separator"/>
       <div class="row">
         <div class="span2">
-        a
+        <% @items.each_with_index do |item, index| %>
+		<li>
+			Item Number: <%= index %>
+			<br>
+			Title: <%= item.title %>
+			<br>
+			Description: <%= item.description %>
+		</li>
+			<% end %>
+
         </div>
         <div id="mapview_map">
         </div>
