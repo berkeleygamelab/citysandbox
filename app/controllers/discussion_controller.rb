@@ -162,12 +162,18 @@ def filter
        return nil
      end
    else
+     if !current_user.nil?
+       @location_to_grab = current_user.lat.to_s + " " + current_user.lng.to_s
+       @my_categories = current_user.categories
+       @my_areas = current_user.tagged_areas
+     else
      @location_to_grab = params[:location]
      loc = Geocoder.coordinates(@location_to_grab)
      @location_to_grab = loc[0].to_s + " " + loc[1].to_s
      if !current_user.nil?
        @my_categories -= current_user.categories
      end
+   end
    end
 
 
