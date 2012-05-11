@@ -99,4 +99,15 @@ class GroupsController < ApplicationController
     @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
 
   end
+  
+  def edit
+  end
+  
+  
+  
+  def members
+  end
+  
+  def project
+  end
 end
