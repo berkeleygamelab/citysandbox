@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     a = params[:user]
     upload = a['upload']
     a.delete('upload')
-    puts "cuz you are a woman"1
+    puts "cuz you are a woman"
     @user = User.new(a)
     @user.login = a['login']
     @user.email = a['email']
