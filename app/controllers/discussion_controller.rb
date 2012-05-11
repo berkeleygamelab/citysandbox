@@ -39,14 +39,14 @@ def filterNew
   @radius = params[:radius]
   @following = params[:following]
   @popular = params[:popular]
-  
-  
+
+
   @default_categories = Category.where(:default_cat => true)
   @my_categories = []
   @popular_categories = []
   @my_areas = []
-  
-  
+
+
   if(@location_to_grab == nil)
     if !current_user.nil?
 
@@ -66,38 +66,17 @@ def filterNew
   @keyword = params[:keyword]
   if @types == nil
     @types = ["Question","Challenge","Event"]
-  end 
+  end
   @dummy = ItemTemplate.new
   if @radius == nil
     @radius = 25000
   end
   @items = @dummy.grab_circle(@radius, @location_to_grab, @types)
   @collection = []
-  @items.each do |hash|
-    if !@types.include?(hash['Type'])
-      @items.delete(hash)
-      next
-      end
-    if !@cat_id.nil? and !(hash['Category']==@cat_id)
-      @items.delete(hash)
-      next
-    end
-    currentItem = ItemTemplate.find_by_id(hash['Id'])
-    currentContentHash = currentItem.generate_content
-    if !(currentContentHash["created_at"]>@startDate and currentContentHash["crated_at"]<@endDate)
-      @items.delete(hash)
-      next
-      end
-    if !(currentContentHash["popularity"]>@popular)
-      @items.delete(hash)
-      next
-      end
-    if !(currentContentHash["title"].include? @keyword or currentContentHash["description"].include? @keyword)
-      @items.delete(hash)
-      next
-      end
-    @collection = @collection + [currentContentHash]
- end
+  @itemsArray = []
+  @items.each do |key , value|
+    @itemsArray += [value]
+  end
   return @collection
 
 end
