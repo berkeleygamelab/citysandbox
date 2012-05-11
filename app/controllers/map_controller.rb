@@ -87,9 +87,9 @@ class MapController < ApplicationController
   end
 
  @collection = @items
- @items =  @items.paginate(:page => params[:page], :per_page => 1)
+ @items =  @items.paginate(:page => params[:page], :per_page => 5)
  #uts @items
- @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5
+ @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
 
  end
 
