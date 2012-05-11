@@ -19,7 +19,11 @@ Citysandbox::Application.routes.draw do
 
   resources :categories
 
-  resources :groups
+  resources :groups do
+    get '/members' => "groups#members"
+    get '/project' => "groups#project"
+    ge '/edit' => "groups#edit"
+  end
 
   match '/users/validate' => 'users#validate'
   match "/vote" => "proposals#vote"
