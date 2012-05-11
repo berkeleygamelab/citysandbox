@@ -36,6 +36,11 @@ Citysandbox::Application.routes.draw do
   match "/users/profile/:id" => 'users#profile'
   match "fetch" => "discussion#filter"
   match "ugh" => "questions#auto"
+  
+  match '/groups/members' => "groups#members"
+  match '/groups/project' => "groups#project"
+  match '/groups/edit' => "groups#edit"
+  
   resources :questions do
     match "/auto" => "questions#auto"
     resources :response_questions, :shallow => true
