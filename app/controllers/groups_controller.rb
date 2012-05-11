@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
      @my_categories = current_user.categories
      @my_areas = current_user.tagged_areas
      @popular_categories = []
-     @items = @items.paginate(:page => params[:page], :per_page => 5)
+     #@items = @items.paginate(:page => params[:page], :per_page => 5)
     #uts @items
     @item_templates = ItemTemplate.paginate(:page => params[:page], :per_page => 5)
 
