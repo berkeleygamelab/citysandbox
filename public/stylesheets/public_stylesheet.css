@@ -417,7 +417,7 @@ footer a {
 /* MAP */
 #mapview_map {
 	border: 0;
-	height:700px;
+	height:500px;
 	width:740px;
 }
 #city {
@@ -446,4 +446,14 @@ footer a {
 	background-color: #DDDDDD;
 	font-size:20px;
 	box-shadow: none;
+}
+
+#group_results {
+	list-style-type: none;
+}
+#group_results li {
+	border-style:solid;
+	height: 160px;
+	margin: 5px 0px 5px 0px;
+	padding: 3px;
 }
