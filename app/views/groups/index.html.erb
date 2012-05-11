@@ -38,27 +38,32 @@ Not satisfied with the groups here? <input type='button' class='btn' value='star
 			<div class="row">
 					<ul id="list_results" class="span8">
 						<br>
-						<li class="row color_question">
+						<% @groups.each_with_index do |group, index| %>
+						<li class="row color_question" height="160px">
 
 								<div class="span1" >
-									<img src="assets/img/listballoon.png" class="result_balloon"/>
+									<img src="assets/listballoon.png" class="result_balloon"/>
 									<div class="result_ordering">				
 																
-										A							
+								    <%= index %>							
 									</div>
 									<img src="http://placehold.it/56x56/" class="result_img"/>
 								</div>
+								
 								<div class="span6">
 									<div class="result_title">
 									&nbsp;	
-									TITLE -- Question
+									 <%= group.title %>
 									</div>
 									<div class="result_content">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula mi non metus sollicitudin in porta nunc condimentum. Cras eleifend, mauris vitae pretium varius, nisl urna laoreet ligula, sit amet lacinia est sem tincidunt odio.
+									<%= group.description %> 
+									Members: 
+									Projects:
 									</div>
 								</div>
 							
 						</li>
+						<% end %>
 						<li class="row color_event">
 
 								<div class="span1" >
