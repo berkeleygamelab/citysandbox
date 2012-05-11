@@ -3,6 +3,9 @@ class EventsController < ApplicationController
   # GET /events/1.json
    autocomplete :category, :name
   def show
+    @sample = Event.all.pop
+     @samples = @sample.kludgy_related_similar()
+     @different_samples = sample.kludgy_related_other()
     if current_user == nil
       redirect_to home_login_url
     else

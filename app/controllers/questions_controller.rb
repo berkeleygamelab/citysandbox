@@ -16,6 +16,10 @@ class QuestionsController < ApplicationController
         @user = User.where(:id => 15).first
       end
       @categories = @question.categories
+      
+       @sample = Question.all.pop
+        @samples = @sample.kludgy_related_similar()
+        @different_samples = sample.kludgy_related_other()
 
   #    @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
       #@followed_user = current_user.followed_users.where(:followed_user_id => @question.user_id).size != 0

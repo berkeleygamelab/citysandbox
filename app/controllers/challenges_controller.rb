@@ -11,7 +11,9 @@ class ChallengesController < ApplicationController
   # GET /challenges/1.json
   def show
     
-   
+    @sample = Challenge.all.pop
+     @samples = @sample.kludgy_related_similar()
+     @different_samples = sample.kludgy_related_other()
     if current_user == nil
       redirect_to home_login_url
     else
