@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
 
   def index
     
-    @items = Group.all
+    @groups = Group.all
      @default_categories = Category.where(:default_cat => true)
      @my_categories = current_user.categories
      @my_areas = current_user.tagged_areas
