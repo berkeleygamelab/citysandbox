@@ -85,7 +85,8 @@ function load()
 
   $.post("draw", { coordinates: stuff, taggedArea: words},
    function(data) {
-      alert(data);
+      alert("You have entered a new map into the database!");
+		window.location = "http://google.com";
    });
 }
 

@@ -417,8 +417,8 @@ footer a {
 /* MAP */
 #mapview_map {
 	border: 0;
-	height:960px;
-	width:960px;
+	height:700px;
+	width:740px;
 }
 #city {
 	padding: 25px;
