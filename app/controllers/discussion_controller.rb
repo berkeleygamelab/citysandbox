@@ -42,7 +42,7 @@ def filterNew
   @radius = params[:radius]
   @following = params[:following]
   @popular = params[:popular]
-<
+
 
   @pages = params[:pages]
   #set default pages
