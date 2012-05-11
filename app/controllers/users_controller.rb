@@ -6,14 +6,14 @@ class UsersController < ApplicationController
      1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
      return newpass
   end
-  
+
   def generate_random_authlogic()
     random_length = 10
     temp = random_string(random_length)
     temp_pwd = temp
     return temp_pwd
   end
-  
+
   def new
     @user = User.new
   end
@@ -30,8 +30,12 @@ class UsersController < ApplicationController
     a = params[:user]
     upload = a['upload']
     a.delete('upload')
-    puts "cuz you are a woman"
+    puts "cuz you are a woman"1
     @user = User.new(a)
+    @user.login = a['login']
+    @user.email = a['email']
+    @user.location = a['location']
+    @user.password = a['password']
     @user.temp_pw = @user.password
     @user.temp_pwd = generate_random_authlogic()
     if(@user.location != nil)
@@ -41,8 +45,8 @@ class UsersController < ApplicationController
     end
     puts "WHY DONT U LOVE ME"
     puts params[:user][:picture]
-    
-   
+
+
     if @user.save
        if upload != nil
           picture_image(@user, upload)
@@ -51,7 +55,7 @@ class UsersController < ApplicationController
         end
       if params[:picture] == nil
         puts "HU HO"
-        
+
       end
       puts "LE PICTURE"
      # @user.picture = picturePotential[0].url
@@ -62,7 +66,7 @@ class UsersController < ApplicationController
       render "new"
     end
   end
-  
+
   def update
      @user = User.find(session[:user_id])
 
@@ -76,7 +80,7 @@ class UsersController < ApplicationController
        end
      end
    end
-  
+
   def destroy
     if not User.exists?(params[:user])
       redirect_to root_url, :notice => "User not found"
@@ -89,21 +93,21 @@ class UsersController < ApplicationController
       format.xml {head :ok}
     end
   end
-  
+
   def profile
     @user = User.find(params[:id])
    # @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
     @items = ItemTemplate.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 15)
   end
-  
+
   respond_to :json
-  
+
   def recent
     @user = User.find(session[:user_id])
     redirect_to
     respond_with(@user.recent_activity)
   end
-  
+
   def validate
     id = params[:user]
     val = params[:token]
@@ -119,16 +123,16 @@ class UsersController < ApplicationController
 
     end
   end
-  
+
   def picture_image(user, pictureed_file)
     puts "attempting to do shit with the image"
     name =  pictureed_file.original_filename
-        
+
          #create the file path
         path = File.join("tmp", name)
         # write the file
        File.open(path, "wb") { |f| f.write(pictureed_file.read) }
-        
+
       #a = 0 / 0
       item = Fleakr.upload(path)
       user.picture = "DEFAULT"
