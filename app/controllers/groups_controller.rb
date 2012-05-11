@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @group = Group.find(params[:id])
    # @followed_user = current_user.followees.where(:followee_id => @user_id).size != 0
-    @items = ItemTemplate.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 15)
+    @items = ItemTemplate.where(:user_id => 15).paginate(:page => params[:page], :per_page => 15)
   end
 
   def index
