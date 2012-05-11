@@ -145,18 +145,14 @@ function toggle_submit()
 		html_string += '<img src="assets/listballoon.png" class="result_balloon"/>
           <div class="result_ordering">';
 		html_string += index.toString() + " ";
-		html_string += '         </div>
-                  <img src="http://placehold.it/56x56/" class="result_img';
-	    html_string += '		 </div>
-	                <div class="span6">
-	                  <div class="result_title">
-	                  &nbsp;';
+		html_string += '         </div>';
+		hml_string += '<img src="http://placehold.it/56x56/" class="result_img';
+	    html_string += '	 </div> <div class="span6">  <div class="result_title"> &nbsp;';
         html_string += entry['title'];
 		html_string += " -- ";
 		html_string += entry['producible_type'];
         html_string += " description";
-		html_string += '</div>
-          <div class="result_content">';
+		html_string += '</div> <div class="result_content">';
 		html_string += "<a href = 'citysandbox.heroku.com >See More </a>";
 		html_string += "Description:";
 		html_string += entry['description'];
