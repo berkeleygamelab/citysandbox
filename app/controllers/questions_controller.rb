@@ -12,6 +12,9 @@ class QuestionsController < ApplicationController
     else
       @question = Question.where(:id => params[:id])[0]
       @user = User.where(:id => @question.user_id).first
+      if @user == nil
+        @user = User.where(:id => 15).first
+      end
       @categories = @question.categories
 
   #    @followed = current_user.followed_questions.where(:question_id => params[:id]).size != 0
