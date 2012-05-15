@@ -29,8 +29,8 @@ $(document).ready( function() {
 <% @my_areas.each do |area| %>
     var newPath = new google.maps.MVCArray;
     <% area.coordinates.each do |item| %>
-    var lat = <%= h(item[0]) %>
-    var lng =<%= h(item[1]) %>
+    var lat = <%= h(item.lat) %>
+    var lng =<%= h(item.lng) %>
       newPath.insertAt(newPath.length, new google.maps.LatLng(lat,lng));
     <% end %>
     poly = new google.maps.Polygon({
