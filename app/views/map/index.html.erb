@@ -17,12 +17,23 @@ $(document).ready( function() {
   populate_markers();
 
 });
+function addInfoWindow(marker, message) {
+            var info = message;
 
+            var infoWindow = new google.maps.InfoWindow({
+                content: message
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
+        }
 function populate_markers()
 { var uluru;
   var marker;
+  var message;
   var letter = 0;
-  <% @items.each do |item| %>
+  <% @items.each_with_index do |item, index| %>
       uluru = new google.maps.LatLng(<%= item.lat %>, <%= item.lng %>);
      marker = new google.maps.Marker({
       position: uluru,
@@ -30,6 +41,10 @@ function populate_markers()
       draggable: false,
     title: "look at me now!"
     });
+	message = "Title: <%= item.title %> ";
+	message += " Description <%= item.description %>";
+	message += "<%= link_to 'See More', :action => 'show', :controller => 'questions', :id => index %>";
+	addInfoWindow(marker, message);
   markers.push(marker);
   letter += 1;
   <% end %>
