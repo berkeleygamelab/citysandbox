@@ -153,7 +153,22 @@ function toggle_submit()
   $.get('fetch', params, function(data)
   {
     var html_string = '<ol id="list_results" class="span8"> <br> ';
-
+	uluru = new google.maps.LatLng(<%= item.lat %>, <%= item.lng %>);
+     marker = new google.maps.Marker({
+      position: uluru,
+      map: map,
+      draggable: false,
+    title: "look at me now!"
+    });
+	message = "Title: <%= item.title %> ";
+	message += " Description <%= item.description %>";
+	message += '<%= link_to "See More", :action => "show", :controller => "questions", :id => index %>';
+	addInfoWindow(marker, message);
+	for(int i = 0; i<markers.length; i++)
+	{
+		markers[i].setMap(null);
+	}
+	markers = [];
       $.each(data, function (index, entry)
         { html_string += '<li>';
         html_string += "<br> title ";
@@ -162,7 +177,22 @@ function toggle_submit()
         html_string += entry['description'];
 		html_string += "<br> Item number: " + index.toString();
         html_string += '</li>';
+		
+		uluru = new google.maps.LatLng(entry['lat'], entry['lng']);
+	     marker = new google.maps.Marker({
+	      position: uluru,
+	      map: map,
+	      draggable: false,
+	    title: "look at me now!"
+	    });
+		message = "Title: " + entry['title'];
+		message += " Description " + entry['description'];
+		message += '<%= link_to "See More", :action => "show", :controller => "questions", :id => 1 %>';
+		addInfoMarker(marker, message);
+		markers.push(marker);
         });
+		
+		
       $('#radical').html(html_string);
   });
 }
