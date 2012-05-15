@@ -140,12 +140,12 @@ function toggle_submit()
     var html_string = ' ';
 
       $.each(data, function (index, entry)
-        { html_string += '<li class="row color_question">';
+        { html_string += '<br> <li class="row color_question">';
         html_string += "<div class='span1' >";
 		html_string += '<img src="/assets/listballoon.png" class="result_balloon"/> <div class="result_ordering">';
 		html_string += index.toString() + " ";
 		html_string += '         </div>';
-		html_string += '<img src="http://placehold.it/56x56/" class="result_img';
+		html_string += '<img src="http://placehold.it/56x56/" class="result_img">';
 	    html_string += '	 </div> <div class="span6">  <div class="result_title"> &nbsp;';
         html_string += entry['title'];
 		html_string += " -- ";
@@ -156,7 +156,7 @@ function toggle_submit()
 		html_string += "Description:";
 		html_string += entry['description'];
         html_string += ' </div> </div>'
-        html_string += '</li> <br>';
+        html_string += '</li>';
         });
       $('#radical').html(html_string);
   });
