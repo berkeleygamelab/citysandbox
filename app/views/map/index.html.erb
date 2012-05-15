@@ -24,7 +24,9 @@ function addInfoWindow(marker, message) {
                 content: message
             });
 
-            
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
         }
 function populate_markers()
 { var uluru;
@@ -153,7 +155,7 @@ function toggle_submit()
     var i;
 	var marker;
 	var message;
-	addInfoWindow(marker, message);
+	var html_string;
 	for(i = 0; i<markers.length; i++)
 	{
 		markers[i].setMap(null);
