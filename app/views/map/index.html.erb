@@ -152,17 +152,7 @@ function toggle_submit()
   }
   $.get('fetch', params, function(data)
   {
-    var html_string = '<ol id="list_results" class="span8"> <br> ';
-	uluru = new google.maps.LatLng(<%= item.lat %>, <%= item.lng %>);
-     marker = new google.maps.Marker({
-      position: uluru,
-      map: map,
-      draggable: false,
-    title: "look at me now!"
-    });
-	message = "Title: " + entry['title'];
-	message += " Description " + entry['description'];
-	message += 'link to';
+    
 	addInfoWindow(marker, message);
 	for(int i = 0; i<markers.length; i++)
 	{
