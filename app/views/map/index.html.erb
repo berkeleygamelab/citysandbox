@@ -156,11 +156,12 @@ function toggle_submit()
 
       $.each(data, function (index, entry)
         { html_string += '<li>';
-        html_string += "title ";
+        html_string += "<br> title ";
         html_string += entry['title'];
-        html_string += " description";
+        html_string += "<br> description";
         html_string += entry['description'];
-        html_string += '</li> <br>';
+		html_string += "<br> Item number: " + index.toString();
+        html_string += '</li>';
         });
       $('#radical').html(html_string);
   });
@@ -249,6 +250,7 @@ function toggle_submit()
       <hr class="separator"/>
       <div class="row">
         <div class="span2">
+			<div id="radical">
         <% @items.each_with_index do |item, index| %>
 		<li>
 			Item Number: <%= index %>
@@ -258,6 +260,7 @@ function toggle_submit()
 			Description: <%= item.description %>
 		</li>
 			<% end %>
+				</div>
 
         </div>
         <div id="mapview_map">
