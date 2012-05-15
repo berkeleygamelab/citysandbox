@@ -39,7 +39,7 @@ $(document).ready( function() {
         fillColor: colorDumpList[i]
       });
       polygons.push(poly);
-      poly.setMap(map);
+      poly.setMap(null);
       poly.setPaths(new google.maps.MVCArray([newPath]));
       i = i + 1;
   <% end %>
@@ -138,11 +138,12 @@ function toggle_submit()
   }
 
   params['loc'] = '37.8715926 -122.27274699999998'
-  <% @my_areas.each do |area| %>
+  <% @my_areas.each_with_index do |area, index| %>
     check = $('#area<%= area.id %>')[0].checked;
   if(check)
   {
     params['area_id'] = <%= area.id %>;
+	polygons[<%= index %>].setMap(map);
   }
   <% end %>
   <% @default_categories.each do |cat| %>
