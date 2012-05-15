@@ -152,9 +152,9 @@ function toggle_submit()
   }
   $.get('fetch', params, function(data)
   {
-    
+    var i;
 	addInfoWindow(marker, message);
-	for(int i = 0; i<markers.length; i++)
+	for(i = 0; i<markers.length; i++)
 	{
 		markers[i].setMap(null);
 	}
