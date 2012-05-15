@@ -145,6 +145,10 @@ function toggle_submit()
     params['area_id'] = <%= area.id %>;
 	polygons[<%= index %>].setMap(map);
   }
+else
+{
+	polygons[<%= index %>].setMap(null);
+}
   <% end %>
   <% @default_categories.each do |cat| %>
      check = $('#default<%= cat.id %>')[0].checked;
