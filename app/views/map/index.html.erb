@@ -153,6 +153,7 @@ function toggle_submit()
   $.get('fetch', params, function(data)
   {
     var i;
+	var marker;
 	addInfoWindow(marker, message);
 	for(i = 0; i<markers.length; i++)
 	{
