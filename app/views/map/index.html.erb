@@ -43,7 +43,7 @@ function populate_markers()
     });
 	message = "Title: <%= item.title %> ";
 	message += " Description <%= item.description %>";
-	message += "<%= link_to 'See More', :action => 'show', :controller => 'questions', :id => index %>";
+	message += '<%= link_to "See More", :action => "show", :controller => "questions", :id => index %>';
 	addInfoWindow(marker, message);
   markers.push(marker);
   letter += 1;
