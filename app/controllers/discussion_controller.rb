@@ -188,7 +188,8 @@ def filter
 
 
    if !@area_to_filter.nil?
-     @items = @area_to_filter.grab_items(@types)
+     area = TaggedArea.where(:id => @area_to_filter.to_i).first
+     @items = area.grab_items(@types)
    else
      @items = @dummy.grab_circle_type(@radius, @location_to_grab, @types)
    end
