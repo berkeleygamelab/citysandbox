@@ -160,9 +160,9 @@ function toggle_submit()
       draggable: false,
     title: "look at me now!"
     });
-	message = "Title: <%= item.title %> ";
-	message += " Description <%= item.description %>";
-	message += '<%= link_to "See More", :action => "show", :controller => "questions", :id => index %>';
+	message = "Title: " + entry['title'];
+	message += " Description " + entry['description'];
+	message += 'link to';
 	addInfoWindow(marker, message);
 	for(int i = 0; i<markers.length; i++)
 	{
@@ -187,7 +187,7 @@ function toggle_submit()
 	    });
 		message = "Title: " + entry['title'];
 		message += " Description " + entry['description'];
-		message += '<%= link_to "See More", :action => "show", :controller => "questions", :id => 1 %>';
+		message += 'link to';
 		addInfoMarker(marker, message);
 		markers.push(marker);
         });
