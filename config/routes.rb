@@ -12,7 +12,8 @@ Citysandbox::Application.routes.draw do
     get  '/' => 'home#splash', :as => :splash
     get '/login' => 'sessions#new', :as => :login
     get '/logout' => 'sessions#destroy', :as => :logout
-    get '/register' => 'users#new', :as => :register
+    #get '/register' => 'users#new', :as => :register
+    get '/register' => 'users#betanew', :as => :betaregister
   end
 
   resources :sessions
